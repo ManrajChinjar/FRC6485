@@ -25,6 +25,7 @@ public class DriveTrain extends Subsystem {
 
     // Initialize drive train
     public DriveTrain() {
+    	
 	
 	    driver = new RobotDrive(
 			frontLeft,
@@ -64,16 +65,16 @@ public class DriveTrain extends Subsystem {
     }
     
     public void tankDrive(double leftStick, double rightStick) {
-	driver.tankDrive(leftStick, rightStick);
+    	driver.tankDrive(leftStick, rightStick);
     }
     
     public void arcadeDrive(double leftStick, double rightStick) {
-	driver.arcadeDrive(leftStick, rightStick);
+    	driver.arcadeDrive(leftStick, rightStick);
     }
     
     // Stop the robot's drive motors
     public void stop() {
-	driver.tankDrive(0, 0);
+    	driver.tankDrive(0, 0);
     }
     
 }
