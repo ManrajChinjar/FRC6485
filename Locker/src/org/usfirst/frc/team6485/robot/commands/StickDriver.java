@@ -22,7 +22,10 @@ public class StickDriver extends Command {
     // Called repeatedly when this Command is scheduled to run
     // TODO: Pass joystick values to here, and decide if default is tank or arcade
     protected void execute() {
-	Robot.drivetrain.tankDrive(0,0);
+    	Robot.drivetrain.arcadeDrive(
+    								Robot.oi.getLeftJoyY(), 
+    								Robot.oi.getLeftJoyX()
+    								);
     }
 
     // Make this return true when this Command no longer needs to run execute()
