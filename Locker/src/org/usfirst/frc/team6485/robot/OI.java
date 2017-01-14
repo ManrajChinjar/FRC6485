@@ -11,8 +11,15 @@ import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-    	Joystick logitechStick = new Joystick(0);	
-
+    	public Joystick xboxController = new Joystick(0);
+    	
+    	public double getLeftJoyX() {
+    		return xboxController.getRawAxis(1);
+    	}
+    	
+    	public double getLeftJoyY() {
+    		return xboxController.getRawAxis(2);
+    	}
     	
     	// TRIGGER COMMMAND
  

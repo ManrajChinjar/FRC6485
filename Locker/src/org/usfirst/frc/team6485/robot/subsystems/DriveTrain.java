@@ -38,14 +38,14 @@ public class DriveTrain extends Subsystem {
 	    driver.setExpiration(0.15);
 	    driver.setMaxOutput(1);
 	    
-	    /*
-	     * 
-	     * FIGURE OUT WHICH MOTORS NEED TO RUN IN REVERSE
+	    
+	    // * 
+	     //* FIGURE OUT WHICH MOTORS NEED TO RUN IN REVERSE
 	    driver.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
 	    driver.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
-	    driver.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
-	    driver.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
-	    */
+	    //driver.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
+	    //driver.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+	    
 	    
     }
     
@@ -59,10 +59,6 @@ public class DriveTrain extends Subsystem {
 	setDefaultCommand(new StickDriver());
     }
     
-    public void tankDrive(Joystick joy) {
-	// Figure out the joystick mapping
-	//driver.tankDrive(0, 0);
-    }
     
     public void tankDrive(double leftStick, double rightStick) {
     	driver.tankDrive(leftStick, rightStick);
