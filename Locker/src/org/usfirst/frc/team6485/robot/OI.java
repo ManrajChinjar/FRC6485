@@ -56,7 +56,7 @@ public class OI {
     
 
     // This is the main trigger
-    public boolean getMainButton() {
+    public boolean getMainTrigger() {
 	return logitechController.getRawButton(0);
     }
 

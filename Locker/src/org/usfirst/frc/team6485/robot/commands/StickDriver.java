@@ -26,9 +26,11 @@ public class StickDriver extends Command {
     // Called repeatedly when this Command is scheduled to run
     // TODO Run all motors at 50% (0.5) power to see which ones require inversion.
     // Argument inversion is temporary while I figure out the final motor inversions.
+    // In addition, have a deadzone for the rotation axis (~6% either side) 
+    // where effectively 0 rotational request forces the robot to drive straight using the gyroscope.
     protected void execute() {
 	if (!Robot.oi.getButtonOne()) {
-        	if (!Robot.oi.getMainButton()) {
+        	if (Robot.oi.getMainTrigger()) {
             		Robot.drivetrain.arcadeDrive(
             					Robot.oi.getInvertedY() *
             						Robot.oi.getSliderScale(), 

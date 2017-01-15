@@ -20,7 +20,7 @@ public class DriveTrain extends Subsystem {
     private RobotDrive driver;
     
     // Determine gyro port
-    // private AnalogGyro gyroscope = new AnalogGyro(0);
+    //private AnalogGyro gyroscope = new AnalogGyro(0);
     
 
     // Initialize drive train
