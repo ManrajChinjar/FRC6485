@@ -42,17 +42,22 @@ public class OI {
     
     
     /*
-     * Return a double with range (0 - 1) of the slider scale
+     * Return a double with range (0 - 1) on the slider scale
      * with 0 with full drop and 1 as full raise.
+     * 
+     * The slider has a deadzone of 5% on either end.
      */
     public double getSliderScale() {
-	return ((-Robot.oi.getSlider() + 1) / 2);
+	double scale = (-Robot.oi.getSlider() + 1) / 2;
+	if (scale > 0.95) scale = 1;
+	if (scale < 0.05) scale = 0;
+	return scale;
     }
     
 
     // This is the main trigger
     public boolean getMainButton() {
-	return logitechController.getRawButton(0); 
+	return logitechController.getRawButton(0);
     }
 
     

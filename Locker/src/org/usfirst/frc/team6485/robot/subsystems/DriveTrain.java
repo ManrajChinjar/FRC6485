@@ -18,7 +18,6 @@ public class DriveTrain extends Subsystem {
     private Spark frontRight = new Spark(1);
     private Spark backRight = new Spark(0);
     private RobotDrive driver;
-
     
     // Determine gyro port
     // private AnalogGyro gyroscope = new AnalogGyro(0);
