@@ -1,5 +1,6 @@
 package org.usfirst.frc.team6485.robot.subsystems;
 
+import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.commands.StickDriver;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
@@ -13,10 +14,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveTrain extends Subsystem {
 
-    private Spark frontLeft = new Spark(9);
-    private Spark backLeft = new Spark(8);
-    private Spark frontRight = new Spark(1);
-    private Spark backRight = new Spark(0);
+    private Spark frontLeft = new Spark(RobotMap.kFrontLeftMotor);
+    private Spark backLeft = new Spark(RobotMap.kBackLeftMotor);
+    private Spark frontRight = new Spark(RobotMap.kFrontRightMotor);
+    private Spark backRight = new Spark(RobotMap.kBackRightMotor);
     private RobotDrive driver;
     
     // Determine gyro port
@@ -52,8 +53,8 @@ public class DriveTrain extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-	// COMMAND WILL BE COMMAND DRIVEWITHARCADE
+	
+	// Default command is operator control over drive system
 	setDefaultCommand(new StickDriver());
     }
     
@@ -67,6 +68,10 @@ public class DriveTrain extends Subsystem {
     	driver.arcadeDrive(leftStick, rightStick);
     }
     
+    
+    public void zAxisDrive(double speed) {
+	driver.tankDrive(speed, speed); // CHANGE THE SECOND ARGUMENT TO GYRO PID
+    }
     
     // Stop the robot's drive motors
     public void stop() {

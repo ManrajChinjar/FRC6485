@@ -13,7 +13,7 @@ import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
 public class OI {
 
     	
-    public Joystick logitechController = new Joystick(0);
+    public Joystick logitechController = new Joystick(RobotMap.kLogitechPort);
 
 
     public double getJoyX() {
