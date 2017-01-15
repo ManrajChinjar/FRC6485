@@ -11,24 +11,57 @@ import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	
-		public Joystick logitechController = new Joystick(0);
+
+    	
+    public Joystick logitechController = new Joystick(0);
+
+
+    public double getJoyX() {
+	return logitechController.getRawAxis(0);
+    }
+
+
+    public double getJoyY() {
+	return logitechController.getRawAxis(1);
+    }
+
+
+    public double getInvertedY() {
+	return -logitechController.getRawAxis(1);
+    }
+
+
+    public double getRotation() {
+	return logitechController.getRawAxis(2);
+    }
+
+    
+    public double getSlider() {
+	return logitechController.getRawAxis(3);
+    }
+    
+    
+    /*
+     * Return a double with range (0 - 1) of the slider scale
+     * with 0 with full drop and 1 as full raise.
+     */
+    public double getSliderScale() {
+	return ((-Robot.oi.getSlider() + 1) / 2);
+    }
+    
+
+    // This is the main trigger
+    public boolean getMainButton() {
+	return logitechController.getRawButton(0); 
+    }
+
+    
+    // Whatever button this is
+    public boolean getButtonOne() {
+	return logitechController.getRawButton(1);
+    }
 		
-		public double getInvertedY() {
-			return -logitechController.getRawAxis(1);
-		}
 		
-		public double getJoyY() {
-			return logitechController.getRawAxis(1);
-		}
-		
-		public double getRotVal() {
-			return logitechController.getRawAxis(2);
-		}
-		
-		public double getJoyX() {
-			return logitechController.getRawAxis(0);
-		}
 //    	public Joystick xboxController = new Joystick(0);
 //    	
 //    	public double getLeftJoyX() {

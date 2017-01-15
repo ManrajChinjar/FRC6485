@@ -18,6 +18,7 @@ public class DriveTrain extends Subsystem {
     private Spark frontRight = new Spark(1);
     private Spark backRight = new Spark(0);
     private RobotDrive driver;
+
     
     // Determine gyro port
     // private AnalogGyro gyroscope = new AnalogGyro(0);
@@ -26,7 +27,6 @@ public class DriveTrain extends Subsystem {
     // Initialize drive train
     public DriveTrain() {
     	
-	
 	    driver = new RobotDrive(
 			frontLeft,
 			backLeft, 
@@ -37,9 +37,8 @@ public class DriveTrain extends Subsystem {
 	    driver.setSafetyEnabled(true);
 	    driver.setExpiration(0.15);
 	    driver.setMaxOutput(1);
-	    
-	    
-	    // * 
+	    driver.setSensitivity(0.6);
+	   
 	     //* FIGURE OUT WHICH MOTORS NEED TO RUN IN REVERSE
 //	    driver.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, false);
 //	    driver.setInvertedMotor(RobotDrive.MotorType.kRearLeft, false);
@@ -64,17 +63,20 @@ public class DriveTrain extends Subsystem {
     	driver.tankDrive(leftStick, rightStick);
     }
     
+
     public void arcadeDrive(double leftStick, double rightStick) {
     	driver.arcadeDrive(leftStick, rightStick);
     }
     
-    public void arcadeDrive(Joystick joy) {
-    	driver.arcadeDrive(joy);
-    }
     
     // Stop the robot's drive motors
     public void stop() {
     	driver.tankDrive(0, 0);
+    }
+    
+   
+    public void flankSpeed() {
+	driver.tankDrive(1, 1);
     }
     
 }
