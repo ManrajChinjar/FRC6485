@@ -13,10 +13,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveTrain extends Subsystem {
 
-    private Spark frontLeft = new Spark(1);
-    private Spark backLeft = new Spark(2);
-    private Spark frontRight = new Spark(3);
-    private Spark backRight = new Spark(4);
+    private Spark frontLeft = new Spark(9);
+    private Spark backLeft = new Spark(8);
+    private Spark frontRight = new Spark(1);
+    private Spark backRight = new Spark(0);
     private RobotDrive driver;
     
     // Determine gyro port
@@ -41,10 +41,10 @@ public class DriveTrain extends Subsystem {
 	    
 	    // * 
 	     //* FIGURE OUT WHICH MOTORS NEED TO RUN IN REVERSE
-	    driver.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-	    driver.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
-	    //driver.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
-	    //driver.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+//	    driver.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, false);
+//	    driver.setInvertedMotor(RobotDrive.MotorType.kRearLeft, false);
+//	    driver.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
+//	    driver.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
 	    
 	    
     }
@@ -66,6 +66,10 @@ public class DriveTrain extends Subsystem {
     
     public void arcadeDrive(double leftStick, double rightStick) {
     	driver.arcadeDrive(leftStick, rightStick);
+    }
+    
+    public void arcadeDrive(Joystick joy) {
+    	driver.arcadeDrive(joy);
     }
     
     // Stop the robot's drive motors
