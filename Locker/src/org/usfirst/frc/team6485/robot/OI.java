@@ -48,7 +48,7 @@ public class OI {
      * The slider has a deadzone of 5% on either end.
      */
     public double getSliderScale() {
-	double scale = (-Robot.oi.getSlider() + 1) / 2;
+	double scale = (-logitechController.getRawAxis(3) + 1) / 2;
 	if (scale > 0.95) scale = 1;
 	if (scale < 0.05) scale = 0;
 	return scale;
