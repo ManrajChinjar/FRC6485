@@ -93,7 +93,7 @@ public class DriveTrain extends Subsystem {
     
    
     public void flankSpeed() {
-	driver.tankDrive(1, 1);
+	driver.tankDrive(0.85, 0.85);
     }
     
 }

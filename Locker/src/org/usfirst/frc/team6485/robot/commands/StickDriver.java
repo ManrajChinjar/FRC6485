@@ -32,23 +32,26 @@ public class StickDriver extends Command {
 	double mXAxisRequest = -Robot.oi.getJoyX(); // Negative to swap direction
 	double mYAxisRequest = Robot.oi.getInvertedY();
 
-	if (Math.abs(mXAxisRequest) <= 0.05) 
+	if (Math.abs(mXAxisRequest) <= 0.025) 
 	    mXAxisRequest = 0;
-	if (Math.abs(mYAxisRequest) <= 0.05)
+	if (Math.abs(mYAxisRequest) <= 0.025)
 	    mYAxisRequest = 0;
+	
+	mXAxisRequest *= Robot.oi.getSliderScale();
+	mYAxisRequest *= Robot.oi.getSliderScale();
 
-	if (!Robot.oi.getButtonPressed(1)) {
+	if (!Robot.oi.getButtonPressed(7)) {
 	    if (Robot.oi.getMainTrigger()) {
-		if (Math.abs(mXAxisRequest) > 0) {
-		    Robot.drivetrain.arcadeDrive(mYAxisRequest, mXAxisRequest);
-		} else {
-		    Robot.drivetrain.zAxisDrive(mYAxisRequest); // Maintain heading from gyroscope
-		}
+	    	if (Robot.oi.getButtonPressed(4)) {
+	    		Robot.drivetrain.zAxisDrive(mYAxisRequest);
+	    	} else {
+	    		Robot.drivetrain.arcadeDrive(mYAxisRequest, mXAxisRequest);
+	    	}
 	    } else {
-		Robot.drivetrain.stop();
+	    	Robot.drivetrain.stop();
 	    }
 	} else { // DEBUGGING DRIVE WHICH RUNS ALL MOTORS AT THEIR FULL POSITIVE POWER.
-	    Robot.drivetrain.flankSpeed();
+		if (Robot.oi.getMainTrigger()) Robot.drivetrain.flankSpeed();
 	}
     }
 
