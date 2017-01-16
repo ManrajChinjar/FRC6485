@@ -32,10 +32,12 @@ public class StickDriver extends Command {
 	double mXAxisRequest = -Robot.oi.getJoyX(); // Negative to swap direction
 	double mYAxisRequest = Robot.oi.getInvertedY();
 
-	if (Math.abs(mXAxisRequest) <= 0.05) mXAxisRequest = 0;
-	if (Math.abs(mYAxisRequest) <= 0.05) mYAxisRequest = 0;
+	if (Math.abs(mXAxisRequest) <= 0.05) 
+	    mXAxisRequest = 0;
+	if (Math.abs(mYAxisRequest) <= 0.05)
+	    mYAxisRequest = 0;
 
-	if (!Robot.oi.getButtonOne()) {
+	if (!Robot.oi.getButtonPressed(1)) {
 	    if (Robot.oi.getMainTrigger()) {
 		if (Math.abs(mXAxisRequest) > 0) {
 		    Robot.drivetrain.arcadeDrive(mYAxisRequest, mXAxisRequest);

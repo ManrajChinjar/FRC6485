@@ -35,7 +35,7 @@ public class OI {
 	return logitechController.getRawAxis(2);
     }
 
-    
+   
     public double getSlider() {
 	return logitechController.getRawAxis(3);
     }
@@ -49,8 +49,10 @@ public class OI {
      */
     public double getSliderScale() {
 	double scale = (-logitechController.getRawAxis(3) + 1) / 2;
-	if (scale > 0.95) scale = 1;
-	if (scale < 0.05) scale = 0;
+	if (scale > 0.95)
+	    scale = 1;
+	if (scale < 0.05)
+	    scale = 0;
 	return scale;
     }
     
@@ -61,9 +63,9 @@ public class OI {
     }
 
     
-    // Whatever button this is
-    public boolean getButtonOne() {
-	return logitechController.getRawButton(1);
+    // Return press state of the passed button
+    public boolean getButtonPressed(int button) {
+	return logitechController.getRawButton(button);
     }
 		
 		

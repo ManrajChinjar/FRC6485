@@ -45,7 +45,6 @@ public class DriveTrain extends Subsystem {
 //	    driver.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
 //	    driver.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
 	    
-	    
     }
     
     // Put methods for controlling this subsystem
@@ -58,20 +57,34 @@ public class DriveTrain extends Subsystem {
 	setDefaultCommand(new StickDriver());
     }
     
+    private double mFixArguments(double num) {
+	if (num > 1.00) {
+	    num = 1;
+	} else if (num < -1.00) {
+	    num = -1;
+	}
+	return num;
+    }
     
     public void tankDrive(double leftStick, double rightStick) {
+	leftStick = mFixArguments(leftStick);
+	rightStick = mFixArguments(rightStick);
     	driver.tankDrive(leftStick, rightStick);
     }
     
 
     public void arcadeDrive(double leftStick, double rightStick) {
+	leftStick = mFixArguments(leftStick);
+	rightStick = mFixArguments(rightStick);
     	driver.arcadeDrive(leftStick, rightStick);
     }
     
     
     public void zAxisDrive(double speed) {
+	speed = mFixArguments(speed);;
 	driver.tankDrive(speed, speed); // CHANGE THE SECOND ARGUMENT TO GYRO PID
     }
+    
     
     // Stop the robot's drive motors
     public void stop() {
