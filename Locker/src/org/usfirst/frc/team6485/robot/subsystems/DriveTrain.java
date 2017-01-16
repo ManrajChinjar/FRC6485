@@ -57,7 +57,7 @@ public class DriveTrain extends Subsystem {
 	setDefaultCommand(new StickDriver());
     }
     
-    private double mFixArguments(double num) {
+    private static double mFixArgument(double num) {
 	if (num > 1.00) {
 	    num = 1;
 	} else if (num < -1.00) {
@@ -67,21 +67,21 @@ public class DriveTrain extends Subsystem {
     }
     
     public void tankDrive(double leftStick, double rightStick) {
-	leftStick = mFixArguments(leftStick);
-	rightStick = mFixArguments(rightStick);
+	leftStick = mFixArgument(leftStick);
+	rightStick = mFixArgument(rightStick);
     	driver.tankDrive(leftStick, rightStick);
     }
     
 
     public void arcadeDrive(double leftStick, double rightStick) {
-	leftStick = mFixArguments(leftStick);
-	rightStick = mFixArguments(rightStick);
+	leftStick = mFixArgument(leftStick);
+	rightStick = mFixArgument(rightStick);
     	driver.arcadeDrive(leftStick, rightStick);
     }
     
     
     public void zAxisDrive(double speed) {
-	speed = mFixArguments(speed);;
+	speed = mFixArgument(speed);;
 	driver.tankDrive(speed, speed); // CHANGE THE SECOND ARGUMENT TO GYRO PID
     }
     
