@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  *
@@ -15,9 +16,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class DriveTrain extends Subsystem {
 
     private Spark frontLeft = new Spark(RobotMap.kFrontLeftMotor);
-    private Spark backLeft = new Spark(RobotMap.kBackLeftMotor);
+    private Spark rearLeft = new Spark(RobotMap.kRearLeftMotor);
     private Spark frontRight = new Spark(RobotMap.kFrontRightMotor);
-    private Spark backRight = new Spark(RobotMap.kBackRightMotor);
+    private Spark rearRight = new Spark(RobotMap.kRearRightMotor);
     private RobotDrive driver;
     
     // Determine gyro port
@@ -29,10 +30,15 @@ public class DriveTrain extends Subsystem {
     	
 	    driver = new RobotDrive(
 			frontLeft,
-			backLeft, 
+			rearLeft, 
 			frontRight, 
-			backRight
+			rearRight
 			);
+	    
+	    LiveWindow.addActuator("DriveTrain", "FRONT LEFT CIM", frontLeft);
+	    LiveWindow.addActuator("DriveTrain", "REAR LEFT CIM", rearLeft);
+	    LiveWindow.addActuator("DriveTrain", "FRONT RIGHT CIM", frontRight);
+	    LiveWindow.addActuator("DriveTrain", "REAR RIGHT CIM", rearRight);
 	    
 	    driver.setSafetyEnabled(true);
 	    driver.setExpiration(0.15);
