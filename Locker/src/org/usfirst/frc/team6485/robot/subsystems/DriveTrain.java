@@ -4,11 +4,9 @@ import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.commands.StickDriver;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  *
@@ -20,49 +18,44 @@ public class DriveTrain extends Subsystem {
     private Spark frontRight = new Spark(RobotMap.kFrontRightMotor);
     private Spark rearRight = new Spark(RobotMap.kRearRightMotor);
     private RobotDrive driver;
-    
+
     // Determine gyro port
     //private AnalogGyro gyroscope = new AnalogGyro(0);
-    
+
 
     // Initialize drive train
     public DriveTrain() {
-    	
-	    driver = new RobotDrive(
-			frontLeft,
-			rearLeft, 
-			frontRight, 
-			rearRight
-			);
-	    
-	    LiveWindow.addActuator("DriveTrain", "FRONT LEFT CIM", frontLeft);
-	    LiveWindow.addActuator("DriveTrain", "REAR LEFT CIM", rearLeft);
-	    LiveWindow.addActuator("DriveTrain", "FRONT RIGHT CIM", frontRight);
-	    LiveWindow.addActuator("DriveTrain", "REAR RIGHT CIM", rearRight);
-	    
-	    driver.setSafetyEnabled(true);
-	    driver.setExpiration(0.15);
-	    driver.setMaxOutput(1);
-	    driver.setSensitivity(0.6);
-	   
-	     //* FIGURE OUT WHICH MOTORS NEED TO RUN IN REVERSE
-//	    driver.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, false);
-//	    driver.setInvertedMotor(RobotDrive.MotorType.kRearLeft, false);
-//	    driver.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
-//	    driver.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
-	    
+
+	driver = new RobotDrive(
+		frontLeft,
+		rearLeft, 
+		frontRight, 
+		rearRight
+		);
+
+	driver.setSafetyEnabled(true);
+	driver.setExpiration(0.15);
+	driver.setMaxOutput(1);
+	driver.setSensitivity(0.6);
+
+	//* FIGURE OUT WHICH MOTORS NEED TO RUN IN REVERSE
+	//	    driver.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, false);
+	//	    driver.setInvertedMotor(RobotDrive.MotorType.kRearLeft, false);
+	//	    driver.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
+	//	    driver.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+
     }
-    
+
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-	
+	// Set the default command for a subsystem here.
+
 	// Default command is operator control over drive system
 	setDefaultCommand(new StickDriver());
     }
-    
+
     private static double mFixArgument(double num) {
 	if (num > 1.00) {
 	    num = 1;
@@ -71,36 +64,36 @@ public class DriveTrain extends Subsystem {
 	}
 	return num;
     }
-    
+
     public void tankDrive(double leftStick, double rightStick) {
 	leftStick = mFixArgument(leftStick);
 	rightStick = mFixArgument(rightStick);
-    	driver.tankDrive(leftStick, rightStick);
+	driver.tankDrive(leftStick, rightStick);
     }
-    
+
 
     public void arcadeDrive(double leftStick, double rightStick) {
 	leftStick = mFixArgument(leftStick);
 	rightStick = mFixArgument(rightStick);
-    	driver.arcadeDrive(leftStick, rightStick);
+	driver.arcadeDrive(leftStick, rightStick);
     }
-    
-    
+
+
     public void zAxisDrive(double speed) {
 	speed = mFixArgument(speed);;
 	driver.tankDrive(speed, speed); // CHANGE THE SECOND ARGUMENT TO GYRO PID
     }
-    
-    
+
+
     // Stop the robot's drive motors
     public void stop() {
-    	driver.tankDrive(0, 0);
+	driver.tankDrive(0, 0);
     }
-    
-   
+
+
     public void flankSpeed() {
-	driver.tankDrive(0.85, 0.85);
+	driver.tankDrive(0.90, 0.90);
     }
-    
+
 }
 
