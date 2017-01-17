@@ -3,40 +3,41 @@ package org.usfirst.frc.team6485.robot.subsystems;
 import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.commands.StickDriver;
 
-import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
+
 
 /**
  *
  */
 public class DriveTrain extends Subsystem {
 
-    private Spark frontLeft = new Spark(RobotMap.kFrontLeftMotor);
-    private Spark rearLeft = new Spark(RobotMap.kRearLeftMotor);
-    private Spark frontRight = new Spark(RobotMap.kFrontRightMotor);
-    private Spark rearRight = new Spark(RobotMap.kRearRightMotor);
-    private RobotDrive driver;
+    private Spark mFrontLeftMotor = new Spark(RobotMap.kFrontLeftMotor);
+    private Spark mRearLeftMotor = new Spark(RobotMap.kRearLeftMotor);
+    private Spark mFrontRightMotor = new Spark(RobotMap.kFrontRightMotor);
+    private Spark mRearRightMotor = new Spark(RobotMap.kRearRightMotor);
+    private RobotDrive engine;
 
-    // Determine gyro port
-    //private AnalogGyro gyroscope = new AnalogGyro(0);
+    private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+    private double mKpGyro = 0.025;
 
 
     // Initialize drive train
     public DriveTrain() {
 
-	driver = new RobotDrive(
-		frontLeft,
-		rearLeft, 
-		frontRight, 
-		rearRight
+	engine = new RobotDrive(
+        		mFrontLeftMotor,
+        		mRearLeftMotor, 
+        		mFrontRightMotor, 
+        		mRearRightMotor
 		);
 
-	driver.setSafetyEnabled(true);
-	driver.setExpiration(0.15);
-	driver.setMaxOutput(1);
-	driver.setSensitivity(0.6);
+	engine.setSafetyEnabled(true);
+	engine.setExpiration(0.15);
+	engine.setMaxOutput(1);
+	engine.setSensitivity(0.6);
 
 	//* FIGURE OUT WHICH MOTORS NEED TO RUN IN REVERSE
 	//	    driver.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, false);
@@ -68,31 +69,31 @@ public class DriveTrain extends Subsystem {
     public void tankDrive(double leftStick, double rightStick) {
 	leftStick = mFixArgument(leftStick);
 	rightStick = mFixArgument(rightStick);
-	driver.tankDrive(leftStick, rightStick);
+	engine.tankDrive(leftStick, rightStick);
     }
 
 
     public void arcadeDrive(double leftStick, double rightStick) {
 	leftStick = mFixArgument(leftStick);
 	rightStick = mFixArgument(rightStick);
-	driver.arcadeDrive(leftStick, rightStick);
+	engine.arcadeDrive(leftStick, rightStick);
     }
 
 
     public void zAxisDrive(double speed) {
-	speed = mFixArgument(speed);;
-	driver.tankDrive(speed, speed); // CHANGE THE SECOND ARGUMENT TO GYRO PID
+	gyro.reset();
+	engine.drive(speed, -gyro.getAngle()*mKpGyro); // CHANGE THE SECOND ARGUMENT TO GYRO PID
     }
 
 
     // Stop the robot's drive motors
     public void stop() {
-	driver.tankDrive(0, 0);
+	engine.tankDrive(0, 0);
     }
 
 
     public void flankSpeed() {
-	driver.tankDrive(0.90, 0.90);
+	engine.tankDrive(0.90, 0.90);
     }
 
 }
