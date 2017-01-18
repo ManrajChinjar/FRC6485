@@ -16,27 +16,27 @@ public class OI {
     public Joystick logitechController = new Joystick(RobotMap.kLogitechPort);
 
 
-    public double getJoyX() {
+    public double getLJoyX() {
 	return logitechController.getRawAxis(0);
     }
 
 
-    public double getJoyY() {
+    public double getLJoyY() {
 	return logitechController.getRawAxis(1);
     }
 
 
-    public double getInvertedY() {
+    public double getLInvertedY() {
 	return -logitechController.getRawAxis(1);
     }
 
 
-    public double getRotation() {
+    public double getLRotation() {
 	return logitechController.getRawAxis(2);
     }
 
 
-    public double getSlider() {
+    public double getLSlider() {
 	return logitechController.getRawAxis(3);
     }
 
@@ -47,7 +47,7 @@ public class OI {
      * 
      * The slider has a deadzone of 5% on either end.
      */
-    public double getSliderScale() {
+    public double getLSliderScale() {
 	double scale = (-logitechController.getRawAxis(3) + 1) / 2;
 	if (scale > 0.95)
 	    scale = 1;
@@ -58,38 +58,42 @@ public class OI {
 
 
     // This is the main trigger
-    public boolean getMainTrigger() {
+    public boolean getLMainTrigger() {
 	return logitechController.getRawButton(1);
     }
 
 
     // Return press state of the passed button
-    public boolean getButtonPressed(int button) {
+    public boolean getLButtonPressed(int button) {
 	return logitechController.getRawButton(button);
     }
 
 
-    //    	public Joystick xboxController = new Joystick(0);
-    //    	
-    //    	public double getLeftJoyX() {
-    //    		return xboxController.getRawAxis(0);
-    //    	}
-    //    	
-    //    	public double getLeftJoyY() {
-    //    		return xboxController.getRawAxis(1);
-    //    	}
-    //    	
-    //    	public double getRightJoyX() {
-    //    		return xboxController.getRawAxis(4);
-    //    	}
-    //    	
-    //    	public double getRightJoyY() {
-    //    		return xboxController.getRawAxis(5);
-    //    	}
-    //    	
-    //    	public Joystick getJoy() {
-    //    		return xboxController;
-    //    	}
+        	public Joystick xboxController = new Joystick(1);
+        	
+        	public double getXBOXLeftJoyX() {
+        		return xboxController.getRawAxis(0);
+        	}
+        	
+        	public double getXBOXLeftJoyY() {
+        		return xboxController.getRawAxis(1);
+        	}      	
+        	
+        	public double getXBOXRightJoyX() {
+        		return xboxController.getRawAxis(4);
+        	}
+        	
+        	public double getXBOXRightJoyY() {
+        		return xboxController.getRawAxis(5);
+        	}
+        	
+        	public boolean getXBOXSafety() {
+        		return xboxController.getRawButton(6);
+        	}
+        	
+        	public boolean getXBOXButtonPressed(int btn) {
+        		return xboxController.getRawButton(btn);
+        	}
 
     // TRIGGER COMMMAND
 
