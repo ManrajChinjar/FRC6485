@@ -46,7 +46,7 @@ public class StickDriver extends Command {
 
 		if (Robot.oi.getLMainTrigger()) {
 			if (!Robot.oi.getLButtonPressed(7)) {
-				if (!Robot.oi.getLButtonPressed(4)) {
+				if (!Robot.oi.getLButtonPressed(2)) {
 //					Robot.drivetrain.mGyroFlag = false;
 					Robot.drivetrain.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
 					

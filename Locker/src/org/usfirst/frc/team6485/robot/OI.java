@@ -26,11 +26,6 @@ public class OI {
     }
 
 
-    public double getLInvertedY() {
-	return -logitechController.getRawAxis(1);
-    }
-
-
     public double getLRotation() {
 	return logitechController.getRawAxis(2);
     }
@@ -71,25 +66,31 @@ public class OI {
 
         	public Joystick xboxController = new Joystick(1);
         	
+        	
         	public double getXBOXLeftJoyX() {
         		return xboxController.getRawAxis(0);
         	}
+        	
         	
         	public double getXBOXLeftJoyY() {
         		return xboxController.getRawAxis(1);
         	}      	
         	
+        	
         	public double getXBOXRightJoyX() {
         		return xboxController.getRawAxis(4);
         	}
+        	
         	
         	public double getXBOXRightJoyY() {
         		return xboxController.getRawAxis(5);
         	}
         	
+        	
         	public boolean getXBOXSafety() {
         		return xboxController.getRawButton(6);
         	}
+        	
         	
         	public boolean getXBOXButtonPressed(int btn) {
         		return xboxController.getRawButton(btn);
