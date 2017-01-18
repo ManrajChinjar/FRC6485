@@ -37,6 +37,7 @@ public class StickDriver extends Command {
 		double mLXAxisRequest = -Robot.oi.getLJoyX(); // Negative to swap direction
 		double mLYAxisRequest = -Robot.oi.getLJoyY();
 		
+		double mXXAxisRequestL = -Robot.oi.getXBOXLeftJoyX();
 		double mXYAxisRequestL = -Robot.oi.getXBOXLeftJoyY();
 		double mXYAxisRequestR = -Robot.oi.getXBOXRightJoyY();
 		
@@ -85,8 +86,8 @@ public class StickDriver extends Command {
 				if (Math.abs(mXYAxisRequestR) > 0.05) {
 					Robot.drivetrain.tankDrive(mXYAxisRequestR, mXYAxisRequestR);
 				}
-				else if (Math.abs(mXYAxisRequestL) > 0.05) {
-					Robot.drivetrain.tankDrive(mXYAxisRequestL, mXYAxisRequestL);	
+				else if (Math.abs(mXYAxisRequestL) > 0.05 || Math.abs(mXXAxisRequestL) > 0.05) {
+					Robot.drivetrain.arcadeDrive(mXYAxisRequestL, mXXAxisRequestL);	
 				}
 				else {
 					Robot.drivetrain.stop();
