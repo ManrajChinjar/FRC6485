@@ -1,10 +1,6 @@
 package org.usfirst.frc.team6485.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-
-import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -13,7 +9,7 @@ import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
 public class OI {
 
 
-    public Joystick logitechController = new Joystick(RobotMap.kLogitechPort);
+    public Joystick logitechController = new Joystick(RobotMap.LogitechPort);
 
 
     public double getLJoyX() {
@@ -92,8 +88,8 @@ public class OI {
         	}
         	
         	
-        	public boolean getXBOXButtonPressed(int btn) {
-        		return xboxController.getRawButton(btn);
+        	public boolean getXBOXButtonPressed(int button) {
+        		return xboxController.getRawButton(button);
         	}
 
     // TRIGGER COMMMAND

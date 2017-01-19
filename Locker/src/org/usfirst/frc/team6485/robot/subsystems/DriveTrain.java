@@ -14,27 +14,27 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveTrain extends Subsystem {
 
-	private Spark mFrontLeftMotor = new Spark(RobotMap.kFrontLeftMotor);
-	private Spark mRearLeftMotor = new Spark(RobotMap.kRearLeftMotor);
-	private Spark mFrontRightMotor = new Spark(RobotMap.kFrontRightMotor);
-	private Spark mRearRightMotor = new Spark(RobotMap.kRearRightMotor);
+	private Spark frontLeftMotor = new Spark(RobotMap.FrontLeftMotor);
+	private Spark rearLeftMotor = new Spark(RobotMap.RearLeftMotor);
+	private Spark frontRightMotor = new Spark(RobotMap.FrontRightMotor);
+	private Spark rearRightMotor = new Spark(RobotMap.RearRightMotor);
 	private RobotDrive engine;
 
 	private ADXRS450_Gyro gyroscope = new ADXRS450_Gyro();
-	private double mKpGyro = 0.025;
+	private double kPGyro = 0.03;
 
 	
-	public double mBaseAngle;
-	public boolean mGyroFlag;
+//	public double BaseAngle;
+//	public boolean GyroFlag;
 
 	// Initialize drive train
 	public DriveTrain() {
 
 		engine = new RobotDrive(
-				mFrontLeftMotor,
-				mRearLeftMotor, 
-				mFrontRightMotor, 
-				mRearRightMotor
+				frontLeftMotor,
+				rearLeftMotor, 
+				frontRightMotor, 
+				rearRightMotor
 				);
 
 		engine.setSafetyEnabled(true);
@@ -61,47 +61,75 @@ public class DriveTrain extends Subsystem {
 	}
 
 	private static double mFixArgument(double num) {
+
 		if (num > 0.95) {
 			num = 0.95;
 		} else if (num < -0.95) {
 			num = -0.95;
 		}
 		return num;
+
 	}
 
 	public void tankDrive(double leftStick, double rightStick) {
+
 		leftStick = mFixArgument(leftStick);
 		rightStick = mFixArgument(rightStick);
 		engine.tankDrive(leftStick, rightStick);
+
 	}
 
 
 	public void arcadeDrive(double leftStick, double rightStick) {
+
 		leftStick = mFixArgument(leftStick);
 		rightStick = mFixArgument(rightStick);
 		engine.arcadeDrive(leftStick, rightStick);
+
 	}
 
 
 	public void zAxisDrive(double speed) {
 		engine.tankDrive(speed, speed);
-//		if (!mGyroFlag) {
-//			gyroscope.reset();
-//			mGyroFlag = true;
-//		}
-//		engine.drive(speed, -gyroscope.getAngle()*mKpGyro); // CHANGE THE SECOND ARGUMENT TO GYRO PID
 	}
 
+	
+	public void gyroTest(double speed, int time) {
+
+	    double gyroStartAngle = gyroscope.getAngle();
+	    double gyroCurrentAngle;
+	    double cPT; // calculatedProportionalTurn
+	    int targetCount = (time * 1000)/20; // Temporary as timers will be used instead
+	    int currentCount = 0;
+	    
+	    while (currentCount <= targetCount) {
+		gyroCurrentAngle = gyroscope.getAngle();
+
+		cPT = -(gyroCurrentAngle - gyroStartAngle) * kPGyro;
+		if (cPT > 1) cPT = 1;
+		if (cPT < -1) cPT = -1;
+	
+		// -(current - initial) * kP
+		engine.drive(speed, cPT); // TODO Might have to invert cPT
+		currentCount++;
+	    }
+	    
+	    engine.tankDrive(0, 0);
+
+	}
 
 	// Stop the robot's drive motors
 	public void stop() {
+
 		engine.tankDrive(0, 0);
+
 	}
 
 
 	public void flankSpeed() {
+
 		engine.tankDrive(0.95, 0.95);
-		//engine.drive(0.95, -gyroscope.getAngle()*kp);
+
 	}
 
 }

@@ -11,9 +11,16 @@ import edu.wpi.first.wpilibj.command.Command;
 public class StickDriver extends Command {
 	
 	
-	private int mThreadFlankRan = 0;
-	private int mThreadExecutionRound = 0;
+	private int loopCountInitial = 0;
+	private int loopCountCurrent = 0;
+	private int loopCountDelta;
 	private boolean mThreadFlankSet = false;
+	
+	double mLXAxisRequest;
+	double mLYAxisRequest;
+	double mXXAxisRequestL;
+	double mXYAxisRequestL;
+	double mXYAxisRequestR;
 
 
 	public StickDriver() {
@@ -34,44 +41,38 @@ public class StickDriver extends Command {
 	// In addition, have a deadzone for the rotation axis (~5% either side) 
 	// where effectively 0 rotational request forces the robot to drive straight using the gyroscope.
 	protected void execute() {
-		double mLXAxisRequest = -Robot.oi.getLJoyX(); // Negative to swap direction
-		double mLYAxisRequest = -Robot.oi.getLJoyY();
+	    
+		mLXAxisRequest = -Robot.oi.getLJoyX() * Robot.oi.getLSliderScale();
+		mLYAxisRequest = -Robot.oi.getLJoyY() * Robot.oi.getLSliderScale();
 		
-		double mXXAxisRequestL = -Robot.oi.getXBOXLeftJoyX();
-		double mXYAxisRequestL = -Robot.oi.getXBOXLeftJoyY();
-		double mXYAxisRequestR = -Robot.oi.getXBOXRightJoyY();
-		
-		mLXAxisRequest *= Robot.oi.getLSliderScale();
-		mLYAxisRequest *= Robot.oi.getLSliderScale();
+		mXXAxisRequestL = -Robot.oi.getXBOXLeftJoyX();
+		mXYAxisRequestL = -Robot.oi.getXBOXLeftJoyY();
+		mXYAxisRequestR = -Robot.oi.getXBOXRightJoyY();
+			
+		loopCountDelta = loopCountCurrent - loopCountInitial;
 
 		if (Robot.oi.getLMainTrigger()) {
 			if (!Robot.oi.getLButtonPressed(7)) {
-				if (!Robot.oi.getLButtonPressed(2)) {
-//					Robot.drivetrain.mGyroFlag = false;
-					Robot.drivetrain.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
-					
+				if (Robot.oi.getLButtonPressed(2)) {
+				    Robot.drivetrain.zAxisDrive(mLYAxisRequest);	
 				}
+				else if (Robot.oi.getLButtonPressed(3)) Robot.drivetrain.gyroTest(0.55, 2);
 				else {
-					Robot.drivetrain.zAxisDrive(mLYAxisRequest);
-				}
-				if (mThreadExecutionRound - mThreadFlankRan > 200) {
-					mThreadFlankSet = false;
+				    Robot.drivetrain.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
 				}
 			}
 			else {
 				if (!mThreadFlankSet) {
-					mThreadFlankRan = mThreadExecutionRound;
+					loopCountInitial = loopCountCurrent;
 					Robot.drivetrain.flankSpeed();
 					mThreadFlankSet = true;
 				}
 				else {
-					if (mThreadExecutionRound - mThreadFlankRan <= 100) {
+					if (loopCountDelta <= 100) {
 						Robot.drivetrain.flankSpeed();
 					}
 					else {
-						if (mThreadExecutionRound - mThreadFlankRan > 200) {
-							mThreadFlankSet = false;
-						}
+
 						Robot.drivetrain.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
 					}
 				}
@@ -86,7 +87,8 @@ public class StickDriver extends Command {
 				if (Math.abs(mXYAxisRequestR) > 0.05) {
 					Robot.drivetrain.tankDrive(mXYAxisRequestR, mXYAxisRequestR);
 				}
-				else if (Math.abs(mXYAxisRequestL) > 0.05 || Math.abs(mXXAxisRequestL) > 0.05) {
+				else if (Math.abs(mXYAxisRequestL) > 0.05 
+					|| Math.abs(mXXAxisRequestL) > 0.05) {
 					Robot.drivetrain.arcadeDrive(mXYAxisRequestL, mXXAxisRequestL);	
 				}
 				else {
@@ -98,7 +100,11 @@ public class StickDriver extends Command {
 			Robot.drivetrain.stop();
 		}
 		
-		mThreadExecutionRound++;
+		if (loopCountDelta > 200) {
+			mThreadFlankSet = false;
+		}
+
+		loopCountCurrent++;
 
 	}
 
