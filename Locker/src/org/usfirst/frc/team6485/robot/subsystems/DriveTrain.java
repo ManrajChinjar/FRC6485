@@ -23,6 +23,7 @@ public class DriveTrain extends Subsystem {
 	private ADXRS450_Gyro gyroscope = new ADXRS450_Gyro();
 	private double kPGyro = 0.03;
 
+	private boolean gtestrunning;
 	
 //	public double BaseAngle;
 //	public boolean GyroFlag;
@@ -96,6 +97,8 @@ public class DriveTrain extends Subsystem {
 	
 	public void gyroTest(double speed, int time) {
 
+	    if (gtestrunning) return;
+	    gtestrunning = true;
 	    double gyroStartAngle = gyroscope.getAngle();
 	    double gyroCurrentAngle;
 	    double cPT; // calculatedProportionalTurn
@@ -115,6 +118,7 @@ public class DriveTrain extends Subsystem {
 	    }
 	    
 	    engine.tankDrive(0, 0);
+	    gtestrunning = false;
 
 	}
 
