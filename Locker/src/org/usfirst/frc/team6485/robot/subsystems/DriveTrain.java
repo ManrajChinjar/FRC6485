@@ -21,9 +21,12 @@ public class DriveTrain extends Subsystem {
 	private RobotDrive engine;
 
 	private ADXRS450_Gyro gyroscope = new ADXRS450_Gyro();
-	private double kPGyro = 0.03;
-
-	private boolean gtestrunning;
+	private double kPGyro = 0.0025;
+	private double gyroStartAngle;
+	private double gyroCurrentAngle;
+	private double cPT;
+	
+	public boolean gyroZSet;
 	
 //	public double BaseAngle;
 //	public boolean GyroFlag;
@@ -95,33 +98,31 @@ public class DriveTrain extends Subsystem {
 	}
 
 	
-	public void gyroTest(double speed, int time) {
+	public void gyroTest(double speed) {
 
-	    if (gtestrunning) return;
-	    gtestrunning = true;
-	    double gyroStartAngle = gyroscope.getAngle();
-	    double gyroCurrentAngle;
-	    double cPT; // calculatedProportionalTurn
-	    int targetCount = (time * 1000)/20; // Temporary as timers will be used instead
-	    int currentCount = 0;
-	    
-	    while (currentCount <= targetCount) {
+	    if (!gyroZSet) {
+	    	gyroStartAngle = gyroscope.getAngle();
+	    	gyroZSet = true;
+	    }
+
 		gyroCurrentAngle = gyroscope.getAngle();
 
 		cPT = -(gyroCurrentAngle - gyroStartAngle) * kPGyro;
-		if (cPT > 1) cPT = 1;
-		if (cPT < -1) cPT = -1;
+		
+		if (speed < 0)
+			cPT *= -1;
 	
 		// -(current - initial) * kP
 		engine.drive(speed, cPT); // TODO Might have to invert cPT
-		currentCount++;
-	    }
-	    
-	    engine.tankDrive(0, 0);
-	    gtestrunning = false;
 
 	}
+	
+	
+	public void turnOnSpot(double turnrate) {
+		engine.arcadeDrive(0, turnrate);
+	}
 
+	
 	// Stop the robot's drive motors
 	public void stop() {
 

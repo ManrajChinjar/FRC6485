@@ -56,7 +56,11 @@ public class StickDriver extends Command {
 				if (Robot.oi.getLButtonPressed(2)) {
 				    Robot.drivetrain.zAxisDrive(mLYAxisRequest);	
 				}
-				else if (Robot.oi.getLButtonPressed(3)) Robot.drivetrain.gyroTest(0.55, 2);
+				else if (Robot.oi.getLButtonPressed(4)) {
+					Robot.drivetrain.turnOnSpot(mLXAxisRequest);
+				}
+				else if (Robot.oi.getLButtonPressed(3)) 
+					Robot.drivetrain.gyroTest(mLYAxisRequest);
 				else {
 				    Robot.drivetrain.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
 				}
@@ -102,6 +106,10 @@ public class StickDriver extends Command {
 		
 		if (loopCountDelta > 200) {
 			mThreadFlankSet = false;
+		}
+		
+		if (!Robot.oi.getLButtonPressed(3)) {
+			Robot.drivetrain.gyroZSet = false;
 		}
 
 		loopCountCurrent++;
