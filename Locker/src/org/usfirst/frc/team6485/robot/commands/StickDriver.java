@@ -111,7 +111,7 @@ public class StickDriver extends Command {
 	}
 
 	if (!Robot.oi.getLButtonPressed(3)) {
-	    Robot.drivetrain.gyroZSet = false;
+	    Robot.drivetrain.setgyroZSet(false);
 	}
 
 	loopCountCurrent++;

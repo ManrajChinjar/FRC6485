@@ -21,12 +21,15 @@ import org.usfirst.frc.team6485.robot.subsystems.ExampleSubsystem;
  */
 public class Robot extends IterativeRobot {
 
+    public static OI oi;
+
     public static boolean inAuto;
     public static boolean inTeleOp;
 
+    // SUBSYSTEMS
     public static DriveTrain drivetrain = new DriveTrain();
     public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-    public static OI oi;
+
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
@@ -131,6 +134,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
 	
 	Scheduler.getInstance().run();
+	report();
 	
     }
 
@@ -143,4 +147,21 @@ public class Robot extends IterativeRobot {
 	LiveWindow.run();
 	
     }
+    
+    
+    public void report() {
+	
+	SmartDashboard.putNumber("Gyroscope Value", Robot.drivetrain.getGyroAngle());
+	SmartDashboard.putNumber("Gyroscope cPT", Robot.drivetrain.getcPT());
+	SmartDashboard.putNumber("X-Axis Logitech Request (NEG)", -Robot.oi.getLJoyX());
+	SmartDashboard.putNumber("Y-Axis Logitech Request (NEG)", -Robot.oi.getLJoyY());
+	
+	double[] work = Robot.drivetrain.getMotorPWMS();
+	SmartDashboard.putNumber("Front Left PWM", work[0]);
+	SmartDashboard.putNumber("Rear Left PWM", work[1]);
+	SmartDashboard.putNumber("Front Right PWM", work[2]);
+	SmartDashboard.putNumber("Rear Right PWM", work[3]);
+	
+    }
+    
 }

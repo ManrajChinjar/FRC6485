@@ -12,14 +12,22 @@ public class OI {
 
     public Joystick logitechController = new Joystick(RobotMap.LogitechPort);
 
-
+    
+    /**
+     * 
+     * @return The x-axis of the Logitech joystick
+     */
     public double getLJoyX() {
 	
 	return logitechController.getRawAxis(0);
 	
     }
 
-
+    
+    /**
+     * 
+     * @return The y-axis of the Logitech joystick
+     */
     public double getLJoyY() {
 	
 	return logitechController.getRawAxis(1);
@@ -41,10 +49,9 @@ public class OI {
     }
 
 
-    /*
+    /**
      * Return a double with range (0 - 1) on the slider scale
-     * with 0 with full drop and 1 as full raise.
-     * 
+     * with 0 with full drop and 1 as full raise.<br>
      * The slider has a deadzone of 5% on either end.
      */
     public double getLSliderScale() {
