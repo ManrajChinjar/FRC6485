@@ -61,8 +61,15 @@ public class StickDriver extends Command {
 		else if (Robot.oi.getLButtonPressed(4)) {
 		    Robot.drivetrain.turnOnSpot(mLXAxisRequest);
 		}
-		else if (Robot.oi.getLButtonPressed(3)) 
+		else if (Robot.oi.getLButtonPressed(3)) {
 		    Robot.drivetrain.gyroTest(mLYAxisRequest);
+		}
+		else if (Robot.oi.getLButtonPressed(11) && !Robot.drivetrain.getGyroTurning()) {
+			Robot.drivetrain.gyroAnglePointTurn(-90.0);
+		}
+		else if (Robot.oi.getLButtonPressed(12) && !Robot.drivetrain.getGyroTurning()) {
+			Robot.drivetrain.gyroAnglePointTurn(90.0);
+		}
 		else {
 		    Robot.drivetrain.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
 		}
@@ -118,7 +125,7 @@ public class StickDriver extends Command {
 
     }
 
-
+    
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
 	

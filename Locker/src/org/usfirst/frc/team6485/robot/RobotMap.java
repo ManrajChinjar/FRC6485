@@ -8,12 +8,13 @@ package org.usfirst.frc.team6485.robot;
  */
 public class RobotMap {
 
-    public static int FrontLeftMotor = 9;
-    public static int RearLeftMotor = 8;
-    public static int FrontRightMotor = 1;
-    public static int RearRightMotor = 0;
+    public static int FrontLeftMotor = 0;
+    public static int RearLeftMotor = 1;
+    public static int FrontRightMotor = 2;
+    public static int RearRightMotor = 3;
 
     public static int LogitechPort = 0;
+    public static int XBOXPort = 1;
 
     // For example to map the left and right motors, you could define the
     // following variables to use with your drivetrain subsystem.

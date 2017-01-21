@@ -21,11 +21,12 @@ public class DriveTrain extends Subsystem {
     private RobotDrive engine;
 
     private ADXRS450_Gyro gyroscope = new ADXRS450_Gyro();
-    private double kPGyro = 0.0025;
-    private double gyroStartAngle;
+    private double kPGyro = 0.0015;
+    private double gyroStraightStartAngle;
     private double gyroCurrentAngle;
     private double cPT;
     private boolean gyroZSet;
+    private boolean gyroTurnActive = false;
 
     //	public double BaseAngle;
     //	public boolean GyroFlag;
@@ -43,7 +44,7 @@ public class DriveTrain extends Subsystem {
 	engine.setSafetyEnabled(true);
 	engine.setExpiration(0.15);
 	engine.setMaxOutput(1);
-	engine.setSensitivity(0.6);
+	engine.setSensitivity(0.60);
 
 	/*
 	 * FIGURE OUT WHICH MOTORS NEED TO RUN IN REVERSE
@@ -139,13 +140,13 @@ public class DriveTrain extends Subsystem {
     public void gyroTest(double speed) {
 
 	if (!gyroZSet) {
-	    gyroStartAngle = gyroscope.getAngle();
+	    gyroStraightStartAngle = gyroscope.getAngle();
 	    gyroZSet = true;
 	}
 
 	gyroCurrentAngle = gyroscope.getAngle();
 
-	cPT = -(gyroCurrentAngle - gyroStartAngle) * kPGyro;
+	cPT = -(gyroCurrentAngle - gyroStraightStartAngle) * kPGyro;
 
 	if (speed < 0)
 	    cPT *= -1;
@@ -184,6 +185,49 @@ public class DriveTrain extends Subsystem {
 
 	engine.tankDrive(0.95, 0.95);
 
+    }
+    
+    /**
+     * 
+     * @param angle Positive angle turns right, negative turns left
+     */
+    public void gyroAnglePointTurn(double angle) {
+    	
+    	gyroTurnActive = true;
+    	
+    	// False = left, True = right
+    	double leftMotor = 0;
+    	double rightMotor = 0;
+    	double gyroTurnStartAngle = gyroscope.getAngle();
+    	double gyroTarget = gyroTurnStartAngle + angle;
+    	
+    	if (angle < 0) {
+    		leftMotor = -0.50;
+    		rightMotor = 0.50;
+    	}
+    	if (angle > 0) {
+    		leftMotor = 0.50;
+    		rightMotor = -0.50;
+    	}
+    	if (angle == 0)
+    		return;
+    	
+    	while (Math.abs(gyroTarget - gyroscope.getAngle()) > 5 ) {
+    		gyroCurrentAngle = gyroscope.getAngle();
+    		engine.tankDrive(leftMotor, rightMotor);
+    		
+    	}
+    	
+    	engine.tankDrive(0, 0);
+    	gyroTurnActive = false;
+    	
+    }
+    
+    
+    public boolean getGyroTurning() {
+    	
+    	return gyroTurnActive;
+    	
     }
 
 
@@ -239,5 +283,11 @@ public class DriveTrain extends Subsystem {
 
     }
 
+    
+    public void update() {
+    	
+    
+    	
+    }
 }
 

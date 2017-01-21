@@ -83,7 +83,7 @@ public class OI {
 
     // XBOX CONTROLS
 
-    public Joystick xboxController = new Joystick(1);
+    public Joystick xboxController = new Joystick(RobotMap.XBOXPort);
 
 
     public double getXBOXLeftJoyX() {
