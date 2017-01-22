@@ -43,12 +43,6 @@ public class GyroscopeTurn extends Command {
 	currentAngle = Robot.drivetrain.getGyro().getAngle();
 	angularError = targetAngle - currentAngle;
 
-	// Linear scaling once angular error is below 10 degrees.
-	if (Math.abs(angularError) < 10) {
-	    turnSpeed -= 0.04;
-	    Robot.drivetrain.arcadeDrive(0, turnSpeed);
-	}
-
     }
 
 
