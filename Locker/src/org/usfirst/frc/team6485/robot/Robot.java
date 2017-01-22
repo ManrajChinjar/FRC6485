@@ -34,23 +34,23 @@ public class Robot extends IterativeRobot {
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
 
-    
+
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     @Override
     public void robotInit() {
-	
+
 	oi = new OI();
 	chooser.addDefault("Default Auto", new ExampleCommand());
 	// chooser.addObject("My Auto", new MyAutoCommand());
 	SmartDashboard.putData("Auto mode", chooser);
 	SmartDashboard.putData("Drive Train", drivetrain);
-	
+
     }
 
-    
+
     /**
      * This function is called once each time the robot enters Disabled mode.
      * You can use it to reset any subsystem information you want to clear when
@@ -61,15 +61,15 @@ public class Robot extends IterativeRobot {
 
     }
 
-    
+
     @Override
     public void disabledPeriodic() {
-	
+
 	Scheduler.getInstance().run();
-	
+
     }
 
-    
+
     /**
      * This autonomous (along with the chooser code above) shows how to select
      * between different autonomous modes using the dashboard. The sendable
@@ -83,7 +83,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
-	
+
 	inAuto = true;
 	inTeleOp = false;
 	autonomousCommand = chooser.getSelected();
@@ -98,24 +98,24 @@ public class Robot extends IterativeRobot {
 	// schedule the autonomous command (example)
 	if (autonomousCommand != null)
 	    autonomousCommand.start();
-	
+
     }
 
-    
+
     /**
      * This function is called periodically during autonomous
      */
     @Override
     public void autonomousPeriodic() {
-	
+
 	Scheduler.getInstance().run();
-	
+
     }
 
-    
+
     @Override
     public void teleopInit() {
-	
+
 	// This makes sure that the autonomous stops running when
 	// teleop starts running. If you want the autonomous to
 	// continue until interrupted by another command, remove
@@ -124,7 +124,7 @@ public class Robot extends IterativeRobot {
 	if (autonomousCommand != null)
 	    autonomousCommand.cancel();
 	inTeleOp = true;
-	
+
     }
 
     /**
@@ -132,11 +132,11 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void teleopPeriodic() {
-	
+
 	Scheduler.getInstance().run();
 	report();
 	Robot.drivetrain.update();
-	
+
     }
 
     /**
@@ -144,25 +144,25 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void testPeriodic() {
-	
+
 	LiveWindow.run();
-	
+
     }
-    
-    
+
+
     public void report() {
-	
+
 	SmartDashboard.putNumber("Gyroscope Value", Robot.drivetrain.getGyroAngle());
 	SmartDashboard.putNumber("Gyroscope cPT", Robot.drivetrain.getcPT());
 	SmartDashboard.putNumber("X-Axis Logitech Request (NEG)", -Robot.oi.getLJoyX());
 	SmartDashboard.putNumber("Y-Axis Logitech Request (NEG)", -Robot.oi.getLJoyY());
-	
+
 	double[] work = Robot.drivetrain.getMotorPWMS();
 	SmartDashboard.putNumber("Front Left PWM", work[0]);
 	SmartDashboard.putNumber("Rear Left PWM", work[1]);
 	SmartDashboard.putNumber("Front Right PWM", work[2]);
 	SmartDashboard.putNumber("Rear Right PWM", work[3]);
-	
+
     }
-    
+
 }

@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-
 /**
  *
  */
@@ -21,12 +20,11 @@ public class DriveTrain extends Subsystem {
     private RobotDrive engine;
 
     private ADXRS450_Gyro gyroscope = new ADXRS450_Gyro();
-    private double kPGyro = 0.0015;
+    private double kPGyro = 0.0010;
     private double gyroStraightStartAngle;
     private double gyroCurrentAngle;
     private double cPT;
     private boolean gyroZSet;
-    private boolean gyroTurnActive = false;
 
     //	public double BaseAngle;
     //	public boolean GyroFlag;
@@ -86,7 +84,7 @@ public class DriveTrain extends Subsystem {
      * Bad arguments outside of [-1, 1] are truncated down to the limits. No scaling is preserved.
      * @param leftStick Left Motor Group request
      * @param rightStick Right Motor Group request
-     */
+     */ 
     public void tankDrive(double leftStick, double rightStick) {
 
 	leftStick = mFixArgument(leftStick);
@@ -116,7 +114,7 @@ public class DriveTrain extends Subsystem {
      * <b>WARNING:</b> MAY BE DEPRECATED WHEN THE GYROSCOPE cPT METHOD IS IMPROVED.
      * @param speed Obvious (1 full forward, -1 full backwards)
      */
-    public void zAxisDrive(double speed) {
+    public void forwardBackDrive(double speed) {
 
 	engine.tankDrive(speed, speed);
 
@@ -186,50 +184,17 @@ public class DriveTrain extends Subsystem {
 	engine.tankDrive(0.95, 0.95);
 
     }
-    
-    /**
-     * 
-     * @param angle Positive angle turns right, negative turns left
-     */
-    public void gyroAnglePointTurn(double angle) {
-    	
-    	gyroTurnActive = true;
-    	
-    	// False = left, True = right
-    	double leftMotor = 0;
-    	double rightMotor = 0;
-    	double gyroTurnStartAngle = gyroscope.getAngle();
-    	double gyroTarget = gyroTurnStartAngle + angle;
-    	
-    	if (angle < 0) {
-    		leftMotor = -0.50;
-    		rightMotor = 0.50;
-    	}
-    	if (angle > 0) {
-    		leftMotor = 0.50;
-    		rightMotor = -0.50;
-    	}
-    	if (angle == 0)
-    		return;
-    	
-    	while (Math.abs(gyroTarget - gyroscope.getAngle()) > 5 ) {
-    		gyroCurrentAngle = gyroscope.getAngle();
-    		engine.tankDrive(leftMotor, rightMotor);
-    		
-    	}
-    	
-    	engine.tankDrive(0, 0);
-    	gyroTurnActive = false;
-    	
-    }
-    
-    
-    public boolean getGyroTurning() {
-    	
-    	return gyroTurnActive;
-    	
-    }
 
+
+    /**
+     * The preferred way to get the gyroscope angle is call Robot.drivetrain.getGyro().getAngle()
+     * @return The gyroscope of the drive train.
+     */
+    public ADXRS450_Gyro getGyro() {
+
+	return gyroscope;
+
+    }
 
     /**
      * 
@@ -283,11 +248,11 @@ public class DriveTrain extends Subsystem {
 
     }
 
-    
+
     public void update() {
-    	
-    
-    	
+
+
+
     }
 }
 

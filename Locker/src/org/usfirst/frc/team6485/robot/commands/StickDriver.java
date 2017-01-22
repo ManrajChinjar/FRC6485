@@ -22,18 +22,18 @@ public class StickDriver extends Command {
 
 
     public StickDriver() {
-	
+
 	// Use requires() here to declare subsystem dependencies
 	requires(Robot.drivetrain);
-	
+
     }
 
 
     // Called just before this Command runs the first time
     protected void initialize() {
-	
+
 	System.out.println("I'll try spinning. That's a good trick.");
-	
+
     }
 
 
@@ -56,19 +56,13 @@ public class StickDriver extends Command {
 	if (Robot.oi.getLMainTrigger()) {
 	    if (!Robot.oi.getLButtonPressed(7)) {
 		if (Robot.oi.getLButtonPressed(2)) {
-		    Robot.drivetrain.zAxisDrive(mLYAxisRequest);	
+		    Robot.drivetrain.forwardBackDrive(mLYAxisRequest);	
 		}
 		else if (Robot.oi.getLButtonPressed(4)) {
 		    Robot.drivetrain.turnOnSpot(mLXAxisRequest);
 		}
 		else if (Robot.oi.getLButtonPressed(3)) {
 		    Robot.drivetrain.gyroTest(mLYAxisRequest);
-		}
-		else if (Robot.oi.getLButtonPressed(11) && !Robot.drivetrain.getGyroTurning()) {
-			Robot.drivetrain.gyroAnglePointTurn(-90.0);
-		}
-		else if (Robot.oi.getLButtonPressed(12) && !Robot.drivetrain.getGyroTurning()) {
-			Robot.drivetrain.gyroAnglePointTurn(90.0);
 		}
 		else {
 		    Robot.drivetrain.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
@@ -125,25 +119,29 @@ public class StickDriver extends Command {
 
     }
 
-    
+
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-	
+
 	return false;
-	
+
     }
 
 
     // Called once after isFinished returns true
     protected void end() {
-	
+
 	Robot.drivetrain.stop();
-	
+
     }
 
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+
+	Robot.drivetrain.stop();
+
     }
+
 }

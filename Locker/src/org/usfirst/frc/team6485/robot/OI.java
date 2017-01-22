@@ -1,6 +1,10 @@
 package org.usfirst.frc.team6485.robot;
 
+import org.usfirst.frc.team6485.robot.commands.GyroscopeTurn;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -11,41 +15,44 @@ public class OI {
     // LOGITECH EXTREME 3D PRO CONTROLS
 
     public Joystick logitechController = new Joystick(RobotMap.LogitechPort);
+    Button mainTrigger = new JoystickButton(logitechController, 1);
+    Button buttonLogitech11 = new JoystickButton(logitechController, 11);
+    Button buttonLogitech12 = new JoystickButton(logitechController, 12);
 
-    
+
     /**
      * 
      * @return The x-axis of the Logitech joystick
      */
     public double getLJoyX() {
-	
+
 	return logitechController.getRawAxis(0);
-	
+
     }
 
-    
+
     /**
      * 
      * @return The y-axis of the Logitech joystick
      */
     public double getLJoyY() {
-	
+
 	return logitechController.getRawAxis(1);
-	
+
     }
 
 
     public double getLRotation() {
-	
+
 	return logitechController.getRawAxis(2);
-	
+
     }
 
 
     public double getLSlider() {
-	
+
 	return logitechController.getRawAxis(3);
-	
+
     }
 
 
@@ -55,30 +62,30 @@ public class OI {
      * The slider has a deadzone of 5% on either end.
      */
     public double getLSliderScale() {
-	
+
 	double scale = (-logitechController.getRawAxis(3) + 1) / 2;
 	if (scale > 0.95)
 	    scale = 1;
 	if (scale < 0.05)
 	    scale = 0;
 	return scale;
-	
+
     }
 
 
     // This is the main trigger
     public boolean getLMainTrigger() {
-	
+
 	return logitechController.getRawButton(1);
-	
+
     }
 
 
     // Return press state of the passed button
     public boolean getLButtonPressed(int button) {
-	
+
 	return logitechController.getRawButton(button);
-	
+
     }
 
     // XBOX CONTROLS
@@ -87,44 +94,51 @@ public class OI {
 
 
     public double getXBOXLeftJoyX() {
-	
+
 	return xboxController.getRawAxis(0);
-	
+
     }
 
 
     public double getXBOXLeftJoyY() {
-	
+
 	return xboxController.getRawAxis(1);
-	
+
     }      	
 
 
     public double getXBOXRightJoyX() {
-	
+
 	return xboxController.getRawAxis(4);
-	
+
     }
 
 
     public double getXBOXRightJoyY() {
-	
+
 	return xboxController.getRawAxis(5);
-	
+
     }
 
 
     public boolean getXBOXSafety() {
-	
+
 	return xboxController.getRawButton(6);
-	
+
     }
 
 
     public boolean getXBOXButtonPressed(int button) {
-	
+
 	return xboxController.getRawButton(button);
-	
+
+    }
+
+    public OI() {
+
+	buttonLogitech11.whenPressed(new GyroscopeTurn(-90));
+	buttonLogitech12.whenPressed(new GyroscopeTurn(90));
+
     }
 
     // TRIGGER COMMMAND
