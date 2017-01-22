@@ -5,7 +5,12 @@ import org.usfirst.frc.team6485.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Executes drive train movement either back or forth for a specified time period.<br>
+ * Only use seconds accurate to one decimal place.<br>
+ * <br>
+ * <b>Arguments:</b> double speed, double time<br>
+ * <br>
+ * TODO Allow metre distance via encoder units
  */
 public class DriveForward extends Command {
 
@@ -62,7 +67,6 @@ public class DriveForward extends Command {
     protected void end() {
 
 	Robot.drivetrain.stop();
-
 
     }
 

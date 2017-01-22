@@ -5,7 +5,9 @@ import org.usfirst.frc.team6485.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Executes a drive train point-turn to a specified amount of degrees relative to the starting orientation.<br>
+ * <br>
+ * <b>Arguments:</b> double angle (Negative turns left, positive turns right)
  */
 public class GyroscopeTurn extends Command {
 
@@ -43,7 +45,7 @@ public class GyroscopeTurn extends Command {
 
 	// Linear scaling once angular error is below 10 degrees.
 	if (Math.abs(angularError) < 10) {
-	    turnSpeed -= 0.07;
+	    turnSpeed -= 0.04;
 	    Robot.drivetrain.arcadeDrive(0, turnSpeed);
 	}
 
