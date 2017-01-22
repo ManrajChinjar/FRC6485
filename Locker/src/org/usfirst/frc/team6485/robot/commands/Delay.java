@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.Command;
  * Delays a command group for a specified amount of seconds.
  */
 public class Delay extends Command {
-
-    private boolean seconds;
+    
+    private double seconds;
 
     public Delay(double seconds) {
 	// Use requires() here to declare subsystem dependencies
