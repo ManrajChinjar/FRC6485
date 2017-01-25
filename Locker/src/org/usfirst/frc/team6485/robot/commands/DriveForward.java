@@ -42,7 +42,8 @@ public class DriveForward extends Command {
     protected void initialize() {
 
 	//Robot.drivetrain.forwardBackDrive(speed, speed);
-	Robot.drivetrain.gyroTest(speed);
+    setTimeout(10);
+	
 
     }
 
@@ -50,6 +51,7 @@ public class DriveForward extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
+    Robot.drivetrain.gyroTest(speed);
 	tickTime = ++tick * tickSecs;
 
     }
@@ -58,7 +60,7 @@ public class DriveForward extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
 
-	return tick == tickTarget;
+	return (tick == tickTarget) || isTimedOut();
 
     }
 

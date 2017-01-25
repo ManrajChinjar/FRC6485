@@ -2,6 +2,7 @@ package org.usfirst.frc.team6485.robot;
 
 import org.usfirst.frc.team6485.robot.commands.DriveSquareShape;
 import org.usfirst.frc.team6485.robot.commands.GyroscopeTurn;
+import org.usfirst.frc.team6485.robot.commands.TestCaseSpin;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -17,6 +18,7 @@ public class OI {
 
     public Joystick logitechController = new Joystick(RobotMap.LogitechPort);
     Button mainTrigger = new JoystickButton(logitechController, 1);
+    Button buttonLogitech9 = new JoystickButton(logitechController, 9);
     Button buttonLogitech10 = new JoystickButton(logitechController, 10); // Random unused button I picked for testing.
     Button buttonLogitech11 = new JoystickButton(logitechController, 11);
     Button buttonLogitech12 = new JoystickButton(logitechController, 12);
@@ -139,9 +141,10 @@ public class OI {
 
     public OI() {
 
-	buttonLogitech10.whenPressed(new DriveSquareShape());
-	buttonLogitech11.whenPressed(new GyroscopeTurn(-90));
-	buttonLogitech12.whenPressed(new GyroscopeTurn(90));
+	    new JoystickButton(logitechController, 9).whenPressed(new TestCaseSpin());
+	    new JoystickButton(logitechController, 10).whenPressed(new DriveSquareShape());
+	    new JoystickButton(logitechController, 11).whenPressed(new GyroscopeTurn(-90));
+	    new JoystickButton(logitechController, 12).whenPressed(new GyroscopeTurn(90));
 
     }
 

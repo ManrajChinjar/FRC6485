@@ -22,8 +22,6 @@ public class Delay extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
 
-	String inittext = String.format("Starting delay. Period: %d seconds.", seconds);
-	System.out.println(inittext);
 
     }
 

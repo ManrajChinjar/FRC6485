@@ -3,6 +3,7 @@ package org.usfirst.frc.team6485.robot.commands;
 import org.usfirst.frc.team6485.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Executes a drive train point-turn to a specified amount of degrees relative to the starting orientation.<br>
@@ -11,28 +12,33 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class GyroscopeTurn extends Command {
 
-    private double angularError;
-    private double currentAngle;
+	private double currentAngle;
     private double startAngle;
     private double targetAngle;
     private double turnSpeed;
     private double angularTolerance = 1.00;
+    
+    private double angleRequest;
+    
+    public double error;
 
 
     public GyroscopeTurn(double angle) {
 
-	requires(Robot.drivetrain);
-	startAngle = Robot.drivetrain.getGyroAngle();
-	targetAngle = startAngle + angle;
-	turnSpeed = (angle > 0) ? 0.55 : -0.55;
+	    angleRequest = angle;
+		requires(Robot.drivetrain);
 
     }
 
 
     // Called just before this Command runs the first time
     protected void initialize() {
-
-	Robot.drivetrain.arcadeDrive(0, turnSpeed);
+    	
+    	startAngle = Robot.drivetrain.getGyroAngle();
+    	targetAngle = startAngle + angleRequest;
+    	turnSpeed = (angleRequest < 0) ? 0.55 : -0.55;
+   
+    	setTimeout(5);
 
     }
 
@@ -40,8 +46,12 @@ public class GyroscopeTurn extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-	currentAngle = Robot.drivetrain.getGyro().getAngle();
-	angularError = targetAngle - currentAngle;
+    Robot.drivetrain.arcadeDrive(0, turnSpeed);
+    currentAngle = Robot.drivetrain.getGyroAngle();
+    error = targetAngle - currentAngle;
+    SmartDashboard.putNumber("Gyro turn start angle", startAngle);
+    SmartDashboard.putNumber("Gyro turn target angle", targetAngle);
+    SmartDashboard.putNumber("Gyro turn error", error);
 
     }
 
@@ -49,7 +59,8 @@ public class GyroscopeTurn extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
 
-	return Math.abs(angularError) < angularTolerance;
+	return (Math.abs(error) <= angularTolerance) 
+			|| isTimedOut();
 
     }
 
