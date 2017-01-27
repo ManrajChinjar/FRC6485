@@ -12,46 +12,63 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class GyroscopeTurn extends Command {
 
-	private double currentAngle;
+    private double currentAngle;
+    private double angleRequest;
     private double startAngle;
     private double targetAngle;
     private double turnSpeed;
-    private double angularTolerance = 1.00;
-    
-    private double angleRequest;
-    
+    private double baseTurnSpeed = 0.55;
+    private double multiplier;
+
+    private double angularTolerance = 0.50;
+
+    private double kScale = 0.0333;
+
+
     public double error;
 
 
     public GyroscopeTurn(double angle) {
 
-	    angleRequest = angle;
-		requires(Robot.drivetrain);
+	angleRequest = angle;
+	requires(Robot.drivetrain);
 
     }
 
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
-    	startAngle = Robot.drivetrain.getGyroAngle();
-    	targetAngle = startAngle + angleRequest;
-    	turnSpeed = (angleRequest < 0) ? 0.55 : -0.55;
-   
-    	setTimeout(5);
+
+	startAngle = Robot.drivetrain.getGyroAngle();
+	targetAngle = startAngle + angleRequest;
+	turnSpeed = (angleRequest < 0) ? baseTurnSpeed : -baseTurnSpeed;
+
+	setTimeout(5);
 
     }
 
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-
-    Robot.drivetrain.arcadeDrive(0, turnSpeed);
-    currentAngle = Robot.drivetrain.getGyroAngle();
-    error = targetAngle - currentAngle;
-    SmartDashboard.putNumber("Gyro turn start angle", startAngle);
-    SmartDashboard.putNumber("Gyro turn target angle", targetAngle);
-    SmartDashboard.putNumber("Gyro turn error", error);
+	
+	currentAngle = Robot.drivetrain.getGyroAngle();
+	error = targetAngle - currentAngle;
+	if (error * kScale > 1) {
+	    multiplier = 1;
+	}
+	else if (error * kScale < .70) {
+	    multiplier = 0.70;
+	}
+	else {
+	    multiplier = error * kScale;
+	}
+	turnSpeed *= multiplier;
+	Robot.drivetrain.arcadeDrive(0, turnSpeed);
+	
+	SmartDashboard.putNumber("Gyro turn start angle", startAngle);
+	SmartDashboard.putNumber("Gyro turn target angle", targetAngle);
+	SmartDashboard.putNumber("Gyro turn error", error);
+	SmartDashboard.putNumber("Gyro turn power multiplier", multiplier);
 
     }
 
@@ -60,7 +77,7 @@ public class GyroscopeTurn extends Command {
     protected boolean isFinished() {
 
 	return (Math.abs(error) <= angularTolerance) 
-			|| isTimedOut();
+		|| isTimedOut();
 
     }
 
