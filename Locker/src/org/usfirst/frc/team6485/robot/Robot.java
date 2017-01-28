@@ -135,7 +135,6 @@ public class Robot extends IterativeRobot {
 
 	Scheduler.getInstance().run();
 	report();
-	Robot.drivetrain.update();
 
     }
 

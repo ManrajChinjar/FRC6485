@@ -9,7 +9,13 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * Drive Train subsystem.<br>
+ * <br>
+ * Forwards: 1, Back: -1<br>
+ * Left: 1, Right: -1<br>
+ * <br>
+ * <b>NOTE TO PHYSICAL DESIGN:</b><br>
+ * The gyroscope must be mounted on the axis of rotation which is going to be skewed by the centre of mass.
  */
 public class DriveTrain extends Subsystem {
 
@@ -20,10 +26,10 @@ public class DriveTrain extends Subsystem {
     private RobotDrive engine;
 
     private ADXRS450_Gyro gyroscope = new ADXRS450_Gyro();
-    private double kPGyro = 0.0010;
+    private double kPGyro = 0.017;
     private double gyroStraightStartAngle;
     private double gyroCurrentAngle;
-    private double cPT;
+    private double calculatedProportionalTurn;
     private boolean gyroZSet;
 
     //	public double BaseAngle;
@@ -42,10 +48,9 @@ public class DriveTrain extends Subsystem {
 	engine.setSafetyEnabled(true);
 	engine.setExpiration(0.15);
 	engine.setMaxOutput(1);
-	engine.setSensitivity(0.60);
+	engine.setSensitivity(1);
 
 	/*
-	 * FIGURE OUT WHICH MOTORS NEED TO RUN IN REVERSE
 	 * driver.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, false);
 	 * driver.setInvertedMotor(RobotDrive.MotorType.kRearLeft, false);
 	 * driver.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
@@ -71,7 +76,8 @@ public class DriveTrain extends Subsystem {
 
 	if (num > 0.95) {
 	    num = 0.95;
-	} else if (num < -0.95) {
+	} 
+	else if (num < -0.95) {
 	    num = -0.95;
 	}
 	return num;
@@ -128,14 +134,14 @@ public class DriveTrain extends Subsystem {
      * correct the error according to the angle difference multiplied by a constant 
      * proportional value to drive straight.<br>
      * Rotational oscillation means that kP is too high, while not working 
-     * at all means that it's too low
+     * at all means that it's too low.
      * <br><br>
      * The initial angle is only conserved when this method is continuously requested
      * by the StickDriver subsystem,<br>
      * therefore this only works with the aforementioned subsystem. (For now)
      * @param speed A double value within the range [-1, 1] back or forth
      */
-    public void gyroTest(double speed) {
+    public void gyroStraightDrive(double speed) {
 
 	if (!gyroZSet) {
 	    gyroStraightStartAngle = gyroscope.getAngle();
@@ -144,13 +150,13 @@ public class DriveTrain extends Subsystem {
 
 	gyroCurrentAngle = gyroscope.getAngle();
 
-	cPT = -(gyroCurrentAngle - gyroStraightStartAngle) * kPGyro;
+	calculatedProportionalTurn = -(gyroCurrentAngle - gyroStraightStartAngle) * kPGyro;
 
 	if (speed < 0)
-	    cPT *= -1;
+	    calculatedProportionalTurn *= -1;
 
 	// -(current - initial) * kP
-	engine.drive(speed, cPT);
+	engine.drive(speed, calculatedProportionalTurn);
 
     }
 
@@ -213,7 +219,7 @@ public class DriveTrain extends Subsystem {
 
     public double getcPT() {
 
-	return cPT;
+	return calculatedProportionalTurn;
 
     }
 

@@ -62,7 +62,7 @@ public class StickDriver extends Command {
 		    Robot.drivetrain.turnOnSpot(mLXAxisRequest);
 		}
 		else if (Robot.oi.getLButtonPressed(3)) {
-		    Robot.drivetrain.gyroTest(mLYAxisRequest);
+		    Robot.drivetrain.gyroStraightDrive(mLYAxisRequest);
 		}
 		else {
 		    Robot.drivetrain.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
@@ -132,6 +132,8 @@ public class StickDriver extends Command {
     protected void end() {
 
 	Robot.drivetrain.stop();
+	Robot.drivetrain.setgyroZSet(false);
+	mThreadFlankSet = false;
 
     }
 

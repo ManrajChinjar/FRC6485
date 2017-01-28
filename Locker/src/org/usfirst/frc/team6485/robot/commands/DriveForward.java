@@ -17,10 +17,8 @@ public class DriveForward extends Command {
     // ASSUMES THAT THE ROBORIO WILL OPERATE AT 50 HERTZ
     // TODO Also allow metre distance via future averaged encoder units
 
-    private double tickTime;
     private double tick;
     private double tickTarget;
-    private double tickSecs = 0.02;
     private double speed;
 
 
@@ -42,8 +40,7 @@ public class DriveForward extends Command {
     protected void initialize() {
 
 	//Robot.drivetrain.forwardBackDrive(speed, speed);
-    setTimeout(10);
-	
+	setTimeout(10);
 
     }
 
@@ -51,8 +48,7 @@ public class DriveForward extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-    Robot.drivetrain.gyroTest(speed);
-	tickTime = ++tick * tickSecs;
+	Robot.drivetrain.gyroStraightDrive(speed);
 
     }
 
@@ -71,6 +67,7 @@ public class DriveForward extends Command {
 	Robot.drivetrain.stop();
 
     }
+
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run

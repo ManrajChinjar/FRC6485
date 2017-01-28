@@ -13,13 +13,13 @@ public class DriveSquareShape extends CommandGroup {
 
     public DriveSquareShape() {
 	
-	addSequential(new DriveForward(0.65, 2));
+	addSequential(new DriveForward(0.65, 3));
 	addSequential(new GyroscopeTurn(90));
-	addSequential(new DriveForward(0.65, 2));
+	addSequential(new DriveForward(0.65, 3));
 	addSequential(new GyroscopeTurn(90));
-	addSequential(new DriveForward(0.65, 2));
+	addSequential(new DriveForward(0.65, 3));
 	addSequential(new GyroscopeTurn(90));
-	addSequential(new DriveForward(0.65, 2));
+	addSequential(new DriveForward(0.65, 3));
 	addSequential(new GyroscopeTurn(90));
 	
         // Add Commands here:

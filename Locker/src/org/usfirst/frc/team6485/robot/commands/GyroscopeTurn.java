@@ -12,17 +12,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class GyroscopeTurn extends Command {
 
-    private double currentAngle;
-    private double angleRequest;
-    private double startAngle;
-    private double targetAngle;
-    private double turnSpeed;
+    private double currentAngle, 
+    			angleRequest, 
+    			startAngle, 
+    			targetAngle, 
+    			turnSpeed, 
+    			multiplier, 
+    			error;
     private double baseTurnSpeed = 0.55;
-    private double multiplier;
-
     private double angularTolerance = 0.75;
-
-    public double error;
 
 
     public GyroscopeTurn(double angle) {

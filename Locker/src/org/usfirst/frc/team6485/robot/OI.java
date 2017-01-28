@@ -22,7 +22,6 @@ public class OI {
     Button buttonLogitech10 = new JoystickButton(logitechController, 10); // Random unused button I picked for testing.
     Button buttonLogitech11 = new JoystickButton(logitechController, 11);
     Button buttonLogitech12 = new JoystickButton(logitechController, 12);
-    
 
 
     /**
@@ -141,10 +140,10 @@ public class OI {
 
     public OI() {
 
-	    new JoystickButton(logitechController, 9).whenPressed(new TestCaseSpin());
-	    new JoystickButton(logitechController, 10).whenPressed(new DriveSquareShape());
-	    new JoystickButton(logitechController, 11).whenPressed(new GyroscopeTurn(-90));
-	    new JoystickButton(logitechController, 12).whenPressed(new GyroscopeTurn(90));
+	new JoystickButton(logitechController, 9).whenPressed(new TestCaseSpin());
+	new JoystickButton(logitechController, 10).whenPressed(new DriveSquareShape());
+	new JoystickButton(logitechController, 11).whenPressed(new GyroscopeTurn(-90));
+	new JoystickButton(logitechController, 12).whenPressed(new GyroscopeTurn(90));
 
     }
 
