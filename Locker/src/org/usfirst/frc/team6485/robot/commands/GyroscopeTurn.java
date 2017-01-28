@@ -20,10 +20,7 @@ public class GyroscopeTurn extends Command {
     private double baseTurnSpeed = 0.55;
     private double multiplier;
 
-    private double angularTolerance = 0.50;
-
-    private double kScale = 0.0333;
-
+    private double angularTolerance = 0.75;
 
     public double error;
 
@@ -41,9 +38,7 @@ public class GyroscopeTurn extends Command {
 
 	startAngle = Robot.drivetrain.getGyroAngle();
 	targetAngle = startAngle + angleRequest;
-	turnSpeed = (angleRequest < 0) ? baseTurnSpeed : -baseTurnSpeed;
-
-	setTimeout(5);
+	setTimeout(7);
 
     }
 
@@ -53,16 +48,17 @@ public class GyroscopeTurn extends Command {
 	
 	currentAngle = Robot.drivetrain.getGyroAngle();
 	error = targetAngle - currentAngle;
-	if (error * kScale > 1) {
-	    multiplier = 1;
-	}
-	else if (error * kScale < .70) {
-	    multiplier = 0.70;
-	}
-	else {
-	    multiplier = error * kScale;
-	}
-	turnSpeed *= multiplier;
+	
+	// -(1/9)x^2+100, x = 30 - x
+	
+	if (error >= 30)
+	    multiplier = 1.00;
+	else if (error < 30 && error >= 14.972) 
+	    multiplier = -(1/9)*Math.pow(30 - currentAngle, 2) + 100.00;
+	else if (error < 14.972)
+	    multiplier = 0.75;
+	
+	turnSpeed = ((angleRequest < 0) ? baseTurnSpeed : -baseTurnSpeed) * multiplier;
 	Robot.drivetrain.arcadeDrive(0, turnSpeed);
 	
 	SmartDashboard.putNumber("Gyro turn start angle", startAngle);
