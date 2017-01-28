@@ -51,10 +51,10 @@ public class GyroscopeTurn extends Command {
 	
 	// -(1/9)x^2+100, x = 30 - x
 	
-	if (error >= 30)
+	if (error >= 30.00)
 	    multiplier = 1.00;
-	else if (error < 30 && error >= 14.972) 
-	    multiplier = -(1/9)*Math.pow(30 - currentAngle, 2) + 100.00;
+	else if (error < 30.00 && error >= 14.972) 
+	    multiplier = (-(1.00/9.00) * Math.pow(30.00 - error, 2.00) + 100.00) / 100.00;
 	else if (error < 14.972)
 	    multiplier = 0.75;
 	
