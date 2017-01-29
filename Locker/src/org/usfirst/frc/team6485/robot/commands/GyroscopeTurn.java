@@ -12,81 +12,83 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class GyroscopeTurn extends Command {
 
-    private double currentAngle, 
-    			angleRequest, 
-    			startAngle, 
-    			targetAngle, 
-    			turnSpeed, 
-    			multiplier, 
-    			error;
-    private double baseTurnSpeed = 0.55;
-    private double angularTolerance = 0.75;
+	private double currentAngle, 
+	angleRequest, 
+	startAngle, 
+	targetAngle, 
+	turnSpeed, 
+	multiplier, 
+	error,
+	abserror,
+	baseTurnSpeed = 0.55,
+	angularTolerance = 0.75;
 
 
-    public GyroscopeTurn(double angle) {
+	public GyroscopeTurn(double angle) {
 
-	angleRequest = angle;
-	requires(Robot.drivetrain);
+		angleRequest = angle;
+		requires(Robot.drivetrain);
 
-    }
-
-
-    // Called just before this Command runs the first time
-    protected void initialize() {
-
-	startAngle = Robot.drivetrain.getGyroAngle();
-	targetAngle = startAngle + angleRequest;
-	setTimeout(7);
-
-    }
+	}
 
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-	
-	currentAngle = Robot.drivetrain.getGyroAngle();
-	error = targetAngle - currentAngle;
-	
-	// -(1/9)x^2+100, x = 30 - x
-	
-	if (error >= 30.00)
-	    multiplier = 1.00;
-	else if (error < 30.00 && error >= 14.972) 
-	    multiplier = (-(1.00/9.00) * Math.pow(30.00 - error, 2.00) + 100.00) / 100.00;
-	else if (error < 14.972)
-	    multiplier = 0.75;
-	
-	turnSpeed = ((angleRequest < 0) ? baseTurnSpeed : -baseTurnSpeed) * multiplier;
-	Robot.drivetrain.arcadeDrive(0, turnSpeed);
-	
-	SmartDashboard.putNumber("Gyro turn start angle", startAngle);
-	SmartDashboard.putNumber("Gyro turn target angle", targetAngle);
-	SmartDashboard.putNumber("Gyro turn error", error);
-	SmartDashboard.putNumber("Gyro turn power multiplier", multiplier);
+	// Called just before this Command runs the first time
+	protected void initialize() {
 
-    }
+		startAngle = Robot.drivetrain.getGyroAngle();
+		targetAngle = startAngle + angleRequest;
+		setTimeout(7);
+
+	}
 
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
 
-	return (Math.abs(error) <= angularTolerance) 
-		|| isTimedOut();
+		currentAngle = Robot.drivetrain.getGyroAngle();
+		error = targetAngle - currentAngle;
+		abserror = Math.abs(error);
 
-    }
+		// -(1/9)x^2+100, x = 30 - x
+
+		if (abserror >= 30.00)
+			multiplier = 1.00;
+		else if (abserror < 30.00 && abserror >= 14.972) 
+			multiplier = (-(1.00/9.00) * Math.pow(30.00 - abserror, 2.00) + 100.00) / 100.00;
+		else if (abserror < 14.972)
+			multiplier = 0.75;
+
+		turnSpeed = ((angleRequest < 0) ? baseTurnSpeed : -baseTurnSpeed) * multiplier;
+		Robot.drivetrain.arcadeDrive(0, turnSpeed);
+
+		SmartDashboard.putNumber("Gyro turn start angle", startAngle);
+		SmartDashboard.putNumber("Gyro turn target angle", targetAngle);
+		SmartDashboard.putNumber("Gyro turn error", error);
+		SmartDashboard.putNumber("Gyro turn power multiplier", multiplier);
+
+	}
 
 
-    // Called once after isFinished returns true
-    protected void end() {
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
 
-	Robot.drivetrain.stop();
+		return (Math.abs(error) <= angularTolerance) 
+				|| isTimedOut();
 
-    }
+	}
 
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
+	// Called once after isFinished returns true
+	protected void end() {
 
-    }
+		Robot.drivetrain.stop();
+
+	}
+
+
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+
+	}
 }
