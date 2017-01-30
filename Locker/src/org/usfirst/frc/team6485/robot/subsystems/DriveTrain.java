@@ -46,9 +46,9 @@ public class DriveTrain extends Subsystem {
 		);
 
 	engine.setSafetyEnabled(true);
-	engine.setExpiration(0.15);
-	engine.setMaxOutput(1);
-	engine.setSensitivity(1);
+	engine.setExpiration(0.10);
+	engine.setMaxOutput(1.00);
+	engine.setSensitivity(1.00);
 
 	/*
 	 * driver.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, false);

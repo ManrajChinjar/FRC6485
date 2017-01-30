@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6485.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -28,6 +29,7 @@ public class Robot extends IterativeRobot {
 
     // SUBSYSTEMS
     public static DriveTrain drivetrain = new DriveTrain();
+    public static FuelIntake fuelintake = new FuelIntake();
     public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 
 
