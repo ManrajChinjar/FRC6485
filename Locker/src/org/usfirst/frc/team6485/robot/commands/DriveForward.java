@@ -56,7 +56,8 @@ public class DriveForward extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
 
-	return (tick == tickTarget) || isTimedOut();
+	return (tick == tickTarget) 
+		|| isTimedOut();
 
     }
 

@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class FuelIntake extends Subsystem {
     
     private VictorSP Roller = new VictorSP(4);
-    private double requestedSpeed;
+    private double actual;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -19,14 +19,17 @@ public class FuelIntake extends Subsystem {
 	
 	// Run all the time
 	Roller.setSafetyEnabled(false);
+	Roller.setSpeed(0.90);
 	
     }
 
     
     public void setSpeed(double speed) {
 	
-	Roller.setSpeed(speed);
-	requestedSpeed = speed;
+	if (speed > 1) actual = 1;
+	else if (speed < -1) actual = -1;
+	
+	Roller.setSpeed(actual);
 	
     }
     
