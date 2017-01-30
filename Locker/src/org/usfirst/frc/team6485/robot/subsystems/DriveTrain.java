@@ -26,7 +26,7 @@ public class DriveTrain extends Subsystem {
     private RobotDrive engine;
 
     private ADXRS450_Gyro gyroscope = new ADXRS450_Gyro();
-    private double kPGyro = 0.017;
+    private final double kPGyro = 0.017;
     private double gyroStraightStartAngle;
     private double gyroCurrentAngle;
     private double calculatedProportionalTurn;

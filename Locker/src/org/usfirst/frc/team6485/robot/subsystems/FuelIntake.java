@@ -1,5 +1,7 @@
 package org.usfirst.frc.team6485.robot.subsystems;
 
+import org.usfirst.frc.team6485.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -8,7 +10,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class FuelIntake extends Subsystem {
     
-    private VictorSP Roller = new VictorSP(4);
+    
+    private VictorSP Roller = new VictorSP(RobotMap.FuelIntakeMotor);
     private double actual;
 
     // Put methods for controlling this subsystem
