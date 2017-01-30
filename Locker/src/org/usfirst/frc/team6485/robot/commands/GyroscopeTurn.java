@@ -13,15 +13,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class GyroscopeTurn extends Command {
 
     private double currentAngle, 
-                    angleRequest, 
-                    startAngle, 
-                    targetAngle, 
-                    turnSpeed, 
-                    multiplier, 
-                    error,
-                    abserror,
-                    baseTurnSpeed = 0.55,
-                    angularTolerance = 0.75;
+            angleRequest, 
+            startAngle, 
+            targetAngle, 
+            turnSpeed, 
+            multiplier, 
+            error,
+            abserror;
+    private final double baseTurnSpeed = 0.55,
+	    angularTolerance = 0.75;
 
 
     public GyroscopeTurn(double angle) {
@@ -56,7 +56,7 @@ public class GyroscopeTurn extends Command {
 	    multiplier = (-(1.00/9.00) * Math.pow(30.00 - abserror, 2.00) + 100.00) / 100.00;
 	else if (abserror < 14.972) multiplier = 0.75;
 
-	turnSpeed = ((angleRequest < 0) ? baseTurnSpeed : -baseTurnSpeed) * multiplier;
+	turnSpeed = ((angleRequest < 0.00) ? baseTurnSpeed : -baseTurnSpeed) * multiplier;
 	Robot.drivetrain.arcadeDrive(0, turnSpeed);
 
 	SmartDashboard.putNumber("Gyro turn start angle", startAngle);
@@ -87,7 +87,7 @@ public class GyroscopeTurn extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-	
+
 	end();
 
     }

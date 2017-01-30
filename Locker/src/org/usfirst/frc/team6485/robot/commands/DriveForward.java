@@ -17,9 +17,9 @@ public class DriveForward extends Command {
     // ASSUMES THAT THE ROBORIO WILL OPERATE AT 50 HERTZ
     // TODO Also allow metre distance via future averaged encoder units
 
-    private double tick;
-    private double tickTarget;
-    private double speed;
+    private double tick, 
+    		tickTarget, 
+    		speed;
 
 
     /**
@@ -49,6 +49,7 @@ public class DriveForward extends Command {
     protected void execute() {
 
 	Robot.drivetrain.gyroStraightDrive(speed);
+	tick++;
 
     }
 

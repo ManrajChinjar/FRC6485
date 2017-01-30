@@ -14,11 +14,9 @@ import org.usfirst.frc.team6485.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
 
 /**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
+ * <b>SOFTWARE DEVELOPMENT TEAM:</b>
+ * <br>
+ * Kyle Saburao - <i>Main and lead</i>
  */
 public class Robot extends IterativeRobot {
 
@@ -28,8 +26,8 @@ public class Robot extends IterativeRobot {
     public static boolean inTeleOp;
 
     // SUBSYSTEMS
-    public static DriveTrain drivetrain = new DriveTrain();
-    public static FuelIntake fuelintake = new FuelIntake();
+    public static final DriveTrain drivetrain = new DriveTrain();
+    public static final FuelIntake fuelintake = new FuelIntake();
     public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 
 

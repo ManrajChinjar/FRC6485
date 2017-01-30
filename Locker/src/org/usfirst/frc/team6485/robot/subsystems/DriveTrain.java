@@ -19,10 +19,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveTrain extends Subsystem {
 
-    private Spark frontLeftMotor = new Spark(RobotMap.FrontLeftMotor);
-    private Spark rearLeftMotor = new Spark(RobotMap.RearLeftMotor);
-    private Spark frontRightMotor = new Spark(RobotMap.FrontRightMotor);
-    private Spark rearRightMotor = new Spark(RobotMap.RearRightMotor);
+    private final Spark frontLeftMotor = new Spark(RobotMap.FrontLeftMotor);
+    private final Spark rearLeftMotor = new Spark(RobotMap.RearLeftMotor);
+    private final Spark frontRightMotor = new Spark(RobotMap.FrontRightMotor);
+    private final Spark rearRightMotor = new Spark(RobotMap.RearRightMotor);
     private RobotDrive engine;
 
     private ADXRS450_Gyro gyroscope = new ADXRS450_Gyro();
@@ -50,13 +50,6 @@ public class DriveTrain extends Subsystem {
 	engine.setExpiration(0.10);
 	engine.setMaxOutput(1.00);
 	engine.setSensitivity(1.00);
-
-	/*
-	 * driver.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, false);
-	 * driver.setInvertedMotor(RobotDrive.MotorType.kRearLeft, false);
-	 * driver.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
-	 * driver.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
-	 */
 
     }
 
@@ -132,8 +125,7 @@ public class DriveTrain extends Subsystem {
      * <b>WORK IN PROGRESS</b><br>
      * <br>
      * The ADXRS450 gyroscope is used to determine any rotational drift and if so,<br>
-     * correct the error according to the angle difference multiplied by a constant 
-     * proportional value to drive straight.<br>
+     * correct the error according to an exponential graphing function.<br>
      * Rotational oscillation means that kP is too high, while not working 
      * at all means that it's too low.
      * <br><br>
@@ -249,7 +241,7 @@ public class DriveTrain extends Subsystem {
      * and to avoid accidental breakage by users.
      * @param state true | false
      */
-    public void setgyroZSet(boolean state) {
+    public void setGyroZSet(boolean state) {
 
 	gyroZSet = state;
 

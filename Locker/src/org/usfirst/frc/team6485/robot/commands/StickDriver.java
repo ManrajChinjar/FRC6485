@@ -9,16 +9,17 @@ import edu.wpi.first.wpilibj.command.Command;
 public class StickDriver extends Command {
 
 
-    private int loopCountInitial = 0;
-    private int loopCountCurrent = 0;
-    private int loopCountDelta;
+    private int loopCountInitial = 0, 
+	    loopCountCurrent = 0, 
+	    loopCountDelta = 0;
+
     private boolean mThreadFlankSet = false;
 
-    private double mLXAxisRequest;
-    private double mLYAxisRequest;
-    private double mXXAxisRequestL;
-    private double mXYAxisRequestL;
-    private double mXYAxisRequestR;
+    private double mLXAxisRequest, 
+                mLYAxisRequest, 
+                mXXAxisRequestL, 
+                mXYAxisRequestL,
+                mXYAxisRequestR;
 
 
     public StickDriver() {
@@ -112,7 +113,7 @@ public class StickDriver extends Command {
 	}
 
 	if (!Robot.oi.getLButtonPressed(3)) {
-	    Robot.drivetrain.setgyroZSet(false);
+	    Robot.drivetrain.setGyroZSet(false);
 	}
 
 	loopCountCurrent++;
@@ -132,7 +133,7 @@ public class StickDriver extends Command {
     protected void end() {
 
 	Robot.drivetrain.stop();
-	Robot.drivetrain.setgyroZSet(false);
+	Robot.drivetrain.setGyroZSet(false);
 	mThreadFlankSet = false;
 
     }
