@@ -4,7 +4,7 @@ import org.usfirst.frc.team6485.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * <i>Kyle Saburao 2017</i>
  */
 public class StickDriver extends Command {
 

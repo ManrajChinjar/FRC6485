@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.command.Command;
  * <b>Arguments:</b> double speed, double time<br>
  * <br>
  * TODO Allow metre distance via encoder units
+ * <br><br>
+ * <i>Kyle Saburao 2017</i>
  */
 public class DriveForward extends Command {
 

@@ -3,7 +3,7 @@ package org.usfirst.frc.team6485.robot.commands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ * <i>Kyle Saburao 2017</i>
  */
 public class TestCaseSpin extends CommandGroup {
 

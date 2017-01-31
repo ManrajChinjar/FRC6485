@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * Executes a drive train point-turn to a specified amount of degrees relative to the starting orientation.<br>
  * <br>
  * <b>Arguments:</b> double angle (Negative turns left, positive turns right)
+ * <br><br>
+ * <i>Kyle Saburao 2017</i>
  */
 public class GyroscopeTurn extends Command {
 

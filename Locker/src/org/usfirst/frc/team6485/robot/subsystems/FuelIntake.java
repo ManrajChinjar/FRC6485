@@ -6,7 +6,8 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * <br><br>
+ * <i>Kyle Saburao 2017</i>
  */
 public class FuelIntake extends Subsystem {
     

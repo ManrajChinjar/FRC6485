@@ -5,6 +5,8 @@ package org.usfirst.frc.team6485.robot;
  * to a variable name. This provides flexibility changing wiring, makes checking
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
+ * <br><br>
+ * <i>Kyle Saburao 2017</i>
  */
 public class RobotMap {
 

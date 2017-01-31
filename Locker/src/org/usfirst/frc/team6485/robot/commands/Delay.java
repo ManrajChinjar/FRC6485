@@ -5,7 +5,8 @@ package org.usfirst.frc.team6485.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Delays a command group for a specified amount of seconds.
+ * Delays a command group for a specified amount of seconds.<br><br>
+ * <i>Kyle Saburao 2017</i>
  */
 public class Delay extends Command {
     

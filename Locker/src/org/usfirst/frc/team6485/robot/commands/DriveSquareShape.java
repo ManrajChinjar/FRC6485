@@ -7,7 +7,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  * Will return to original position and orientation if the drive train is working properly.<br>
  * <br>
  * Line: 0.65 speed for 2 seconds<br>
- * Rotation: 90 degrees right
+ * Rotation: 90 degrees right<br>
+ * <br>
+ * <i>Kyle Saburao 2017</i>
  */
 public class DriveSquareShape extends CommandGroup {
 

@@ -12,10 +12,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * Drive Train subsystem.<br>
  * <br>
  * Forwards: 1, Back: -1<br>
- * Left: 1, Right: -1<br>
- * <br>
- * <b>NOTE TO PHYSICAL DESIGN:</b><br>
- * The gyroscope must be mounted on the axis of rotation which is going to be skewed by the centre of mass.
+ * Left: 1, Right: -1<br><br>
+ * <i>Kyle Saburao 2017</i>
  */
 public class DriveTrain extends Subsystem {
 
