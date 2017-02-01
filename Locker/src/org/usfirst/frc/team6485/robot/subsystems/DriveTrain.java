@@ -33,10 +33,8 @@ public class DriveTrain extends Subsystem {
     //	public double BaseAngle;
     //	public boolean GyroFlag;
 
-    
     // Initialize drive train
     public DriveTrain() {
-
 	engine = new RobotDrive(
 		mFrontLeftMotor,
 		mRearLeftMotor, 
@@ -48,24 +46,18 @@ public class DriveTrain extends Subsystem {
 	engine.setExpiration(0.10);
 	engine.setMaxOutput(1.00);
 	engine.setSensitivity(1.00);
-
     }
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-
     public void initDefaultCommand() {
 	// Set the default command for a subsystem here.
-
 	// Default command is operator control over drive system
 	setDefaultCommand(new StickDriver());
-
     }
 
-
     private static double mFixArgument(double num) {
-
 	if (num > 0.95) {
 	    num = 0.95;
 	} 
@@ -73,9 +65,7 @@ public class DriveTrain extends Subsystem {
 	    num = -0.95;
 	}
 	return num;
-
     }
-
 
     /**
      * Standard tank drive controls.<br>
@@ -84,13 +74,10 @@ public class DriveTrain extends Subsystem {
      * @param rightStick Right Motor Group request
      */ 
     public void tankDrive(double leftStick, double rightStick) {
-
 	leftStick = mFixArgument(leftStick);
 	rightStick = mFixArgument(rightStick);
 	engine.tankDrive(leftStick, rightStick);
-
     }
-
 
     /**
      * Standard arcade drive controls.<br>
@@ -99,13 +86,10 @@ public class DriveTrain extends Subsystem {
      * @param rightStick Turning request
      */
     public void arcadeDrive(double leftStick, double rightStick) {
-
 	leftStick = mFixArgument(leftStick);
 	rightStick = mFixArgument(rightStick);
 	engine.arcadeDrive(leftStick, rightStick);
-
     }
-
 
     /**
      * Only allows the drive train to drive back and forth. <br>
@@ -113,11 +97,8 @@ public class DriveTrain extends Subsystem {
      * @param speed Obvious (1 full forward, -1 full backwards)
      */
     public void forwardBackDrive(double speed) {
-
 	engine.tankDrive(speed, speed);
-
     }
-
 
     /**
      * <b>WORK IN PROGRESS</b><br>
