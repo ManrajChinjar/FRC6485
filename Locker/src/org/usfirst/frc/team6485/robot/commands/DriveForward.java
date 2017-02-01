@@ -23,63 +23,44 @@ public class DriveForward extends Command {
     		mDutyCycleTarget, 
     		mSpeed;
 
-
     /**
      * Tells the drive train to go forwards for a specific amount of time
      * @param time ONLY PASS ACCURACY UP TO A TENTH OF A SECOND (t.t)
      */
     public DriveForward(double speed, double time) {
-
 	requires(Robot.drivetrain);
 	mDutyCycle = 0;
 	mDutyCycleTarget = (time * 1000) / 20;
 	this.mSpeed = speed;
-
     }
-
 
     // Called just before this Command runs the first time
     protected void initialize() {
-
-	//Robot.drivetrain.forwardBackDrive(speed, speed);
 	setTimeout(15);
-
     }
-
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-
 	if (mDutyCycleTarget - mDutyCycle < 5) mSpeed *= 0.90;
 	Robot.drivetrain.gyroStraightDrive(mSpeed);
 	mDutyCycle++;
-
     }
-
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-
 	return (mDutyCycle == mDutyCycleTarget) 
 		|| isTimedOut();
-
     }
-
 
     // Called once after isFinished returns true
     protected void end() {
-
 	Robot.drivetrain.stop();
-
     }
-
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-	
 	end();
-
     }
 
 }

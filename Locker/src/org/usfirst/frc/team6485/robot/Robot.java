@@ -30,10 +30,8 @@ public class Robot extends IterativeRobot {
     public static final FuelIntake fuelintake = new FuelIntake();
     public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 
-
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
-
 
     /**
      * This function is run when the robot is first started up and should be
@@ -41,13 +39,11 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
-
 	oi = new OI();
 	chooser.addDefault("Default Auto", new ExampleCommand());
 	// chooser.addObject("My Auto", new MyAutoCommand());
 	SmartDashboard.putData("Auto mode", chooser);
 	SmartDashboard.putData("Drive Train", drivetrain);
-
     }
 
 
@@ -58,15 +54,12 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void disabledInit() {
-
     }
 
 
     @Override
     public void disabledPeriodic() {
-
 	Scheduler.getInstance().run();
-
     }
 
 
@@ -83,7 +76,6 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
-
 	inAuto = true;
 	inTeleOp = false;
 	autonomousCommand = chooser.getSelected();
@@ -98,24 +90,18 @@ public class Robot extends IterativeRobot {
 	// schedule the autonomous command (example)
 	if (autonomousCommand != null)
 	    autonomousCommand.start();
-
     }
-
 
     /**
      * This function is called periodically during autonomous
      */
     @Override
     public void autonomousPeriodic() {
-
 	Scheduler.getInstance().run();
-
     }
-
 
     @Override
     public void teleopInit() {
-
 	// This makes sure that the autonomous stops running when
 	// teleop starts running. If you want the autonomous to
 	// continue until interrupted by another command, remove
@@ -124,35 +110,26 @@ public class Robot extends IterativeRobot {
 	if (autonomousCommand != null)
 	    autonomousCommand.cancel();
 	inTeleOp = true;
-
     }
 
-    
     /**
      * This function is called periodically during operator control
      */
     @Override
     public void teleopPeriodic() {
-
 	Scheduler.getInstance().run();
 	report();
-
     }
 
-    
     /**
      * This function is called periodically during test mode
      */
     @Override
     public void testPeriodic() {
-
 	LiveWindow.run();
-
     }
 
-
     public void report() {
-
 	SmartDashboard.putNumber("Gyroscope Value", Robot.drivetrain.getGyroAngle());
 	SmartDashboard.putNumber("Gyroscope cPT", Robot.drivetrain.getcPT());
 	SmartDashboard.putNumber("X-Axis Logitech Request (NEG)", -Robot.oi.getLJoyX());
@@ -163,7 +140,6 @@ public class Robot extends IterativeRobot {
 	SmartDashboard.putNumber("Rear Left PWM", work[1]);
 	SmartDashboard.putNumber("Front Right PWM", work[2]);
 	SmartDashboard.putNumber("Rear Right PWM", work[3]);
-
     }
 
 }

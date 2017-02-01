@@ -133,7 +133,6 @@ public class DriveTrain extends Subsystem {
      * @param speed A double value within the range [-1, 1] back or forth
      */
     public void gyroStraightDrive(double speed) {
-
 	if (!mGyroZSet) {
 	    mGyroStraightStartAngle = gyroscope.getAngle();
 	    mGyroZSet = true;
@@ -143,54 +142,40 @@ public class DriveTrain extends Subsystem {
 
 	mCalculatedProportionalTurn = -(mGyroCurrentAngle - mGyroStraightStartAngle) * mkPGyro;
 
-	if (speed < 0)
-	    mCalculatedProportionalTurn *= -1;
+	if (speed < 0) mCalculatedProportionalTurn *= -1;
 
 	// -(current - initial) * kP
 	engine.drive(speed, mCalculatedProportionalTurn);
-
     }
-
 
     /**
      * Only allows the drive train to conduct a point turn through arcade controls.
      * @param turnrate Usually the x-axis analog request of the controller [-1, 1]
      */
     public void turnOnSpot(double turnrate) {
-
 	engine.arcadeDrive(0, turnrate);
-
     }
-
 
     /**
      * Brings the drive train to a full halt.
      */
     public void stop() {
-
 	engine.tankDrive(0, 0);
-
     }
-
 
     /**
      * Requests the drive train to go full-ahead at +95% PWM.
      */
     public void flankSpeed() {
-
 	engine.tankDrive(0.95, 0.95);
-
     }
-
 
     /**
      * The preferred way to get the gyroscope angle is call Robot.drivetrain.getGyro().getAngle()
      * @return The gyroscope of the drive train.
      */
     public ADXRS450_Gyro getGyro() {
-
 	return gyroscope;
-
     }
 
     /**
@@ -198,29 +183,21 @@ public class DriveTrain extends Subsystem {
      * @return The current ADXRS450 gyroscope angle.
      */
     public double getGyroAngle() {
-
 	return gyroscope.getAngle();
-
     }
-
 
     /**
      * @return The Calculated Proportional Turn (cPT) Value as a double.
      */
-
     public double getcPT() {
-
 	return mCalculatedProportionalTurn;
-
     }
-
 
     /**
      * 
      * @return All of the motors PWM values as an array of 4 doubles.
      */
     public double[] getMotorPWMS() {
-
 	double[] motorArray = new double[4];
 
 	motorArray[0] = mFrontLeftMotor.getSpeed();
@@ -229,9 +206,7 @@ public class DriveTrain extends Subsystem {
 	motorArray[3] = mRearRightMotor.getSpeed();
 
 	return motorArray;
-
     }
-
 
     /**
      * Sets the gyroZSet boolean in the DriveTrain subsystem according to the parameter.<br>
@@ -240,16 +215,11 @@ public class DriveTrain extends Subsystem {
      * @param state true | false
      */
     public void setGyroZSet(boolean state) {
-
 	mGyroZSet = state;
-
     }
-
 
     public void update() {
-
-
-
     }
+    
 }
 
