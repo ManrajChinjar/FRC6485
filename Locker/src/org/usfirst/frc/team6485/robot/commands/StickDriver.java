@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj.command.Command;
 public class StickDriver extends Command {
 
 
-    private int loopCountInitial = 0, 
-	    loopCountCurrent = 0, 
-	    loopCountDelta = 0;
+    private int mDutyCycleInitial = 0, 
+	    mDutyCycle = 0, 
+	    mDutyCycleDelta = 0;
 
     private boolean mThreadFlankSet = false;
 
@@ -52,7 +52,7 @@ public class StickDriver extends Command {
 	mXYAxisRequestL = -Robot.oi.getXBOXLeftJoyY();
 	mXYAxisRequestR = -Robot.oi.getXBOXRightJoyY();
 
-	loopCountDelta = loopCountCurrent - loopCountInitial;
+	mDutyCycleDelta = mDutyCycle - mDutyCycleInitial;
 
 	if (Robot.oi.getLMainTrigger()) {
 	    if (!Robot.oi.getLButtonPressed(7)) {
@@ -71,12 +71,12 @@ public class StickDriver extends Command {
 	    }
 	    else {
 		if (!mThreadFlankSet) {
-		    loopCountInitial = loopCountCurrent;
+		    mDutyCycleInitial = mDutyCycle;
 		    Robot.drivetrain.flankSpeed();
 		    mThreadFlankSet = true;
 		}
 		else {
-		    if (loopCountDelta <= 100) {
+		    if (mDutyCycleDelta <= 100) {
 			Robot.drivetrain.flankSpeed();
 		    }
 		    else {
@@ -108,7 +108,7 @@ public class StickDriver extends Command {
 	    Robot.drivetrain.stop();
 	}
 
-	if (loopCountDelta > 200) {
+	if (mDutyCycleDelta > 200) {
 	    mThreadFlankSet = false;
 	}
 
@@ -116,7 +116,7 @@ public class StickDriver extends Command {
 	    Robot.drivetrain.setGyroZSet(false);
 	}
 
-	loopCountCurrent++;
+	mDutyCycle++;
 
     }
 

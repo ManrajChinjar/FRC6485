@@ -14,21 +14,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class GyroscopeTurn extends Command {
 
-    private double currentAngle, 
-            angleRequest, 
-            startAngle, 
-            targetAngle, 
-            turnSpeed, 
-            multiplier, 
-            error,
-            abserror;
-    private final double baseTurnSpeed = 0.55,
-	    angularTolerance = 0.75;
+    private double mCurrentAngle, 
+            mAngleRequest, 
+            mStartAngle, 
+            mTargetAngle, 
+            mTurnSpeed, 
+            mMultiplier, 
+            mError,
+            mABSError;
+    private final double mBaseTurnSpeed = 0.55,
+	    mAngularTolerance = 0.75;
 
 
     public GyroscopeTurn(double angle) {
 
-	angleRequest = angle;
+	mAngleRequest = angle;
 	requires(Robot.drivetrain);
 
     }
@@ -37,8 +37,8 @@ public class GyroscopeTurn extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
 
-	startAngle = Robot.drivetrain.getGyroAngle();
-	targetAngle = startAngle + angleRequest;
+	mStartAngle = Robot.drivetrain.getGyroAngle();
+	mTargetAngle = mStartAngle + mAngleRequest;
 	setTimeout(7);
 
     }
@@ -47,24 +47,24 @@ public class GyroscopeTurn extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-	currentAngle = Robot.drivetrain.getGyroAngle();
-	error = targetAngle - currentAngle;
-	abserror = Math.abs(error);
+	mCurrentAngle = Robot.drivetrain.getGyroAngle();
+	mError = mTargetAngle - mCurrentAngle;
+	mABSError = Math.abs(mError);
 
 	// -(1/9)x^2+100, x = 30 - x
 
-	if (abserror >= 30.00) multiplier = 1.00;
-	else if (abserror < 30.00 && abserror >= 14.972) 
-	    multiplier = (-(1.00/9.00) * Math.pow(30.00 - abserror, 2.00) + 100.00) / 100.00;
-	else if (abserror < 14.972) multiplier = 0.75;
+	if (mABSError >= 30.00) mMultiplier = 1.00;
+	else if (mABSError < 30.00 && mABSError >= 14.972) 
+	    mMultiplier = (-(1.00/9.00) * Math.pow(30.00 - mABSError, 2.00) + 100.00) / 100.00;
+	else if (mABSError < 14.972) mMultiplier = 0.75;
 
-	turnSpeed = ((angleRequest < 0.00) ? baseTurnSpeed : -baseTurnSpeed) * multiplier;
-	Robot.drivetrain.arcadeDrive(0, turnSpeed);
+	mTurnSpeed = ((mAngleRequest < 0.00) ? mBaseTurnSpeed : -mBaseTurnSpeed) * mMultiplier;
+	Robot.drivetrain.arcadeDrive(0, mTurnSpeed);
 
-	SmartDashboard.putNumber("Gyro turn start angle", startAngle);
-	SmartDashboard.putNumber("Gyro turn target angle", targetAngle);
-	SmartDashboard.putNumber("Gyro turn error", error);
-	SmartDashboard.putNumber("Gyro turn power multiplier", multiplier);
+	SmartDashboard.putNumber("Gyro turn start angle", mStartAngle);
+	SmartDashboard.putNumber("Gyro turn target angle", mTargetAngle);
+	SmartDashboard.putNumber("Gyro turn error", mError);
+	SmartDashboard.putNumber("Gyro turn power multiplier", mMultiplier);
 
     }
 
@@ -72,7 +72,7 @@ public class GyroscopeTurn extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
 
-	return (Math.abs(error) <= angularTolerance) 
+	return (Math.abs(mError) <= mAngularTolerance) 
 		|| isTimedOut();
 
     }

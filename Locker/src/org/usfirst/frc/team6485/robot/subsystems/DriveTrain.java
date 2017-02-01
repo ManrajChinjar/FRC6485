@@ -17,18 +17,18 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveTrain extends Subsystem {
 
-    private final Spark frontLeftMotor = new Spark(RobotMap.FrontLeftMotor);
-    private final Spark rearLeftMotor = new Spark(RobotMap.RearLeftMotor);
-    private final Spark frontRightMotor = new Spark(RobotMap.FrontRightMotor);
-    private final Spark rearRightMotor = new Spark(RobotMap.RearRightMotor);
+    private final Spark mFrontLeftMotor = new Spark(RobotMap.FrontLeftMotor);
+    private final Spark mRearLeftMotor = new Spark(RobotMap.RearLeftMotor);
+    private final Spark mFrontRightMotor = new Spark(RobotMap.FrontRightMotor);
+    private final Spark mRearRightMotor = new Spark(RobotMap.RearRightMotor);
     private RobotDrive engine;
 
     private ADXRS450_Gyro gyroscope = new ADXRS450_Gyro();
-    private final double kPGyro = 0.017;
-    private double gyroStraightStartAngle;
-    private double gyroCurrentAngle;
-    private double calculatedProportionalTurn;
-    private boolean gyroZSet;
+    private final double mkPGyro = 0.017;
+    private double mGyroStraightStartAngle,
+    		mGyroCurrentAngle,
+    		mCalculatedProportionalTurn;
+    private boolean mGyroZSet;
 
     //	public double BaseAngle;
     //	public boolean GyroFlag;
@@ -38,10 +38,10 @@ public class DriveTrain extends Subsystem {
     public DriveTrain() {
 
 	engine = new RobotDrive(
-		frontLeftMotor,
-		rearLeftMotor, 
-		frontRightMotor, 
-		rearRightMotor
+		mFrontLeftMotor,
+		mRearLeftMotor, 
+		mFrontRightMotor, 
+		mRearRightMotor
 		);
 
 	engine.setSafetyEnabled(true);
@@ -134,20 +134,20 @@ public class DriveTrain extends Subsystem {
      */
     public void gyroStraightDrive(double speed) {
 
-	if (!gyroZSet) {
-	    gyroStraightStartAngle = gyroscope.getAngle();
-	    gyroZSet = true;
+	if (!mGyroZSet) {
+	    mGyroStraightStartAngle = gyroscope.getAngle();
+	    mGyroZSet = true;
 	}
 
-	gyroCurrentAngle = gyroscope.getAngle();
+	mGyroCurrentAngle = gyroscope.getAngle();
 
-	calculatedProportionalTurn = -(gyroCurrentAngle - gyroStraightStartAngle) * kPGyro;
+	mCalculatedProportionalTurn = -(mGyroCurrentAngle - mGyroStraightStartAngle) * mkPGyro;
 
 	if (speed < 0)
-	    calculatedProportionalTurn *= -1;
+	    mCalculatedProportionalTurn *= -1;
 
 	// -(current - initial) * kP
-	engine.drive(speed, calculatedProportionalTurn);
+	engine.drive(speed, mCalculatedProportionalTurn);
 
     }
 
@@ -210,7 +210,7 @@ public class DriveTrain extends Subsystem {
 
     public double getcPT() {
 
-	return calculatedProportionalTurn;
+	return mCalculatedProportionalTurn;
 
     }
 
@@ -223,10 +223,10 @@ public class DriveTrain extends Subsystem {
 
 	double[] motorArray = new double[4];
 
-	motorArray[0] = frontLeftMotor.getSpeed();
-	motorArray[1] = rearLeftMotor.getSpeed();
-	motorArray[2] = frontRightMotor.getSpeed();
-	motorArray[3] = rearRightMotor.getSpeed();
+	motorArray[0] = mFrontLeftMotor.getSpeed();
+	motorArray[1] = mRearLeftMotor.getSpeed();
+	motorArray[2] = mFrontRightMotor.getSpeed();
+	motorArray[3] = mRearRightMotor.getSpeed();
 
 	return motorArray;
 
@@ -241,7 +241,7 @@ public class DriveTrain extends Subsystem {
      */
     public void setGyroZSet(boolean state) {
 
-	gyroZSet = state;
+	mGyroZSet = state;
 
     }
 

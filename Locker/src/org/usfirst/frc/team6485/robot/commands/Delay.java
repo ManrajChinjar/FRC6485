@@ -10,8 +10,6 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class Delay extends Command {
     
-    private double seconds;
-
     public Delay(double seconds) {
 	// Use requires() here to declare subsystem dependencies
 	// eg. requires(chassis);\

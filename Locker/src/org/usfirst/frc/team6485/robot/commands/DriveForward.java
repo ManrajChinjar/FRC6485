@@ -19,9 +19,9 @@ public class DriveForward extends Command {
     // ASSUMES THAT THE ROBORIO WILL OPERATE AT 50 HERTZ
     // TODO Also allow metre distance via future averaged encoder units
 
-    private double tick, 
-    		tickTarget, 
-    		speed;
+    private double mDutyCycle, 
+    		mDutyCycleTarget, 
+    		mSpeed;
 
 
     /**
@@ -31,9 +31,9 @@ public class DriveForward extends Command {
     public DriveForward(double speed, double time) {
 
 	requires(Robot.drivetrain);
-	tick = 0;
-	tickTarget = (time * 1000) / 20;
-	this.speed = speed;
+	mDutyCycle = 0;
+	mDutyCycleTarget = (time * 1000) / 20;
+	this.mSpeed = speed;
 
     }
 
@@ -50,8 +50,9 @@ public class DriveForward extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 
-	Robot.drivetrain.gyroStraightDrive(speed);
-	tick++;
+	if (mDutyCycleTarget - mDutyCycle < 5) mSpeed *= 0.90;
+	Robot.drivetrain.gyroStraightDrive(mSpeed);
+	mDutyCycle++;
 
     }
 
@@ -59,7 +60,7 @@ public class DriveForward extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
 
-	return (tick == tickTarget) 
+	return (mDutyCycle == mDutyCycleTarget) 
 		|| isTimedOut();
 
     }
