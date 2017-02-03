@@ -28,7 +28,7 @@ public class FuelIntake extends Subsystem {
     }
     
     public void switchDirection() {
-	kSpeedNormal *= -1;
+	kSpeedNormal *= -1.00;
     }
 
     public void setSpeed(double speed) {
