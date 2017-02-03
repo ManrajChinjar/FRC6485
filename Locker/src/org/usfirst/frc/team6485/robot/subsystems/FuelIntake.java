@@ -34,9 +34,9 @@ public class FuelIntake extends Subsystem {
     public void setSpeed(double speed) {
 	if (speed > 1) mActual = 1;
 	else if (speed < -1) mActual = -1;
+	roller.setSpeed(mActual);
 	if (mActual != 0) IntakeRunning = true;
 	else IntakeRunning = false;
-	roller.setSpeed(mActual);
     }
     
     public void start() {
