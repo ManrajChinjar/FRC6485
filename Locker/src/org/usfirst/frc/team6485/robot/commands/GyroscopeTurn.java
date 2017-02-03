@@ -15,13 +15,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class GyroscopeTurn extends Command {
 
     private double mCurrentAngle, 
-            mAngleRequest, 
-            mStartAngle, 
-            mTargetAngle, 
-            mTurnSpeed, 
-            mMultiplier, 
-            mError,
-            mABSError;
+    mAngleRequest, 
+    mStartAngle, 
+    mTargetAngle, 
+    mTurnSpeed, 
+    mMultiplier, 
+    mError,
+    mABSError;
     private final double mBaseTurnSpeed = 0.55,
 	    mAngularTolerance = 0.75;
 
@@ -75,5 +75,5 @@ public class GyroscopeTurn extends Command {
     protected void interrupted() {
 	end();
     }
-    
+
 }

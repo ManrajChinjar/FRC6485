@@ -16,10 +16,10 @@ public class StickDriver extends Command {
     private boolean mThreadFlankSet = false;
 
     private double mLXAxisRequest, 
-                mLYAxisRequest, 
-                mXXAxisRequestL, 
-                mXYAxisRequestL,
-                mXYAxisRequestR;
+    mLYAxisRequest, 
+    mXXAxisRequestL, 
+    mXYAxisRequestL,
+    mXYAxisRequestR;
 
     public StickDriver() {
 	// Use requires() here to declare subsystem dependencies
@@ -30,7 +30,7 @@ public class StickDriver extends Command {
     protected void initialize() {
 	System.out.println("I'll try spinning. That's a good trick.");
     }
-    
+
     private void logitechControl() {
 	if (!Robot.oi.getLButtonPressed(7)) {
 	    if (Robot.oi.getLButtonPressed(2)) {
@@ -63,7 +63,7 @@ public class StickDriver extends Command {
 	    }
 	}
     }
-    
+
     private void xboxControl() {
 	if (!Robot.oi.getXBOXButtonPressed(5)) {
 	    Robot.drivetrain.tankDrive(mXYAxisRequestL, mXYAxisRequestR);

@@ -20,8 +20,8 @@ public class DriveForward extends Command {
     // TODO Also allow metre distance via future averaged encoder units
 
     private double mDutyCycle, 
-    		mDutyCycleTarget, 
-    		mSpeed;
+    mDutyCycleTarget, 
+    mSpeed;
 
     /**
      * Tells the drive train to go forwards for a specific amount of time

@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
+import org.usfirst.frc.team6485.robot.commands.IntakeStart;
+import org.usfirst.frc.team6485.robot.commands.IntakeStop;
 import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6485.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
@@ -54,6 +56,8 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void disabledInit() {
+	// STOP INTAKE ROLLER
+	new IntakeStop();
     }
 
 
@@ -78,6 +82,8 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
 	inAuto = true;
 	inTeleOp = false;
+	// START INTAKE ROLLER
+	new IntakeStart();
 	autonomousCommand = chooser.getSelected();
 
 	/*
@@ -106,6 +112,10 @@ public class Robot extends IterativeRobot {
 	// teleop starts running. If you want the autonomous to
 	// continue until interrupted by another command, remove
 	// this line or comment it out.
+
+	// START INTAKE ROLLER
+	new IntakeStart();
+
 	inAuto = false;
 	if (autonomousCommand != null)
 	    autonomousCommand.cancel();

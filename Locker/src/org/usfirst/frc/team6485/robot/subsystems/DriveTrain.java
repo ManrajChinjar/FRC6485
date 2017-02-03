@@ -114,6 +114,7 @@ public class DriveTrain extends Subsystem {
      * @param speed A double value within the range [-1, 1] back or forth
      */
     public void gyroStraightDrive(double speed) {
+	speed = mFixArgument(speed);
 	if (!mGyroZSet) {
 	    mGyroStraightStartAngle = gyroscope.getAngle();
 	    mGyroZSet = true;
