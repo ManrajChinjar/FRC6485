@@ -24,11 +24,6 @@ public class DriveTrain extends Subsystem {
     private RobotDrive engine;
 
     private ADXRS450_Gyro gyroscope = new ADXRS450_Gyro();
-    private final double mkPGyro = 0.017;
-    private double mGyroStraightStartAngle,
-    		mGyroCurrentAngle,
-    		mCalculatedProportionalTurn;
-    private boolean mGyroZSet;
 
     //	public double BaseAngle;
     //	public boolean GyroFlag;
@@ -90,6 +85,10 @@ public class DriveTrain extends Subsystem {
 	rightStick = mFixArgument(rightStick);
 	engine.arcadeDrive(leftStick, rightStick);
     }
+    
+    public void drive(double speed, double curve) {
+	engine.drive(speed, curve);
+    }
 
     /**
      * Only allows the drive train to drive back and forth. <br>
@@ -98,36 +97,6 @@ public class DriveTrain extends Subsystem {
      */
     public void forwardBackDrive(double speed) {
 	engine.tankDrive(speed, speed);
-    }
-
-    /**
-     * <b>WORK IN PROGRESS</b><br>
-     * <br>
-     * The ADXRS450 gyroscope is used to determine any rotational drift and if so,<br>
-     * correct the error according to an exponential graphing function.<br>
-     * Rotational oscillation means that kP is too high, while not working 
-     * at all means that it's too low.
-     * <br><br>
-     * The initial angle is only conserved when this method is continuously requested
-     * by the StickDriver subsystem,<br>
-     * therefore this only works with the aforementioned subsystem. (For now)
-     * @param speed A double value within the range [-1, 1] back or forth
-     */
-    public void gyroStraightDrive(double speed) {
-	speed = mFixArgument(speed);
-	if (!mGyroZSet) {
-	    mGyroStraightStartAngle = gyroscope.getAngle();
-	    mGyroZSet = true;
-	}
-
-	mGyroCurrentAngle = gyroscope.getAngle();
-
-	mCalculatedProportionalTurn = -(mGyroCurrentAngle - mGyroStraightStartAngle) * mkPGyro;
-
-	if (speed < 0) mCalculatedProportionalTurn *= -1;
-
-	// -(current - initial) * kP
-	engine.drive(speed, mCalculatedProportionalTurn);
     }
 
     /**
@@ -167,14 +136,7 @@ public class DriveTrain extends Subsystem {
     public double getGyroAngle() {
 	return gyroscope.getAngle();
     }
-
-    /**
-     * @return The Calculated Proportional Turn (cPT) Value as a double.
-     */
-    public double getcPT() {
-	return mCalculatedProportionalTurn;
-    }
-
+    
     /**
      * 
      * @return All of the motors PWM values as an array of 4 doubles.
@@ -188,16 +150,6 @@ public class DriveTrain extends Subsystem {
 	motorArray[3] = mRearRightMotor.getSpeed();
 
 	return motorArray;
-    }
-
-    /**
-     * Sets the gyroZSet boolean in the DriveTrain subsystem according to the parameter.<br>
-     * The variable is private to hide it from outside the subsystem 
-     * and to avoid accidental breakage by users.
-     * @param state true | false
-     */
-    public void setGyroZSet(boolean state) {
-	mGyroZSet = state;
     }
 
     public void update() {

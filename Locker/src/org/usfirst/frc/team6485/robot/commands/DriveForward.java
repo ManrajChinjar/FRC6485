@@ -3,6 +3,8 @@ package org.usfirst.frc.team6485.robot.commands;
 import org.usfirst.frc.team6485.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Executes drive train movement either back or forth for a specified time period.<br>
@@ -19,37 +21,43 @@ public class DriveForward extends Command {
     // ASSUMES THAT THE ROBORIO WILL OPERATE AT 50 HERTZ
     // TODO Also allow metre distance via future averaged encoder units
 
-    private double mDutyCycle, 
-    mDutyCycleTarget, 
-    mSpeed;
+    private double mSpeed;
+    
+    private final double kP = 0.020;
+    private double mCurrentAngle, cPT;
+    private Gyro gyroscope = Robot.drivetrain.getGyro();
 
     /**
-     * Tells the drive train to go forwards for a specific amount of time
-     * @param time ONLY PASS ACCURACY UP TO A TENTH OF A SECOND (t.t)
+     * <b>WORK IN PROGRESS</b><br>
+     * <br>
+     * The ADXRS450 gyroscope is used to determine any rotational drift and if so,
+     * correct the error. Rotational oscillation means that kP is too high, 
+     * while not working at all means that it's too low.
+     * @param speed A double value within the range [-1, 1] back or forth
      */
     public DriveForward(double speed, double time) {
 	requires(Robot.drivetrain);
-	mDutyCycle = 0;
-	mDutyCycleTarget = (time * 1000) / 20;
+	setTimeout(time);
 	this.mSpeed = speed;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-	setTimeout(15);
+	gyroscope.reset();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-	if (mDutyCycleTarget - mDutyCycle < 5) mSpeed *= 0.90;
-	Robot.drivetrain.gyroStraightDrive(mSpeed);
-	mDutyCycle++;
+	mCurrentAngle = gyroscope.getAngle();
+	cPT = -mCurrentAngle * kP;
+	if (mSpeed < 0) cPT *= -1;
+	SmartDashboard.putNumber("Gyroscope cPT", cPT);
+	Robot.drivetrain.drive(mSpeed, cPT);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-	return (mDutyCycle == mDutyCycleTarget) 
-		|| isTimedOut();
+	return isTimedOut();
     }
 
     // Called once after isFinished returns true

@@ -141,10 +141,9 @@ public class Robot extends IterativeRobot {
 
     public void report() {
 	SmartDashboard.putNumber("Gyroscope Value", Robot.drivetrain.getGyroAngle());
-	SmartDashboard.putNumber("Gyroscope cPT", Robot.drivetrain.getcPT());
 	SmartDashboard.putNumber("X-Axis Logitech Request (NEG)", -Robot.oi.getLJoyX());
 	SmartDashboard.putNumber("Y-Axis Logitech Request (NEG)", -Robot.oi.getLJoyY());
-
+	
 	double[] work = Robot.drivetrain.getMotorPWMS();
 	SmartDashboard.putNumber("Front Left PWM", work[0]);
 	SmartDashboard.putNumber("Rear Left PWM", work[1]);
