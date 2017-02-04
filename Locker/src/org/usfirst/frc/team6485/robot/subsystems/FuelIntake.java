@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class FuelIntake extends Subsystem {
     
-    private VictorSP roller = new VictorSP(RobotMap.FuelIntakeMotor);
+    private VictorSP roller = new VictorSP(RobotMap.FUEL_INTAKE_MOTOR);
     private double mActual;
     private double kSpeedNormal= 1.00;
     

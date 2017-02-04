@@ -32,19 +32,18 @@ public class GyroscopeTurn extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-	mStartAngle = Robot.drivetrain.getGyroAngle();
+	mStartAngle = Robot.drivetrain.getGyro().getAngle();
 	mTargetAngle = mStartAngle + mAngleRequest;
 	setTimeout(7);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-	mCurrentAngle = Robot.drivetrain.getGyroAngle();
+	mCurrentAngle = Robot.drivetrain.getGyro().getAngle();
 	mError = mTargetAngle - mCurrentAngle;
 	mABSError = Math.abs(mError);
 
 	// -(1/9)x^2+100, x = 30 - x
-
 	if (mABSError >= 30.00) mMultiplier = 1.00;
 	else if (mABSError < 30.00 && mABSError >= 14.972) 
 	    mMultiplier = (-(1.00/9.00) * Math.pow(30.00 - mABSError, 2.00) + 100.00) / 100.00;

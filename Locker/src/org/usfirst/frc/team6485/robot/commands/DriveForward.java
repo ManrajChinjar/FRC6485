@@ -21,10 +21,8 @@ public class DriveForward extends Command {
     // ASSUMES THAT THE ROBORIO WILL OPERATE AT 50 HERTZ
     // TODO Also allow metre distance via future averaged encoder units
 
-    private double mSpeed;
-    
-    private final double kP = 0.020;
-    private double mCurrentAngle, cPT;
+    private final double kP = 1.0 / 50.0;
+    private double mCurrentAngle, mSpeed, cPT;
     private Gyro gyroscope = Robot.drivetrain.getGyro();
 
     /**

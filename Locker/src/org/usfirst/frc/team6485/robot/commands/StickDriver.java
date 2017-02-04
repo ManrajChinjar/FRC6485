@@ -19,7 +19,7 @@ public class StickDriver extends Command {
     mLYAxisRequest, 
     mXXAxisRequestL, 
     mXYAxisRequestL,
-    mXYAxisRequestR;
+    mXYAxisRequestR;  
 
     public StickDriver() {
 	// Use requires() here to declare subsystem dependencies
@@ -29,6 +29,23 @@ public class StickDriver extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
 	System.out.println("I'll try spinning. That's a good trick.");
+    }
+    
+    private void flank() {
+	if (!mThreadFlankSet) {
+	    mDutyCycleInitial = mDutyCycle;
+	    Robot.drivetrain.arcadeDrive(0.75, 0);
+	    mThreadFlankSet = true;
+	}
+	else {
+	    if (mDutyCycleDelta <= 100) {
+		Robot.drivetrain.flankSpeed();
+	    }
+	    else {
+		Robot.drivetrain.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
+	    }
+	}
+	
     }
 
     private void logitechControl() {
@@ -44,20 +61,7 @@ public class StickDriver extends Command {
 	    }
 	}
 	else {
-	    if (!mThreadFlankSet) {
-		mDutyCycleInitial = mDutyCycle;
-		Robot.drivetrain.flankSpeed();
-		mThreadFlankSet = true;
-	    }
-	    else {
-		if (mDutyCycleDelta <= 100) {
-		    Robot.drivetrain.flankSpeed();
-		}
-		else {
-
-		    Robot.drivetrain.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
-		}
-	    }
+	    flank();
 	}
     }
 

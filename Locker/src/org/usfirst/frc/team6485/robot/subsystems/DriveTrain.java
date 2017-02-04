@@ -17,10 +17,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveTrain extends Subsystem {
 
-    private final Spark mFrontLeftMotor = new Spark(RobotMap.FrontLeftMotor);
-    private final Spark mRearLeftMotor = new Spark(RobotMap.RearLeftMotor);
-    private final Spark mFrontRightMotor = new Spark(RobotMap.FrontRightMotor);
-    private final Spark mRearRightMotor = new Spark(RobotMap.RearRightMotor);
+    private final Spark mFrontLeftMotor = new Spark(RobotMap.FRONT_LEFT_MOTOR);
+    private final Spark mRearLeftMotor = new Spark(RobotMap.REAR_LEFT_MOTOR);
+    private final Spark mFrontRightMotor = new Spark(RobotMap.FRONT_RIGHT_MOTOR);
+    private final Spark mRearRightMotor = new Spark(RobotMap.REAR_RIGHT_MOTOR);
     private RobotDrive engine;
 
     private ADXRS450_Gyro gyroscope = new ADXRS450_Gyro();

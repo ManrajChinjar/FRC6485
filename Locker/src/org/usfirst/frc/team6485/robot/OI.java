@@ -19,7 +19,7 @@ public class OI {
 
     // LOGITECH EXTREME 3D PRO CONTROLS
 
-    public Joystick logitechController = new Joystick(RobotMap.LogitechPort);
+    public Joystick logitechController = new Joystick(RobotMap.LOGITECH_PORT);
 
     /**
      * 
@@ -71,7 +71,7 @@ public class OI {
 
     // XBOX CONTROLS
 
-    public Joystick xboxController = new Joystick(RobotMap.XBOXPort);
+    public Joystick xboxController = new Joystick(RobotMap.XBOX_PORT);
 
     public double getXBOXLeftJoyX() {
 	return xboxController.getRawAxis(0);
