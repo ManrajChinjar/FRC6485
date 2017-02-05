@@ -1,6 +1,7 @@
 package org.usfirst.frc.team6485.robot;
 
 import org.usfirst.frc.team6485.robot.commands.TestCaseDriveSquarePerimeter;
+import org.usfirst.frc.team6485.robot.commands.AutoDriveCurve;
 import org.usfirst.frc.team6485.robot.commands.GyroscopeTurn;
 import org.usfirst.frc.team6485.robot.commands.IntakeStart;
 import org.usfirst.frc.team6485.robot.commands.IntakeStop;

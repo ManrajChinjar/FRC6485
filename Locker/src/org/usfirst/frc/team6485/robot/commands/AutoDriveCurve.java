@@ -5,7 +5,7 @@ import org.usfirst.frc.team6485.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * <i>Kyle Saburao 2017</i>
  */
 public class AutoDriveCurve extends Command {
     
@@ -13,8 +13,16 @@ public class AutoDriveCurve extends Command {
     private double mCurve;
     private double mTime;
     
+    /**
+     * Drives the robot according to three parameters.
+     * This effectively mimics a periodic call of .drive() from the DriveTrain for <i>t</i> amount of seconds.
+     * @param speed The drive train speed [-1, 1]
+     * @param curve The curve of the trajectory [-1, 1]
+     * @param time The time of the drive (t|t > 0, t = R)
+     */
     public AutoDriveCurve(double speed, double curve, double time) {
 	requires(Robot.drivetrain);
+	if (time < 0) time = 0;
 	setTimeout(time);
 	mSpeed = speed;
 	mCurve = curve;

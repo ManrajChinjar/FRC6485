@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  * Test case that will drive a robot along a square perimeter.<br>
  * Will return to original position and orientation if the drive train is working properly.<br>
  * <br>
- * Line: 0.65 speed for 2 seconds<br>
+ * Line: 0.65 speed for 3 seconds<br>
  * Rotation: 90 degrees right<br>
  * <br>
  * <i>Kyle Saburao 2017</i>

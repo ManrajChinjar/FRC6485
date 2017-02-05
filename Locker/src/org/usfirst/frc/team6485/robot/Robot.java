@@ -16,9 +16,9 @@ import org.usfirst.frc.team6485.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
 
 /**
- * <b>SOFTWARE DEVELOPMENT TEAM:</b>
+ * <b>SOFTWARE DEVELOPMENT:</b>
  * <br>
- * Kyle Saburao - <i>Main and lead</i>
+ * Kyle Saburao - <i>Main</i>
  */
 public class Robot extends IterativeRobot {
 

@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 
 /**
  * Starts the intake motor to its standard running PWM setting.
+ * <br><br>
+ * <i>Kyle Saburao 2017</i>
  */
 public class IntakeStart extends InstantCommand {
 

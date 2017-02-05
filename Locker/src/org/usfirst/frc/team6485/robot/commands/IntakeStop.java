@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 
 /**
  * Stops the intake motor.
+ * <br><br>
+ * <i>Kyle Saburao 2017</i>
  */
 public class IntakeStop extends InstantCommand {
 

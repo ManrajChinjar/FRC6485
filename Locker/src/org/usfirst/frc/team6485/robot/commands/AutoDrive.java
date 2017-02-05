@@ -35,9 +35,10 @@ public class AutoDrive extends Command {
      */
     public AutoDrive(double speed, double time) {
 	requires(Robot.drivetrain);
+	if (time < 0) time = 0;
 	setTimeout(time);
-	this.mSpeed = speed;
-	this.mTime = time;
+	mSpeed = speed;
+	mTime = time;
     }
 
     // Called just before this Command runs the first time

@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
+ * Fuel Intake subsystem.
  * <br><br>
  * <i>Kyle Saburao 2017</i>
  */
