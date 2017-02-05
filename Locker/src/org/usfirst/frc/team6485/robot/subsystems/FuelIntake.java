@@ -48,14 +48,6 @@ public class FuelIntake extends Subsystem {
 	roller.setSpeed(0);
 	setDirectionalState();
     }
-    
-    /**
-     * Instantly reverse the direction of the intake motor at its current magnitude.
-     */
-    public void switchDirection() {
-	kSpeedNormal *= -1.00;
-	setDirectionalState();
-    }
 
     /**
      * Sets the PWM parameter of the intake motor according to the standard PWM range.
