@@ -54,6 +54,7 @@ public class FuelIntake extends Subsystem {
      */
     public void switchDirection() {
 	kSpeedNormal *= -1.00;
+	setDirectionalState();
     }
 
     /**
@@ -84,13 +85,15 @@ public class FuelIntake extends Subsystem {
     }
     
     /**
-     * 
      * @return The PWM rate of the intake motor.
      */
     public double getSpeed() {
 	return roller.getSpeed();
     }
     
+    /**
+     * @return The directional state of the fuel intake motor controller as a State enum.
+     */
     public State getDirectionalState() {
 	return state;
     }
