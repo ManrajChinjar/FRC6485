@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * <br><br>
  * <i>Kyle Saburao 2017</i>
  */
-public class DriveForward extends Command {
+public class AutoDrive extends Command {
 
     // ASSUMES THAT THE ROBORIO WILL OPERATE AT 50 HERTZ
     // TODO Also allow metre distance via future averaged encoder units
@@ -33,7 +33,7 @@ public class DriveForward extends Command {
      * while not working at all means that it's too low.
      * @param speed A double value within the range [-1, 1] back or forth
      */
-    public DriveForward(double speed, double time) {
+    public AutoDrive(double speed, double time) {
 	requires(Robot.drivetrain);
 	setTimeout(time);
 	this.mSpeed = speed;

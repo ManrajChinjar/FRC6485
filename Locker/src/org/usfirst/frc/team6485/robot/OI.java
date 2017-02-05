@@ -1,6 +1,6 @@
 package org.usfirst.frc.team6485.robot;
 
-import org.usfirst.frc.team6485.robot.commands.DriveSquareShape;
+import org.usfirst.frc.team6485.robot.commands.TestCaseDriveSquarePerimeter;
 import org.usfirst.frc.team6485.robot.commands.GyroscopeTurn;
 import org.usfirst.frc.team6485.robot.commands.IntakeStart;
 import org.usfirst.frc.team6485.robot.commands.IntakeStop;
@@ -102,7 +102,7 @@ public class OI {
 	new JoystickButton(logitechController, 5).whenPressed(new IntakeStart());
 	new JoystickButton(logitechController, 6).whenPressed(new IntakeStop());
 	new JoystickButton(logitechController, 9).whenPressed(new TestCaseSpin());
-	new JoystickButton(logitechController, 10).whenPressed(new DriveSquareShape());
+	new JoystickButton(logitechController, 10).whenPressed(new TestCaseDriveSquarePerimeter());
 	new JoystickButton(logitechController, 11).whenPressed(new GyroscopeTurn(-90));
 	new JoystickButton(logitechController, 12).whenPressed(new GyroscopeTurn(90));
     }

@@ -7,17 +7,18 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveWithCurve extends Command {
+public class AutoDriveCurve extends Command {
     
     private double mSpeed;
     private double mCurve;
     private double mTime;
     
-    public DriveWithCurve(double speed, double curve, double time) {
+    public AutoDriveCurve(double speed, double curve, double time) {
 	requires(Robot.drivetrain);
 	setTimeout(time);
-	this.mSpeed = speed;
-	this.mCurve = curve;
+	mSpeed = speed;
+	mCurve = curve;
+	mTime = time;
     }
 
     // Called just before this Command runs the first time
