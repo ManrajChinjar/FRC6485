@@ -22,7 +22,7 @@ public class DriveForward extends Command {
     // TODO Also allow metre distance via future averaged encoder units
 
     private final double kP = 1.0 / 50.0;
-    private double mCurrentAngle, mSpeed, cPT;
+    private double mCurrentAngle, mSpeed, cPT, mTime;
     private Gyro gyroscope = Robot.drivetrain.getGyro();
 
     /**
@@ -37,11 +37,13 @@ public class DriveForward extends Command {
 	requires(Robot.drivetrain);
 	setTimeout(time);
 	this.mSpeed = speed;
+	this.mTime = time;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
 	gyroscope.reset();
+	System.out.println(String.format("Driving at %.2f for %.2f seconds.", mSpeed, mTime));
     }
 
     // Called repeatedly when this Command is scheduled to run

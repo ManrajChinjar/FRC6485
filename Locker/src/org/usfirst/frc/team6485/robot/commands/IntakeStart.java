@@ -5,7 +5,7 @@ import org.usfirst.frc.team6485.robot.Robot;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 
 /**
- *
+ * Starts the intake motor to its standard running PWM setting.
  */
 public class IntakeStart extends InstantCommand {
 

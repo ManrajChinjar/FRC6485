@@ -52,7 +52,7 @@ public class DriveTrain extends Subsystem {
 	setDefaultCommand(new StickDriver());
     }
 
-    private static double mFixArgument(double num) {
+    private double mFixArgument(double num) {
 	if (num > 0.95) {
 	    num = 0.95;
 	} 

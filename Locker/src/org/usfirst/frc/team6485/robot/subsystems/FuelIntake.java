@@ -12,45 +12,86 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class FuelIntake extends Subsystem {
     
     private VictorSP roller = new VictorSP(RobotMap.FUEL_INTAKE_MOTOR);
-    private double mActual;
+    private double mReq;
     private double kSpeedNormal= 1.00;
     
-    public boolean IntakeRunning;
+    public enum State {
+	IN, HALT, EXFIL
+    }
+    private State state;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
+    
+    /**
+     * Internal method to set the State enum of the motor controller.
+     */
+    private void setDirectionalState() {
+	double speed = roller.getSpeed();
+	if (speed == 0) {
+	    state = State.HALT;
+	}
+	else {
+	    if (speed > 0) {
+		state = State.IN;
+	    }
+	    else if (speed < 0) {
+		state = State.EXFIL;
+	    }
+	}
+    }
     
     public FuelIntake() {
 	// Run all the time
 	roller.setSafetyEnabled(false);
 	roller.setSpeed(0);
-	IntakeRunning = false;
+	setDirectionalState();
     }
     
+    /**
+     * Instantly reverse the direction of the intake motor at its current magnitude.
+     */
     public void switchDirection() {
 	kSpeedNormal *= -1.00;
     }
 
+    /**
+     * Sets the PWM parameter of the intake motor according to the standard PWM range.
+     * @param speed double [-1.00, 1.00]
+     */
     public void setSpeed(double speed) {
-	if (speed > 1) mActual = 1;
-	else if (speed < -1) mActual = -1;
-	roller.setSpeed(mActual);
-	if (mActual != 0) IntakeRunning = true;
-	else IntakeRunning = false;
+	if (speed > 1) mReq = 1.00;
+	else if (speed < -1) mReq = -1.00;
+	roller.setSpeed(mReq);
+	setDirectionalState();
     }
     
+    /**
+     * Starts the intake motor.
+     */
     public void start() {
-	IntakeRunning = true;
 	roller.setSpeed(kSpeedNormal);
+	setDirectionalState();
     }
     
+    /**
+     * Stops the intake motor.
+     */
     public void stop() {
-	IntakeRunning = false;
 	roller.setSpeed(0);
+	setDirectionalState();
     }
     
+    /**
+     * 
+     * @return The PWM rate of the intake motor.
+     */
     public double getSpeed() {
 	return roller.getSpeed();
+    }
+    
+    public State getDirectionalState() {
+	return state;
     }
     
     public void initDefaultCommand() {
@@ -59,4 +100,3 @@ public class FuelIntake extends Subsystem {
     }
     
 }
-

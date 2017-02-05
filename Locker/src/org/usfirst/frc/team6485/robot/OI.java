@@ -5,6 +5,7 @@ import org.usfirst.frc.team6485.robot.commands.GyroscopeTurn;
 import org.usfirst.frc.team6485.robot.commands.IntakeStart;
 import org.usfirst.frc.team6485.robot.commands.IntakeStop;
 import org.usfirst.frc.team6485.robot.commands.TestCaseSpin;
+import org.usfirst.frc.team6485.robot.subsystems.FuelIntake.State;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -98,9 +99,8 @@ public class OI {
     }
 
     public OI() {
-	new JoystickButton(logitechController, 8).whenPressed(
-		Robot.fuelintake.IntakeRunning ? new IntakeStop() : new IntakeStart()
-		);
+	new JoystickButton(logitechController, 5).whenPressed(new IntakeStart());
+	new JoystickButton(logitechController, 6).whenPressed(new IntakeStop());
 	new JoystickButton(logitechController, 9).whenPressed(new TestCaseSpin());
 	new JoystickButton(logitechController, 10).whenPressed(new DriveSquareShape());
 	new JoystickButton(logitechController, 11).whenPressed(new GyroscopeTurn(-90));

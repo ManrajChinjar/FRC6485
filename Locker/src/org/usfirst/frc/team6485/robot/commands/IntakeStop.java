@@ -5,7 +5,7 @@ import org.usfirst.frc.team6485.robot.Robot;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 
 /**
- *
+ * Stops the intake motor.
  */
 public class IntakeStop extends InstantCommand {
 

@@ -24,8 +24,10 @@ public class Robot extends IterativeRobot {
 
     public static OI oi;
 
-    public static boolean inAuto;
-    public static boolean inTeleOp;
+    public enum RunningMode {
+	DISABLED, TELEOP, AUTO
+    }
+    public static RunningMode robotMode;
 
     // SUBSYSTEMS
     public static final DriveTrain drivetrain = new DriveTrain();
@@ -58,12 +60,14 @@ public class Robot extends IterativeRobot {
     public void disabledInit() {
 	// STOP INTAKE ROLLER
 	new IntakeStop();
+	robotMode = RunningMode.DISABLED;
     }
 
 
     @Override
     public void disabledPeriodic() {
 	Scheduler.getInstance().run();
+	report();
     }
 
 
@@ -80,10 +84,9 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
-	inAuto = true;
-	inTeleOp = false;
 	// START INTAKE ROLLER
 	new IntakeStart();
+	robotMode = RunningMode.AUTO;
 	autonomousCommand = chooser.getSelected();
 
 	/*
@@ -104,6 +107,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousPeriodic() {
 	Scheduler.getInstance().run();
+	report();
     }
 
     @Override
@@ -115,11 +119,10 @@ public class Robot extends IterativeRobot {
 
 	// START INTAKE ROLLER
 	new IntakeStart();
+	robotMode = RunningMode.TELEOP;
 
-	inAuto = false;
 	if (autonomousCommand != null)
 	    autonomousCommand.cancel();
-	inTeleOp = true;
     }
 
     /**
@@ -149,6 +152,8 @@ public class Robot extends IterativeRobot {
 	SmartDashboard.putNumber("Rear Left PWM", work[1]);
 	SmartDashboard.putNumber("Front Right PWM", work[2]);
 	SmartDashboard.putNumber("Rear Right PWM", work[3]);
+	
+	SmartDashboard.putNumber("Intake PWM", Robot.fuelintake.getSpeed());
     }
 
 }

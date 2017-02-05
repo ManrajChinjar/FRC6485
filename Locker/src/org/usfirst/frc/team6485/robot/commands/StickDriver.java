@@ -30,7 +30,11 @@ public class StickDriver extends Command {
     protected void initialize() {
 	System.out.println("I'll try spinning. That's a good trick.");
     }
-    
+
+    private void intakeHandler() {
+	Robot.fuelintake.setSpeed(mLYAxisRequest);
+    }
+
     private void flank() {
 	if (!mThreadFlankSet) {
 	    mDutyCycleInitial = mDutyCycle;
@@ -45,7 +49,7 @@ public class StickDriver extends Command {
 		Robot.drivetrain.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
 	    }
 	}
-	
+
     }
 
     private void logitechControl() {
@@ -99,7 +103,12 @@ public class StickDriver extends Command {
 	mDutyCycleDelta = mDutyCycle - mDutyCycleInitial;
 
 	if (Robot.oi.getLMainTrigger()) {
-	    logitechControl();
+	    if (Robot.oi.getLButtonPressed(3)) {
+		intakeHandler();
+	    }
+	    else {
+		logitechControl();
+	    }
 	}
 	else if (Robot.oi.getXBOXSafety()) {
 	    xboxControl();
