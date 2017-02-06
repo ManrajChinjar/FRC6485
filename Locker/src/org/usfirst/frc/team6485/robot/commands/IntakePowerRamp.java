@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  * <i>Kyle Saburao 2017</i>
  */
 public class IntakePowerRamp extends Command {
-    
+
     private double mStartSpeed, mTargetSpeed;
     private double mPowerPerCycle, mPowerAccumulator = 0;
     private final double mRampTimeSeconds = 0.25;
@@ -19,13 +19,14 @@ public class IntakePowerRamp extends Command {
     public IntakePowerRamp(double speed) {
 	requires(Robot.fuelintake);
 	mTargetSpeed = speed;
-	mStartSpeed = Robot.fuelintake.getSpeed();
-	mPowerPerCycle = (mTargetSpeed - mStartSpeed) / (double) mRampTargetCycles;
-	mPowerAccumulator = mStartSpeed;
+
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+	mStartSpeed = Robot.fuelintake.getSpeed();
+	mPowerPerCycle = (mTargetSpeed - mStartSpeed) / (double) mRampTargetCycles;
+	mPowerAccumulator = mStartSpeed;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -42,7 +43,7 @@ public class IntakePowerRamp extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (mRampCycles == mRampTargetCycles);
+	return (mRampCycles == mRampTargetCycles);
     }
 
     // Called once after isFinished returns true

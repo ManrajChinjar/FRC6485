@@ -23,7 +23,7 @@ public class IntakeReversal extends InstantCommand {
     // Called once when the command executes
     protected void initialize() {
 	if (Robot.fuelintake.getDirectionalState() == IntakeState.HALT) {
-	    Robot.fuelintake.startExfil();
+	    Robot.fuelintake.set(IntakeState.EXFIL);
 	}
 	else Robot.fuelintake.reverseSpeed();
     }

@@ -117,6 +117,20 @@ public class FuelIntake extends Subsystem {
 	setDirectionalState();
 	return intakeState;
     }
+    
+    public void set(IntakeState state) {
+	switch (state) {
+	case HALT:
+	    stop();
+	    break;
+	case IN:
+	    start();;
+	    break;
+	case EXFIL:
+	    startExfil();
+	    break;
+	}
+    }
 
     public void initDefaultCommand() {
 	// Set the default command for a subsystem here.

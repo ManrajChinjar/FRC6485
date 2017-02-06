@@ -1,6 +1,7 @@
 package org.usfirst.frc.team6485.robot.commands;
 
 import org.usfirst.frc.team6485.robot.Robot;
+import org.usfirst.frc.team6485.robot.subsystems.FuelIntake.IntakeState;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 
@@ -18,7 +19,7 @@ public class IntakeStart extends InstantCommand {
 
     // Called once when the command executes
     protected void initialize() {
-	Robot.fuelintake.start();
+	Robot.fuelintake.set(IntakeState.IN);
     }
 
 }

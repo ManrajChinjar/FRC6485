@@ -37,10 +37,6 @@ public class StickDriver extends Command {
 	System.out.println("I'll try spinning. That's a good trick.");
     }
 
-    private void intakeHandler(double speed) {
-	Robot.fuelintake.setSpeed(speed);
-    }
-
     private void logitechControl() {
 	if (Robot.oi.getLButtonPressed(2)) {
 	    Robot.drivetrain.forwardBackDrive(mLYAxisRequest);	
