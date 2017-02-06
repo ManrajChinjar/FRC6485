@@ -19,7 +19,6 @@ public class IntakePowerRamp extends Command {
     public IntakePowerRamp(double speed) {
 	requires(Robot.fuelintake);
 	mTargetSpeed = speed;
-
     }
 
     // Called just before this Command runs the first time
@@ -32,7 +31,8 @@ public class IntakePowerRamp extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 	mPowerAccumulator += mPowerPerCycle;
-	if (Math.abs(Robot.fuelintake.getSpeed() - mTargetSpeed) < 0.1) {
+	if ((Math.abs(Robot.fuelintake.getSpeed() - mTargetSpeed) < 0.1) 
+		|| mRampTargetCycles - 1 <= mRampCycles) { // Ensure that the final speed is always set.
 	    Robot.fuelintake.setSpeed(mTargetSpeed);
 	}
 	else {
