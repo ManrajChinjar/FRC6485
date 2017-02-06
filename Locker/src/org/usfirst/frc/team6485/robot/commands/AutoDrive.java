@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Executes drive train movement either back or forth for a specified time period.<br>
- * Only use seconds accurate to one decimal place.<br>
  * <br>
  * <b>Arguments:</b> double speed, double time<br>
  * <br>
