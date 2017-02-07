@@ -23,7 +23,7 @@ public class IntakePowerRamp extends Command {
      * or other problems.
      * 
      * @param speed
-     *            -1 is full intake, 1 is full reverse, 0 is stop.
+     *            1.0 is full intake, -1.0 is full reverse, 0.0 is stop.
      */
     public IntakePowerRamp(double speed) {
 	requires(Robot.fuelintake);
