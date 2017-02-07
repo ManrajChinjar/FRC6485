@@ -67,10 +67,6 @@ public class StickDriver extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    // TODO Run all motors at 50% (0.5) power to see which ones require inversion.
-    // Argument inversion is temporary while I figure out the final motor inversions.
-    // In addition, have a deadzone for the rotation axis (~5% either side) 
-    // where effectively 0 rotational request forces the robot to drive straight using the gyroscope.
     protected void execute() {
 	mLXAxisRequest = -Robot.oi.getLJoyX() * Robot.oi.getLSliderScale();
 	mLYAxisRequest = -Robot.oi.getLJoyY() * Robot.oi.getLSliderScale();

@@ -39,7 +39,7 @@ public class GyroscopeTurn extends Command {
 	mError = mTargetAngle - mCurrentAngle;
 
 	mTurnSpeed = ((mAngleRequest < 0.00) ? mBaseTurnSpeed : -mBaseTurnSpeed);
-	Robot.drivetrain.arcadeDrive(0, mTurnSpeed);
+	Robot.drivetrain.turnOnSpot(mTurnSpeed);
 
 	SmartDashboard.putNumber("Gyro turn start angle", mStartAngle);
 	SmartDashboard.putNumber("Gyro turn target angle", mTargetAngle);
