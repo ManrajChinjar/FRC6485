@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class GyroscopeTurn extends Command {
 
     private double mCurrentAngle, mAngleRequest, mStartAngle, mTargetAngle, mTurnSpeed, mError;
-    private final double mBaseTurnSpeed = 0.55, mAngularTolerance = 0.75;
+    private final double mBaseTurnSpeed = 0.55, mSlowTurnSpeed = 0.45, mAngularTolerance = 0.75;
 
     /**
      * 
@@ -40,11 +40,16 @@ public class GyroscopeTurn extends Command {
 	mCurrentAngle = Robot.drivetrain.getGyro().getAngle();
 	mError = mTargetAngle - mCurrentAngle;
 
-	mTurnSpeed = ((mAngleRequest < 0.00) ? mBaseTurnSpeed : -mBaseTurnSpeed);
+	if (Math.abs(mError) > 10) {
+	    mTurnSpeed = ((mAngleRequest < 0.00) ? mBaseTurnSpeed : -mBaseTurnSpeed);
+	} else {
+	    mTurnSpeed = ((mAngleRequest < 0.00) ? mSlowTurnSpeed : -mSlowTurnSpeed);
+	}
 	Robot.drivetrain.turnOnSpot(mTurnSpeed);
 
 	SmartDashboard.putNumber("Gyro turn start angle", mStartAngle);
 	SmartDashboard.putNumber("Gyro turn target angle", mTargetAngle);
+	SmartDashboard.putNumber("Gyro turn speed", mTurnSpeed);
 	SmartDashboard.putNumber("Gyro turn error", mError);
     }
 

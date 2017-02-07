@@ -32,12 +32,12 @@ public class FuelIntake extends Subsystem {
      */
     private void setDirectionalState() {
 	double speed = roller.getSpeed();
-	if (speed == 0) {
+	if (speed == 0.0) {
 	    intakeState = IntakeState.HALT;
 	} else {
-	    if (speed > 0) {
+	    if (speed > 0.0) {
 		intakeState = IntakeState.IN;
-	    } else if (speed < 0) {
+	    } else if (speed < 0.0) {
 		intakeState = IntakeState.EVACUATE;
 	    }
 	}
@@ -46,7 +46,7 @@ public class FuelIntake extends Subsystem {
     public FuelIntake() {
 	// Run all the time
 	roller.setSafetyEnabled(false);
-	roller.setSpeed(0);
+	roller.setSpeed(0.0);
 	setDirectionalState();
 	roller.setInverted(true);
     }
@@ -59,9 +59,9 @@ public class FuelIntake extends Subsystem {
      *            double [-1.00, 1.00]
      */
     public void setSpeed(double speed) {
-	if (speed > 1)
+	if (speed > 1.0)
 	    mReq = 1.00;
-	else if (speed < -1)
+	else if (speed < -1.0)
 	    mReq = -1.00;
 	roller.setSpeed(mReq);
 	setDirectionalState();
@@ -98,7 +98,7 @@ public class FuelIntake extends Subsystem {
      * Stops the intake motor.
      */
     public void stop() {
-	roller.setSpeed(0);
+	roller.setSpeed(0.0);
 	setDirectionalState();
     }
 
@@ -133,8 +133,6 @@ public class FuelIntake extends Subsystem {
     }
 
     public void initDefaultCommand() {
-	// Set the default command for a subsystem here.
-	// setDefaultCommand(new MySpecialCommand());
     }
 
     public double getNormalIntakeSpeed() {
