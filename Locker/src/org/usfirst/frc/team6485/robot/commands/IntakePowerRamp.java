@@ -36,7 +36,7 @@ public class IntakePowerRamp extends Command {
     protected void execute() {
 	mPowerAccumulator += mPowerPerCycle;
 	if ((Math.abs(Robot.fuelintake.getSpeed() - mTargetSpeed) < 0.1) 
-		|| mRampTargetCycles - 1 <= mRampCycles) { // Ensure that the final speed is always set.
+		|| mRampTargetCycles - mRampCycles <= 1) { // Ensure that the final speed is always set.
 	    Robot.fuelintake.setSpeed(mTargetSpeed);
 	}
 	else {
