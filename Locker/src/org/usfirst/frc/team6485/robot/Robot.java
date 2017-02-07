@@ -25,6 +25,7 @@ public class Robot extends IterativeRobot {
     public enum RunningMode {
 	DISABLED, TELEOP, AUTO
     }
+
     public static RunningMode robotMode;
 
     // SUBSYSTEMS
@@ -45,7 +46,7 @@ public class Robot extends IterativeRobot {
 	chooser.addDefault("Default Auto", new ExampleCommand());
 	chooser.addObject("Intake Drive Test", new TestAuto());
 	// chooser.addObject("My Auto", new MyAutoCommand());
-	
+
 	SmartDashboard.putData("Auto mode", chooser);
 	SmartDashboard.putData("Drive Train", drivetrain);
     }
@@ -172,8 +173,8 @@ public class Robot extends IterativeRobot {
 	case IN:
 	    intakeenum = "IN";
 	    break;
-	case EXFIL: 
-	    intakeenum = "EXFIL";
+	case EVACUATE:
+	    intakeenum = "EVACUATE";
 	    break;
 	}
 	SmartDashboard.putNumber("Intake PWM", Robot.fuelintake.getSpeed());

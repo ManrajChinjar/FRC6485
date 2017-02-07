@@ -9,15 +9,18 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * Delays a command group for a specified amount of seconds.<br>
  * 60 seconds maximum.
+ * 
  * @author Kyle Saburao
  */
 public class Delay extends Command {
-    
+
     private double mStartTime, mTimeLength;
-    
+
     /**
      * Analogous to a wait function.
-     * @param seconds The time to halt the entire system.
+     * 
+     * @param seconds
+     *            The time to halt the entire system.
      */
     public Delay(double seconds) {
 	mTimeLength = seconds;

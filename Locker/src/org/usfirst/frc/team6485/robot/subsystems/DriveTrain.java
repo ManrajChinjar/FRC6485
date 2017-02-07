@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * <br>
  * Forwards: 1, Back: -1<br>
  * Left: 1, Right: -1
+ * 
  * @author Kyle Saburao
  */
 public class DriveTrain extends Subsystem {
@@ -25,17 +26,12 @@ public class DriveTrain extends Subsystem {
 
     private ADXRS450_Gyro gyroscope = new ADXRS450_Gyro();
 
-    //	public double BaseAngle;
-    //	public boolean GyroFlag;
+    // public double BaseAngle;
+    // public boolean GyroFlag;
 
     // Initialize drive train
     public DriveTrain() {
-	engine = new RobotDrive(
-		mFrontLeftMotor,
-		mRearLeftMotor, 
-		mFrontRightMotor, 
-		mRearRightMotor
-		);
+	engine = new RobotDrive(mFrontLeftMotor, mRearLeftMotor, mFrontRightMotor, mRearRightMotor);
 
 	engine.setSafetyEnabled(true);
 	engine.setExpiration(0.10);
@@ -55,8 +51,7 @@ public class DriveTrain extends Subsystem {
     private double mFixArgument(double num) {
 	if (num > 0.95) {
 	    num = 0.95;
-	} 
-	else if (num < -0.95) {
+	} else if (num < -0.95) {
 	    num = -0.95;
 	}
 	return num;
@@ -64,10 +59,14 @@ public class DriveTrain extends Subsystem {
 
     /**
      * Standard tank drive controls.<br>
-     * Bad arguments outside of [-1, 1] are truncated down to the limits. No scaling is preserved.
-     * @param leftStick Left Motor Group request
-     * @param rightStick Right Motor Group request
-     */ 
+     * Bad arguments outside of [-1, 1] are truncated down to the limits. No
+     * scaling is preserved.
+     * 
+     * @param leftStick
+     *            Left Motor Group request
+     * @param rightStick
+     *            Right Motor Group request
+     */
     public void tankDrive(double leftStick, double rightStick) {
 	leftStick = mFixArgument(leftStick);
 	rightStick = mFixArgument(rightStick);
@@ -76,32 +75,42 @@ public class DriveTrain extends Subsystem {
 
     /**
      * Standard arcade drive controls.<br>
-     * Bad arguments outside of [-1, 1] are truncated down to the limits. No scaling is preserved.
-     * @param leftStick Forward and backwards request
-     * @param rightStick Turning request
+     * Bad arguments outside of [-1, 1] are truncated down to the limits. No
+     * scaling is preserved.
+     * 
+     * @param leftStick
+     *            Forward and backwards request
+     * @param rightStick
+     *            Turning request
      */
     public void arcadeDrive(double leftStick, double rightStick) {
 	leftStick = mFixArgument(leftStick);
 	rightStick = mFixArgument(rightStick);
 	engine.arcadeDrive(leftStick, rightStick);
     }
-    
+
     public void drive(double speed, double curve) {
 	engine.drive(speed, curve);
     }
 
     /**
      * Only allows the drive train to drive back and forth. <br>
-     * <b>WARNING:</b> MAY BE DEPRECATED WHEN THE GYROSCOPE cPT METHOD IS IMPROVED.
-     * @param speed Obvious (1 full forward, -1 full backwards)
+     * <b>WARNING:</b> MAY BE DEPRECATED WHEN THE GYROSCOPE cPT METHOD IS
+     * IMPROVED.
+     * 
+     * @param speed
+     *            Obvious (1 full forward, -1 full backwards)
      */
     public void forwardBackDrive(double speed) {
 	engine.tankDrive(speed, speed);
     }
 
     /**
-     * Only allows the drive train to conduct a point turn through arcade controls.
-     * @param turnrate Usually the x-axis analog request of the controller [-1, 1]
+     * Only allows the drive train to conduct a point turn through arcade
+     * controls.
+     * 
+     * @param turnrate
+     *            Usually the x-axis analog request of the controller [-1, 1]
      */
     public void turnOnSpot(double turnrate) {
 	engine.arcadeDrive(0, turnrate);
@@ -122,7 +131,9 @@ public class DriveTrain extends Subsystem {
     }
 
     /**
-     * The preferred way to get the gyroscope angle is call Robot.drivetrain.getGyro().getAngle()
+     * The preferred way to get the gyroscope angle is call
+     * Robot.drivetrain.getGyro().getAngle()
+     * 
      * @return The gyroscope of the drive train.
      */
     public ADXRS450_Gyro getGyro() {
@@ -136,7 +147,7 @@ public class DriveTrain extends Subsystem {
     public double getGyroAngle() {
 	return gyroscope.getAngle();
     }
-    
+
     /**
      * 
      * @return All of the motors PWM values as an array of 4 doubles.
@@ -154,5 +165,5 @@ public class DriveTrain extends Subsystem {
 
     public void update() {
     }
-    
+
 }

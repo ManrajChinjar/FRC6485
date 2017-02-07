@@ -9,11 +9,13 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Executes drive train movement either back or forth for a specified time period.<br>
+ * Executes drive train movement either back or forth for a specified time
+ * period.<br>
  * <br>
  * <b>Arguments:</b> double speed, double time<br>
  * <br>
  * TODO Allow metre distance via encoder units.
+ * 
  * @author Kyle Saburao
  */
 public class AutoDrive extends Command {
@@ -27,13 +29,18 @@ public class AutoDrive extends Command {
 
     /**
      * Drives forward and uses the gyroscope to maintain direction.
-     * @param speed The speed to drive
-     * @param time The time to drive
+     * 
+     * @param speed
+     *            The speed to drive
+     * @param time
+     *            The time to drive
      */
     public AutoDrive(double speed, double time) {
 	requires(Robot.drivetrain);
-	if (time < 0) time = 0;
-	setTimeout(time + 1.0); // Kills the command one second after its allotted window.
+	if (time < 0)
+	    time = 0;
+	setTimeout(time + 1.0); // Kills the command one second after its
+	// allotted window.
 	mSpeed = speed;
 	mTimeRequest = time;
     }
@@ -48,10 +55,12 @@ public class AutoDrive extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 	mCurrentAngle = gyroscope.getAngle();
-	// Gyroscope measurement increases to the right, but the drive train turn rate is negative the same direction.
+	// Gyroscope measurement increases to the right, but the drive train
+	// turn rate is negative the same direction.
 	// TODO Check if this is still the case.
-	cPT = mCurrentAngle * kP; 
-	if (mSpeed < 0) cPT *= -1;
+	cPT = mCurrentAngle * kP;
+	if (mSpeed < 0)
+	    cPT *= -1;
 	SmartDashboard.putNumber("Gyroscope cPT", cPT);
 	Robot.drivetrain.drive(mSpeed, cPT);
     }

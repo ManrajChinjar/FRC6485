@@ -5,6 +5,7 @@ package org.usfirst.frc.team6485.robot;
  * to a variable name. This provides flexibility changing wiring, makes checking
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.<br>
+ * 
  * @author Kyle Saburao
  */
 public class RobotMap {
@@ -14,11 +15,13 @@ public class RobotMap {
     public static final int FUEL_INTAKE_MOTOR = 4;
 
     public static final int LOGITECH_PORT = 0, XBOX_PORT = 1;
-    
+
     // Constants sheet
-    
+
     public static final double INTAKEPOWERRAMP_TIME_SECONDS = 1.0 / 4.0;
-    
+
+    public static final double INTAKENORMALPWM = 3.0 / 4.0;
+
     public static final double AUTODRIVE_KP = 1.0 / 50.0;
 
     // For example to map the left and right motors, you could define the

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
+ * 
  * @author Kyle Saburao
  */
 public class OI {
@@ -45,8 +46,8 @@ public class OI {
     }
 
     /**
-     * Return a double with range (0 - 1) on the slider scale
-     * with 0 with full drop and 1 as full raise.<br>
+     * Return a double with range (0 - 1) on the slider scale with 0 with full
+     * drop and 1 as full raise.<br>
      * The slider has a deadzone of 5% on either end.
      */
     public double getLSliderScale() {
@@ -78,7 +79,7 @@ public class OI {
 
     public double getXBOXLeftJoyY() {
 	return xboxController.getRawAxis(1);
-    }     	
+    }
 
     public double getXBOXRightJoyX() {
 	return xboxController.getRawAxis(4);
@@ -98,10 +99,14 @@ public class OI {
 
     public OI() {
 	// TODO Check if the fuel intake power ramping works.
-//	new JoystickButton(logitechController, 6).whenPressed(new IntakeStart());
-//	new JoystickButton(logitechController, 4).whenPressed(new IntakeStop());
-//	new JoystickButton(logitechController, 5).whenPressed(new IntakeReversal());
-	new JoystickButton(logitechController, 6).whenPressed(new IntakePowerRamp(Robot.fuelintake.getNormalIntakeSpeed()));
+	// new JoystickButton(logitechController, 6).whenPressed(new
+	// IntakeStart());
+	// new JoystickButton(logitechController, 4).whenPressed(new
+	// IntakeStop());
+	// new JoystickButton(logitechController, 5).whenPressed(new
+	// IntakeReversal());
+	new JoystickButton(logitechController, 6)
+	.whenPressed(new IntakePowerRamp(Robot.fuelintake.getNormalIntakeSpeed()));
 	new JoystickButton(logitechController, 4).whenPressed(new IntakePowerRamp(0.0));
 	new JoystickButton(logitechController, 5).whenPressed(new IntakeRampReversal());
 	new JoystickButton(logitechController, 11).whenPressed(new GyroscopeTurn(-90.0));

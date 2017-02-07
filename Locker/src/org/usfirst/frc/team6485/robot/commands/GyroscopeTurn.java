@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * to the starting orientation.<br>
  * <br>
  * <b>Arguments:</b> double angle (Negative turns left, positive turns right)
+ * 
  * @author Kyle Saburao
  */
 public class GyroscopeTurn extends Command {
@@ -19,7 +20,8 @@ public class GyroscopeTurn extends Command {
 
     /**
      * 
-     * @param angle double angle (Negative turns left, positive turns right)
+     * @param angle
+     *            double angle (Negative turns left, positive turns right)
      */
     public GyroscopeTurn(double angle) {
 	mAngleRequest = angle;

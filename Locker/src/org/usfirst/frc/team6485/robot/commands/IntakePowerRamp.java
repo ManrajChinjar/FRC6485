@@ -6,7 +6,9 @@ import org.usfirst.frc.team6485.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Performs integration to ramp the speed of the intake motor to smoothen current draw.
+ * Performs integration to ramp the speed of the intake motor to smoothen
+ * current draw.
+ * 
  * @author Kyle Saburao
  */
 public class IntakePowerRamp extends Command {
@@ -17,8 +19,11 @@ public class IntakePowerRamp extends Command {
     private int mRampCycles;
 
     /**
-     * Linearizes the power ramp of the intake motor to prevent voltage spikes or other problems.
-     * @param speed -1 is full intake, 1 is full reverse, 0 is stop.
+     * Linearizes the power ramp of the intake motor to prevent voltage spikes
+     * or other problems.
+     * 
+     * @param speed
+     *            -1 is full intake, 1 is full reverse, 0 is stop.
      */
     public IntakePowerRamp(double speed) {
 	requires(Robot.fuelintake);
@@ -36,10 +41,9 @@ public class IntakePowerRamp extends Command {
     protected void execute() {
 	mPowerAccumulator += mPowerPerCycle;
 	if ((Math.abs(Robot.fuelintake.getSpeed() - mTargetSpeed) < 0.1) 
-		|| mRampTargetCycles - mRampCycles <= 1) { // Ensure that the final speed is always set.
+		|| mRampTargetCycles - mRampCycles <= 1) {
 	    Robot.fuelintake.setSpeed(mTargetSpeed);
-	}
-	else {
+	} else {
 	    Robot.fuelintake.setSpeed(mPowerAccumulator);
 	}
 	mRampCycles++;
@@ -47,7 +51,7 @@ public class IntakePowerRamp extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-	return (mRampCycles >= mRampTargetCycles);
+	return mRampCycles >= mRampTargetCycles;
     }
 
     // Called once after isFinished returns true

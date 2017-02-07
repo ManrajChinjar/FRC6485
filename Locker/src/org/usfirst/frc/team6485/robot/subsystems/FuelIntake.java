@@ -6,25 +6,22 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * Fuel Intake subsystem.
- * <br>
- * Intake is negative speed.
+ * Fuel Intake subsystem. <br>
+ * Intake is positive PWM, evacuation is negative PWM.
+ * 
  * @author Kyle Saburao
  */
 public class FuelIntake extends Subsystem {
 
     private VictorSP roller = new VictorSP(RobotMap.FUEL_INTAKE_MOTOR);
     private double mReq;
-    private final double kSpeedNormal= -0.75;
+    private final double kSpeedNormal = RobotMap.INTAKENORMALPWM;
     private boolean mReverse = false;
 
-    // Cannot work unless it's a periodic function.
-    // private final double kRampPeriodSeconds = 0.25;
-    // private int kRampPeriodCycles = (int) (kRampPeriodSeconds / 0.02);
-
     public enum IntakeState {
-	IN, HALT, EXFIL
+	IN, HALT, EVACUATE
     }
+
     private IntakeState intakeState;
 
     // Put methods for controlling this subsystem
@@ -37,13 +34,11 @@ public class FuelIntake extends Subsystem {
 	double speed = roller.getSpeed();
 	if (speed == 0) {
 	    intakeState = IntakeState.HALT;
-	}
-	else {
-	    if (speed < 0) {
+	} else {
+	    if (speed > 0) {
 		intakeState = IntakeState.IN;
-	    }
-	    else if (speed > 0) {
-		intakeState = IntakeState.EXFIL;
+	    } else if (speed < 0) {
+		intakeState = IntakeState.EVACUATE;
 	    }
 	}
     }
@@ -53,25 +48,30 @@ public class FuelIntake extends Subsystem {
 	roller.setSafetyEnabled(false);
 	roller.setSpeed(0);
 	setDirectionalState();
+	roller.setInverted(true);
     }
 
     /**
-     * Sets the PWM parameter of the intake motor according to the standard PWM range.
-     * @param speed double [-1.00, 1.00]
+     * Sets the PWM parameter of the intake motor according to the standard PWM
+     * range.
+     * 
+     * @param speed
+     *            double [-1.00, 1.00]
      */
     public void setSpeed(double speed) {
-	if (speed > 1) mReq = 1.00;
-	else if (speed < -1) mReq = -1.00;
+	if (speed > 1)
+	    mReq = 1.00;
+	else if (speed < -1)
+	    mReq = -1.00;
 	roller.setSpeed(mReq);
 	setDirectionalState();
     }
 
-    public void reverseSpeed() {
+    public void reverseMagnitude() {
 	if (!mReverse) {
 	    mReverse = true;
 
-	}
-	else {
+	} else {
 	    mReverse = false;
 	}
 	roller.setSpeed(-roller.getSpeed());
@@ -87,9 +87,9 @@ public class FuelIntake extends Subsystem {
     }
 
     /**
-     * Starts the intake motor to exfil mode.
+     * Starts the intake motor to evacuation mode.
      */
-    public void startExfil() {
+    public void evacuate() {
 	roller.setSpeed(-kSpeedNormal);
 	setDirectionalState();
     }
@@ -110,32 +110,33 @@ public class FuelIntake extends Subsystem {
     }
 
     /**
-     * @return The directional state of the fuel intake motor controller as a State enum.
+     * @return The directional state of the fuel intake motor controller as a
+     *         State enum.
      */
     public IntakeState getDirectionalState() {
 	setDirectionalState();
 	return intakeState;
     }
-    
+
     public void set(IntakeState state) {
 	switch (state) {
 	case HALT:
 	    stop();
 	    break;
 	case IN:
-	    start();;
+	    start();
 	    break;
-	case EXFIL:
-	    startExfil();
+	case EVACUATE:
+	    evacuate();
 	    break;
 	}
     }
 
     public void initDefaultCommand() {
 	// Set the default command for a subsystem here.
-	//setDefaultCommand(new MySpecialCommand());
+	// setDefaultCommand(new MySpecialCommand());
     }
-    
+
     public double getNormalIntakeSpeed() {
 	return kSpeedNormal;
     }

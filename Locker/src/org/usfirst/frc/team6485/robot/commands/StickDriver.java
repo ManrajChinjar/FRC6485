@@ -3,7 +3,8 @@ package org.usfirst.frc.team6485.robot.commands;
 import org.usfirst.frc.team6485.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
-/**<b>Standard Teleoperator controls</b><br>
+/**
+ * <b>Standard Teleoperator controls</b><br>
  * <br>
  * Logitech Controls: <i>(MAIN TRIGGER SAFETY)</i><br>
  * - Arcade Drive<br>
@@ -16,15 +17,12 @@ import edu.wpi.first.wpilibj.command.Command;
  * - Left Bumper: Tank drive right stick overriding arcade drive left stick<br>
  * <br>
  * The Logitech joystick overrides the XBOX controller.
+ * 
  * @author Kyle Saburao
  */
 public class StickDriver extends Command {
 
-    private double mLXAxisRequest, 
-    mLYAxisRequest, 
-    mXXAxisRequestL, 
-    mXYAxisRequestL,
-    mXYAxisRequestR;  
+    private double mLXAxisRequest, mLYAxisRequest, mXXAxisRequestL, mXYAxisRequestL, mXYAxisRequestR;
 
     public StickDriver() {
 	// Use requires() here to declare subsystem dependencies
@@ -38,12 +36,10 @@ public class StickDriver extends Command {
 
     private void logitechControl() {
 	if (Robot.oi.getLButtonPressed(2)) {
-	    Robot.drivetrain.forwardBackDrive(mLYAxisRequest);	
-	}
-	else if (Robot.oi.getLButtonPressed(3)) {
+	    Robot.drivetrain.forwardBackDrive(mLYAxisRequest);
+	} else if (Robot.oi.getLButtonPressed(3)) {
 	    Robot.drivetrain.turnOnSpot(mLXAxisRequest);
-	}
-	else {
+	} else {
 	    Robot.drivetrain.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
 	}
     }
@@ -51,16 +47,12 @@ public class StickDriver extends Command {
     private void xboxControl() {
 	if (!Robot.oi.getXBOXButtonPressed(5)) {
 	    Robot.drivetrain.tankDrive(mXYAxisRequestL, mXYAxisRequestR);
-	}
-	else {
+	} else {
 	    if (Math.abs(mXYAxisRequestR) > 0.1) {
 		Robot.drivetrain.tankDrive(mXYAxisRequestR, mXYAxisRequestR);
-	    }
-	    else if (Math.abs(mXYAxisRequestL) > 0.1 
-		    || Math.abs(mXXAxisRequestL) > 0.1) {
-		Robot.drivetrain.arcadeDrive(mXYAxisRequestL, mXXAxisRequestL);	
-	    }
-	    else {
+	    } else if (Math.abs(mXYAxisRequestL) > 0.1 || Math.abs(mXXAxisRequestL) > 0.1) {
+		Robot.drivetrain.arcadeDrive(mXYAxisRequestL, mXXAxisRequestL);
+	    } else {
 		Robot.drivetrain.stop();
 	    }
 	}
@@ -77,11 +69,9 @@ public class StickDriver extends Command {
 
 	if (Robot.oi.getLMainTrigger()) {
 	    logitechControl();
-	}
-	else if (Robot.oi.getXBOXSafety()) {
+	} else if (Robot.oi.getXBOXSafety()) {
 	    xboxControl();
-	}
-	else {
+	} else {
 	    Robot.drivetrain.stop();
 	}
     }

@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj.command.Command;
  * @author Kyle Saburao
  */
 public class AutoDriveCurve extends Command {
-    
+
     private double mSpeed, mCurve, mTimeRequest, mStartTime;
-    
+
     /**
      * Drives the robot according to three parameters.
      * This effectively mimics a periodic call of .drive() from the DriveTrain for <i>t</i> amount of seconds.

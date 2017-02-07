@@ -6,7 +6,6 @@ import org.usfirst.frc.team6485.robot.subsystems.FuelIntake.IntakeState;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 
 /**
- * Immediately starts the intake motor to its standard running PWM setting.
  * @author Kyle Saburao
  */
 public class IntakeStart extends InstantCommand {
@@ -15,8 +14,8 @@ public class IntakeStart extends InstantCommand {
      * Start the intake motor to intake mode.
      */
     public IntakeStart() {
-        super();
-        requires(Robot.fuelintake);
+	super();
+	requires(Robot.fuelintake);
     }
 
     // Called once when the command executes
