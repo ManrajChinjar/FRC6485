@@ -17,7 +17,7 @@ public class RobotMap {
     
     // Constants sheet
     
-    public static final double INTAKE_POWER_RAMP_TIME_SECONDS = 1.0 / 4.0;
+    public static final double INTAKEPOWERRAMP_TIME_SECONDS = 1.0 / 4.0;
     
     public static final double AUTODRIVE_KP = 1.0 / 50.0;
 
