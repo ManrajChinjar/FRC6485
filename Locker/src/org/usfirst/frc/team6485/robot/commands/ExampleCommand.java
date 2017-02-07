@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team6485.robot.Robot;
 
 /**
- *<i>Kyle Saburao 2017</i>
+ * @author Kyle Saburao
  */
 public class ExampleCommand extends Command {
 	public ExampleCommand() {

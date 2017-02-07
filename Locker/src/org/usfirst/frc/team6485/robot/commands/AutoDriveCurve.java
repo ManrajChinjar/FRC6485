@@ -2,16 +2,15 @@ package org.usfirst.frc.team6485.robot.commands;
 
 import org.usfirst.frc.team6485.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * <i>Kyle Saburao 2017</i>
+ * @author Kyle Saburao
  */
 public class AutoDriveCurve extends Command {
     
-    private double mSpeed;
-    private double mCurve;
-    private double mTime;
+    private double mSpeed, mCurve, mTimeRequest, mStartTime;
     
     /**
      * Drives the robot according to three parameters.
@@ -23,15 +22,17 @@ public class AutoDriveCurve extends Command {
     public AutoDriveCurve(double speed, double curve, double time) {
 	requires(Robot.drivetrain);
 	if (time < 0) time = 0;
-	setTimeout(time);
+	setTimeout(time + 1.0);
 	mSpeed = speed;
 	mCurve = curve;
-	mTime = time;
+	mTimeRequest = time;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-	System.out.println(String.format("Driving at %.2f with %.2f curve for %.2f seconds.", mSpeed, mCurve, mTime));
+	mStartTime = Timer.getFPGATimestamp();
+	System.out.println(String.format("Driving at %.2f with %.2f curve for %.2f seconds.", 
+		mSpeed, mCurve, mTimeRequest));
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -41,7 +42,7 @@ public class AutoDriveCurve extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut();
+	return (Timer.getFPGATimestamp() - mStartTime >= mTimeRequest) || isTimedOut();
     }
 
     // Called once after isFinished returns true

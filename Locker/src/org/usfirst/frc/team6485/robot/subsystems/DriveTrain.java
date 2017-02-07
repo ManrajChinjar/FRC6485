@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * Drive Train subsystem.<br>
  * <br>
  * Forwards: 1, Back: -1<br>
- * Left: 1, Right: -1<br><br>
- * <i>Kyle Saburao 2017</i>
+ * Left: 1, Right: -1
+ * @author Kyle Saburao
  */
 public class DriveTrain extends Subsystem {
 

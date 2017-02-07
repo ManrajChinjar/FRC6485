@@ -2,6 +2,7 @@ package org.usfirst.frc.team6485.robot.commands;
 
 import org.usfirst.frc.team6485.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -12,8 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * <b>Arguments:</b> double speed, double time<br>
  * <br>
  * TODO Allow metre distance via encoder units
- * <br><br>
- * <i>Kyle Saburao 2017</i>
+ * @author Kyle Saburao
  */
 public class AutoDrive extends Command {
 
@@ -21,35 +21,34 @@ public class AutoDrive extends Command {
     // TODO Also allow metre distance via future averaged encoder units
 
     private final double kP = 1.0 / 50.0;
-    private double mCurrentAngle, mSpeed, cPT, mTime;
+    private double mCurrentAngle, mSpeed, cPT, mTimeRequest, mStartTime;
     private Gyro gyroscope = Robot.drivetrain.getGyro();
 
     /**
-     * <b>WORK IN PROGRESS</b><br>
-     * <br>
-     * The ADXRS450 gyroscope is used to determine any rotational drift and if so,
-     * correct the error. Rotational oscillation means that kP is too high, 
-     * while not working at all means that it's too low.
-     * @param speed A double value within the range [-1, 1] back or forth
+     * Drives forward using the gyroscope to maintain direction.
+     * @param speed The speed to drive
+     * @param time The time to drive
      */
     public AutoDrive(double speed, double time) {
 	requires(Robot.drivetrain);
 	if (time < 0) time = 0;
-	setTimeout(time);
+	setTimeout(time + 1.0); // Kills the command one second after its allotted window.
 	mSpeed = speed;
-	mTime = time;
+	mTimeRequest = time;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
 	gyroscope.reset();
-	System.out.println(String.format("Driving at %.2f for %.2f seconds.", mSpeed, mTime));
+	mStartTime = Timer.getFPGATimestamp();
+	System.out.println(String.format("Driving at %.2f for %.2f seconds.", mSpeed, mTimeRequest));
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 	mCurrentAngle = gyroscope.getAngle();
-	cPT = -mCurrentAngle * kP;
+	// Gyroscope measurement increases to the right, but the drive train turn rate is negative the same direction.
+	cPT = mCurrentAngle * kP; 
 	if (mSpeed < 0) cPT *= -1;
 	SmartDashboard.putNumber("Gyroscope cPT", cPT);
 	Robot.drivetrain.drive(mSpeed, cPT);
@@ -57,7 +56,7 @@ public class AutoDrive extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-	return isTimedOut();
+	return (Timer.getFPGATimestamp() - mStartTime >= mTimeRequest) || isTimedOut();
     }
 
     // Called once after isFinished returns true

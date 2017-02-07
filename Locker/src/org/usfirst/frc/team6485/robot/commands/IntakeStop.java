@@ -6,12 +6,14 @@ import org.usfirst.frc.team6485.robot.subsystems.FuelIntake.IntakeState;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 
 /**
- * Stops the intake motor.
- * <br><br>
- * <i>Kyle Saburao 2017</i>
+ * Immediately halts the intake motor.
+ * @author Kyle Saburao
  */
 public class IntakeStop extends InstantCommand {
 
+    /**
+     * Halt the intake motor.
+     */
     public IntakeStop() {
         super();
         requires(Robot.fuelintake);

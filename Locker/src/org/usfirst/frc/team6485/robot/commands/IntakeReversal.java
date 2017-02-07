@@ -7,9 +7,8 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 
 /**
  * Sets the fuel intake to standard reverse if it's currently off
- * and will reverse the current speed if it's on.
- * <br><br>
- * <i>Kyle Saburao 2017</i>
+ * and will reverse the current speed if it's already on.
+ * @author Kyle Saburao
  */
 public class IntakeReversal extends InstantCommand {
 

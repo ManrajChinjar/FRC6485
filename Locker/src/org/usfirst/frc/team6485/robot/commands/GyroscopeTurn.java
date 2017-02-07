@@ -10,15 +10,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * to the starting orientation.<br>
  * <br>
  * <b>Arguments:</b> double angle (Negative turns left, positive turns right)
- * <br>
- * <br>
- * <i>Kyle Saburao 2017</i>
+ * @author Kyle Saburao
  */
 public class GyroscopeTurn extends Command {
 
     private double mCurrentAngle, mAngleRequest, mStartAngle, mTargetAngle, mTurnSpeed, mError;
     private final double mBaseTurnSpeed = 0.55, mAngularTolerance = 0.75;
 
+    /**
+     * 
+     * @param angle double angle (Negative turns left, positive turns right)
+     */
     public GyroscopeTurn(double angle) {
 	mAngleRequest = angle;
 	requires(Robot.drivetrain);

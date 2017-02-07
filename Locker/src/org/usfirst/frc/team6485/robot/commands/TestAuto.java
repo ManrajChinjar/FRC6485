@@ -1,22 +1,34 @@
 package org.usfirst.frc.team6485.robot.commands;
 
+import org.usfirst.frc.team6485.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  * @author Kyle Saburao
  */
-public class TestCaseSpin extends CommandGroup {
-
-    public TestCaseSpin() {
-    	
-    	addSequential(new GyroscopeTurn(90));
-    	addSequential(new Delay(3));
-    	addSequential(new GyroscopeTurn(90));
-    	addSequential(new Delay(3));
-    	addSequential(new GyroscopeTurn(90));
-    	addSequential(new Delay(3));
-    	addSequential(new GyroscopeTurn(90));
-    	
+public class TestAuto extends CommandGroup {
+   
+    /**
+     * Test case that:
+     * <ol>
+     * 	<li>Starts the intake motor to intake mode</li>
+     * 	<li>Drives forward at 75% for 1.5 seconds</li>
+     * 	<li>Does a complete 180 degree turn to the right</li>
+     * 	<li>Drives forward at 75% for 1.5 seconds</li>
+     * 	<li>Shuts off the intake motor</li>
+     * 	<li>Does a complete 180 degree turn to the left</li>
+     * </ol>
+     */
+    public TestAuto() {
+	
+	addParallel(new IntakePowerRamp(Robot.fuelintake.getNormalIntakeSpeed()));
+	addSequential(new AutoDrive(0.75, 1.5));
+	addSequential(new GyroscopeTurn(180.0));
+	addSequential(new AutoDrive(0.75, 1.5));
+	addParallel(new IntakePowerRamp(0.0));
+	addSequential(new GyroscopeTurn(-180.0));
+	
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

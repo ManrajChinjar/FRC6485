@@ -6,7 +6,7 @@ import org.usfirst.frc.team6485.robot.subsystems.FuelIntake.IntakeState;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 
 /**
- * <i>Kyle Saburao 2017</i>
+ * @author Kyle Saburao
  */
 public class IntakeRampReversal extends InstantCommand {
 
@@ -18,7 +18,7 @@ public class IntakeRampReversal extends InstantCommand {
     // Called once when the command executes
     protected void initialize() {
 	if (Robot.fuelintake.getDirectionalState() == IntakeState.HALT) {
-	    new IntakePowerRamp(-Robot.fuelintake.getNormalSpeed());
+	    new IntakePowerRamp(-Robot.fuelintake.getNormalIntakeSpeed());
 	}
 	else new IntakePowerRamp(-Robot.fuelintake.getSpeed());
     }

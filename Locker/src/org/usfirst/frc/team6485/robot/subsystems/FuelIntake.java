@@ -9,14 +9,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * Fuel Intake subsystem.
  * <br>
  * Intake is negative speed.
- * <br><br>
- * <i>Kyle Saburao 2017</i>
+ * @author Kyle Saburao
  */
 public class FuelIntake extends Subsystem {
 
     private VictorSP roller = new VictorSP(RobotMap.FUEL_INTAKE_MOTOR);
     private double mReq;
-    private final double kSpeedNormal= -0.70;
+    private final double kSpeedNormal= -0.75;
     private boolean mReverse = false;
 
     // Cannot work unless it's a periodic function.
@@ -137,7 +136,7 @@ public class FuelIntake extends Subsystem {
 	//setDefaultCommand(new MySpecialCommand());
     }
     
-    public double getNormalSpeed() {
+    public double getNormalIntakeSpeed() {
 	return kSpeedNormal;
     }
 

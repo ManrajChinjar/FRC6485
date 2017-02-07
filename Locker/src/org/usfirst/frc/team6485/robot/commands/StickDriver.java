@@ -16,8 +16,7 @@ import edu.wpi.first.wpilibj.command.Command;
  * - Left Bumper: Tank drive right stick overriding arcade drive left stick<br>
  * <br>
  * The Logitech joystick overrides the XBOX controller.
- * <br><br>
- * <i>Kyle Saburao 2017</i>
+ * @author Kyle Saburao
  */
 public class StickDriver extends Command {
 

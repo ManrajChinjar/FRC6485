@@ -4,18 +4,20 @@ import org.usfirst.frc.team6485.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Uses integration to ramp the speed of the intake motor to smoothen current draw.
- * <br><br>
- * <i>Kyle Saburao 2017</i>
+ * Performs integration to ramp the speed of the intake motor to smoothen current draw.
+ * @author Kyle Saburao
  */
 public class IntakePowerRamp extends Command {
 
-    private double mStartSpeed, mTargetSpeed;
-    private double mPowerPerCycle, mPowerAccumulator = 0;
-    private final double mRampTimeSeconds = 0.25;
-    private int mRampTargetCycles = (int) Math.ceil(mRampTimeSeconds / 0.02);
+    private double mStartSpeed, mTargetSpeed, mPowerPerCycle, mPowerAccumulator = 0;
+    private final double kRampTimeSeconds = 0.25;
+    private int mRampTargetCycles = (int) Math.ceil(kRampTimeSeconds / 0.02);
     private int mRampCycles;
 
+    /**
+     * Linearizes the power ramp of the intake motor to prevent voltage spikes or other problems.
+     * @param speed -1 is full intake, 1 is full reverse, 0 is stop.
+     */
     public IntakePowerRamp(double speed) {
 	requires(Robot.fuelintake);
 	mTargetSpeed = speed;

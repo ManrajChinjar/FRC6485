@@ -12,8 +12,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
- * <br><br>
- * <i>Kyle Saburao 2017</i>
+ * @author Kyle Saburao
  */
 public class OI {
 
@@ -102,7 +101,7 @@ public class OI {
 //	new JoystickButton(logitechController, 6).whenPressed(new IntakeStart());
 //	new JoystickButton(logitechController, 4).whenPressed(new IntakeStop());
 //	new JoystickButton(logitechController, 5).whenPressed(new IntakeReversal());
-	new JoystickButton(logitechController, 6).whenPressed(new IntakePowerRamp(Robot.fuelintake.getNormalSpeed()));
+	new JoystickButton(logitechController, 6).whenPressed(new IntakePowerRamp(Robot.fuelintake.getNormalIntakeSpeed()));
 	new JoystickButton(logitechController, 4).whenPressed(new IntakePowerRamp(0.0));
 	new JoystickButton(logitechController, 5).whenPressed(new IntakeRampReversal());
 	new JoystickButton(logitechController, 11).whenPressed(new GyroscopeTurn(-90.0));
