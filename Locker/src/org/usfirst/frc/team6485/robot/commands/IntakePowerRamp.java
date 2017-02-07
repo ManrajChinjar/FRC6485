@@ -4,6 +4,7 @@ import org.usfirst.frc.team6485.robot.Robot;
 import org.usfirst.frc.team6485.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Performs integration to ramp the speed of the intake motor to smoothen
@@ -51,6 +52,8 @@ public class IntakePowerRamp extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+	SmartDashboard.putNumber("mRampCycles", mRampCycles);
+	SmartDashboard.putNumber("mRampTargetCycles", mRampTargetCycles);
 	return mRampCycles >= mRampTargetCycles;
     }
 
