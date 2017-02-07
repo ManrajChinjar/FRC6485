@@ -1,6 +1,7 @@
 package org.usfirst.frc.team6485.robot.commands;
 
 import org.usfirst.frc.team6485.robot.Robot;
+import org.usfirst.frc.team6485.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -12,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * <br>
  * <b>Arguments:</b> double speed, double time<br>
  * <br>
- * TODO Allow metre distance via encoder units
+ * TODO Allow metre distance via encoder units.
  * @author Kyle Saburao
  */
 public class AutoDrive extends Command {
@@ -20,12 +21,12 @@ public class AutoDrive extends Command {
     // ASSUMES THAT THE ROBORIO WILL OPERATE AT 50 HERTZ
     // TODO Also allow metre distance via future averaged encoder units
 
-    private final double kP = 1.0 / 50.0;
+    private final double kP = RobotMap.AUTODRIVE_KP;
     private double mCurrentAngle, mSpeed, cPT, mTimeRequest, mStartTime;
     private Gyro gyroscope = Robot.drivetrain.getGyro();
 
     /**
-     * Drives forward using the gyroscope to maintain direction.
+     * Drives forward and uses the gyroscope to maintain direction.
      * @param speed The speed to drive
      * @param time The time to drive
      */
@@ -48,6 +49,7 @@ public class AutoDrive extends Command {
     protected void execute() {
 	mCurrentAngle = gyroscope.getAngle();
 	// Gyroscope measurement increases to the right, but the drive train turn rate is negative the same direction.
+	// TODO Check if this is still the case.
 	cPT = mCurrentAngle * kP; 
 	if (mSpeed < 0) cPT *= -1;
 	SmartDashboard.putNumber("Gyroscope cPT", cPT);

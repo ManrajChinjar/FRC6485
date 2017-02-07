@@ -1,6 +1,8 @@
 package org.usfirst.frc.team6485.robot.commands;
 
 import org.usfirst.frc.team6485.robot.Robot;
+import org.usfirst.frc.team6485.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -10,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class IntakePowerRamp extends Command {
 
     private double mStartSpeed, mTargetSpeed, mPowerPerCycle, mPowerAccumulator = 0;
-    private final double kRampTimeSeconds = 0.25;
+    private double kRampTimeSeconds = RobotMap.INTAKE_POWER_RAMP_TIME_SECONDS;
     private int mRampTargetCycles = (int) Math.ceil(kRampTimeSeconds / 0.02);
     private int mRampCycles;
 
