@@ -23,7 +23,7 @@ public class AutoDrive extends Command {
     // ASSUMES THAT THE ROBORIO WILL OPERATE AT 50 HERTZ
     // TODO Also allow metre distance via future averaged encoder units
 
-    private final double kP = RobotMap.AUTODRIVE_KP;
+    private final double kP = RobotMap.AUTODRIVE_GYRO_KP;
     private double mCurrentAngle, mSpeed, cPT, mTimeRequest, mStartTime;
     private Gyro gyroscope = Robot.drivetrain.getGyro();
 

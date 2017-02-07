@@ -18,11 +18,11 @@ public class RobotMap {
 
     // Constants sheet
 
-    public static final double INTAKEPOWERRAMP_TIME_SECONDS = 1.0 / 4.0;
+    public static final double INTAKEPOWERRAMP_TIME_SECONDS = 1.0 / 2.0;
 
     public static final double INTAKENORMALPWM = 3.0 / 4.0;
 
-    public static final double AUTODRIVE_KP = 1.0 / 50.0;
+    public static final double AUTODRIVE_GYRO_KP = 1.0 / 50.0;
 
     // For example to map the left and right motors, you could define the
     // following variables to use with your drivetrain subsystem.
