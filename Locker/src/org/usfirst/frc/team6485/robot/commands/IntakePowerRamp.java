@@ -49,13 +49,14 @@ public class IntakePowerRamp extends Command {
 
   // Make this return true when this Command no longer needs to run execute()
   protected boolean isFinished() {
-    SmartDashboard.putNumber("mRampCycles", mRampCycles);
-    SmartDashboard.putNumber("mRampTargetCycles", mRampTargetCycles);
     return mRampCycles >= mRampTargetCycles;
   }
 
   // Called once after isFinished returns true
-  protected void end() {}
+  protected void end() {
+    SmartDashboard.putNumber("Final mRampCycles", mRampCycles);
+    SmartDashboard.putNumber("Final mRampTargetCycles", mRampTargetCycles);
+  }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
