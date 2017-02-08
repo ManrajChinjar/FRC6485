@@ -22,7 +22,7 @@ public class TestAuto extends CommandGroup {
    */
   public TestAuto() {
 
-    addParallel(new IntakePowerRamp(RobotMap.INTAKENORMALPWM));
+    addParallel(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMAL_PWM));
     addSequential(new AutoDrive(0.75, 1.5));
     addSequential(new GyroscopeTurn(180.0));
     addSequential(new AutoDrive(0.75, 1.5));
