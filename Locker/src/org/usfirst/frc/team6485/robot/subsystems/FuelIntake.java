@@ -44,7 +44,7 @@ public class FuelIntake extends Subsystem {
   }
 
   public FuelIntake() {
-    // Run all the time
+    // Run all the time without watchdog concern.
     roller.setSafetyEnabled(false);
     roller.setSpeed(0.0);
     setDirectionalState();
@@ -61,43 +61,37 @@ public class FuelIntake extends Subsystem {
       mReq = 1.00;
     else if (speed < -1.0)
       mReq = -1.00;
-    roller.setSpeed(mReq);
-    setDirectionalState();
-  }
-
-  public void reverseMagnitude() {
-    if (!mReverse) {
-      mReverse = true;
-
-    } else {
-      mReverse = false;
-    }
-    roller.setSpeed(-roller.getSpeed());
+    roller.set(mReq);
     setDirectionalState();
   }
 
   /**
-   * Starts the intake motor to default intake mode..
+   * Reverses the magnitude of the intake motor PWM.
+   */
+  public void reverseMagnitude() {
+    mReverse = !mReverse;
+    setSpeed(-roller.getSpeed());
+  }
+
+  /**
+   * Starts the intake motor to default intake mode.
    */
   public void start() {
-    roller.setSpeed(kSpeedNormal);
-    setDirectionalState();
+    setSpeed(kSpeedNormal);
   }
 
   /**
    * Starts the intake motor to evacuation mode.
    */
   public void evacuate() {
-    roller.setSpeed(-kSpeedNormal);
-    setDirectionalState();
+    setSpeed(-kSpeedNormal);
   }
 
   /**
    * Stops the intake motor.
    */
   public void stop() {
-    roller.setSpeed(0.0);
-    setDirectionalState();
+    setSpeed(0.0);
   }
 
   /**
@@ -115,6 +109,11 @@ public class FuelIntake extends Subsystem {
     return intakeState;
   }
 
+  /**
+   * Set the intake motor's state using an IntakeState enum.
+   * 
+   * @param state An IntakeState enum declaring the desired intake mode.
+   */
   public void set(IntakeState state) {
     switch (state) {
       case HALT:
@@ -129,10 +128,10 @@ public class FuelIntake extends Subsystem {
     }
   }
 
-  public void initDefaultCommand() {}
-
   public double getNormalIntakeSpeed() {
     return kSpeedNormal;
   }
 
+  @Override
+  public void initDefaultCommand() {}
 }

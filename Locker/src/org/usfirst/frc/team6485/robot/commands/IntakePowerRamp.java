@@ -29,13 +29,15 @@ public class IntakePowerRamp extends Command {
   }
 
   // Called just before this Command runs the first time
+  @Override
   protected void initialize() {
     mStartSpeed = Robot.fuelintake.getSpeed();
-    mPowerPerCycle = (mTargetSpeed - mStartSpeed) / (double) mRampTargetCycles;
+    mPowerPerCycle = (mTargetSpeed - mStartSpeed) / mRampTargetCycles;
     mPowerAccumulator = mStartSpeed;
   }
 
   // Called repeatedly when this Command is scheduled to run
+  @Override
   protected void execute() {
     mPowerAccumulator += mPowerPerCycle;
     if ((Math.abs(Robot.fuelintake.getSpeed() - mTargetSpeed) < 0.1)
@@ -48,11 +50,13 @@ public class IntakePowerRamp extends Command {
   }
 
   // Make this return true when this Command no longer needs to run execute()
+  @Override
   protected boolean isFinished() {
     return mRampCycles >= mRampTargetCycles;
   }
 
   // Called once after isFinished returns true
+  @Override
   protected void end() {
     SmartDashboard.putNumber("Final mRampCycles", mRampCycles);
     SmartDashboard.putNumber("Final mRampTargetCycles", mRampTargetCycles);
@@ -60,5 +64,6 @@ public class IntakePowerRamp extends Command {
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
+  @Override
   protected void interrupted() {}
 }

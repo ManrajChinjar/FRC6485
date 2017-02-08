@@ -1,12 +1,5 @@
 package org.usfirst.frc.team6485.robot;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6485.robot.commands.IntakeStop;
 import org.usfirst.frc.team6485.robot.commands.TestAuto;
@@ -14,6 +7,13 @@ import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6485.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake.IntakeState;
+
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * @author Kyle Saburao
@@ -49,6 +49,7 @@ public class Robot extends IterativeRobot {
 
     SmartDashboard.putData("Auto mode", chooser);
     SmartDashboard.putData("Drive Train", drivetrain);
+    SmartDashboard.putData("Fuel Intake", fuelintake);
   }
 
   /**
@@ -60,6 +61,7 @@ public class Robot extends IterativeRobot {
     // STOP INTAKE ROLLER
     new IntakeStop();
     robotMode = RunningMode.DISABLED;
+    // Calibrate the gyroscope
     Robot.drivetrain.getGyro().calibrate();
   }
 

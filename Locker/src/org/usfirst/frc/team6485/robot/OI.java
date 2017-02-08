@@ -3,9 +3,7 @@ package org.usfirst.frc.team6485.robot;
 import org.usfirst.frc.team6485.robot.commands.GyroscopeTurn;
 import org.usfirst.frc.team6485.robot.commands.IntakePowerRamp;
 import org.usfirst.frc.team6485.robot.commands.IntakeRampReversal;
-import org.usfirst.frc.team6485.robot.commands.IntakeReversal;
-import org.usfirst.frc.team6485.robot.commands.IntakeStart;
-import org.usfirst.frc.team6485.robot.commands.IntakeStop;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 

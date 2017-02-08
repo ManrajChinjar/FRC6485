@@ -22,6 +22,7 @@ public class IntakeReversal extends InstantCommand {
   }
 
   // Called once when the command executes
+  @Override
   protected void initialize() {
     if (Robot.fuelintake.getDirectionalState() == IntakeState.HALT) {
       Robot.fuelintake.set(IntakeState.EVACUATE);

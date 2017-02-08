@@ -28,6 +28,7 @@ public class GyroscopeTurn extends Command {
   }
 
   // Called just before this Command runs the first time
+  @Override
   protected void initialize() {
     mStartAngle = Robot.drivetrain.getGyro().getAngle();
     mTargetAngle = mStartAngle + mAngleRequest;
@@ -35,6 +36,7 @@ public class GyroscopeTurn extends Command {
   }
 
   // Called repeatedly when this Command is scheduled to run
+  @Override
   protected void execute() {
     mCurrentAngle = Robot.drivetrain.getGyro().getAngle();
     mError = mTargetAngle - mCurrentAngle;
@@ -53,17 +55,20 @@ public class GyroscopeTurn extends Command {
   }
 
   // Make this return true when this Command no longer needs to run execute()
+  @Override
   protected boolean isFinished() {
     return (Math.abs(mError) <= mAngularTolerance) || isTimedOut();
   }
 
   // Called once after isFinished returns true
+  @Override
   protected void end() {
     Robot.drivetrain.stop();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
+  @Override
   protected void interrupted() {
     end();
   }

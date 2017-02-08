@@ -23,7 +23,7 @@ public class AutoDrive extends Command {
   // TODO Also allow metre distance via future averaged encoder units
 
   private final double kP = RobotMap.AUTODRIVE_GYRO_KP;
-  private double mCurrentAngle, mSpeed, cPT, mTimeRequest, mStartTime;
+  private double mCurrentAngle, mSpeed, cPT, mTimeWindow, mStartTime;
   private Gyro gyroscope = Robot.drivetrain.getGyro();
 
   /**
@@ -39,17 +39,19 @@ public class AutoDrive extends Command {
     setTimeout(time + 1.0); // Kills the command one second after its
     // allotted window.
     mSpeed = speed;
-    mTimeRequest = time;
+    mTimeWindow = time;
   }
 
   // Called just before this Command runs the first time
+  @Override
   protected void initialize() {
     gyroscope.reset();
     mStartTime = Timer.getFPGATimestamp();
-    System.out.println(String.format("Driving at %.2f for %.2f seconds.", mSpeed, mTimeRequest));
+    System.out.println(String.format("Driving at %.2f for %.2f seconds.", mSpeed, mTimeWindow));
   }
 
   // Called repeatedly when this Command is scheduled to run
+  @Override
   protected void execute() {
     mCurrentAngle = gyroscope.getAngle();
     // Gyroscope measurement increases to the right, but the drive train
@@ -63,17 +65,20 @@ public class AutoDrive extends Command {
   }
 
   // Make this return true when this Command no longer needs to run execute()
+  @Override
   protected boolean isFinished() {
-    return (Timer.getFPGATimestamp() - mStartTime >= mTimeRequest) || isTimedOut();
+    return (Timer.getFPGATimestamp() - mStartTime >= mTimeWindow) || isTimedOut();
   }
 
   // Called once after isFinished returns true
+  @Override
   protected void end() {
     Robot.drivetrain.stop();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
+  @Override
   protected void interrupted() {
     end();
   }

@@ -32,9 +32,8 @@ public class DriveTrain extends Subsystem {
   // Initialize drive train
   public DriveTrain() {
     engine = new RobotDrive(mFrontLeftMotor, mRearLeftMotor, mFrontRightMotor, mRearRightMotor);
-
     engine.setSafetyEnabled(true);
-    engine.setExpiration(0.10);
+    engine.setExpiration(0.125);
     engine.setMaxOutput(1.00);
     engine.setSensitivity(1.00);
   }
@@ -42,45 +41,41 @@ public class DriveTrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
+  @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
     // Default command is operator control over drive system
     setDefaultCommand(new StickDriver());
   }
 
   private double mFixArgument(double num) {
-    if (num > 0.95) {
-      num = 0.95;
-    } else if (num < -0.95) {
-      num = -0.95;
+    if (num > RobotMap.DRIVETRAIN_PWM_UPPER_LIMIT) {
+      num = RobotMap.DRIVETRAIN_PWM_UPPER_LIMIT;
+    } else if (num < RobotMap.DRIVETRAIN_PWM_LOWER_LIMIT) {
+      num = RobotMap.DRIVETRAIN_PWM_LOWER_LIMIT;
     }
     return num;
   }
 
   /**
    * Standard tank drive controls.<br>
-   * Bad arguments outside of [-1, 1] are truncated down to the limits. No scaling is preserved.
+   * Bad arguments outside of [-.95, .95] are truncated down to the limits. No scaling is preserved.
    * 
    * @param leftStick Left Motor Group request
    * @param rightStick Right Motor Group request
    */
   public void tankDrive(double leftStick, double rightStick) {
-    leftStick = mFixArgument(leftStick);
-    rightStick = mFixArgument(rightStick);
-    engine.tankDrive(leftStick, rightStick);
+    engine.tankDrive(mFixArgument(leftStick), mFixArgument(rightStick));
   }
 
   /**
    * Standard arcade drive controls.<br>
-   * Bad arguments outside of [-1, 1] are truncated down to the limits. No scaling is preserved.
+   * Bad arguments outside of [-.95, .95] are truncated down to the limits. No scaling is preserved.
    * 
    * @param leftStick Forward and backwards request
    * @param rightStick Turning request
    */
   public void arcadeDrive(double leftStick, double rightStick) {
-    leftStick = mFixArgument(leftStick);
-    rightStick = mFixArgument(rightStick);
-    engine.arcadeDrive(leftStick, rightStick);
+    engine.arcadeDrive(mFixArgument(leftStick), mFixArgument(rightStick));
   }
 
   public void drive(double speed, double curve) {
@@ -94,7 +89,7 @@ public class DriveTrain extends Subsystem {
    * @param speed Obvious (1 full forward, -1 full backwards)
    */
   public void forwardBackDrive(double speed) {
-    engine.tankDrive(speed, speed);
+    tankDrive(speed, speed);
   }
 
   /**
@@ -103,21 +98,21 @@ public class DriveTrain extends Subsystem {
    * @param turnrate Usually the x-axis analog request of the controller [-1, 1]
    */
   public void turnOnSpot(double turnrate) {
-    engine.arcadeDrive(0, turnrate);
+    arcadeDrive(0, turnrate);
   }
 
   /**
    * Brings the drive train to a full halt.
    */
   public void stop() {
-    engine.tankDrive(0, 0);
+    tankDrive(0, 0);
   }
 
   /**
    * Requests the drive train to go full-ahead at +95% PWM.
    */
   public void flankSpeed() {
-    engine.tankDrive(0.95, 0.95);
+    tankDrive(0.95, 0.95);
   }
 
   /**
@@ -151,7 +146,4 @@ public class DriveTrain extends Subsystem {
 
     return motorArray;
   }
-
-  public void update() {}
-
 }

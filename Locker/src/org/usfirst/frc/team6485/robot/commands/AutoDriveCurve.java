@@ -31,6 +31,7 @@ public class AutoDriveCurve extends Command {
   }
 
   // Called just before this Command runs the first time
+  @Override
   protected void initialize() {
     mStartTime = Timer.getFPGATimestamp();
     System.out.println(String.format("Driving at %.2f with %.2f curve for %.2f seconds.", mSpeed,
@@ -38,22 +39,26 @@ public class AutoDriveCurve extends Command {
   }
 
   // Called repeatedly when this Command is scheduled to run
+  @Override
   protected void execute() {
     Robot.drivetrain.drive(mSpeed, mCurve);
   }
 
   // Make this return true when this Command no longer needs to run execute()
+  @Override
   protected boolean isFinished() {
     return (Timer.getFPGATimestamp() - mStartTime >= mTimeRequest) || isTimedOut();
   }
 
   // Called once after isFinished returns true
+  @Override
   protected void end() {
     Robot.drivetrain.stop();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
+  @Override
   protected void interrupted() {
     end();
   }

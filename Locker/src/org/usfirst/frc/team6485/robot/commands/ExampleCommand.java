@@ -1,8 +1,8 @@
 package org.usfirst.frc.team6485.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-
 import org.usfirst.frc.team6485.robot.Robot;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * @author Kyle Saburao
