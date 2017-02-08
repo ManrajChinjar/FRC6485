@@ -10,17 +10,17 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
  */
 public class IntakeStop extends InstantCommand {
 
-    /**
-     * Immediately halts the intake motor.
-     */
-    public IntakeStop() {
-	super();
-	requires(Robot.fuelintake);
-    }
+  /**
+   * Immediately halts the intake motor.
+   */
+  public IntakeStop() {
+    super();
+    requires(Robot.fuelintake);
+  }
 
-    // Called once when the command executes
-    protected void initialize() {
-	Robot.fuelintake.set(IntakeState.HALT);
-    }
-    
+  // Called once when the command executes
+  protected void initialize() {
+    Robot.fuelintake.set(IntakeState.HALT);
+  }
+
 }

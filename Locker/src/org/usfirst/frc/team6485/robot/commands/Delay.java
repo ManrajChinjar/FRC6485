@@ -14,43 +14,41 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class Delay extends Command {
 
-    private double mStartTime, mTimeLength;
+  private double mStartTime, mTimeLength;
 
-    /**
-     * Analogous to a wait function.
-     * 
-     * @param seconds
-     *            The time to halt the entire system.
-     */
-    public Delay(double seconds) {
-	mTimeLength = seconds;
-	setTimeout(60);
-    }
+  /**
+   * Analogous to a wait function.
+   * 
+   * @param seconds The time to halt the entire system.
+   */
+  public Delay(double seconds) {
+    mTimeLength = seconds;
+    setTimeout(60);
+  }
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-	mStartTime = Timer.getFPGATimestamp();
-    }
+  // Called just before this Command runs the first time
+  protected void initialize() {
+    mStartTime = Timer.getFPGATimestamp();
+  }
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-	Robot.drivetrain.stop(); // To satisfy the watchdog.
-    }
+  // Called repeatedly when this Command is scheduled to run
+  protected void execute() {
+    Robot.drivetrain.stop(); // To satisfy the watchdog.
+  }
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-	return (Timer.getFPGATimestamp() - mStartTime >= mTimeLength) || isTimedOut();
-    }
+  // Make this return true when this Command no longer needs to run execute()
+  protected boolean isFinished() {
+    return (Timer.getFPGATimestamp() - mStartTime >= mTimeLength) || isTimedOut();
+  }
 
-    // Called once after isFinished returns true
-    protected void end() {
-	String endtext = "Ending delay.";
-	System.out.println(endtext);
-    }
+  // Called once after isFinished returns true
+  protected void end() {
+    String endtext = "Ending delay.";
+    System.out.println(endtext);
+  }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
+  protected void interrupted() {}
 
 }

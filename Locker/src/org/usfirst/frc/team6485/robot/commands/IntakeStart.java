@@ -10,17 +10,17 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
  */
 public class IntakeStart extends InstantCommand {
 
-    /**
-     * Start the intake motor to intake mode.
-     */
-    public IntakeStart() {
-	super();
-	requires(Robot.fuelintake);
-    }
+  /**
+   * Start the intake motor to intake mode.
+   */
+  public IntakeStart() {
+    super();
+    requires(Robot.fuelintake);
+  }
 
-    // Called once when the command executes
-    protected void initialize() {
-	Robot.fuelintake.set(IntakeState.IN);
-    }
+  // Called once when the command executes
+  protected void initialize() {
+    Robot.fuelintake.set(IntakeState.IN);
+  }
 
 }

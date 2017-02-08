@@ -22,74 +22,74 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class StickDriver extends Command {
 
-    private double mLXAxisRequest, mLYAxisRequest, mXXAxisRequestL, mXYAxisRequestL, mXYAxisRequestR;
+  private double mLXAxisRequest, mLYAxisRequest, mXXAxisRequestL, mXYAxisRequestL, mXYAxisRequestR;
 
-    public StickDriver() {
-	// Use requires() here to declare subsystem dependencies
-	requires(Robot.drivetrain);
+  public StickDriver() {
+    // Use requires() here to declare subsystem dependencies
+    requires(Robot.drivetrain);
+  }
+
+  // Called just before this Command runs the first time
+  protected void initialize() {
+    System.out.println("I'll try spinning. That's a good trick.");
+  }
+
+  private void logitechControl() {
+    if (Robot.oi.getLButtonPressed(2)) {
+      Robot.drivetrain.forwardBackDrive(mLYAxisRequest);
+    } else if (Robot.oi.getLButtonPressed(3)) {
+      Robot.drivetrain.turnOnSpot(mLXAxisRequest);
+    } else {
+      Robot.drivetrain.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
     }
+  }
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-	System.out.println("I'll try spinning. That's a good trick.");
+  private void xboxControl() {
+    if (!Robot.oi.getXBOXButtonPressed(5)) {
+      Robot.drivetrain.tankDrive(mXYAxisRequestL, mXYAxisRequestR);
+    } else {
+      if (Math.abs(mXYAxisRequestR) > 0.1) {
+        Robot.drivetrain.tankDrive(mXYAxisRequestR, mXYAxisRequestR);
+      } else if (Math.abs(mXYAxisRequestL) > 0.1 || Math.abs(mXXAxisRequestL) > 0.1) {
+        Robot.drivetrain.arcadeDrive(mXYAxisRequestL, mXXAxisRequestL);
+      } else {
+        Robot.drivetrain.stop();
+      }
     }
+  }
 
-    private void logitechControl() {
-	if (Robot.oi.getLButtonPressed(2)) {
-	    Robot.drivetrain.forwardBackDrive(mLYAxisRequest);
-	} else if (Robot.oi.getLButtonPressed(3)) {
-	    Robot.drivetrain.turnOnSpot(mLXAxisRequest);
-	} else {
-	    Robot.drivetrain.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
-	}
+  // Called repeatedly when this Command is scheduled to run
+  protected void execute() {
+    mLXAxisRequest = -Robot.oi.getLJoyX() * Robot.oi.getLSliderScale();
+    mLYAxisRequest = -Robot.oi.getLJoyY() * Robot.oi.getLSliderScale();
+
+    mXXAxisRequestL = -Robot.oi.getXBOXLeftJoyX();
+    mXYAxisRequestL = -Robot.oi.getXBOXLeftJoyY();
+    mXYAxisRequestR = -Robot.oi.getXBOXRightJoyY();
+
+    if (Robot.oi.getLMainTrigger()) {
+      logitechControl();
+    } else if (Robot.oi.getXBOXSafety()) {
+      xboxControl();
+    } else {
+      Robot.drivetrain.stop();
     }
+  }
 
-    private void xboxControl() {
-	if (!Robot.oi.getXBOXButtonPressed(5)) {
-	    Robot.drivetrain.tankDrive(mXYAxisRequestL, mXYAxisRequestR);
-	} else {
-	    if (Math.abs(mXYAxisRequestR) > 0.1) {
-		Robot.drivetrain.tankDrive(mXYAxisRequestR, mXYAxisRequestR);
-	    } else if (Math.abs(mXYAxisRequestL) > 0.1 || Math.abs(mXXAxisRequestL) > 0.1) {
-		Robot.drivetrain.arcadeDrive(mXYAxisRequestL, mXXAxisRequestL);
-	    } else {
-		Robot.drivetrain.stop();
-	    }
-	}
-    }
+  // Make this return true when this Command no longer needs to run execute()
+  protected boolean isFinished() {
+    return false;
+  }
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-	mLXAxisRequest = -Robot.oi.getLJoyX() * Robot.oi.getLSliderScale();
-	mLYAxisRequest = -Robot.oi.getLJoyY() * Robot.oi.getLSliderScale();
+  // Called once after isFinished returns true
+  protected void end() {
+    Robot.drivetrain.stop();
+  }
 
-	mXXAxisRequestL = -Robot.oi.getXBOXLeftJoyX();
-	mXYAxisRequestL = -Robot.oi.getXBOXLeftJoyY();
-	mXYAxisRequestR = -Robot.oi.getXBOXRightJoyY();
-
-	if (Robot.oi.getLMainTrigger()) {
-	    logitechControl();
-	} else if (Robot.oi.getXBOXSafety()) {
-	    xboxControl();
-	} else {
-	    Robot.drivetrain.stop();
-	}
-    }
-
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-	return false;
-    }
-
-    // Called once after isFinished returns true
-    protected void end() {
-	Robot.drivetrain.stop();
-    }
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-	end();
-    }
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
+  protected void interrupted() {
+    end();
+  }
 
 }
