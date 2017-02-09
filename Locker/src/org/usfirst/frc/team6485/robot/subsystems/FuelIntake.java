@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Fuel Intake subsystem. <br>
- * Intake is positive PWM, evacuation is negative PWM.
+ * Intake is -PWM, evacuation is +PWM.
  * 
  * @author Kyle Saburao
  */
@@ -31,7 +31,6 @@ public class FuelIntake extends Subsystem {
     // Run all the time without watchdog concern.
     roller.setSafetyEnabled(false);
     roller.setSpeed(0.0);
-    roller.setInverted(true);
     setDirectionalState();
   }
 
@@ -43,9 +42,9 @@ public class FuelIntake extends Subsystem {
     if (speed == 0.0) {
       intakeState = IntakeState.HALT;
     } else {
-      if (speed > 0.0) {
+      if (speed < 0.0) {
         intakeState = IntakeState.IN;
-      } else if (speed < 0.0) {
+      } else if (speed > 0.0) {
         intakeState = IntakeState.EVACUATE;
       }
     }

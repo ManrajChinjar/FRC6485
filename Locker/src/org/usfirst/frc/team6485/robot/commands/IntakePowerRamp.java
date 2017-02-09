@@ -18,6 +18,7 @@ public class IntakePowerRamp extends Command {
   private double mStartSpeed, mTargetSpeed, mSetSpeed, mSlopeMilliseconds;
   private double mStartTime, mCurrentTime, mRunTimeMilliseconds, mAcceptableMarginMilliseconds;
   private double kRampTimeSeconds = RobotMap.INTAKEPOWERRAMP_TIME_SECONDS;
+  private boolean mHalt = false;
 
   /**
    * Linearizes the power ramp of the intake motor to prevent voltage spikes or other problems.
@@ -32,26 +33,31 @@ public class IntakePowerRamp extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    mSetSpeed = 0.0;
+    mRunTimeMilliseconds = 0.0;
     mStartTime = Timer.getFPGATimestamp();
     mStartSpeed = Robot.fuelintake.getSpeed();
     mAcceptableMarginMilliseconds = 30.0;
     // PWM units per millisecond
     mSlopeMilliseconds = (mTargetSpeed - mStartSpeed) / (kRampTimeSeconds * 1000.0);
+    mHalt = false;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    mCurrentTime = Timer.getFPGATimestamp();
-    mRunTimeMilliseconds = (mCurrentTime * 1000.0) - (mStartTime * 1000.0);
-    mSetSpeed = mSlopeMilliseconds * mRunTimeMilliseconds;
-    // If 30 milliseconds is left, set the Target speed.
-    if ((kRampTimeSeconds * 1000.0) - mRunTimeMilliseconds < mAcceptableMarginMilliseconds)
-      Robot.fuelintake.set(mTargetSpeed);
-    else
-      Robot.fuelintake.set(mSetSpeed);
-    SmartDashboard.putNumber("Intake Power Ramp Set Speed", mSetSpeed);
-    SmartDashboard.putNumber("Intake Power Ramp Millisecond Runtime", mRunTimeMilliseconds);
+    if (!mHalt) {
+      mCurrentTime = Timer.getFPGATimestamp();
+      mRunTimeMilliseconds = (mCurrentTime * 1000.0) - (mStartTime * 1000.0);
+      mSetSpeed = mSlopeMilliseconds * mRunTimeMilliseconds;
+      // If 30 milliseconds is left, set the Target speed.
+      if ((kRampTimeSeconds * 1000.0) - mRunTimeMilliseconds < mAcceptableMarginMilliseconds)
+        Robot.fuelintake.set(mTargetSpeed);
+      else
+        Robot.fuelintake.set(mSetSpeed);
+      SmartDashboard.putNumber("Intake Power Ramp Set Speed", mSetSpeed);
+      SmartDashboard.putNumber("Intake Power Ramp Millisecond Runtime", mRunTimeMilliseconds);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -62,6 +68,8 @@ public class IntakePowerRamp extends Command {
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {}
+  protected void end() {
+    mHalt = true;
+  }
 
 }

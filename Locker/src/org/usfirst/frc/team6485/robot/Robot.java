@@ -5,7 +5,6 @@ import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6485.robot.commands.IntakeStop;
 import org.usfirst.frc.team6485.robot.commands.TestAuto;
 import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team6485.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake.IntakeState;
 

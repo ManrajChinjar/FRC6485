@@ -61,7 +61,7 @@ public class AutoDrive extends Command {
     if (mSpeed < 0)
       cPT *= -1;
     SmartDashboard.putNumber("Gyroscope cPT", cPT);
-    Robot.drivetrain.drive(mSpeed, cPT);
+    Robot.drivetrain.arcadeDrive(mSpeed, cPT);
   }
 
   // Make this return true when this Command no longer needs to run execute()
