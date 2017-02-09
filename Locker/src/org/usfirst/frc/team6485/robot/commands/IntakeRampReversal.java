@@ -1,6 +1,7 @@
 package org.usfirst.frc.team6485.robot.commands;
 
 import org.usfirst.frc.team6485.robot.Robot;
+import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake.IntakeState;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
@@ -19,7 +20,7 @@ public class IntakeRampReversal extends InstantCommand {
   @Override
   protected void initialize() {
     if (Robot.fuelintake.getDirectionalState() == IntakeState.HALT) {
-      new IntakePowerRamp(-Robot.fuelintake.getNormalIntakeSpeed());
+      new IntakePowerRamp(-RobotMap.FUELINTAKE_NORMAL_PWM);
     } else
       new IntakePowerRamp(-Robot.fuelintake.getSpeed());
   }

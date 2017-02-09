@@ -1,5 +1,6 @@
 package org.usfirst.frc.team6485.robot;
 
+import org.usfirst.frc.team6485.robot.commands.AutoDrive;
 import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6485.robot.commands.IntakeStop;
 import org.usfirst.frc.team6485.robot.commands.TestAuto;
@@ -31,7 +32,6 @@ public class Robot extends IterativeRobot {
   // SUBSYSTEMS
   public static final DriveTrain drivetrain = new DriveTrain();
   public static final FuelIntake fuelintake = new FuelIntake();
-  public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -49,6 +49,9 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putData("Auto mode", chooser);
     SmartDashboard.putData("Drive Train", drivetrain);
     SmartDashboard.putData("Fuel Intake", fuelintake);
+
+    SmartDashboard.putData("Auto Drive Test", new AutoDrive(0.60, 3.0));
+    SmartDashboard.putData("TestAuto", new TestAuto());
   }
 
   /**

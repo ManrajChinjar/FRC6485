@@ -1,6 +1,5 @@
 package org.usfirst.frc.team6485.robot;
 
-import org.usfirst.frc.team6485.robot.commands.AutoDrive;
 import org.usfirst.frc.team6485.robot.commands.GyroscopeTurn;
 import org.usfirst.frc.team6485.robot.commands.IntakePowerRamp;
 import org.usfirst.frc.team6485.robot.commands.IntakeRampReversal;
@@ -101,8 +100,6 @@ public class OI {
         .whenPressed(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMAL_PWM));
     new JoystickButton(logitechController, 4).whenPressed(new IntakePowerRamp(0.0));
     new JoystickButton(logitechController, 5).whenPressed(new IntakeRampReversal());
-    new JoystickButton(logitechController, 7).whenPressed(new AutoDrive(0.55, 3.5));
-    // new JoystickButton(logitechController, 8).whenPressed(new TestAuto());
     new JoystickButton(logitechController, 11).whenPressed(new GyroscopeTurn(-90.0));
     new JoystickButton(logitechController, 12).whenPressed(new GyroscopeTurn(90.0));
   }
