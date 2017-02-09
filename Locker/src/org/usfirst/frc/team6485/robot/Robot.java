@@ -45,7 +45,6 @@ public class Robot extends IterativeRobot {
     oi = new OI();
     chooser.addDefault("Default Auto", new ExampleCommand());
     chooser.addObject("Intake Drive Test", new TestAuto());
-    // chooser.addObject("My Auto", new MyAutoCommand());
 
     SmartDashboard.putData("Auto mode", chooser);
     SmartDashboard.putData("Drive Train", drivetrain);

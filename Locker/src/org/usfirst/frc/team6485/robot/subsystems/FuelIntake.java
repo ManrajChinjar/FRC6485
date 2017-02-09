@@ -48,7 +48,6 @@ public class FuelIntake extends Subsystem {
     roller.setSafetyEnabled(false);
     roller.setSpeed(0.0);
     setDirectionalState();
-    roller.setInverted(true);
   }
 
   /**
@@ -57,11 +56,12 @@ public class FuelIntake extends Subsystem {
    * @param speed double [-1.00, 1.00]
    */
   public void setSpeed(double speed) {
+	  mReq = speed;
     if (speed > 1.0)
       mReq = 1.00;
     else if (speed < -1.0)
       mReq = -1.00;
-    roller.set(mReq);
+    roller.setSpeed(mReq);
     setDirectionalState();
   }
 
@@ -70,28 +70,28 @@ public class FuelIntake extends Subsystem {
    */
   public void reverseMagnitude() {
     mReverse = !mReverse;
-    setSpeed(-roller.getSpeed());
+    roller.setSpeed(-roller.getSpeed());
   }
 
   /**
    * Starts the intake motor to default intake mode.
    */
   public void start() {
-    setSpeed(kSpeedNormal);
+    roller.setSpeed(kSpeedNormal);
   }
 
   /**
    * Starts the intake motor to evacuation mode.
    */
   public void evacuate() {
-    setSpeed(-kSpeedNormal);
+    roller.setSpeed(-kSpeedNormal);
   }
 
   /**
    * Stops the intake motor.
    */
   public void stop() {
-    setSpeed(0.0);
+    roller.setSpeed(0.0);
   }
 
   /**

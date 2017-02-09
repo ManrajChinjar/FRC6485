@@ -13,10 +13,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class IntakePowerRamp extends Command {
 
-  private double mStartSpeed, mTargetSpeed, mPowerPerCycle, mPowerAccumulator = 0;
+  private double mStartSpeed = 0, mTargetSpeed = 0, mPowerPerCycle = 0, mPowerAccumulator = 0;
   private double kRampTimeSeconds = RobotMap.INTAKEPOWERRAMP_TIME_SECONDS;
-  private int mRampTargetCycles = (int) Math.ceil(kRampTimeSeconds / 0.02);
-  private int mRampCycles;
+  private int mRampTargetCycles = 0;
+  private int mRampCycles = 0;
 
   /**
    * Linearizes the power ramp of the intake motor to prevent voltage spikes or other problems.
@@ -26,14 +26,16 @@ public class IntakePowerRamp extends Command {
   public IntakePowerRamp(double speed) {
     requires(Robot.fuelintake);
     mTargetSpeed = speed;
+    mStartSpeed = Robot.fuelintake.getSpeed();
+    mRampTargetCycles = (int) Math.ceil(kRampTimeSeconds / 0.02);
+    mPowerPerCycle = (mTargetSpeed - mStartSpeed) / mRampTargetCycles;
+    mPowerAccumulator = mStartSpeed;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    mStartSpeed = Robot.fuelintake.getSpeed();
-    mPowerPerCycle = (mTargetSpeed - mStartSpeed) / mRampTargetCycles;
-    mPowerAccumulator = mStartSpeed;
+
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -62,8 +64,4 @@ public class IntakePowerRamp extends Command {
     SmartDashboard.putNumber("Final mRampTargetCycles", mRampTargetCycles);
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {}
 }

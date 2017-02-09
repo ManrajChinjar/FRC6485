@@ -18,11 +18,11 @@ public class RobotMap {
 
   // Constants sheet
 
-  public static final double INTAKEPOWERRAMP_TIME_SECONDS = 1.0 / 2.0;
+  public static final double INTAKEPOWERRAMP_TIME_SECONDS = 0.33;
 
-  public static final double FUELINTAKE_NORMAL_PWM = 3.0 / 4.0;
+  public static final double FUELINTAKE_NORMAL_PWM = -0.85;
 
-  public static final double AUTODRIVE_GYRO_KP = 1.0 / 50.0;
+  public static final double AUTODRIVE_GYRO_KP = -1.0 / 60.0;
 
   public static final double DRIVETRAIN_PWM_UPPER_LIMIT = 0.95, DRIVETRAIN_PWM_LOWER_LIMIT = -0.95;
 
