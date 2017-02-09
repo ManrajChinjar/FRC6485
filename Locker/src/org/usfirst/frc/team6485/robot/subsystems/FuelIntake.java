@@ -27,6 +27,14 @@ public class FuelIntake extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
+  public FuelIntake() {
+    // Run all the time without watchdog concern.
+    roller.setSafetyEnabled(false);
+    roller.setSpeed(0.0);
+    roller.setInverted(true);
+    setDirectionalState();
+  }
+
   /**
    * Internal method to set the State enum of the motor controller.
    */
@@ -43,20 +51,13 @@ public class FuelIntake extends Subsystem {
     }
   }
 
-  public FuelIntake() {
-    // Run all the time without watchdog concern.
-    roller.setSafetyEnabled(false);
-    roller.setSpeed(0.0);
-    setDirectionalState();
-  }
-
   /**
    * Sets the PWM parameter of the intake motor according to the standard PWM range.
    * 
    * @param speed double [-1.00, 1.00]
    */
-  public void setSpeed(double speed) {
-	  mReq = speed;
+  public void set(double speed) {
+    mReq = speed;
     if (speed > 1.0)
       mReq = 1.00;
     else if (speed < -1.0)
@@ -70,28 +71,28 @@ public class FuelIntake extends Subsystem {
    */
   public void reverseMagnitude() {
     mReverse = !mReverse;
-    roller.setSpeed(-roller.getSpeed());
+    set(-roller.getSpeed());
   }
 
   /**
    * Starts the intake motor to default intake mode.
    */
   public void start() {
-    roller.setSpeed(kSpeedNormal);
+    set(kSpeedNormal);
   }
 
   /**
    * Starts the intake motor to evacuation mode.
    */
   public void evacuate() {
-    roller.setSpeed(-kSpeedNormal);
+    set(-kSpeedNormal);
   }
 
   /**
    * Stops the intake motor.
    */
   public void stop() {
-    roller.setSpeed(0.0);
+    set(0.0);
   }
 
   /**

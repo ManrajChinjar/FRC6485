@@ -26,7 +26,7 @@ public class IntakeReversal extends InstantCommand {
   @Override
   protected void initialize() {
     if (Robot.fuelintake.getDirectionalState() == IntakeState.HALT) {
-      Robot.fuelintake.setSpeed(-RobotMap.FUELINTAKE_NORMAL_PWM);
+      Robot.fuelintake.set(-RobotMap.FUELINTAKE_NORMAL_PWM);
     } else
       Robot.fuelintake.reverseMagnitude();
   }
