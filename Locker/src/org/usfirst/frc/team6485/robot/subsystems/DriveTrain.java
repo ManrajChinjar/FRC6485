@@ -4,7 +4,6 @@ import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.commands.DriveTrainDefault_StickDriver;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;

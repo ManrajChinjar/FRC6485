@@ -1,6 +1,5 @@
 package org.usfirst.frc.team6485.robot;
 
-import org.usfirst.frc.team6485.robot.commands.AutoDrive;
 import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6485.robot.commands.IntakeInstantStop;
 import org.usfirst.frc.team6485.robot.commands.TC_CG_Auto;
@@ -10,6 +9,7 @@ import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake.IntakeState;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -39,6 +39,8 @@ public class Robot extends IterativeRobot {
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
 
+  private Command intakeStop;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -62,12 +64,16 @@ public class Robot extends IterativeRobot {
   @Override
   public void disabledInit() {
     // STOP INTAKE ROLLER
-    new IntakeInstantStop();
-    robotMode = RunningMode.DISABLED;
+    intakeStop = new IntakeInstantStop();
+    intakeStop.start();
+    Robot.DRIVETRAIN.stop();
+    Timer.delay(0.100);
+    Scheduler.getInstance().removeAll();
 
     // Calibrate the gyroscope. SmartDashboard will report that the RoboRio is in TeleOp or Auto
     // until the calibration is complete.
     Robot.DRIVETRAIN.getGyro().calibrate();
+    robotMode = RunningMode.DISABLED;
   }
 
   @Override

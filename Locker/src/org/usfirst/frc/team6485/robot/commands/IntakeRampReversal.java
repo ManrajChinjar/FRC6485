@@ -4,13 +4,16 @@ import org.usfirst.frc.team6485.robot.Robot;
 import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake.IntakeState;
 
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.InstantCommand;
-import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
  * @author Kyle Saburao
  */
 public class IntakeRampReversal extends InstantCommand {
+
+  private Command IRR;
+  private Command IRI;
 
   public IntakeRampReversal() {
     super();
@@ -19,10 +22,13 @@ public class IntakeRampReversal extends InstantCommand {
 
   @Override
   protected void initialize() {
+    IRR = new IntakePowerRamp(-RobotMap.FUELINTAKE_NORMAL_PWM);
+    IRI = new IntakePowerRamp(-Robot.FUELINTAKE.getSpeed());
+
     if (Robot.FUELINTAKE.getDirectionalState() == IntakeState.HALT)
-      Scheduler.getInstance().add(new IntakePowerRamp(-RobotMap.FUELINTAKE_NORMAL_PWM));
+      IRR.start();
     else
-      Scheduler.getInstance().add(new IntakePowerRamp(-Robot.FUELINTAKE.getSpeed()));
+      IRI.start();
   }
 
 }

@@ -114,7 +114,7 @@ public class OI {
     new JoystickButton(logitechController, 4).whenPressed(new IntakePowerRamp(0.0));
 
     // new JoystickButton(logitechController, 5).whenPressed(new IntakeInstantReversal());
-    new JoystickButton(logitechController, 4).whenPressed(new IntakeRampReversal());
+    new JoystickButton(logitechController, 5).whenPressed(new IntakeRampReversal());
 
     new JoystickButton(logitechController, 11).whenPressed(new AutoGyroTurn(-90.0));
 
