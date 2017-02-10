@@ -4,6 +4,7 @@ import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.commands.DriveTrainDefault_StickDriver;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -22,6 +23,9 @@ public class DriveTrain extends Subsystem {
   private final Spark mRearLeftMotor = new Spark(RobotMap.REAR_LEFT_MOTOR);
   private final Spark mFrontRightMotor = new Spark(RobotMap.FRONT_RIGHT_MOTOR);
   private final Spark mRearRightMotor = new Spark(RobotMap.REAR_RIGHT_MOTOR);
+  // private final Encoder asdf = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
+  // Signal A to DIO-0 S, Signal B to DIO-1 S, GND to DIO-0 SYMBOL THING, 5V to DIO-0 V, DETERMINE
+  // BOOLEAN STATE
 
   private RobotDrive engine;
 

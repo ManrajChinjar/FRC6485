@@ -95,6 +95,7 @@ public class Robot extends IterativeRobot {
   @Override
   public void autonomousInit() {
     robotMode = RunningMode.AUTO;
+    Robot.drivetrain.getGyro().reset();
     autonomousCommand = chooser.getSelected();
 
     /*
@@ -121,6 +122,7 @@ public class Robot extends IterativeRobot {
   @Override
   public void teleopInit() {
     robotMode = RunningMode.TELEOP;
+    Robot.drivetrain.getGyro().reset();
 
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
