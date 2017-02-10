@@ -13,9 +13,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class FuelIntake extends Subsystem {
 
-  private VictorSP roller = new VictorSP(RobotMap.FUEL_INTAKE_MOTOR);
-  private double mReq;
+  private final VictorSP roller = new VictorSP(RobotMap.FUEL_INTAKE_MOTOR);
+
   private final double kSpeedNormal = RobotMap.FUELINTAKE_NORMAL_PWM;
+  private double mReq;
   private boolean mReverse = false;
 
   public enum IntakeState {
@@ -61,6 +62,7 @@ public class FuelIntake extends Subsystem {
       mReq = 1.00;
     else if (speed < -1.0)
       mReq = -1.00;
+
     roller.setSpeed(mReq);
     setDirectionalState();
   }

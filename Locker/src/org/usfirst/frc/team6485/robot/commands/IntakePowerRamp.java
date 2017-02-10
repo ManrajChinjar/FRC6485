@@ -39,6 +39,7 @@ public class IntakePowerRamp extends Command {
     mStartTime = Timer.getFPGATimestamp();
     mStartSpeed = Robot.fuelintake.getSpeed();
     mAcceptableMarginMS = 30.0;
+
     // PWM units per millisecond
     mSlopeMS = (mTargetSpeed - mStartSpeed) / (kRampTimeSeconds * 1000.0);
     mHalt = false;
@@ -51,11 +52,13 @@ public class IntakePowerRamp extends Command {
       mCurrentTime = Timer.getFPGATimestamp();
       mRunTimeMS = (mCurrentTime * 1000.0) - (mStartTime * 1000.0);
       mSetSpeed = mSlopeMS * mRunTimeMS;
+
       // If 30 milliseconds is left, set the Target speed.
       if ((kRampTimeSeconds * 1000.0) - mRunTimeMS < mAcceptableMarginMS)
         Robot.fuelintake.set(mTargetSpeed);
       else
         Robot.fuelintake.set(mSetSpeed);
+
       SmartDashboard.putNumber("Intake Power Ramp Set Speed", mSetSpeed);
       SmartDashboard.putNumber("Intake Power Ramp Millisecond Runtime", mRunTimeMS);
     }

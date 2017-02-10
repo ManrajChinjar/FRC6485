@@ -22,9 +22,10 @@ public class DriveTrain extends Subsystem {
   private final Spark mRearLeftMotor = new Spark(RobotMap.REAR_LEFT_MOTOR);
   private final Spark mFrontRightMotor = new Spark(RobotMap.FRONT_RIGHT_MOTOR);
   private final Spark mRearRightMotor = new Spark(RobotMap.REAR_RIGHT_MOTOR);
+
   private RobotDrive engine;
 
-  private ADXRS450_Gyro gyroscope = new ADXRS450_Gyro();
+  private final ADXRS450_Gyro gyroscope = new ADXRS450_Gyro();
 
   // public double BaseAngle;
   // public boolean GyroFlag;
@@ -32,6 +33,7 @@ public class DriveTrain extends Subsystem {
   // Initialize drive train
   public DriveTrain() {
     engine = new RobotDrive(mFrontLeftMotor, mRearLeftMotor, mFrontRightMotor, mRearRightMotor);
+
     engine.setSafetyEnabled(true);
     engine.setExpiration(0.125);
     engine.setMaxOutput(1.00);
@@ -53,6 +55,7 @@ public class DriveTrain extends Subsystem {
     } else if (num < RobotMap.DRIVETRAIN_PWM_LOWER_LIMIT) {
       num = RobotMap.DRIVETRAIN_PWM_LOWER_LIMIT;
     }
+
     return num;
   }
 

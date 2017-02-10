@@ -55,6 +55,7 @@ public class OI {
       scale = 1;
     if (scale < 0.05)
       scale = 0;
+
     return scale;
   }
 
@@ -97,14 +98,21 @@ public class OI {
   }
 
   public OI() {
+
     new JoystickButton(logitechController, 6)
         .whenPressed(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMAL_PWM));
+
     new JoystickButton(logitechController, 4).whenPressed(new IntakePowerRamp(0.0));
+
     // new JoystickButton(logitechController, 5).whenPressed(new IntakeInstantReversal());
     new JoystickButton(logitechController, 4).whenPressed(new IntakeRampReversal());
-    new JoystickButton(logitechController, 7).whenPressed(new AutoDrive(0.85, 4.0));
+
+    new JoystickButton(logitechController, 7).whileHeld(new AutoDrive(0.80, 30.0));
+
     new JoystickButton(logitechController, 11).whenPressed(new AutoGyroTurn(-90.0));
+
     new JoystickButton(logitechController, 12).whenPressed(new AutoGyroTurn(90.0));
+
   }
 
   // TRIGGER COMMMAND

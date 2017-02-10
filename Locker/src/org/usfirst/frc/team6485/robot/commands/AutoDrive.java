@@ -38,6 +38,7 @@ public class AutoDrive extends Command {
       time = 0;
     setTimeout(time + 1.0); // Kills the command one second after its
     // allotted window.
+
     mTargetSpeed = speed;
     mTimeWindow = time;
   }
@@ -47,6 +48,7 @@ public class AutoDrive extends Command {
   protected void initialize() {
     System.out
         .println(String.format("Driving at %.2f for %.2f seconds.", mTargetSpeed, mTimeWindow));
+
     gyroscope.reset();
   }
 
@@ -59,7 +61,9 @@ public class AutoDrive extends Command {
     cPT = mCurrentAngle * kP;
     if (mTargetSpeed < 0)
       cPT *= -1;
+
     SmartDashboard.putNumber("Gyroscope cPT", cPT);
+
     Robot.drivetrain.arcadeDrive(mTargetSpeed, cPT);
   }
 
