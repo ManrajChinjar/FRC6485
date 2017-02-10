@@ -4,9 +4,12 @@ import org.usfirst.frc.team6485.robot.commands.AutoDrive;
 import org.usfirst.frc.team6485.robot.commands.AutoGyroTurn;
 import org.usfirst.frc.team6485.robot.commands.IntakePowerRamp;
 import org.usfirst.frc.team6485.robot.commands.IntakeRampReversal;
+import org.usfirst.frc.team6485.robot.commands.TC_CG_Auto;
+import org.usfirst.frc.team6485.robot.commands.TC_CG_Auto2;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator interface to the commands
@@ -99,6 +102,12 @@ public class OI {
 
   public OI() {
 
+    // SmartDashboard buttons
+    SmartDashboard.putData("Auto Drive Test", new AutoDrive(0.75, 3.0));
+    SmartDashboard.putData("TestAuto", new TC_CG_Auto());
+    SmartDashboard.putData("TestAuto2", new TC_CG_Auto2());
+
+    // Logitech controller buttons
     new JoystickButton(logitechController, 6)
         .whenPressed(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMAL_PWM));
 
@@ -106,8 +115,6 @@ public class OI {
 
     // new JoystickButton(logitechController, 5).whenPressed(new IntakeInstantReversal());
     new JoystickButton(logitechController, 4).whenPressed(new IntakeRampReversal());
-
-    new JoystickButton(logitechController, 7).whileHeld(new AutoDrive(0.80, 30.0));
 
     new JoystickButton(logitechController, 11).whenPressed(new AutoGyroTurn(-90.0));
 

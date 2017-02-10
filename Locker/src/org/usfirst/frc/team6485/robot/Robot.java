@@ -50,13 +50,9 @@ public class Robot extends IterativeRobot {
     chooser.addObject("Intake Drive Test", new TC_CG_Auto());
     chooser.addObject("Intake Drive Test 2", new TC_CG_Auto2());
 
-    SmartDashboard.putData("Auto mode", chooser);
+    SmartDashboard.putData("Auto Mode", chooser);
     SmartDashboard.putData("Drive Train", DRIVETRAIN);
     SmartDashboard.putData("Fuel Intake", FUELINTAKE);
-
-    SmartDashboard.putData("Auto Drive Test", new AutoDrive(0.75, 3.0));
-    SmartDashboard.putData("TestAuto", new TC_CG_Auto());
-    SmartDashboard.putData("TestAuto2", new TC_CG_Auto2());
   }
 
   /**
