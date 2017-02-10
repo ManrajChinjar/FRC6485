@@ -21,7 +21,7 @@ public class AutoDriveCurve extends Command {
    * @param time The time of the drive (t|t > 0, t = R)
    */
   public AutoDriveCurve(double speed, double curve, double time) {
-    requires(Robot.drivetrain);
+    requires(Robot.DRIVETRAIN);
     if (time < 0)
       time = 0;
     setTimeout(time + 1.0);
@@ -41,7 +41,7 @@ public class AutoDriveCurve extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.drivetrain.drive(mSpeed, mCurve);
+    Robot.DRIVETRAIN.drive(mSpeed, mCurve);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -53,7 +53,7 @@ public class AutoDriveCurve extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.drivetrain.stop();
+    Robot.DRIVETRAIN.stop();
   }
 
 }

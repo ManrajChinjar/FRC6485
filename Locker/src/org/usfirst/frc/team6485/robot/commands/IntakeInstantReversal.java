@@ -19,16 +19,16 @@ public class IntakeInstantReversal extends InstantCommand {
     super();
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.fuelintake);
+    requires(Robot.FUELINTAKE);
   }
 
   // Called once when the command executes
   @Override
   protected void initialize() {
-    if (Robot.fuelintake.getDirectionalState() == IntakeState.HALT) {
-      Robot.fuelintake.set(-RobotMap.FUELINTAKE_NORMAL_PWM);
+    if (Robot.FUELINTAKE.getDirectionalState() == IntakeState.HALT) {
+      Robot.FUELINTAKE.set(-RobotMap.FUELINTAKE_NORMAL_PWM);
     } else
-      Robot.fuelintake.reverseMagnitude();
+      Robot.FUELINTAKE.reverseMagnitude();
   }
 
 }

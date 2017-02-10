@@ -24,7 +24,7 @@ public class AutoDrive extends Command {
   private final double kP = RobotMap.AUTODRIVE_GYRO_KP;
   private double mCurrentAngle, mTargetSpeed, cPT;
   private double mStartTime, mTimeWindow;
-  private Gyro gyroscope = Robot.drivetrain.getGyro();
+  private Gyro gyroscope = Robot.DRIVETRAIN.getGyro();
 
   /**
    * Drives forward and uses the gyroscope to maintain direction.
@@ -33,7 +33,7 @@ public class AutoDrive extends Command {
    * @param time The time to drive
    */
   public AutoDrive(double speed, double time) {
-    requires(Robot.drivetrain);
+    requires(Robot.DRIVETRAIN);
     if (time < 0)
       time = 0;
     setTimeout(time + 1.0); // Kills the command one second after its
@@ -64,7 +64,7 @@ public class AutoDrive extends Command {
 
     SmartDashboard.putNumber("Gyroscope cPT", cPT);
 
-    Robot.drivetrain.arcadeDrive(mTargetSpeed, cPT);
+    Robot.DRIVETRAIN.arcadeDrive(mTargetSpeed, cPT);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -76,7 +76,7 @@ public class AutoDrive extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.drivetrain.stop();
+    Robot.DRIVETRAIN.stop();
   }
 
 }

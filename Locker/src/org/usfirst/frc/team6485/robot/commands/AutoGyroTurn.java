@@ -24,13 +24,13 @@ public class AutoGyroTurn extends Command {
    */
   public AutoGyroTurn(double angle) {
     mAngleRequest = angle;
-    requires(Robot.drivetrain);
+    requires(Robot.DRIVETRAIN);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    mStartAngle = Robot.drivetrain.getGyro().getAngle();
+    mStartAngle = Robot.DRIVETRAIN.getGyro().getAngle();
     mTargetAngle = mStartAngle + mAngleRequest;
     setTimeout(7);
   }
@@ -38,7 +38,7 @@ public class AutoGyroTurn extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    mCurrentAngle = Robot.drivetrain.getGyro().getAngle();
+    mCurrentAngle = Robot.DRIVETRAIN.getGyro().getAngle();
     mError = mTargetAngle - mCurrentAngle;
 
     mTurnSpeed = 0.04 * Math.abs(mError);
@@ -49,7 +49,7 @@ public class AutoGyroTurn extends Command {
 
     mTurnSpeed = (mAngleRequest < 0.0) ? mTurnSpeed : -mTurnSpeed;
 
-    Robot.drivetrain.turnOnSpot(mTurnSpeed);
+    Robot.DRIVETRAIN.turnOnSpot(mTurnSpeed);
 
     SmartDashboard.putNumber("Gyro turn start angle", mStartAngle);
     SmartDashboard.putNumber("Gyro turn target angle", mTargetAngle);
@@ -66,7 +66,7 @@ public class AutoGyroTurn extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.drivetrain.stop();
+    Robot.DRIVETRAIN.stop();
   }
 
 }

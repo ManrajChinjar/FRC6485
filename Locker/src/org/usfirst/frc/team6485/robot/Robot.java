@@ -33,8 +33,8 @@ public class Robot extends IterativeRobot {
   public static RunningMode robotMode;
 
   // SUBSYSTEMS
-  public static final DriveTrain drivetrain = new DriveTrain();
-  public static final FuelIntake fuelintake = new FuelIntake();
+  public static final DriveTrain DRIVETRAIN = new DriveTrain();
+  public static final FuelIntake FUELINTAKE = new FuelIntake();
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -51,8 +51,8 @@ public class Robot extends IterativeRobot {
     chooser.addObject("Intake Drive Test 2", new TC_CG_Auto2());
 
     SmartDashboard.putData("Auto mode", chooser);
-    SmartDashboard.putData("Drive Train", drivetrain);
-    SmartDashboard.putData("Fuel Intake", fuelintake);
+    SmartDashboard.putData("Drive Train", DRIVETRAIN);
+    SmartDashboard.putData("Fuel Intake", FUELINTAKE);
 
     SmartDashboard.putData("Auto Drive Test", new AutoDrive(0.75, 3.0));
     SmartDashboard.putData("TestAuto", new TC_CG_Auto());
@@ -71,7 +71,7 @@ public class Robot extends IterativeRobot {
 
     // Calibrate the gyroscope. SmartDashboard will report that the RoboRio is in TeleOp or Auto
     // until the calibration is complete.
-    Robot.drivetrain.getGyro().calibrate();
+    Robot.DRIVETRAIN.getGyro().calibrate();
   }
 
   @Override
@@ -95,7 +95,7 @@ public class Robot extends IterativeRobot {
   @Override
   public void autonomousInit() {
     robotMode = RunningMode.AUTO;
-    Robot.drivetrain.getGyro().reset();
+    Robot.DRIVETRAIN.getGyro().reset();
     autonomousCommand = chooser.getSelected();
 
     /*
@@ -122,7 +122,7 @@ public class Robot extends IterativeRobot {
   @Override
   public void teleopInit() {
     robotMode = RunningMode.TELEOP;
-    Robot.drivetrain.getGyro().reset();
+    Robot.DRIVETRAIN.getGyro().reset();
 
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
@@ -164,11 +164,11 @@ public class Robot extends IterativeRobot {
         break;
     }
     SmartDashboard.putString("ROBOT MODE", robotmode_string);
-    SmartDashboard.putNumber("Gyroscope Value", Robot.drivetrain.getGyroAngle());
+    SmartDashboard.putNumber("Gyroscope Value", Robot.DRIVETRAIN.getGyroAngle());
     SmartDashboard.putNumber("X-Axis Logitech Request (NEG)", -Robot.oi.getLJoyX());
     SmartDashboard.putNumber("Y-Axis Logitech Request (NEG)", -Robot.oi.getLJoyY());
 
-    double[] work = Robot.drivetrain.getMotorPWMS();
+    double[] work = Robot.DRIVETRAIN.getMotorPWMS();
     SmartDashboard.putNumber("Front Left PWM", work[0]);
     SmartDashboard.putNumber("Rear Left PWM", work[1]);
     SmartDashboard.putNumber("Front Right PWM", work[2]);
@@ -177,7 +177,7 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putNumber("Right PWM Group Difference", Math.abs(work[2] - work[3]));
 
     String intakeenum = "";
-    IntakeState fuelstate = Robot.fuelintake.getDirectionalState();
+    IntakeState fuelstate = Robot.FUELINTAKE.getDirectionalState();
     switch (fuelstate) {
       case HALT:
         intakeenum = "HALT";
@@ -189,7 +189,7 @@ public class Robot extends IterativeRobot {
         intakeenum = "EVACUATE";
         break;
     }
-    SmartDashboard.putNumber("Intake PWM", Robot.fuelintake.getSpeed());
+    SmartDashboard.putNumber("Intake PWM", Robot.FUELINTAKE.getSpeed());
     SmartDashboard.putString("Intake ENUM", intakeenum);
   }
 

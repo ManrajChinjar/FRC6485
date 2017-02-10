@@ -14,15 +14,15 @@ public class IntakeRampReversal extends InstantCommand {
 
   public IntakeRampReversal() {
     super();
-    requires(Robot.fuelintake);
+    requires(Robot.FUELINTAKE);
   }
 
   @Override
   protected void initialize() {
-    if (Robot.fuelintake.getDirectionalState() == IntakeState.HALT)
+    if (Robot.FUELINTAKE.getDirectionalState() == IntakeState.HALT)
       Scheduler.getInstance().add(new IntakePowerRamp(-RobotMap.FUELINTAKE_NORMAL_PWM));
     else
-      Scheduler.getInstance().add(new IntakePowerRamp(-Robot.fuelintake.getSpeed()));
+      Scheduler.getInstance().add(new IntakePowerRamp(-Robot.FUELINTAKE.getSpeed()));
   }
 
 }

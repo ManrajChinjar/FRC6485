@@ -27,7 +27,7 @@ public class DriveTrainDefault_StickDriver extends Command {
 
   public DriveTrainDefault_StickDriver() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.drivetrain);
+    requires(Robot.DRIVETRAIN);
   }
 
   // Called just before this Command runs the first time
@@ -38,24 +38,24 @@ public class DriveTrainDefault_StickDriver extends Command {
 
   private void logitechControl() {
     if (Robot.oi.getLButtonPressed(2)) {
-      Robot.drivetrain.forwardBackDrive(mLYAxisRequest);
+      Robot.DRIVETRAIN.forwardBackDrive(mLYAxisRequest);
     } else if (Robot.oi.getLButtonPressed(3)) {
-      Robot.drivetrain.turnOnSpot(mLXAxisRequest);
+      Robot.DRIVETRAIN.turnOnSpot(mLXAxisRequest);
     } else {
-      Robot.drivetrain.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
+      Robot.DRIVETRAIN.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
     }
   }
 
   private void xboxControl() {
     if (!Robot.oi.getXBOXButtonPressed(5)) {
-      Robot.drivetrain.tankDrive(mXYAxisRequestL, mXYAxisRequestR);
+      Robot.DRIVETRAIN.tankDrive(mXYAxisRequestL, mXYAxisRequestR);
     } else {
       if (Math.abs(mXYAxisRequestR) > 0.1) {
-        Robot.drivetrain.tankDrive(mXYAxisRequestR, mXYAxisRequestR);
+        Robot.DRIVETRAIN.tankDrive(mXYAxisRequestR, mXYAxisRequestR);
       } else if (Math.abs(mXYAxisRequestL) > 0.1 || Math.abs(mXXAxisRequestL) > 0.1) {
-        Robot.drivetrain.arcadeDrive(mXYAxisRequestL, mXXAxisRequestL);
+        Robot.DRIVETRAIN.arcadeDrive(mXYAxisRequestL, mXXAxisRequestL);
       } else {
-        Robot.drivetrain.stop();
+        Robot.DRIVETRAIN.stop();
       }
     }
   }
@@ -75,7 +75,7 @@ public class DriveTrainDefault_StickDriver extends Command {
     } else if (Robot.oi.getXBOXSafety()) {
       xboxControl();
     } else {
-      Robot.drivetrain.stop();
+      Robot.DRIVETRAIN.stop();
     }
   }
 
@@ -88,7 +88,7 @@ public class DriveTrainDefault_StickDriver extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.drivetrain.stop();
+    Robot.DRIVETRAIN.stop();
   }
 
   // Called when another command which requires one or more of the same

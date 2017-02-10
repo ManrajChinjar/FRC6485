@@ -14,13 +14,13 @@ public class IntakeInstantStop extends InstantCommand {
    */
   public IntakeInstantStop() {
     super();
-    requires(Robot.fuelintake);
+    requires(Robot.FUELINTAKE);
   }
 
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Robot.fuelintake.stop();
+    Robot.FUELINTAKE.stop();
   }
 
 }

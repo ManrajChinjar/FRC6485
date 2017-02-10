@@ -15,13 +15,13 @@ public class IntakeInstantStart extends InstantCommand {
    */
   public IntakeInstantStart() {
     super();
-    requires(Robot.fuelintake);
+    requires(Robot.FUELINTAKE);
   }
 
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Robot.fuelintake.set(RobotMap.FUELINTAKE_NORMAL_PWM);
+    Robot.FUELINTAKE.set(RobotMap.FUELINTAKE_NORMAL_PWM);
   }
 
 }

@@ -27,7 +27,7 @@ public class IntakePowerRamp extends Command {
    * @author Kyle Saburao
    */
   public IntakePowerRamp(double speed) {
-    requires(Robot.fuelintake);
+    requires(Robot.FUELINTAKE);
     mTargetSpeed = speed;
   }
 
@@ -37,7 +37,7 @@ public class IntakePowerRamp extends Command {
     mSetSpeed = 0.0;
     mRunTimeMS = 0.0;
     mStartTime = Timer.getFPGATimestamp();
-    mStartSpeed = Robot.fuelintake.getSpeed();
+    mStartSpeed = Robot.FUELINTAKE.getSpeed();
     mAcceptableMarginMS = 30.0;
 
     // PWM units per millisecond
@@ -55,9 +55,9 @@ public class IntakePowerRamp extends Command {
 
       // If 30 milliseconds is left, set the Target speed.
       if ((kRampTimeSeconds * 1000.0) - mRunTimeMS < mAcceptableMarginMS)
-        Robot.fuelintake.set(mTargetSpeed);
+        Robot.FUELINTAKE.set(mTargetSpeed);
       else
-        Robot.fuelintake.set(mSetSpeed);
+        Robot.FUELINTAKE.set(mSetSpeed);
 
       SmartDashboard.putNumber("Intake Power Ramp Set Speed", mSetSpeed);
       SmartDashboard.putNumber("Intake Power Ramp Millisecond Runtime", mRunTimeMS);
@@ -67,7 +67,7 @@ public class IntakePowerRamp extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.fuelintake.getSpeed() == mTargetSpeed;
+    return Robot.FUELINTAKE.getSpeed() == mTargetSpeed;
   }
 
   // Called once after isFinished returns true
