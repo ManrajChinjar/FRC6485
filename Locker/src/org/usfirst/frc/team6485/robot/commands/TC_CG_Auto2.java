@@ -1,21 +1,25 @@
 package org.usfirst.frc.team6485.robot.commands;
 
+import org.usfirst.frc.team6485.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- * @author Kyle Saburao
+ *
  */
-public class TestCaseSpin extends CommandGroup {
+public class TC_CG_Auto2 extends CommandGroup {
 
-  public TestCaseSpin() {
+  public TC_CG_Auto2() {
 
-    addSequential(new GyroscopeTurn(90));
-    addSequential(new Delay(3));
-    addSequential(new GyroscopeTurn(90));
-    addSequential(new Delay(3));
-    addSequential(new GyroscopeTurn(90));
-    addSequential(new Delay(3));
-    addSequential(new GyroscopeTurn(90));
+    addParallel(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMAL_PWM));
+    addSequential(new AutoDrive(0.60, 1.5));
+    addSequential(new AutoGyroTurn(45.0));
+    addSequential(new AutoDrive(0.85, 2.0));
+    addSequential(new AutoGyroTurn(-45.0));
+    addSequential(new AutoDrive(0.85, 2.5));
+    addSequential(new IntakePowerRamp(-RobotMap.FUELINTAKE_NORMAL_PWM));
+    addSequential(new Delay(2.0));
+    addSequential(new IntakePowerRamp(0.0));
 
     // Add Commands here:
     // e.g. addSequential(new Command1());

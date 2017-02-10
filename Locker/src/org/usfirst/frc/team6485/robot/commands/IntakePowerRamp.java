@@ -15,8 +15,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class IntakePowerRamp extends Command {
 
-  private double mStartSpeed, mTargetSpeed, mSetSpeed, mSlopeMilliseconds;
-  private double mStartTime, mCurrentTime, mRunTimeMilliseconds, mAcceptableMarginMilliseconds;
+  private double mStartSpeed, mTargetSpeed, mSetSpeed, mSlopeMS;
+  private double mStartTime, mCurrentTime, mRunTimeMS, mAcceptableMarginMS;
   private double kRampTimeSeconds = RobotMap.INTAKEPOWERRAMP_TIME_SECONDS;
   private boolean mHalt = false;
 
@@ -34,12 +34,12 @@ public class IntakePowerRamp extends Command {
   @Override
   protected void initialize() {
     mSetSpeed = 0.0;
-    mRunTimeMilliseconds = 0.0;
+    mRunTimeMS = 0.0;
     mStartTime = Timer.getFPGATimestamp();
     mStartSpeed = Robot.fuelintake.getSpeed();
-    mAcceptableMarginMilliseconds = 30.0;
+    mAcceptableMarginMS = 30.0;
     // PWM units per millisecond
-    mSlopeMilliseconds = (mTargetSpeed - mStartSpeed) / (kRampTimeSeconds * 1000.0);
+    mSlopeMS = (mTargetSpeed - mStartSpeed) / (kRampTimeSeconds * 1000.0);
     mHalt = false;
   }
 
@@ -48,15 +48,15 @@ public class IntakePowerRamp extends Command {
   protected void execute() {
     if (!mHalt) {
       mCurrentTime = Timer.getFPGATimestamp();
-      mRunTimeMilliseconds = (mCurrentTime * 1000.0) - (mStartTime * 1000.0);
-      mSetSpeed = mSlopeMilliseconds * mRunTimeMilliseconds;
+      mRunTimeMS = (mCurrentTime * 1000.0) - (mStartTime * 1000.0);
+      mSetSpeed = mSlopeMS * mRunTimeMS;
       // If 30 milliseconds is left, set the Target speed.
-      if ((kRampTimeSeconds * 1000.0) - mRunTimeMilliseconds < mAcceptableMarginMilliseconds)
+      if ((kRampTimeSeconds * 1000.0) - mRunTimeMS < mAcceptableMarginMS)
         Robot.fuelintake.set(mTargetSpeed);
       else
         Robot.fuelintake.set(mSetSpeed);
       SmartDashboard.putNumber("Intake Power Ramp Set Speed", mSetSpeed);
-      SmartDashboard.putNumber("Intake Power Ramp Millisecond Runtime", mRunTimeMilliseconds);
+      SmartDashboard.putNumber("Intake Power Ramp Millisecond Runtime", mRunTimeMS);
     }
   }
 

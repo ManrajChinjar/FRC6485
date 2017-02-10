@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  * @author Kyle Saburao
  */
-public class TestAuto extends CommandGroup {
+public class TC_CG_Auto extends CommandGroup {
 
   /**
    * Test case that:
@@ -20,16 +20,16 @@ public class TestAuto extends CommandGroup {
    * <li>Does a complete 180 degree turn to the left</li>
    * </ol>
    */
-  public TestAuto() {
+  public TC_CG_Auto() {
 
     addParallel(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMAL_PWM));
     addSequential(new AutoDrive(0.75, 3.5));
     addSequential(new Delay(1.0));
-    addSequential(new GyroscopeTurn(180.0));
+    addSequential(new AutoGyroTurn(180.0));
     addSequential(new AutoDrive(0.75, 3.5));
     addSequential(new Delay(1.0));
     addParallel(new IntakePowerRamp(0.0));
-    addSequential(new GyroscopeTurn(180.0));
+    addSequential(new AutoGyroTurn(180.0));
 
     // Add Commands here:
     // e.g. addSequential(new Command1());

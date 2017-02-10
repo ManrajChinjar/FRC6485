@@ -22,7 +22,7 @@ public class RobotMap {
 
   public static final double FUELINTAKE_NORMAL_PWM = -0.85;
 
-  public static final double AUTODRIVE_GYRO_KP = 0.095;
+  public static final double AUTODRIVE_GYRO_KP = 0.085;
 
   public static final double DRIVETRAIN_PWM_UPPER_LIMIT = 0.95, DRIVETRAIN_PWM_LOWER_LIMIT = -0.95;
 

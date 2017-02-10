@@ -13,16 +13,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * 
  * @author Kyle Saburao
  */
-public class GyroscopeTurn extends Command {
+public class AutoGyroTurn extends Command {
 
   private double mCurrentAngle, mAngleRequest, mStartAngle, mTargetAngle, mTurnSpeed, mError;
-  private final double mBaseTurnSpeed = 0.55, mSlowTurnSpeed = 0.50, mAngularTolerance = 0.75;
+  private final double mBaseTurnSpeed = 0.60, mSlowTurnSpeed = 0.50, mAngularTolerance = 0.75;
 
   /**
    * 
    * @param angle double angle (Negative turns left, positive turns right)
    */
-  public GyroscopeTurn(double angle) {
+  public AutoGyroTurn(double angle) {
     mAngleRequest = angle;
     requires(Robot.drivetrain);
   }
@@ -41,11 +41,14 @@ public class GyroscopeTurn extends Command {
     mCurrentAngle = Robot.drivetrain.getGyro().getAngle();
     mError = mTargetAngle - mCurrentAngle;
 
-    if (Math.abs(mError) > 20) {
-      mTurnSpeed = ((mAngleRequest < 0.00) ? mBaseTurnSpeed : -mBaseTurnSpeed);
-    } else {
-      mTurnSpeed = ((mAngleRequest < 0.00) ? mSlowTurnSpeed : -mSlowTurnSpeed);
-    }
+    mTurnSpeed = 0.04 * Math.abs(mError);
+    if (mTurnSpeed > mBaseTurnSpeed)
+      mTurnSpeed = mBaseTurnSpeed;
+    else if (mTurnSpeed < mSlowTurnSpeed)
+      mTurnSpeed = mSlowTurnSpeed;
+
+    mTurnSpeed = (mAngleRequest < 0.0) ? mTurnSpeed : -mTurnSpeed;
+
     Robot.drivetrain.turnOnSpot(mTurnSpeed);
 
     SmartDashboard.putNumber("Gyro turn start angle", mStartAngle);

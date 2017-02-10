@@ -2,8 +2,9 @@ package org.usfirst.frc.team6485.robot;
 
 import org.usfirst.frc.team6485.robot.commands.AutoDrive;
 import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
-import org.usfirst.frc.team6485.robot.commands.IntakeStop;
-import org.usfirst.frc.team6485.robot.commands.TestAuto;
+import org.usfirst.frc.team6485.robot.commands.IntakeInstantStop;
+import org.usfirst.frc.team6485.robot.commands.TC_CG_Auto;
+import org.usfirst.frc.team6485.robot.commands.TC_CG_Auto2;
 import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake.IntakeState;
@@ -16,6 +17,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
+ * Class identifiers: - AutoX: A command which automatically completes a task - SubsystemDefault_:
+ * The default command of a subsystem - CG_: Command Group - TC_: Test case
+ * 
  * @author Kyle Saburao
  */
 public class Robot extends IterativeRobot {
@@ -43,14 +47,16 @@ public class Robot extends IterativeRobot {
   public void robotInit() {
     oi = new OI();
     chooser.addDefault("Default Auto", new ExampleCommand());
-    chooser.addObject("Intake Drive Test", new TestAuto());
+    chooser.addObject("Intake Drive Test", new TC_CG_Auto());
+    chooser.addObject("Intake Drive Test 2", new TC_CG_Auto2());
 
     SmartDashboard.putData("Auto mode", chooser);
     SmartDashboard.putData("Drive Train", drivetrain);
     SmartDashboard.putData("Fuel Intake", fuelintake);
 
-    SmartDashboard.putData("Auto Drive Test", new AutoDrive(0.60, 3.0));
-    SmartDashboard.putData("TestAuto", new TestAuto());
+    SmartDashboard.putData("Auto Drive Test", new AutoDrive(0.75, 3.0));
+    SmartDashboard.putData("TestAuto", new TC_CG_Auto());
+    SmartDashboard.putData("TestAuto2", new TC_CG_Auto2());
   }
 
   /**
@@ -60,15 +66,17 @@ public class Robot extends IterativeRobot {
   @Override
   public void disabledInit() {
     // STOP INTAKE ROLLER
-    new IntakeStop();
+    new IntakeInstantStop();
     robotMode = RunningMode.DISABLED;
-    // Calibrate the gyroscope
+
+    // Calibrate the gyroscope. SmartDashboard will report that the RoboRio is in TeleOp or Auto
+    // until the calibration is complete.
     Robot.drivetrain.getGyro().calibrate();
   }
 
   @Override
   public void disabledPeriodic() {
-    new IntakeStop();
+    new IntakeInstantStop();
     Scheduler.getInstance().run();
     report();
   }
@@ -110,13 +118,12 @@ public class Robot extends IterativeRobot {
 
   @Override
   public void teleopInit() {
+    robotMode = RunningMode.TELEOP;
+
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-
-    robotMode = RunningMode.TELEOP;
-
     if (autonomousCommand != null)
       autonomousCommand.cancel();
   }

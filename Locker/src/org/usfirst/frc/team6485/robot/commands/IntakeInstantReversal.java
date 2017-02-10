@@ -9,13 +9,13 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 /**
  * @author Kyle Saburao
  */
-public class IntakeReversal extends InstantCommand {
+public class IntakeInstantReversal extends InstantCommand {
 
   /**
    * Sets the fuel intake to standard reverse if it's currently off and will reverse the current
    * speed if it's already on.
    */
-  public IntakeReversal() {
+  public IntakeInstantReversal() {
     super();
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);

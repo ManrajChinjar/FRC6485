@@ -19,11 +19,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class AutoDrive extends Command {
 
-  // ASSUMES THAT THE ROBORIO WILL OPERATE AT 50 HERTZ
   // TODO Also allow metre distance via future averaged encoder units
 
   private final double kP = RobotMap.AUTODRIVE_GYRO_KP;
-  private double mCurrentAngle, mSpeed, cPT, mTimeWindow, mStartTime;
+  private double mCurrentAngle, mTargetSpeed, cPT;
+  private double mStartTime, mTimeWindow;
   private Gyro gyroscope = Robot.drivetrain.getGyro();
 
   /**
@@ -38,16 +38,16 @@ public class AutoDrive extends Command {
       time = 0;
     setTimeout(time + 1.0); // Kills the command one second after its
     // allotted window.
-    mSpeed = speed;
+    mTargetSpeed = speed;
     mTimeWindow = time;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    System.out
+        .println(String.format("Driving at %.2f for %.2f seconds.", mTargetSpeed, mTimeWindow));
     gyroscope.reset();
-    mStartTime = Timer.getFPGATimestamp();
-    System.out.println(String.format("Driving at %.2f for %.2f seconds.", mSpeed, mTimeWindow));
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -56,12 +56,11 @@ public class AutoDrive extends Command {
     mCurrentAngle = gyroscope.getAngle();
     // Gyroscope measurement increases to the right, but the drive train
     // turn rate is negative the same direction.
-    // TODO Check if this is still the case.
     cPT = mCurrentAngle * kP;
-    if (mSpeed < 0)
+    if (mTargetSpeed < 0)
       cPT *= -1;
     SmartDashboard.putNumber("Gyroscope cPT", cPT);
-    Robot.drivetrain.arcadeDrive(mSpeed, cPT);
+    Robot.drivetrain.arcadeDrive(mTargetSpeed, cPT);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -75,6 +74,5 @@ public class AutoDrive extends Command {
   protected void end() {
     Robot.drivetrain.stop();
   }
-
 
 }

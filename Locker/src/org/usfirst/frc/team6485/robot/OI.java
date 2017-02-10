@@ -1,9 +1,9 @@
 package org.usfirst.frc.team6485.robot;
 
 import org.usfirst.frc.team6485.robot.commands.AutoDrive;
-import org.usfirst.frc.team6485.robot.commands.GyroscopeTurn;
+import org.usfirst.frc.team6485.robot.commands.AutoGyroTurn;
+import org.usfirst.frc.team6485.robot.commands.IntakeInstantReversal;
 import org.usfirst.frc.team6485.robot.commands.IntakePowerRamp;
-import org.usfirst.frc.team6485.robot.commands.IntakeReversal;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -100,10 +100,10 @@ public class OI {
     new JoystickButton(logitechController, 6)
         .whenPressed(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMAL_PWM));
     new JoystickButton(logitechController, 4).whenPressed(new IntakePowerRamp(0.0));
-    new JoystickButton(logitechController, 5).whenPressed(new IntakeReversal());
-    new JoystickButton(logitechController, 7).whenPressed(new AutoDrive(0.80, 4.0));
-    new JoystickButton(logitechController, 11).whenPressed(new GyroscopeTurn(-90.0));
-    new JoystickButton(logitechController, 12).whenPressed(new GyroscopeTurn(90.0));
+    new JoystickButton(logitechController, 5).whenPressed(new IntakeInstantReversal());
+    new JoystickButton(logitechController, 7).whenPressed(new AutoDrive(0.85, 4.0));
+    new JoystickButton(logitechController, 11).whenPressed(new AutoGyroTurn(-90.0));
+    new JoystickButton(logitechController, 12).whenPressed(new AutoGyroTurn(90.0));
   }
 
   // TRIGGER COMMMAND

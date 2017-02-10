@@ -1,7 +1,7 @@
 package org.usfirst.frc.team6485.robot.subsystems;
 
 import org.usfirst.frc.team6485.robot.RobotMap;
-import org.usfirst.frc.team6485.robot.commands.StickDriver;
+import org.usfirst.frc.team6485.robot.commands.DriveTrainDefault_StickDriver;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -44,7 +44,7 @@ public class DriveTrain extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Default command is operator control over drive system
-    setDefaultCommand(new StickDriver());
+    setDefaultCommand(new DriveTrainDefault_StickDriver());
   }
 
   private double mFixArgument(double num) {
@@ -130,6 +130,23 @@ public class DriveTrain extends Subsystem {
    */
   public double getGyroAngle() {
     return gyroscope.getAngle();
+  }
+
+  public double getMotorPWM(int index) {
+    switch (index) {
+      case 0:
+        return mFrontLeftMotor.getSpeed();
+      case 1:
+        return mRearLeftMotor.getSpeed();
+      case 2:
+        return mFrontRightMotor.getSpeed();
+      case 3:
+        return mRearRightMotor.getSpeed();
+
+      // Required piece that does nothing at all.
+      default:
+        return mFrontLeftMotor.getSpeed();
+    }
   }
 
   /**

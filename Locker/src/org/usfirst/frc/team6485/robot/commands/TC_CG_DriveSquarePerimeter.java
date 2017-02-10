@@ -11,18 +11,18 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  * 
  * @author Kyle Saburao
  */
-public class TestCaseDriveSquarePerimeter extends CommandGroup {
+public class TC_CG_DriveSquarePerimeter extends CommandGroup {
 
-  public TestCaseDriveSquarePerimeter() {
+  public TC_CG_DriveSquarePerimeter() {
 
     addSequential(new AutoDrive(0.65, 3));
-    addSequential(new GyroscopeTurn(90));
+    addSequential(new AutoGyroTurn(90));
     addSequential(new AutoDrive(0.65, 3));
-    addSequential(new GyroscopeTurn(90));
+    addSequential(new AutoGyroTurn(90));
     addSequential(new AutoDrive(0.65, 3));
-    addSequential(new GyroscopeTurn(90));
+    addSequential(new AutoGyroTurn(90));
     addSequential(new AutoDrive(0.65, 3));
-    addSequential(new GyroscopeTurn(90));
+    addSequential(new AutoGyroTurn(90));
 
     // Add Commands here:
     // e.g. addSequential(new Command1());

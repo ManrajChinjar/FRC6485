@@ -7,12 +7,12 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 /**
  * @author Kyle Saburao
  */
-public class IntakeStop extends InstantCommand {
+public class IntakeInstantStop extends InstantCommand {
 
   /**
    * Immediately halts the intake motor.
    */
-  public IntakeStop() {
+  public IntakeInstantStop() {
     super();
     requires(Robot.fuelintake);
   }
