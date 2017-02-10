@@ -5,7 +5,7 @@ import org.usfirst.frc.team6485.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ * @author Kyle Saburao
  */
 public class TC_CG_Auto2 extends CommandGroup {
 

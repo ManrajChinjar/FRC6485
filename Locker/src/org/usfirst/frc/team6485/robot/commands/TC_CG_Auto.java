@@ -19,6 +19,8 @@ public class TC_CG_Auto extends CommandGroup {
    * <li>Shuts off the intake motor</li>
    * <li>Does a complete 180 degree turn to the left</li>
    * </ol>
+   * 
+   * @author Kyle Saburao
    */
   public TC_CG_Auto() {
 

@@ -24,6 +24,7 @@ public class IntakePowerRamp extends Command {
    * Linearizes the power ramp of the intake motor to prevent voltage spikes or other problems.
    * 
    * @param speed 1.0 is full intake, -1.0 is full reverse, 0.0 is stop.
+   * @author Kyle Saburao
    */
   public IntakePowerRamp(double speed) {
     requires(Robot.fuelintake);
