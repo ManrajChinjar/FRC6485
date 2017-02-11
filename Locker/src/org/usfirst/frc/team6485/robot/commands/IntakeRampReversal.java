@@ -25,10 +25,13 @@ public class IntakeRampReversal extends InstantCommand {
     IRR = new IntakePowerRamp(-RobotMap.FUELINTAKE_NORMAL_PWM);
     IRI = new IntakePowerRamp(-Robot.FUELINTAKE.getSpeed());
 
-    if (Robot.FUELINTAKE.getDirectionalState() == IntakeState.HALT)
+    if (Robot.FUELINTAKE.getDirectionalState() == IntakeState.HALT) {
       IRR.start();
-    else
+      IRI.cancel();
+    } else {
       IRI.start();
+      IRR.cancel();
+    }
   }
 
 }
