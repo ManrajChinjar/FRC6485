@@ -22,8 +22,12 @@ public class AutoDrive extends Command {
   // TODO Also allow metre distance via future averaged encoder units
 
   private final double kP = RobotMap.AUTODRIVE_GYRO_KP;
-  private double mCurrentAngle, mTargetSpeed, cPT;
-  private double mStartTime, mTimeWindow;
+  private double mCurrentAngle;
+  private double mStartTime, mCurrentRunTime, mRampPeriod, mTimeWindow;
+  private double mStartSpeed, mTargetSpeed, mSpeedSlope, mCPT;
+  private int mMotorIndex = 3;
+  private boolean mAccelerated;
+
   private Gyro gyroscope = Robot.DRIVETRAIN.getGyro();
 
   /**
@@ -35,8 +39,8 @@ public class AutoDrive extends Command {
   public AutoDrive(double speed, double time) {
     requires(Robot.DRIVETRAIN);
     if (time < 0)
-      time = 0;
-    setTimeout(time + 1.0); // Kills the command one second after its
+      time = 0.0;
+    setTimeout(time + 1.0); // Will kill the command one second after its
     // allotted window.
 
     mTargetSpeed = speed;
@@ -49,22 +53,39 @@ public class AutoDrive extends Command {
     System.out
         .println(String.format("Driving at %.2f for %.2f seconds.", mTargetSpeed, mTimeWindow));
 
+    mRampPeriod = RobotMap.AUTODRIVE_RAMP_PERIOD_SECONDS;
+    mStartSpeed = Robot.DRIVETRAIN.getMotorPWM(mMotorIndex); // Change index if needed.
+    mSpeedSlope = (mTargetSpeed - mStartSpeed) / mRampPeriod;
+    mStartTime = Timer.getFPGATimestamp();
+    mAccelerated = false;
+
     gyroscope.reset();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    mCurrentRunTime = Timer.getFPGATimestamp() - mStartTime;
     mCurrentAngle = gyroscope.getAngle();
     // Gyroscope measurement increases to the right, but the drive train
     // turn rate is negative the same direction.
-    cPT = mCurrentAngle * kP;
+    mCPT = mCurrentAngle * kP;
     if (mTargetSpeed < 0)
-      cPT *= -1;
+      mCPT *= -1;
 
-    SmartDashboard.putNumber("Gyroscope cPT", cPT);
+    if (!mAccelerated) {
+      double accelerationvelocitycompute = mSpeedSlope * mCurrentRunTime;
+      Robot.DRIVETRAIN.arcadeDrive(
+          (accelerationvelocitycompute > mTargetSpeed) ? mTargetSpeed : accelerationvelocitycompute,
+          mCPT);
+      if (Robot.DRIVETRAIN.getMotorPWM(mMotorIndex) == mTargetSpeed)
+        mAccelerated = true;
+    } else if (mTimeWindow - mCurrentRunTime <= mRampPeriod) {
+      Robot.DRIVETRAIN.arcadeDrive(mSpeedSlope * (mTimeWindow - mCurrentRunTime), mCPT);
+    } else
+      Robot.DRIVETRAIN.arcadeDrive(mTargetSpeed, mCPT);
 
-    Robot.DRIVETRAIN.arcadeDrive(mTargetSpeed, cPT);
+    SmartDashboard.putNumber("Gyroscope cPT", mCPT);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -77,6 +98,8 @@ public class AutoDrive extends Command {
   @Override
   protected void end() {
     Robot.DRIVETRAIN.stop();
+    System.out.println(String.format("AutoDrive complete: %.2f PMW for %.2f seconds.", mTargetSpeed,
+        mCurrentRunTime));
   }
 
 }

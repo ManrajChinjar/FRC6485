@@ -18,13 +18,15 @@ public class RobotMap {
 
   // Constants sheet
 
-  public static final double INTAKEPOWERRAMP_TIME_SECONDS = 1.0 / 2.0;
-
   public static final double FUELINTAKE_NORMAL_PWM = -0.85;
 
-  public static final double AUTODRIVE_GYRO_KP = 0.085;
+  public static final double INTAKEPOWERRAMP_TIME_SECONDS = 1.0 / 2.0;
 
-  public static final double DRIVETRAIN_PWM_UPPER_LIMIT = 0.95, DRIVETRAIN_PWM_LOWER_LIMIT = -0.95;
+  public static final double DRIVETRAIN_PWM_LIMIT = 0.95;
+
+  public static final double AUTODRIVE_GYRO_KP = 0.080;
+
+  public static final double AUTODRIVE_RAMP_PERIOD_SECONDS = 0.10;
 
   // For example to map the left and right motors, you could define the
   // following variables to use with your drivetrain subsystem.

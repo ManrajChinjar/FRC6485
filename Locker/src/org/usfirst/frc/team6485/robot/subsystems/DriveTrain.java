@@ -1,7 +1,7 @@
 package org.usfirst.frc.team6485.robot.subsystems;
 
 import org.usfirst.frc.team6485.robot.RobotMap;
-import org.usfirst.frc.team6485.robot.commands.DriveTrainDefault_StickDriver;
+import org.usfirst.frc.team6485.robot.commands.StickDriver;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -22,7 +22,8 @@ public class DriveTrain extends Subsystem {
   private final Spark mRearLeftMotor = new Spark(RobotMap.REAR_LEFT_MOTOR);
   private final Spark mFrontRightMotor = new Spark(RobotMap.FRONT_RIGHT_MOTOR);
   private final Spark mRearRightMotor = new Spark(RobotMap.REAR_RIGHT_MOTOR);
-  // private final Encoder asdf = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
+
+  // private final Encoder mDriveEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
   // Signal A to DIO-0 S, Signal B to DIO-1 S, GND to DIO-0 SYMBOL THING, 5V to DIO-0 V, DETERMINE
   // BOOLEAN STATE
 
@@ -30,8 +31,7 @@ public class DriveTrain extends Subsystem {
 
   private final ADXRS450_Gyro gyroscope = new ADXRS450_Gyro();
 
-  // public double BaseAngle;
-  // public boolean GyroFlag;
+  private final double kDriveTrainPWMMagnitudeLimit = RobotMap.DRIVETRAIN_PWM_LIMIT;
 
   // Initialize drive train
   public DriveTrain() {
@@ -49,16 +49,14 @@ public class DriveTrain extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Default command is operator control over drive system
-    setDefaultCommand(new DriveTrainDefault_StickDriver());
+    setDefaultCommand(new StickDriver());
   }
 
   private double mFixArgument(double num) {
-    if (num > RobotMap.DRIVETRAIN_PWM_UPPER_LIMIT) {
-      num = RobotMap.DRIVETRAIN_PWM_UPPER_LIMIT;
-    } else if (num < RobotMap.DRIVETRAIN_PWM_LOWER_LIMIT) {
-      num = RobotMap.DRIVETRAIN_PWM_LOWER_LIMIT;
-    }
-
+    if (num > kDriveTrainPWMMagnitudeLimit)
+      num = kDriveTrainPWMMagnitudeLimit;
+    else if (num < -kDriveTrainPWMMagnitudeLimit)
+      num = -kDriveTrainPWMMagnitudeLimit;
     return num;
   }
 
@@ -169,4 +167,5 @@ public class DriveTrain extends Subsystem {
 
     return motorArray;
   }
+
 }

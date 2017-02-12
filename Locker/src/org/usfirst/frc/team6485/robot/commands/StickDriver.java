@@ -21,11 +21,11 @@ import edu.wpi.first.wpilibj.command.Command;
  * 
  * @author Kyle Saburao
  */
-public class DriveTrainDefault_StickDriver extends Command {
+public class StickDriver extends Command {
 
   private double mLXAxisRequest, mLYAxisRequest, mXXAxisRequestL, mXYAxisRequestL, mXYAxisRequestR;
 
-  public DriveTrainDefault_StickDriver() {
+  public StickDriver() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.DRIVETRAIN);
   }
@@ -37,9 +37,7 @@ public class DriveTrainDefault_StickDriver extends Command {
   }
 
   private void logitechControl() {
-    if (Robot.oi.getLButtonPressed(2)) {
-      Robot.DRIVETRAIN.forwardBackDrive(mLYAxisRequest);
-    } else if (Robot.oi.getLButtonPressed(3)) {
+    if (Robot.oi.getLButtonPressed(3)) {
       Robot.DRIVETRAIN.turnOnSpot(mLXAxisRequest);
     } else {
       Robot.DRIVETRAIN.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
