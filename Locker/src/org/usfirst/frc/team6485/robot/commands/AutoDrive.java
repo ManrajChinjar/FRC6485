@@ -98,7 +98,7 @@ public class AutoDrive extends Command {
   @Override
   protected void end() {
     Robot.DRIVETRAIN.stop();
-    System.out.println(String.format("AutoDrive complete: %.2f PMW for %.2f seconds.", mTargetSpeed,
+    System.out.println(String.format("AutoDrive complete: %.2f PWM for %.3f seconds.", mTargetSpeed,
         mCurrentRunTime));
   }
 
