@@ -23,6 +23,19 @@ public class OI {
 
   public Joystick logitechController = new Joystick(RobotMap.LOGITECH_PORT);
 
+  // private JoystickButton L1 = new JoystickButton(logitechController, 1);
+  // private JoystickButton L2 = new JoystickButton(logitechController, 2);
+  // private JoystickButton L3 = new JoystickButton(logitechController, 3);
+  private JoystickButton L4 = new JoystickButton(logitechController, 4);
+  private JoystickButton L5 = new JoystickButton(logitechController, 5);
+  private JoystickButton L6 = new JoystickButton(logitechController, 6);
+  private JoystickButton L7 = new JoystickButton(logitechController, 7);
+  // private JoystickButton L8 = new JoystickButton(logitechController, 8);
+  // private JoystickButton L9 = new JoystickButton(logitechController, 9);
+  // private JoystickButton L10 = new JoystickButton(logitechController, 10);
+  private JoystickButton L11 = new JoystickButton(logitechController, 11);
+  private JoystickButton L12 = new JoystickButton(logitechController, 12);
+
   /**
    * 
    * @return The x-axis of the Logitech joystick
@@ -112,18 +125,17 @@ public class OI {
     SmartDashboard.putData("TestAuto2", new TC_CG_Auto2());
 
     // Logitech controller buttons
-    new JoystickButton(logitechController, 4).whenPressed(new IntakePowerRamp(0.0));
+    L4.whenPressed(new IntakePowerRamp(0.0));
 
-    new JoystickButton(logitechController, 6)
-        .whenPressed(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMAL_PWM));
+    L5.whenPressed(new IntakeRampReversal());
 
-    new JoystickButton(logitechController, 5).whenPressed(new IntakeRampReversal());
+    L6.whenPressed(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMAL_PWM));
 
-    new JoystickButton(logitechController, 7).whileHeld(new AutoDrive(0.80, 30.0));
+    L7.whileHeld(new AutoDrive(0.80, 30.0));
 
-    new JoystickButton(logitechController, 11).whenPressed(new AutoGyroTurn(-90.0));
+    L11.whenPressed(new AutoGyroTurn(-90.0));
 
-    new JoystickButton(logitechController, 12).whenPressed(new AutoGyroTurn(90.0));
+    L12.whenPressed(new AutoGyroTurn(90.0));
 
   }
 
