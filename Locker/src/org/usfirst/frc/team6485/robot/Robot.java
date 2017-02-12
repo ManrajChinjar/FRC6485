@@ -63,11 +63,8 @@ public class Robot extends IterativeRobot {
    */
   @Override
   public void disabledInit() {
-    // STOP INTAKE ROLLER
-    intakeStop = new IntakeInstantStop();
-    intakeStop.start();
+    Robot.FUELINTAKE.stop();
     Robot.DRIVETRAIN.stop();
-    Timer.delay(0.100);
     Scheduler.getInstance().removeAll();
 
     // Calibrate the gyroscope. SmartDashboard will report that the RoboRio is in TeleOp or Auto
@@ -179,8 +176,7 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putNumber("Right PWM Group Difference", Math.abs(work[2] - work[3]));
 
     String intakeenum = "";
-    IntakeState fuelstate = Robot.FUELINTAKE.getDirectionalState();
-    switch (fuelstate) {
+    switch (Robot.FUELINTAKE.getDirectionalState()) {
       case HALT:
         intakeenum = "HALT";
         break;
