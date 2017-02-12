@@ -21,20 +21,20 @@ public class OI {
 
   // LOGITECH EXTREME 3D PRO CONTROLS
 
-  public Joystick logitechController = new Joystick(RobotMap.LOGITECH_PORT);
+  public final Joystick logitechController = new Joystick(RobotMap.LOGITECH_PORT);
 
-  // private JoystickButton L1 = new JoystickButton(logitechController, 1);
-  // private JoystickButton L2 = new JoystickButton(logitechController, 2);
-  // private JoystickButton L3 = new JoystickButton(logitechController, 3);
-  private JoystickButton L4 = new JoystickButton(logitechController, 4);
-  private JoystickButton L5 = new JoystickButton(logitechController, 5);
-  private JoystickButton L6 = new JoystickButton(logitechController, 6);
-  private JoystickButton L7 = new JoystickButton(logitechController, 7);
-  // private JoystickButton L8 = new JoystickButton(logitechController, 8);
-  // private JoystickButton L9 = new JoystickButton(logitechController, 9);
-  // private JoystickButton L10 = new JoystickButton(logitechController, 10);
-  private JoystickButton L11 = new JoystickButton(logitechController, 11);
-  private JoystickButton L12 = new JoystickButton(logitechController, 12);
+  // private final JoystickButton L1 = new JoystickButton(logitechController, 1);
+  // private final JoystickButton L2 = new JoystickButton(logitechController, 2);
+  // private final JoystickButton L3 = new JoystickButton(logitechController, 3);
+  private final JoystickButton L4 = new JoystickButton(logitechController, 4);
+  private final JoystickButton L5 = new JoystickButton(logitechController, 5);
+  private final JoystickButton L6 = new JoystickButton(logitechController, 6);
+  private final JoystickButton L7 = new JoystickButton(logitechController, 7);
+  // private final JoystickButton L8 = new JoystickButton(logitechController, 8);
+  // private final JoystickButton L9 = new JoystickButton(logitechController, 9);
+  // private final JoystickButton L10 = new JoystickButton(logitechController, 10);
+  private final JoystickButton L11 = new JoystickButton(logitechController, 11);
+  private final JoystickButton L12 = new JoystickButton(logitechController, 12);
 
   /**
    * 

@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  * Drive Train subsystem.<br>
@@ -18,10 +19,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveTrain extends Subsystem {
 
-  private final Spark mFrontLeftMotor = new Spark(RobotMap.FRONT_LEFT_MOTOR);
-  private final Spark mRearLeftMotor = new Spark(RobotMap.REAR_LEFT_MOTOR);
-  private final Spark mFrontRightMotor = new Spark(RobotMap.FRONT_RIGHT_MOTOR);
-  private final Spark mRearRightMotor = new Spark(RobotMap.REAR_RIGHT_MOTOR);
+  private Spark mFrontLeftMotor;
+  private Spark mRearLeftMotor;
+  private Spark mFrontRightMotor;
+  private Spark mRearRightMotor;
 
   // private final Encoder mDriveEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
   // Signal A to DIO-0 S, Signal B to DIO-1 S, GND to DIO-0 SYMBOL THING, 5V to DIO-0 V, DETERMINE
@@ -29,22 +30,31 @@ public class DriveTrain extends Subsystem {
 
   private RobotDrive engine;
 
-  private final ADXRS450_Gyro gyroscope = new ADXRS450_Gyro();
+  private ADXRS450_Gyro gyroscope;
 
   private final double kDriveTrainPWMMagnitudeLimit = RobotMap.DRIVETRAIN_PWM_LIMIT;
 
   // Initialize drive train
   public DriveTrain() {
+
+    mFrontLeftMotor = new Spark(RobotMap.FRONT_LEFT_MOTOR);
+    mRearLeftMotor = new Spark(RobotMap.REAR_LEFT_MOTOR);
+    mFrontRightMotor = new Spark(RobotMap.FRONT_RIGHT_MOTOR);
+    mRearRightMotor = new Spark(RobotMap.REAR_RIGHT_MOTOR);
     engine = new RobotDrive(mFrontLeftMotor, mRearLeftMotor, mFrontRightMotor, mRearRightMotor);
+
+    gyroscope = new ADXRS450_Gyro();
 
     engine.setSafetyEnabled(true);
     engine.setExpiration(0.125);
     engine.setMaxOutput(1.00);
     engine.setSensitivity(1.00);
-  }
 
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+    LiveWindow.addActuator("DRIVETRAIN", "FL", mFrontLeftMotor);
+    LiveWindow.addActuator("DRIVETRAIN", "RL", mRearRightMotor);
+    LiveWindow.addActuator("DRIVETRAIN", "FR", mFrontRightMotor);
+    LiveWindow.addActuator("DRIVETRAIN", "RR", mRearRightMotor);
+  }
 
   @Override
   public void initDefaultCommand() {
@@ -52,7 +62,7 @@ public class DriveTrain extends Subsystem {
     setDefaultCommand(new StickDriver());
   }
 
-  private double mFixArgument(double num) {
+  private double fixArgument(double num) {
     if (num > kDriveTrainPWMMagnitudeLimit)
       num = kDriveTrainPWMMagnitudeLimit;
     else if (num < -kDriveTrainPWMMagnitudeLimit)
@@ -68,7 +78,7 @@ public class DriveTrain extends Subsystem {
    * @param rightStick Right Motor Group request
    */
   public void tankDrive(double leftStick, double rightStick) {
-    engine.tankDrive(mFixArgument(leftStick), mFixArgument(rightStick));
+    engine.tankDrive(fixArgument(leftStick), fixArgument(rightStick));
   }
 
   /**
@@ -79,7 +89,7 @@ public class DriveTrain extends Subsystem {
    * @param rightStick Turning request
    */
   public void arcadeDrive(double leftStick, double rightStick) {
-    engine.arcadeDrive(mFixArgument(leftStick), mFixArgument(rightStick));
+    engine.arcadeDrive(fixArgument(leftStick), fixArgument(rightStick));
   }
 
   public void drive(double speed, double curve) {
@@ -97,12 +107,12 @@ public class DriveTrain extends Subsystem {
   }
 
   /**
-   * Only allows the drive train to conduct a point turn through arcade controls.
+   * Only allows the drive train to conduct a point turn.
    * 
-   * @param turnrate Usually the x-axis analog request of the controller [-1, 1]
+   * @param turnrate 1: Full Rotate Left, -1: Full Rotate Right
    */
   public void turnOnSpot(double turnrate) {
-    arcadeDrive(0, turnrate);
+    tankDrive(-turnrate, turnrate);
   }
 
   /**
@@ -120,20 +130,10 @@ public class DriveTrain extends Subsystem {
   }
 
   /**
-   * The preferred way to get the gyroscope angle is call Robot.drivetrain.getGyro().getAngle()
-   * 
    * @return The gyroscope of the drive train.
    */
   public ADXRS450_Gyro getGyro() {
     return gyroscope;
-  }
-
-  /**
-   * 
-   * @return The current ADXRS450 gyroscope angle.
-   */
-  public double getGyroAngle() {
-    return gyroscope.getAngle();
   }
 
   public double getMotorPWM(int index) {

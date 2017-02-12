@@ -22,13 +22,12 @@ public class Robot extends IterativeRobot {
 
   public static OI oi;
 
+  public RunningMode robotMode;
+
   public enum RunningMode {
     DISABLED, TELEOP, AUTO
   }
 
-  public static RunningMode robotMode;
-
-  // SUBSYSTEMS
   public static final DriveTrain DRIVETRAIN = new DriveTrain();
   public static final FuelIntake FUELINTAKE = new FuelIntake();
 
@@ -41,7 +40,7 @@ public class Robot extends IterativeRobot {
    */
   @Override
   public void robotInit() {
-    oi = new OI();
+
     chooser.addDefault("Default Auto", new ExampleCommand());
     chooser.addObject("Intake Drive Test", new TC_CG_Auto());
     chooser.addObject("Intake Drive Test 2", new TC_CG_Auto2());
@@ -49,6 +48,8 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putData("Auto Mode", chooser);
     SmartDashboard.putData("Drive Train", DRIVETRAIN);
     SmartDashboard.putData("Fuel Intake", FUELINTAKE);
+
+    oi = new OI();
   }
 
   /**
@@ -153,7 +154,7 @@ public class Robot extends IterativeRobot {
         break;
     }
     SmartDashboard.putString("ROBOT MODE", robotmode_string);
-    SmartDashboard.putNumber("Gyroscope Value", Robot.DRIVETRAIN.getGyroAngle());
+    SmartDashboard.putNumber("Gyroscope Value", Robot.DRIVETRAIN.getGyro().getAngle());
     SmartDashboard.putNumber("X-Axis Logitech Request (NEG)", -Robot.oi.getLJoyX());
     SmartDashboard.putNumber("Y-Axis Logitech Request (NEG)", -Robot.oi.getLJoyY());
 
