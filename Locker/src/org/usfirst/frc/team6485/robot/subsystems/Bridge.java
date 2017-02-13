@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
- *
+ * @author Kyle Saburao
  */
 public class Bridge extends Subsystem {
 
@@ -21,10 +21,10 @@ public class Bridge extends Subsystem {
   private final double kMaxSpeedMagnitude = RobotMap.BRIDGE_MAX_SAFE_PWM;
 
   public enum BRIDGE_STATE {
-    LOWERED, RAISED, UNKNOWN
+    LOWERED, LOWERING, RAISED, RAISING, UNKNOWN
   }
 
-  private BRIDGE_STATE state;
+  private BRIDGE_STATE mState;
 
   public Bridge() {
     mLowerLimitSwitch = new DigitalInput(RobotMap.BRIDGE_LOWER_LIMIT_SWITCH);
@@ -93,16 +93,26 @@ public class Bridge extends Subsystem {
     return mBridgeMotor.getSpeed() != 0.0;
   }
 
+  private double getSpeed() {
+    return mBridgeMotor.getSpeed();
+  }
+
   /**
    * Update the bridge state.
    */
   public void updateState() {
     if (mLowerLimitSwitch.get() && !mUpperLimitSwitch.get())
-      state = BRIDGE_STATE.LOWERED;
+      mState = BRIDGE_STATE.LOWERED;
     else if (mUpperLimitSwitch.get() && !mLowerLimitSwitch.get())
-      state = BRIDGE_STATE.RAISED;
-    else
-      state = BRIDGE_STATE.UNKNOWN;
+      mState = BRIDGE_STATE.RAISED;
+    else if (!mUpperLimitSwitch.get() && !mLowerLimitSwitch.get()) {
+      if (getSpeed() > 0.0)
+        mState = BRIDGE_STATE.RAISING;
+      else if (getSpeed() < 0.0)
+        mState = BRIDGE_STATE.LOWERING;
+    } else
+      mState = BRIDGE_STATE.UNKNOWN;
+
   }
 
   /**
@@ -110,8 +120,9 @@ public class Bridge extends Subsystem {
    */
   public BRIDGE_STATE getState() {
     updateState();
-    return state;
+    return mState;
   }
+
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 

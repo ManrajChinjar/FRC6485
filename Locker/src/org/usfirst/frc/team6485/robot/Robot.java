@@ -29,9 +29,9 @@ public class Robot extends IterativeRobot {
     DISABLED, TELEOP, AUTO
   }
 
-  public static final DriveTrain DRIVETRAIN = new DriveTrain();
-  public static final FuelIntake FUELINTAKE = new FuelIntake();
-  public static final Bridge BRIDGE = new Bridge();
+  public static DriveTrain DRIVETRAIN;
+  public static FuelIntake FUELINTAKE;
+  public static Bridge BRIDGE;
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -42,6 +42,10 @@ public class Robot extends IterativeRobot {
    */
   @Override
   public void robotInit() {
+
+    DRIVETRAIN = new DriveTrain();
+    FUELINTAKE = new FuelIntake();
+    BRIDGE = new Bridge();
 
     chooser.addDefault("Default Auto", new ExampleCommand());
     chooser.addObject("Intake Drive Test", new TC_CG_Auto());
@@ -67,7 +71,7 @@ public class Robot extends IterativeRobot {
 
     // Calibrate the gyroscope. SmartDashboard will report that the RoboRio is in TeleOp or Auto
     // until the calibration is complete.
-    Robot.DRIVETRAIN.getGyro().calibrate();
+    // Robot.DRIVETRAIN.getGyro().calibrate();
     robotMode = RunningMode.DISABLED;
   }
 
@@ -194,6 +198,14 @@ public class Robot extends IterativeRobot {
         break;
       case LOWERED:
         bridgestring = "LOWERED";
+        break;
+      case LOWERING:
+        bridgestring = "LOWERING";
+        break;
+      case RAISING:
+        bridgestring = "RAISING";
+        break;
+      default:
         break;
     }
     SmartDashboard.putString("Bridge State", bridgestring);

@@ -6,7 +6,7 @@ import org.usfirst.frc.team6485.robot.subsystems.Bridge.BRIDGE_STATE;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * @author Kyle Saburao
  */
 public class RaiseBridge extends Command {
 
@@ -14,8 +14,6 @@ public class RaiseBridge extends Command {
    * Raises the bridge to allow for off-loading of fuel.
    */
   public RaiseBridge() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
     requires(Robot.BRIDGE);
   }
 
@@ -41,6 +39,11 @@ public class RaiseBridge extends Command {
   @Override
   protected void end() {
     Robot.BRIDGE.stop();
+  }
+
+  @Override
+  protected void interrupted() {
+    end();
   }
 
 }

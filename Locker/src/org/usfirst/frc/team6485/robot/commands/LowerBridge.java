@@ -6,7 +6,7 @@ import org.usfirst.frc.team6485.robot.subsystems.Bridge.BRIDGE_STATE;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * @author Kyle Saburao
  */
 public class LowerBridge extends Command {
 
@@ -46,4 +46,5 @@ public class LowerBridge extends Command {
   protected void interrupted() {
     end();
   }
+
 }

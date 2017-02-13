@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 
 /**
- *
+ * @author Kyle Saburao
  */
 public class ToggleBridge extends InstantCommand {
 
@@ -27,14 +27,16 @@ public class ToggleBridge extends InstantCommand {
   protected void initialize() {
     mStartState = Robot.BRIDGE.getState();
 
-    if (mStartState == BRIDGE_STATE.UNKNOWN)
-      mBridgeCommand = new LowerBridge();
-    else if (mStartState == BRIDGE_STATE.LOWERED)
+    if (mStartState == BRIDGE_STATE.LOWERED)
       mBridgeCommand = new RaiseBridge();
     else if (mStartState == BRIDGE_STATE.RAISED)
       mBridgeCommand = new LowerBridge();
+    else if (mStartState == BRIDGE_STATE.LOWERING)
+      mBridgeCommand = new RaiseBridge();
+    else if (mStartState == BRIDGE_STATE.RAISING)
+      mBridgeCommand = new LowerBridge();
     else
-      return;
+      mBridgeCommand = new LowerBridge();
 
     mBridgeCommand.start();
   }
