@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public abstract class BridgeMover extends Command {
 
-  protected BRIDGE_STATE mReqState, mStartState, mCurrentState;
+  protected BRIDGE_STATE mReqState, mStartState;
   protected boolean mShorted;
 
   /**
@@ -56,13 +56,13 @@ public abstract class BridgeMover extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    mCurrentState = Robot.BRIDGE.getState();
+    Robot.BRIDGE.updateState();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return (mCurrentState == mReqState) || mShorted;
+    return (Robot.BRIDGE.getState() == mReqState) || mShorted;
   }
 
   // Called once after isFinished returns true
