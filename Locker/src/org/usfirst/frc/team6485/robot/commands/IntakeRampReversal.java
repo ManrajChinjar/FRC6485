@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 /**
  * @author Kyle Saburao
  */
-public class IntakeRampReversal extends InstantCommand {
+public final class IntakeRampReversal extends InstantCommand {
 
   private Command mIntakeCommand;
 

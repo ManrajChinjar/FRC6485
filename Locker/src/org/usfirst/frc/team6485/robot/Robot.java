@@ -6,6 +6,7 @@ import org.usfirst.frc.team6485.robot.commands.TC_CG_Auto2;
 import org.usfirst.frc.team6485.robot.subsystems.Bridge;
 import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -188,27 +189,41 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putNumber("Intake PWM", Robot.FUELINTAKE.getSpeed());
     SmartDashboard.putString("Intake ENUM", intakeenum);
 
-    String bridgestring = "";
+    String bridgecurrentstring = "";
     switch (Robot.BRIDGE.getState()) {
       case UNKNOWN:
-        bridgestring = "UNKNOWN";
+        bridgecurrentstring = "UNKNOWN";
         break;
       case RAISED:
-        bridgestring = "RAISED";
+        bridgecurrentstring = "RAISED";
         break;
       case LOWERED:
-        bridgestring = "LOWERED";
+        bridgecurrentstring = "LOWERED";
         break;
       case LOWERING:
-        bridgestring = "LOWERING";
+        bridgecurrentstring = "LOWERING";
         break;
       case RAISING:
-        bridgestring = "RAISING";
+        bridgecurrentstring = "RAISING";
         break;
       default:
         break;
     }
-    SmartDashboard.putString("Bridge State", bridgestring);
+    SmartDashboard.putString("Bridge State", bridgecurrentstring);
+
+    String bridgerequiredstring = "";
+    switch (Robot.BRIDGE.getRequiredState()) {
+      case RAISED:
+        bridgecurrentstring = "RAISED";
+        break;
+      case LOWERED:
+        bridgecurrentstring = "LOWERED";
+        break;
+      default:
+        bridgecurrentstring = "UNKNOWN";
+        break;
+    }
+    SmartDashboard.putString("Required Bridge State", bridgerequiredstring);
   }
 
 }

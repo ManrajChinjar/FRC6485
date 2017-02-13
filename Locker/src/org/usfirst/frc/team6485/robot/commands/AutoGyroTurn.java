@@ -33,6 +33,7 @@ public class AutoGyroTurn extends Command {
     mStartAngle = Robot.DRIVETRAIN.getGyro().getAngle();
     mTargetAngle = mStartAngle + mAngleRequest;
     setTimeout(7);
+    this.setInterruptible(false);
   }
 
   // Called repeatedly when this Command is scheduled to run

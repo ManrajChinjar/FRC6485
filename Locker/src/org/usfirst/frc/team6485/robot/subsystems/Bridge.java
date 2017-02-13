@@ -1,6 +1,7 @@
 package org.usfirst.frc.team6485.robot.subsystems;
 
 import org.usfirst.frc.team6485.robot.RobotMap;
+import org.usfirst.frc.team6485.robot.commands.BridgeMaintainer;
 import org.usfirst.frc.team6485.robot.commands.LowerBridge;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -24,7 +25,7 @@ public class Bridge extends Subsystem {
     LOWERED, LOWERING, RAISED, RAISING, UNKNOWN
   }
 
-  private BRIDGE_STATE mState;
+  private BRIDGE_STATE mState, mRequiredState;
 
   public Bridge() {
     mLowerLimitSwitch = new DigitalInput(RobotMap.BRIDGE_LOWER_LIMIT_SWITCH);
@@ -36,12 +37,35 @@ public class Bridge extends Subsystem {
     new LowerBridge().start();
   }
 
+  /**
+   * Limits the bridge motor PWM magnitude to 10% as that is the fastest safe speed.
+   * 
+   * @param speed The requested bridge motor PWM rate.
+   * @return The safe bridge motor PWM rate.
+   */
   private double mLimitSpeed(double speed) {
     if (speed > kMaxSpeedMagnitude)
       speed = kMaxSpeedMagnitude;
     else if (speed < -kMaxSpeedMagnitude)
       speed = -kMaxSpeedMagnitude;
     return speed;
+  }
+
+  /**
+   * @param state The required state of the bridge.
+   */
+  private void setRequiredState(BRIDGE_STATE state) {
+    mRequiredState = state;
+  }
+
+  /**
+   * @return The required state of the bridge.
+   */
+  public BRIDGE_STATE getRequiredState() {
+    if (mRequiredState != null)
+      return mRequiredState;
+    else
+      return BRIDGE_STATE.UNKNOWN;
   }
 
   /**
@@ -61,7 +85,7 @@ public class Bridge extends Subsystem {
   /**
    * @param speed Set the PWM rate of the bridge motor.
    */
-  private void setMotor(double speed) {
+  public void setMotor(double speed) {
     mBridgeMotor.setSpeed(mLimitSpeed(speed));
   }
 
@@ -77,6 +101,7 @@ public class Bridge extends Subsystem {
    */
   public void setRaise() {
     mBridgeMotor.setSpeed(kMotorSpeed);
+    setRequiredState(BRIDGE_STATE.RAISED);
   }
 
   /**
@@ -84,6 +109,7 @@ public class Bridge extends Subsystem {
    */
   public void setLower() {
     mBridgeMotor.setSpeed(-kMotorSpeed);
+    setRequiredState(BRIDGE_STATE.LOWERED);
   }
 
   /**
@@ -93,6 +119,9 @@ public class Bridge extends Subsystem {
     return mBridgeMotor.getSpeed() != 0.0;
   }
 
+  /**
+   * @return The PWM rate of the bridge motor.
+   */
   private double getSpeed() {
     return mBridgeMotor.getSpeed();
   }
@@ -123,10 +152,9 @@ public class Bridge extends Subsystem {
     return mState;
   }
 
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
-
   @Override
-  public void initDefaultCommand() {}
-}
+  public void initDefaultCommand() {
+    setDefaultCommand(new BridgeMaintainer());
+  }
 
+}

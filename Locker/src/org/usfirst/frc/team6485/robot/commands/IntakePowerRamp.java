@@ -29,6 +29,7 @@ public class IntakePowerRamp extends Command {
   public IntakePowerRamp(double speed) {
     requires(Robot.FUELINTAKE);
     mTargetSpeed = speed;
+    this.setInterruptible(true);
   }
 
   // Called just before this Command runs the first time

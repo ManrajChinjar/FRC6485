@@ -45,6 +45,7 @@ public class AutoDrive extends Command {
 
     mTargetSpeed = speed;
     mTimeWindow = time;
+    this.setInterruptible(false);
   }
 
   // Called just before this Command runs the first time
