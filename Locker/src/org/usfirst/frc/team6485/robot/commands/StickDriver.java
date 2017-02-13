@@ -1,6 +1,7 @@
 package org.usfirst.frc.team6485.robot.commands;
 
 import org.usfirst.frc.team6485.robot.Robot;
+import org.usfirst.frc.team6485.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -24,9 +25,11 @@ import edu.wpi.first.wpilibj.command.Command;
 public class StickDriver extends Command {
 
   private double mLXAxisRequest, mLYAxisRequest, mXXAxisRequestL, mXYAxisRequestL, mXYAxisRequestR;
+  private double mTargetAngle, mCurrentRelativeAngle;
+  private final double kStraightDrivekP = RobotMap.AUTODRIVE_GYRO_KP;
+  private boolean mGyroInitFlag;
 
   public StickDriver() {
-    // Use requires() here to declare subsystem dependencies
     requires(Robot.DRIVETRAIN);
   }
 
@@ -34,10 +37,18 @@ public class StickDriver extends Command {
   @Override
   protected void initialize() {
     System.out.println("I'll try spinning. That's a good trick.");
+    mGyroInitFlag = false;
   }
 
   private void logitechControl() {
-    if (Robot.oi.getLButtonPressed(3)) {
+    if (Robot.oi.getLButtonPressed(2)) {
+      if (!mGyroInitFlag) {
+        mGyroInitFlag = true;
+        mTargetAngle = Robot.DRIVETRAIN.getGyro().getAngle();
+      }
+      mCurrentRelativeAngle = Robot.DRIVETRAIN.getGyro().getAngle() - mTargetAngle;
+      Robot.DRIVETRAIN.arcadeDrive(mLYAxisRequest, mCurrentRelativeAngle * kStraightDrivekP);
+    } else if (Robot.oi.getLButtonPressed(3)) {
       Robot.DRIVETRAIN.turnOnSpot(mLXAxisRequest);
     } else {
       Robot.DRIVETRAIN.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
@@ -68,6 +79,9 @@ public class StickDriver extends Command {
     mXYAxisRequestL = -Robot.oi.getXBOXLeftJoyY();
     mXYAxisRequestR = -Robot.oi.getXBOXRightJoyY();
 
+    if (!Robot.oi.getLButtonPressed(2))
+      mGyroInitFlag = false;
+
     if (Robot.oi.getLMainTrigger()) {
       logitechControl();
     } else if (Robot.oi.getXBOXSafety()) {
@@ -87,6 +101,7 @@ public class StickDriver extends Command {
   @Override
   protected void end() {
     Robot.DRIVETRAIN.stop();
+    mGyroInitFlag = false;
   }
 
   // Called when another command which requires one or more of the same
