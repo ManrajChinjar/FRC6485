@@ -22,7 +22,7 @@ public class Delay extends Command {
    */
   public Delay(double seconds) {
     mTimeLength = seconds;
-    setTimeout(60);
+    setTimeout(seconds + .125);
     this.setInterruptible(false);
   }
 
