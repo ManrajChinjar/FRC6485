@@ -24,12 +24,14 @@ public class TC_CG_Auto extends CommandGroup {
    */
   public TC_CG_Auto() {
 
+    addParallel(new LowerBridge());
     addParallel(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMAL_PWM));
     addSequential(new AutoDrive(0.75, 3.5));
     addSequential(new Delay(1.0));
     addSequential(new AutoGyroTurn(180.0));
     addSequential(new AutoDrive(0.75, 3.5));
     addSequential(new Delay(1.0));
+    addParallel(new RaiseBridge());
     addParallel(new IntakePowerRamp(0.0));
     addSequential(new AutoGyroTurn(180.0));
 

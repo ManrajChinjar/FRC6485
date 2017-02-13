@@ -3,6 +3,7 @@ package org.usfirst.frc.team6485.robot;
 import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6485.robot.commands.TC_CG_Auto;
 import org.usfirst.frc.team6485.robot.commands.TC_CG_Auto2;
+import org.usfirst.frc.team6485.robot.subsystems.Bridge;
 import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -30,6 +31,7 @@ public class Robot extends IterativeRobot {
 
   public static final DriveTrain DRIVETRAIN = new DriveTrain();
   public static final FuelIntake FUELINTAKE = new FuelIntake();
+  public static final Bridge BRIDGE = new Bridge();
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -48,6 +50,7 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putData("Auto Mode", chooser);
     SmartDashboard.putData("Drive Train", DRIVETRAIN);
     SmartDashboard.putData("Fuel Intake", FUELINTAKE);
+    SmartDashboard.putData("Bridge", BRIDGE);
 
     oi = new OI();
   }
@@ -180,6 +183,20 @@ public class Robot extends IterativeRobot {
     }
     SmartDashboard.putNumber("Intake PWM", Robot.FUELINTAKE.getSpeed());
     SmartDashboard.putString("Intake ENUM", intakeenum);
+
+    String bridgestring = "";
+    switch (Robot.BRIDGE.getState()) {
+      case UNKNOWN:
+        bridgestring = "UNKNOWN";
+        break;
+      case RAISED:
+        bridgestring = "RAISED";
+        break;
+      case LOWERED:
+        bridgestring = "LOWERED";
+        break;
+    }
+    SmartDashboard.putString("Bridge State", bridgestring);
   }
 
 }

@@ -6,7 +6,7 @@ import org.usfirst.frc.team6485.robot.commands.IntakePowerRamp;
 import org.usfirst.frc.team6485.robot.commands.IntakeRampReversal;
 import org.usfirst.frc.team6485.robot.commands.TC_CG_Auto;
 import org.usfirst.frc.team6485.robot.commands.TC_CG_Auto2;
-
+import org.usfirst.frc.team6485.robot.commands.ToggleBridge;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -30,7 +30,7 @@ public class OI {
   private final JoystickButton L5 = new JoystickButton(logitechController, 5);
   private final JoystickButton L6 = new JoystickButton(logitechController, 6);
   private final JoystickButton L7 = new JoystickButton(logitechController, 7);
-  // private final JoystickButton L8 = new JoystickButton(logitechController, 8);
+  private final JoystickButton L8 = new JoystickButton(logitechController, 8);
   // private final JoystickButton L9 = new JoystickButton(logitechController, 9);
   // private final JoystickButton L10 = new JoystickButton(logitechController, 10);
   private final JoystickButton L11 = new JoystickButton(logitechController, 11);
@@ -132,6 +132,8 @@ public class OI {
     L6.whenPressed(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMAL_PWM));
 
     L7.whileHeld(new AutoDrive(0.80, 30.0));
+
+    L8.whenPressed(new ToggleBridge());
 
     L11.whenPressed(new AutoGyroTurn(-90.0));
 

@@ -12,8 +12,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
  */
 public class IntakeRampReversal extends InstantCommand {
 
-  private Command IRR;
-  private Command IRI;
+  private Command mIntakeCommand;
 
   public IntakeRampReversal() {
     super();
@@ -22,16 +21,12 @@ public class IntakeRampReversal extends InstantCommand {
 
   @Override
   protected void initialize() {
-    IRR = new IntakePowerRamp(-RobotMap.FUELINTAKE_NORMAL_PWM);
-    IRI = new IntakePowerRamp(-Robot.FUELINTAKE.getSpeed());
-
     if (Robot.FUELINTAKE.getDirectionalState() == IntakeState.HALT) {
-      IRR.start();
-      IRI.cancel();
+      mIntakeCommand = new IntakePowerRamp(-RobotMap.FUELINTAKE_NORMAL_PWM);
     } else {
-      IRI.start();
-      IRR.cancel();
+      mIntakeCommand = new IntakePowerRamp(-Robot.FUELINTAKE.getSpeed());
     }
+    mIntakeCommand.start();
   }
 
 }

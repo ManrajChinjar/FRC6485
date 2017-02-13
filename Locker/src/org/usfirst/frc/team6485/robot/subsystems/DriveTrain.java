@@ -28,9 +28,9 @@ public class DriveTrain extends Subsystem {
   // Signal A to DIO-0 S, Signal B to DIO-1 S, GND to DIO-0 SYMBOL THING, 5V to DIO-0 V, DETERMINE
   // BOOLEAN STATE
 
-  private RobotDrive engine;
+  private RobotDrive mEngine;
 
-  private ADXRS450_Gyro gyroscope;
+  private ADXRS450_Gyro mGyroscope;
 
   private final double kDriveTrainPWMMagnitudeLimit = RobotMap.DRIVETRAIN_PWM_LIMIT;
 
@@ -41,14 +41,14 @@ public class DriveTrain extends Subsystem {
     mRearLeftMotor = new Spark(RobotMap.REAR_LEFT_MOTOR);
     mFrontRightMotor = new Spark(RobotMap.FRONT_RIGHT_MOTOR);
     mRearRightMotor = new Spark(RobotMap.REAR_RIGHT_MOTOR);
-    engine = new RobotDrive(mFrontLeftMotor, mRearLeftMotor, mFrontRightMotor, mRearRightMotor);
+    mEngine = new RobotDrive(mFrontLeftMotor, mRearLeftMotor, mFrontRightMotor, mRearRightMotor);
 
-    gyroscope = new ADXRS450_Gyro();
+    mGyroscope = new ADXRS450_Gyro();
 
-    engine.setSafetyEnabled(true);
-    engine.setExpiration(0.125);
-    engine.setMaxOutput(1.00);
-    engine.setSensitivity(1.00);
+    mEngine.setSafetyEnabled(true);
+    mEngine.setExpiration(0.125);
+    mEngine.setMaxOutput(1.00);
+    mEngine.setSensitivity(1.00);
 
     LiveWindow.addActuator("DRIVETRAIN", "FL", mFrontLeftMotor);
     LiveWindow.addActuator("DRIVETRAIN", "RL", mRearRightMotor);
@@ -78,7 +78,7 @@ public class DriveTrain extends Subsystem {
    * @param rightStick Right Motor Group request
    */
   public void tankDrive(double leftStick, double rightStick) {
-    engine.tankDrive(fixArgument(leftStick), fixArgument(rightStick));
+    mEngine.tankDrive(fixArgument(leftStick), fixArgument(rightStick));
   }
 
   /**
@@ -89,11 +89,11 @@ public class DriveTrain extends Subsystem {
    * @param rightStick Turning request
    */
   public void arcadeDrive(double leftStick, double rightStick) {
-    engine.arcadeDrive(fixArgument(leftStick), fixArgument(rightStick));
+    mEngine.arcadeDrive(fixArgument(leftStick), fixArgument(rightStick));
   }
 
   public void drive(double speed, double curve) {
-    engine.drive(speed, curve);
+    mEngine.drive(speed, curve);
   }
 
   /**
@@ -133,7 +133,7 @@ public class DriveTrain extends Subsystem {
    * @return The gyroscope of the drive train.
    */
   public ADXRS450_Gyro getGyro() {
-    return gyroscope;
+    return mGyroscope;
   }
 
   public double getMotorPWM(int index) {
