@@ -1,11 +1,17 @@
-package org.usfirst.frc.team6485.robot.commands;
+package org.usfirst.frc.team6485.robot.autonomous;
+
+import org.usfirst.frc.team6485.robot.commandgroups.CG_PrepareFuelDump;
+import org.usfirst.frc.team6485.robot.commandgroups.CG_PrepareFuelIntake;
+import org.usfirst.frc.team6485.robot.commands.AutoDrive;
+import org.usfirst.frc.team6485.robot.commands.AutoGyroTurn;
+import org.usfirst.frc.team6485.robot.commands.Delay;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  * @author Kyle Saburao
  */
-public class TC_CG_Auto extends CommandGroup {
+public class TC_A_Auto extends CommandGroup {
 
   /**
    * Test case that:
@@ -19,7 +25,7 @@ public class TC_CG_Auto extends CommandGroup {
    * </ol>
    * 
    */
-  public TC_CG_Auto() {
+  public TC_A_Auto() {
     addParallel(new CG_PrepareFuelIntake());
     addSequential(new AutoDrive(0.75, 3.5));
     addSequential(new Delay(1.0));

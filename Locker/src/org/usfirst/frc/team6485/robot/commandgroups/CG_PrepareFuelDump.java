@@ -1,6 +1,9 @@
-package org.usfirst.frc.team6485.robot.commands;
+package org.usfirst.frc.team6485.robot.commandgroups;
 
 import org.usfirst.frc.team6485.robot.RobotMap;
+import org.usfirst.frc.team6485.robot.commands.Delay;
+import org.usfirst.frc.team6485.robot.commands.IntakePowerRamp;
+import org.usfirst.frc.team6485.robot.commands.RaiseBridge;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 

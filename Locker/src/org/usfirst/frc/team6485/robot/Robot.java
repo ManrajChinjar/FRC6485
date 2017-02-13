@@ -1,8 +1,8 @@
 package org.usfirst.frc.team6485.robot;
 
+import org.usfirst.frc.team6485.robot.autonomous.TC_A_Auto;
+import org.usfirst.frc.team6485.robot.autonomous.TC_A_Auto2;
 import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
-import org.usfirst.frc.team6485.robot.commands.TC_CG_Auto;
-import org.usfirst.frc.team6485.robot.commands.TC_CG_Auto2;
 import org.usfirst.frc.team6485.robot.subsystems.Bridge;
 import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
@@ -15,8 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Class identifiers: - AutoX: A command which automatically completes a task - SubsystemDefault_:
- * The default command of a subsystem - CG_: Command Group - TC_: Test case
+ * CG_: Command Group <br>
+ * TC_: Test case <br>
+ * A_: Autonomous command group
  * 
  * @author Kyle Saburao
  */
@@ -49,8 +50,8 @@ public class Robot extends IterativeRobot {
     BRIDGE = new Bridge();
 
     chooser.addDefault("Default Auto", new ExampleCommand());
-    chooser.addObject("Intake Drive Test", new TC_CG_Auto());
-    chooser.addObject("Intake Drive Test 2", new TC_CG_Auto2());
+    chooser.addObject("TC_A_AUTO", new TC_A_Auto());
+    chooser.addObject("TC_A_AUTO2", new TC_A_Auto2());
 
     SmartDashboard.putData("Auto Mode", chooser);
     SmartDashboard.putData("Drive Train", DRIVETRAIN);

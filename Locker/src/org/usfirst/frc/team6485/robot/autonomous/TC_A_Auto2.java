@@ -1,6 +1,12 @@
-package org.usfirst.frc.team6485.robot.commands;
+package org.usfirst.frc.team6485.robot.autonomous;
 
 import org.usfirst.frc.team6485.robot.RobotMap;
+import org.usfirst.frc.team6485.robot.commandgroups.CG_PrepareFuelDump;
+import org.usfirst.frc.team6485.robot.commandgroups.CG_PrepareFuelIntake;
+import org.usfirst.frc.team6485.robot.commands.AutoDrive;
+import org.usfirst.frc.team6485.robot.commands.AutoGyroTurn;
+import org.usfirst.frc.team6485.robot.commands.Delay;
+import org.usfirst.frc.team6485.robot.commands.IntakePowerRamp;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -12,9 +18,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  * 
  * @author Kyle Saburao
  */
-public class TC_CG_Auto2 extends CommandGroup {
+public class TC_A_Auto2 extends CommandGroup {
 
-  public TC_CG_Auto2() {
+  public TC_A_Auto2() {
     addParallel(new CG_PrepareFuelIntake());
     addSequential(new AutoDrive(0.60, 1.5));
     addSequential(new AutoGyroTurn(45.0));
@@ -25,5 +31,5 @@ public class TC_CG_Auto2 extends CommandGroup {
     addSequential(new Delay(2.0));
     addSequential(new CG_PrepareFuelDump());
   }
-  
+
 }
