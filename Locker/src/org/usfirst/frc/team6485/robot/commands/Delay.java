@@ -47,8 +47,8 @@ public class Delay extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    String endtext = "Ending delay.";
-    System.out.println(endtext);
+    System.out.println(String.format("Ending delay of %.3f seconds after %.3f actual seconds.",
+        mTimeLength, (Timer.getFPGATimestamp() - mStartTime)));
   }
 
 }
