@@ -105,7 +105,7 @@ public class Bridge extends Subsystem {
       mState = BRIDGE_STATE.LOWERED;
     else if (mUpperLimitSwitch.get() && !mLowerLimitSwitch.get())
       mState = BRIDGE_STATE.RAISED;
-    else if (!mUpperLimitSwitch.get() && !mLowerLimitSwitch.get()) {
+    else if (!mUpperLimitSwitch.get() && !mLowerLimitSwitch.get() && isMoving()) {
       if (getSpeed() > 0.0)
         mState = BRIDGE_STATE.RAISING;
       else if (getSpeed() < 0.0)
