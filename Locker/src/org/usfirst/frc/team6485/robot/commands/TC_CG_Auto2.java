@@ -15,8 +15,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class TC_CG_Auto2 extends CommandGroup {
 
   public TC_CG_Auto2() {
-    addParallel(new LowerBridge());
-    addParallel(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMAL_PWM));
+    addParallel(new CG_PrepareFuelIntake());
     addSequential(new AutoDrive(0.60, 1.5));
     addSequential(new AutoGyroTurn(45.0));
     addSequential(new AutoDrive(0.85, 2.0));
@@ -24,7 +23,7 @@ public class TC_CG_Auto2 extends CommandGroup {
     addSequential(new AutoDrive(0.85, 2.5));
     addSequential(new IntakePowerRamp(-RobotMap.FUELINTAKE_NORMAL_PWM));
     addSequential(new Delay(2.0));
-    addParallel(new RaiseBridge());
-    addSequential(new IntakePowerRamp(0.0));
+    addSequential(new CG_PrepareFuelDump());
   }
+  
 }
