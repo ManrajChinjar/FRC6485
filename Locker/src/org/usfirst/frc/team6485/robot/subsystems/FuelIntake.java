@@ -29,7 +29,6 @@ public class FuelIntake extends Subsystem {
   // here. Call these from Commands.
 
   public FuelIntake() {
-    // Run all the time without watchdog concern.
     roller.setSafetyEnabled(false);
     roller.setSpeed(0.0);
     setDirectionalState();
