@@ -5,7 +5,7 @@ import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake.IntakeState;
 
 /**
- * Subclass the IntakePowerRamp command, call the superclass constructor with 0.0 PWM then
+ * Subclass the IntakePowerRamp command, call the superclass constructor with 0.0 PWM and then
  * immediately override the target speed.
  * 
  * @author Kyle Saburao
