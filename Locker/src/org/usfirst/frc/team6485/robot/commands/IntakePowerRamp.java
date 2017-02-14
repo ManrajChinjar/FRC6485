@@ -42,9 +42,9 @@ public class IntakePowerRamp extends Command {
     mAcceptableMarginMS = 30.0;
 
     // PWM units per millisecond
+    secondaryInitialize();
     mSlopeMS = (mTargetSpeed - mStartSpeed) / (kRampTimeSeconds * 1000.0);
     mHalt = false;
-    secondaryInitialize();
   }
 
   /**
