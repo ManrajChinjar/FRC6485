@@ -22,7 +22,7 @@ public class RobotMap {
 
   // Constants sheet
 
-  public static final double FUELINTAKE_NORMAL_PWM = -0.88; // Negative is intake
+  public static final double FUELINTAKE_NORMAL_PWM = -0.90; // Negative is intake
 
   public static final double INTAKEPOWERRAMP_TIME_SECONDS = 1.0 / 3.0;
 
@@ -32,9 +32,9 @@ public class RobotMap {
 
   public static final double AUTODRIVE_RAMP_PERIOD_SECONDS = 0.10;
 
-  public static final double BRIDGE_NORMAL_PWM = 0.09; // Positive raises the bridge
+  public static final double BRIDGE_NORMAL_PWM = 0.13; // Positive raises the bridge
 
-  public static final double BRIDGE_MAX_SAFE_PWM = 0.10;
+  public static final double BRIDGE_MAX_SAFE_PWM = 0.14;
 
   // For example to map the left and right motors, you could define the
   // following variables to use with your drivetrain subsystem.
