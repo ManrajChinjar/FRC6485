@@ -44,7 +44,13 @@ public class IntakePowerRamp extends Command {
     // PWM units per millisecond
     mSlopeMS = (mTargetSpeed - mStartSpeed) / (kRampTimeSeconds * 1000.0);
     mHalt = false;
+    specialInitialize();
   }
+
+  /**
+   * Override if special conditions or arguments need to be created in subclasses.
+   */
+  protected void specialInitialize() {}
 
   // Called repeatedly when this Command is scheduled to run
   @Override

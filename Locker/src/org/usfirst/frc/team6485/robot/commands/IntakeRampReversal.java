@@ -14,10 +14,19 @@ public final class IntakeRampReversal extends IntakePowerRamp {
 
   public IntakeRampReversal() {
     super(0.0);
+  }
+
+  /**
+   * Override this method so that the original 0.0 PWM rate can be replaced with the intended
+   * request.
+   */
+  @Override
+  protected void specialInitialize() {
     if (Robot.FUELINTAKE.getDirectionalState() == IntakeState.HALT)
       mTargetSpeed = -RobotMap.FUELINTAKE_NORMAL_PWM;
     else
       mTargetSpeed = -Robot.FUELINTAKE.getSpeed();
   }
+
 
 }
