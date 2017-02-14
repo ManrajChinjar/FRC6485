@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class BridgeMaintainer extends Command {
 
   private BRIDGE_STATE mRequiredState, mCurrentState;
-  private final double kBridgeSpeed = RobotMap.BRIDGE_NORMAL_PWM; // Default to raise
+  private final double kBridgeSpeed = RobotMap.BRIDGE_MAINTAIN_PWM; // Default to raise
 
   /**
    * Maintains the state of the bridge in case something moves it while idling.
