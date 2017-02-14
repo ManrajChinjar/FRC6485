@@ -11,7 +11,7 @@ public final class RaiseBridge extends BridgeMover {
    * Raises the bridge to allow for fuel dumping.
    */
   public RaiseBridge() {
-    super(BRIDGE_STATE.LOWERED);
+    super(BRIDGE_STATE.RAISED);
   }
 
 }
