@@ -18,7 +18,8 @@ public abstract class BridgeMover extends Command {
    * <br>
    * <b>DO NOT DIRECTLY CREATE THIS COMMAND</b>
    * 
-   * @param state The requested bridge state.
+   * @param state The requested bridge state.<br>
+   *        Pass BRIDGE _STATE "UNKNOWN" to toggle, "RAISED" to raise and "LOWERED" to lower.
    */
   public BridgeMover(BRIDGE_STATE state) {
     requires(Robot.BRIDGE);
@@ -43,13 +44,27 @@ public abstract class BridgeMover extends Command {
         Robot.BRIDGE.setLower();
         break;
       default:
-        if (Robot.BRIDGE.getRequiredState() == BRIDGE_STATE.RAISED) {
-          Robot.BRIDGE.setLower();
-        } else if (Robot.BRIDGE.getRequiredState() == BRIDGE_STATE.LOWERED) {
-          Robot.BRIDGE.setRaise();
-        } else {
-          Robot.BRIDGE.setLower();
+        switch (mStartState) {
+          case LOWERED:
+            Robot.BRIDGE.setRaise();
+            break;
+          case LOWERING:
+            Robot.BRIDGE.setRaise();
+            break;
+          case RAISED:
+            Robot.BRIDGE.setLower();
+            break;
+          case RAISING:
+            Robot.BRIDGE.setLower();
+            break;
+          case UNKNOWN:
+            Robot.BRIDGE.setLower();
+            break;
+          default:
+            Robot.BRIDGE.setLower();
+            break;
         }
+        break;
     }
   }
 

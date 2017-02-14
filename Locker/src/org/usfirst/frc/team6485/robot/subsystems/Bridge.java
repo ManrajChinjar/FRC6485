@@ -21,6 +21,7 @@ public class Bridge extends Subsystem {
   private final double kMotorSpeed = RobotMap.BRIDGE_NORMAL_PWM;
   private final double kMaxSpeedMagnitude = RobotMap.BRIDGE_MAX_SAFE_PWM;
 
+  // UNKNOWN state is overloaded as it toggles the bridge in ToggleBridge
   public enum BRIDGE_STATE {
     LOWERED, LOWERING, RAISED, RAISING, UNKNOWN
   }
