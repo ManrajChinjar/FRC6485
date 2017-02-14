@@ -21,7 +21,7 @@ public final class IntakeRampReversal extends IntakePowerRamp {
    * request.
    */
   @Override
-  protected void specialInitialize() {
+  protected void secondaryInitialize() {
     if (Robot.FUELINTAKE.getDirectionalState() == IntakeState.HALT)
       mTargetSpeed = -RobotMap.FUELINTAKE_NORMAL_PWM;
     else
