@@ -77,7 +77,7 @@ public abstract class BridgeMover extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return (Robot.BRIDGE.getState() == mReqState) || mShorted;
+    return (Robot.BRIDGE.getState() == Robot.BRIDGE.getRequiredState()) || mShorted;
   }
 
   // Called once after isFinished returns true
