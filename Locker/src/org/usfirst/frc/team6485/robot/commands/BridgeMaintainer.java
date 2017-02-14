@@ -22,7 +22,9 @@ public class BridgeMaintainer extends Command {
   }
 
   @Override
-  protected void initialize() {}
+  protected void initialize() {
+    Robot.BRIDGE.updateState();
+  }
 
   @Override
   protected void execute() {
