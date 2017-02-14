@@ -15,10 +15,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class IntakePowerRamp extends Command {
 
-  private double mStartSpeed, mTargetSpeed, mSetSpeed, mSlopeMS;
-  private double mStartTime, mCurrentTime, mRunTimeMS, mAcceptableMarginMS;
-  private double kRampTimeSeconds = RobotMap.INTAKEPOWERRAMP_TIME_SECONDS;
-  private boolean mHalt = false;
+  protected double mStartSpeed, mTargetSpeed, mSetSpeed, mSlopeMS;
+  protected double mStartTime, mCurrentTime, mRunTimeMS, mAcceptableMarginMS;
+  protected double kRampTimeSeconds = RobotMap.INTAKEPOWERRAMP_TIME_SECONDS;
+  protected boolean mHalt = false;
 
   /**
    * Linearizes the power ramp of the intake motor to prevent voltage spikes or other problems.

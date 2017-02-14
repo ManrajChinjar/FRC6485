@@ -4,29 +4,20 @@ import org.usfirst.frc.team6485.robot.Robot;
 import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake.IntakeState;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.InstantCommand;
-
 /**
+ * Subclass the IntakePowerRamp command, call the superclass constructor with 0.0 PWM then
+ * immediately override the target speed.
+ * 
  * @author Kyle Saburao
  */
-public final class IntakeRampReversal extends InstantCommand {
-
-  private Command mIntakeCommand;
+public final class IntakeRampReversal extends IntakePowerRamp {
 
   public IntakeRampReversal() {
-    super();
-    requires(Robot.FUELINTAKE);
-  }
-
-  @Override
-  protected void initialize() {
-    if (Robot.FUELINTAKE.getDirectionalState() == IntakeState.HALT) {
-      mIntakeCommand = new IntakePowerRamp(-RobotMap.FUELINTAKE_NORMAL_PWM);
-    } else {
-      mIntakeCommand = new IntakePowerRamp(-Robot.FUELINTAKE.getSpeed());
-    }
-    mIntakeCommand.start();
+    super(0.0);
+    if (Robot.FUELINTAKE.getDirectionalState() == IntakeState.HALT)
+      mTargetSpeed = -RobotMap.FUELINTAKE_NORMAL_PWM;
+    else
+      mTargetSpeed = -Robot.FUELINTAKE.getSpeed();
   }
 
 }
