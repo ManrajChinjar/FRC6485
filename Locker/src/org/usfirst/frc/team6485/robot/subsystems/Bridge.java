@@ -39,16 +39,26 @@ public class Bridge extends Subsystem {
   }
 
   /**
-   * Limits the bridge motor PWM magnitude to 10% as that is the fastest safe speed.
+   * Limits the bridge motor PWM magnitude to 14% as that is the fastest safe speed.
    * 
    * @param speed The requested bridge motor PWM rate.
    * @return The safe bridge motor PWM rate.
    */
   private double mLimitSpeed(double speed) {
-    if (speed > kMaxSpeedMagnitude)
+    String warning = "";
+
+    if (speed > kMaxSpeedMagnitude) {
+      warning = String.format("WARNING: Bridge speed request is %.3f higher than safe maximum.",
+          speed - kMaxSpeedMagnitude);
       speed = kMaxSpeedMagnitude;
-    else if (speed < -kMaxSpeedMagnitude)
+    } else if (speed < -kMaxSpeedMagnitude) {
+      warning = String.format("WARNING: Bridge speed request is %.3f lower than safe maximum.",
+          speed - -kMaxSpeedMagnitude);
       speed = -kMaxSpeedMagnitude;
+    }
+
+    if (warning != "")
+      System.out.println(warning);
     return speed;
   }
 
