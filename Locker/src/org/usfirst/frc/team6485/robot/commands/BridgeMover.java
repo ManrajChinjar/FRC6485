@@ -33,6 +33,8 @@ public abstract class BridgeMover extends Command {
   protected void initialize() {
     mStartState = Robot.BRIDGE.getState();
 
+    secondaryInitialize();
+
     if (mStartState == mReqState)
       mShorted = true;
 
@@ -44,29 +46,14 @@ public abstract class BridgeMover extends Command {
         Robot.BRIDGE.setLower();
         break;
       default:
-        switch (mStartState) {
-          case LOWERED:
-            Robot.BRIDGE.setRaise();
-            break;
-          case LOWERING:
-            Robot.BRIDGE.setRaise();
-            break;
-          case RAISED:
-            Robot.BRIDGE.setLower();
-            break;
-          case RAISING:
-            Robot.BRIDGE.setLower();
-            break;
-          case UNKNOWN:
-            Robot.BRIDGE.setLower();
-            break;
-          default:
-            Robot.BRIDGE.setLower();
-            break;
-        }
         break;
     }
   }
+
+  /**
+   * Override if special conditions or arguments need to be created in subclasses.
+   */
+  protected void secondaryInitialize() {}
 
   // Called repeatedly when this Command is scheduled to run
   @Override
