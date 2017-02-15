@@ -67,8 +67,12 @@ public class Robot extends IterativeRobot {
    */
   @Override
   public void disabledInit() {
+    /*
+     * Stop the fuel intake and the drivetrain.
+     */
     Robot.FUELINTAKE.stop();
     Robot.DRIVETRAIN.stop();
+    // Cancel all queued commands.
     Scheduler.getInstance().removeAll();
 
     // Calibrate the gyroscope. SmartDashboard will report that the RoboRio is in TeleOp or Auto
