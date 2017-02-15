@@ -1,5 +1,6 @@
 package org.usfirst.frc.team6485.robot;
 
+import org.usfirst.frc.team6485.robot.RobotMap.RUNNING_MODE;
 import org.usfirst.frc.team6485.robot.autonomous.TC_A_Auto;
 import org.usfirst.frc.team6485.robot.autonomous.TC_A_Auto2;
 import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
@@ -23,14 +24,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
+  public RUNNING_MODE robotMode;
+
   public static OI oi;
-
-  public RunningMode robotMode;
-
-  public enum RunningMode {
-    DISABLED, TELEOP, AUTO
-  }
-
   public static DriveTrain DRIVETRAIN;
   public static FuelIntake FUELINTAKE;
   public static Bridge BRIDGE;
@@ -49,6 +45,8 @@ public class Robot extends IterativeRobot {
     FUELINTAKE = new FuelIntake();
     BRIDGE = new Bridge();
 
+    oi = new OI();
+    
     chooser.addDefault("Default Auto", new ExampleCommand());
     chooser.addObject("TC_A_AUTO", new TC_A_Auto());
     chooser.addObject("TC_A_AUTO2", new TC_A_Auto2());
@@ -58,7 +56,6 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putData("Fuel Intake", FUELINTAKE);
     SmartDashboard.putData("Bridge", BRIDGE);
 
-    oi = new OI();
   }
 
   /**
@@ -78,7 +75,7 @@ public class Robot extends IterativeRobot {
     // Calibrate the gyroscope. SmartDashboard will report that the RoboRio is in TeleOp or Auto
     // until the calibration is complete.
     // Robot.DRIVETRAIN.getGyro().calibrate();
-    robotMode = RunningMode.DISABLED;
+    robotMode = RUNNING_MODE.DISABLED;
   }
 
   @Override
@@ -99,7 +96,7 @@ public class Robot extends IterativeRobot {
    */
   @Override
   public void autonomousInit() {
-    robotMode = RunningMode.AUTO;
+    robotMode = RUNNING_MODE.AUTO;
     Robot.DRIVETRAIN.getGyro().reset();
     autonomousCommand = chooser.getSelected();
 
@@ -125,7 +122,7 @@ public class Robot extends IterativeRobot {
 
   @Override
   public void teleopInit() {
-    robotMode = RunningMode.TELEOP;
+    robotMode = RUNNING_MODE.TELEOP;
     Robot.DRIVETRAIN.getGyro().reset();
 
     // This makes sure that the autonomous stops running when

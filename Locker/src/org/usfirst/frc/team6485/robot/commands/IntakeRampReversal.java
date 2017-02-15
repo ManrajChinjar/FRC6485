@@ -2,7 +2,7 @@ package org.usfirst.frc.team6485.robot.commands;
 
 import org.usfirst.frc.team6485.robot.Robot;
 import org.usfirst.frc.team6485.robot.RobotMap;
-import org.usfirst.frc.team6485.robot.subsystems.FuelIntake.IntakeState;
+import org.usfirst.frc.team6485.robot.RobotMap.IntakeState;
 
 /**
  * Subclass the IntakePowerRamp command, call the superclass constructor with 0.0 PWM and then

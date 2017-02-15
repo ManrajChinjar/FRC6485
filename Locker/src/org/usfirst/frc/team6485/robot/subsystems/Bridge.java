@@ -1,6 +1,7 @@
 package org.usfirst.frc.team6485.robot.subsystems;
 
 import org.usfirst.frc.team6485.robot.RobotMap;
+import org.usfirst.frc.team6485.robot.RobotMap.BRIDGE_STATE;
 import org.usfirst.frc.team6485.robot.commands.BridgeMaintainer;
 import org.usfirst.frc.team6485.robot.commands.LowerBridge;
 
@@ -14,17 +15,11 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class Bridge extends Subsystem {
 
-  private DigitalInput mLowerLimitSwitch;
-  private DigitalInput mUpperLimitSwitch;
+  private DigitalInput mLowerLimitSwitch, mUpperLimitSwitch;
   private VictorSP mBridgeMotor;
 
   private final double kMotorSpeed = RobotMap.BRIDGE_NORMAL_PWM;
   private final double kMaxSpeedMagnitude = RobotMap.BRIDGE_MAX_SAFE_PWM;
-
-  // UNKNOWN state is overloaded as it toggles the bridge in ToggleBridge
-  public enum BRIDGE_STATE {
-    LOWERED, LOWERING, RAISED, RAISING, UNKNOWN
-  }
 
   private BRIDGE_STATE mState, mRequiredState;
 

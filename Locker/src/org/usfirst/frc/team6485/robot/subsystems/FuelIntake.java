@@ -1,6 +1,7 @@
 package org.usfirst.frc.team6485.robot.subsystems;
 
 import org.usfirst.frc.team6485.robot.RobotMap;
+import org.usfirst.frc.team6485.robot.RobotMap.IntakeState;
 
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -18,10 +19,6 @@ public class FuelIntake extends Subsystem {
   private final double kSpeedNormal = RobotMap.FUELINTAKE_NORMAL_PWM;
   private double mReq;
   private boolean mReverse = false;
-
-  public enum IntakeState {
-    IN, HALT, EVACUATE
-  }
 
   private IntakeState intakeState;
 

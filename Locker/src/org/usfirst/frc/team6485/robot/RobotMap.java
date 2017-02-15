@@ -37,6 +37,20 @@ public class RobotMap {
   public static final double BRIDGE_MAINTAIN_PWM = 0.07;
 
   public static final double BRIDGE_MAX_SAFE_PWM = 0.14;
+  
+  // ENUMS
+  
+  public enum IntakeState {
+    IN, HALT, EVACUATE
+  }
+  
+  public enum BRIDGE_STATE {
+    LOWERED, LOWERING, RAISED, RAISING, UNKNOWN
+  }
+  
+  public enum RUNNING_MODE {
+    DISABLED, TELEOP, AUTO
+  }
 
   // For example to map the left and right motors, you could define the
   // following variables to use with your drivetrain subsystem.
