@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author Kyle Saburao
  */
 public class AutoDrive extends Command {
-
   // TODO Also allow metre distance via future averaged encoder units
 
   private final double kP = RobotMap.AUTODRIVE_GYRO_KP;
@@ -53,7 +52,7 @@ public class AutoDrive extends Command {
   @Override
   protected void initialize() {
     System.out
-        .println(String.format("Driving at %.2f for %.2f seconds.", mTargetSpeed, mTimeWindow));
+    .println(String.format("Driving at %.2f for %.2f seconds.", mTargetSpeed, mTimeWindow));
 
     mRampPeriod = RobotMap.AUTODRIVE_RAMP_PERIOD_SECONDS;
     mStartSpeed = Robot.DRIVETRAIN.getMotorPWM(mMotorIndex); // Change index if needed.
@@ -80,7 +79,7 @@ public class AutoDrive extends Command {
       double accelerationvelocitycompute = mSpeedSlope * mCurrentRunTime;
       Robot.DRIVETRAIN.arcadeDrive(
           (accelerationvelocitycompute > mTargetSpeed) ? mTargetSpeed : accelerationvelocitycompute,
-          mCPT);
+              mCPT);
       if (Robot.DRIVETRAIN.getMotorPWM(mMotorIndex) == mTargetSpeed) {
         mAccelerated = true;
       }
