@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class Bridge extends Subsystem {
 
   private DigitalInput mLowerLimitSwitch, mUpperLimitSwitch;
-  private VictorSP mBridgeMotor;
+  private VictorSP mMotor;
 
   private final double kMotorSpeed = RobotMap.BRIDGE_NORMAL_PWM;
   private final double kMaxSpeedMagnitude = RobotMap.BRIDGE_MAX_SAFE_PWM;
@@ -26,10 +26,10 @@ public class Bridge extends Subsystem {
   public Bridge() {
     mLowerLimitSwitch = new DigitalInput(RobotMap.BRIDGE_LOWER_LIMIT_SWITCH);
     mUpperLimitSwitch = new DigitalInput(RobotMap.BRIDGE_UPPER_LIMIT_SWITCH);
-    mBridgeMotor = new VictorSP(RobotMap.BRIDGE_MOTOR);
-    mBridgeMotor.setSafetyEnabled(false);
+    mMotor = new VictorSP(RobotMap.BRIDGE_MOTOR);
+    mMotor.setSafetyEnabled(false);
 
-    LiveWindow.addActuator("BRIDGE", "MOTOR", mBridgeMotor);
+    LiveWindow.addActuator("BRIDGE", "MOTOR", mMotor);
     new LowerBridge().start();
   }
 
@@ -92,7 +92,7 @@ public class Bridge extends Subsystem {
    * @param speed Set the PWM rate of the bridge motor.
    */
   public void setMotor(double speed) {
-    mBridgeMotor.setSpeed(mLimitSpeed(speed));
+    mMotor.setSpeed(mLimitSpeed(speed));
   }
 
   /**
@@ -106,7 +106,7 @@ public class Bridge extends Subsystem {
    * Set the bridge motor to raise the bridge.
    */
   public void setRaise() {
-    mBridgeMotor.setSpeed(kMotorSpeed);
+    mMotor.setSpeed(kMotorSpeed);
     setRequiredState(BRIDGE_STATE.RAISED);
   }
 
@@ -114,7 +114,7 @@ public class Bridge extends Subsystem {
    * Set the bridge motor to lower the bridge.
    */
   public void setLower() {
-    mBridgeMotor.setSpeed(-kMotorSpeed);
+    mMotor.setSpeed(-kMotorSpeed);
     setRequiredState(BRIDGE_STATE.LOWERED);
   }
 
@@ -122,14 +122,14 @@ public class Bridge extends Subsystem {
    * @return Returns true if the bridge motor is moving.
    */
   public boolean isMoving() {
-    return mBridgeMotor.getSpeed() != 0.0;
+    return mMotor.getSpeed() != 0.0;
   }
 
   /**
    * @return The PWM rate of the bridge motor.
    */
   private double getSpeed() {
-    return mBridgeMotor.getSpeed();
+    return mMotor.getSpeed();
   }
 
   /**

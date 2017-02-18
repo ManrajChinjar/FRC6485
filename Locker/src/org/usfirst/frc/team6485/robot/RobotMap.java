@@ -14,6 +14,8 @@ public class RobotMap {
 
   public static final int FUEL_INTAKE_MOTOR = 4;
 
+  public static final int OFFLOADER_MOTOR = 5;
+
   public static final int LOGITECH_PORT = 0, XBOX_PORT = 1;
 
   public static final int BRIDGE_MOTOR = 5;
@@ -37,19 +39,25 @@ public class RobotMap {
   public static final double BRIDGE_MAINTAIN_PWM = 0.07;
 
   public static final double BRIDGE_MAX_SAFE_PWM = 0.14;
-  
+
+  public static final double OFFLOADER_MAX_SAFE_PWM = 0.10;
+
   // ENUMS
-  
+
   public enum IntakeState {
     IN, HALT, EVACUATE
   }
-  
+
   public enum BRIDGE_STATE {
     LOWERED, LOWERING, RAISED, RAISING, UNKNOWN
   }
-  
+
   public enum RUNNING_MODE {
     DISABLED, TELEOP, AUTO
+  }
+
+  public enum OFFLOADER_STATE {
+    ROLLED, UNKNOWN, UNROLLED
   }
 
   // For example to map the left and right motors, you could define the

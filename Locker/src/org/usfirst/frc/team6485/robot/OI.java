@@ -119,7 +119,6 @@ public class OI {
   }
 
   public OI() {
-
     // SmartDashboard buttons
     SmartDashboard.putData("Auto Drive Test", new AutoDrive(0.75, 3.0));
     SmartDashboard.putData("TestAuto", new TC_A_Auto());
@@ -139,7 +138,6 @@ public class OI {
     L11.whenPressed(new AutoGyroTurn(-90.0));
 
     L12.whenPressed(new AutoGyroTurn(90.0));
-
   }
 
 }

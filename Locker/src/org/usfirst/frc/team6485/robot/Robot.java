@@ -7,6 +7,7 @@ import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6485.robot.subsystems.Bridge;
 import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
+import org.usfirst.frc.team6485.robot.subsystems.Offloader;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -30,6 +31,7 @@ public class Robot extends IterativeRobot {
   public static DriveTrain DRIVETRAIN;
   public static FuelIntake FUELINTAKE;
   public static Bridge BRIDGE;
+  public static Offloader OFFLOADER;
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -40,13 +42,13 @@ public class Robot extends IterativeRobot {
    */
   @Override
   public void robotInit() {
-
     DRIVETRAIN = new DriveTrain();
     FUELINTAKE = new FuelIntake();
     BRIDGE = new Bridge();
+    OFFLOADER = new Offloader();
 
     oi = new OI();
-    
+
     chooser.addDefault("Default Auto", new ExampleCommand());
     chooser.addObject("TC_A_AUTO", new TC_A_Auto());
     chooser.addObject("TC_A_AUTO2", new TC_A_Auto2());
@@ -55,7 +57,7 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putData("Drive Train", DRIVETRAIN);
     SmartDashboard.putData("Fuel Intake", FUELINTAKE);
     SmartDashboard.putData("Bridge", BRIDGE);
-
+    SmartDashboard.putData("Offloader", OFFLOADER);
   }
 
   /**

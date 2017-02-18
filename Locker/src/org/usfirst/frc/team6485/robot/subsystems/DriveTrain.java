@@ -46,7 +46,7 @@ public class DriveTrain extends Subsystem {
     mGyroscope = new ADXRS450_Gyro();
 
     mEngine.setSafetyEnabled(true);
-    mEngine.setExpiration(0.125);
+    mEngine.setExpiration(0.150);
     mEngine.setMaxOutput(1.00);
     mEngine.setSensitivity(1.00);
 
@@ -136,6 +136,11 @@ public class DriveTrain extends Subsystem {
     return mGyroscope;
   }
 
+  /**
+   * 
+   * @param index The PWM index of the motor.
+   * @return The motor PWM Rate of motor[i]
+   */
   public double getMotorPWM(int index) {
     switch (index) {
       case 0:
