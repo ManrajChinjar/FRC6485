@@ -6,6 +6,7 @@ import org.usfirst.frc.team6485.robot.commands.AutoDrive;
 import org.usfirst.frc.team6485.robot.commands.AutoGyroTurn;
 import org.usfirst.frc.team6485.robot.commands.IntakePowerRamp;
 import org.usfirst.frc.team6485.robot.commands.IntakeRampReversal;
+import org.usfirst.frc.team6485.robot.commands.KillScheduler;
 import org.usfirst.frc.team6485.robot.commands.ToggleBridge;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -123,6 +124,7 @@ public class OI {
     SmartDashboard.putData("Auto Drive Test", new AutoDrive(0.75, 3.0));
     SmartDashboard.putData("TestAuto", new TC_A_Auto());
     SmartDashboard.putData("TestAuto2", new TC_A_Auto2());
+    SmartDashboard.putData("KILL SCHEDULER", new KillScheduler());
 
     // Logitech controller buttons
     L4.whenPressed(new IntakePowerRamp(0.0));
