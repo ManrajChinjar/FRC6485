@@ -54,10 +54,11 @@ public class FuelIntake extends Subsystem {
    */
   public void set(double speed) {
     mReq = speed;
-    if (speed > 1.0)
+    if (speed > 1.0) {
       mReq = 1.00;
-    else if (speed < -1.0)
+    } else if (speed < -1.0) {
       mReq = -1.00;
+    }
 
     roller.setSpeed(mReq);
     setDirectionalState();

@@ -27,14 +27,16 @@ public class Offloader extends Subsystem {
   }
 
   private double limit(double speed) {
-    if (speed > kNormalPWMRate)
+    if (speed > kNormalPWMRate) {
       speed = kNormalPWMRate;
-    else if (speed < -kNormalPWMRate)
+    } else if (speed < -kNormalPWMRate) {
       speed = -kNormalPWMRate;
-    if (mState == OFFLOADER_STATE.ROLLED && speed > 0)
+    }
+    if (mState == OFFLOADER_STATE.ROLLED && speed > 0) {
       speed = 0; // Change equality sign when +PWM direction is determined.
-    else if (mState == OFFLOADER_STATE.UNROLLED && speed < 0)
+    } else if (mState == OFFLOADER_STATE.UNROLLED && speed < 0) {
       speed = 0;
+    }
     return speed;
   }
 

@@ -63,10 +63,11 @@ public class DriveTrain extends Subsystem {
   }
 
   private double fixArgument(double num) {
-    if (num > kDriveTrainPWMMagnitudeLimit)
+    if (num > kDriveTrainPWMMagnitudeLimit) {
       num = kDriveTrainPWMMagnitudeLimit;
-    else if (num < -kDriveTrainPWMMagnitudeLimit)
+    } else if (num < -kDriveTrainPWMMagnitudeLimit) {
       num = -kDriveTrainPWMMagnitudeLimit;
+    }
     return num;
   }
 

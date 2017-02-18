@@ -35,8 +35,9 @@ public abstract class BridgeMover extends Command {
 
     secondaryInitialize();
 
-    if (mStartState == mReqState)
+    if (mStartState == mReqState) {
       mShorted = true;
+    }
 
     switch (mReqState) {
       case RAISED:

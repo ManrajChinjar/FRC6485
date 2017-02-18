@@ -61,10 +61,11 @@ public class IntakePowerRamp extends Command {
       mSetSpeed = mSlopeMS * mRunTimeMS;
 
       // If 30 milliseconds is left, set the Target speed.
-      if ((kRampTimeSeconds * 1000.0) - mRunTimeMS < mAcceptableMarginMS)
+      if ((kRampTimeSeconds * 1000.0) - mRunTimeMS < mAcceptableMarginMS) {
         Robot.FUELINTAKE.set(mTargetSpeed);
-      else
+      } else {
         Robot.FUELINTAKE.set(mSetSpeed);
+      }
 
       SmartDashboard.putNumber("Intake Power Ramp Set Speed", mSetSpeed);
       SmartDashboard.putNumber("Intake Power Ramp Millisecond Runtime", mRunTimeMS);

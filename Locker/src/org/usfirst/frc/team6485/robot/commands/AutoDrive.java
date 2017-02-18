@@ -38,8 +38,9 @@ public class AutoDrive extends Command {
    */
   public AutoDrive(double speed, double time) {
     requires(Robot.DRIVETRAIN);
-    if (time < 0)
+    if (time < 0) {
       time = 0.0;
+    }
     setTimeout(time + 1.0); // Will kill the command one second after its
     // allotted window.
 
@@ -71,16 +72,18 @@ public class AutoDrive extends Command {
     // Gyroscope measurement increases to the right, but the drive train
     // turn rate is negative the same direction.
     mCPT = mCurrentAngle * kP;
-    if (mTargetSpeed < 0)
+    if (mTargetSpeed < 0) {
       mCPT *= -1;
+    }
 
     if (!mAccelerated) {
       double accelerationvelocitycompute = mSpeedSlope * mCurrentRunTime;
       Robot.DRIVETRAIN.arcadeDrive(
           (accelerationvelocitycompute > mTargetSpeed) ? mTargetSpeed : accelerationvelocitycompute,
           mCPT);
-      if (Robot.DRIVETRAIN.getMotorPWM(mMotorIndex) == mTargetSpeed)
+      if (Robot.DRIVETRAIN.getMotorPWM(mMotorIndex) == mTargetSpeed) {
         mAccelerated = true;
+      }
     } else if (mTimeWindow - mCurrentRunTime <= mRampPeriod) {
       Robot.DRIVETRAIN.arcadeDrive(mSpeedSlope * (mTimeWindow - mCurrentRunTime), mCPT);
     } else

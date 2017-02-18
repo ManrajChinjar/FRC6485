@@ -79,8 +79,9 @@ public class StickDriver extends Command {
     mXYAxisRequestL = -Robot.oi.getXBOXLeftJoyY();
     mXYAxisRequestR = -Robot.oi.getXBOXRightJoyY();
 
-    if (!Robot.oi.getLButtonPressed(2))
+    if (!Robot.oi.getLButtonPressed(2)) {
       mGyroInitFlag = false;
+    }
 
     if (Robot.oi.getLMainTrigger()) {
       logitechControl();

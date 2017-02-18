@@ -52,8 +52,9 @@ public class Bridge extends Subsystem {
       speed = -kMaxSpeedMagnitude;
     }
 
-    if (warning != "")
+    if (warning != "") {
       System.out.println(warning);
+    }
     return speed;
   }
 

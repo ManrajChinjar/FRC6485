@@ -18,20 +18,12 @@ public class ToggleBridge extends BridgeMover {
   protected void secondaryInitialize() {
     switch (mStartState) {
       case LOWERED:
-        mReqState = BRIDGE_STATE.RAISED;
-        break;
       case LOWERING:
         mReqState = BRIDGE_STATE.RAISED;
         break;
       case RAISED:
-        mReqState = BRIDGE_STATE.LOWERED;
-        break;
       case RAISING:
-        mReqState = BRIDGE_STATE.LOWERED;
-        break;
       case UNKNOWN:
-        mReqState = BRIDGE_STATE.LOWERED;
-        break;
       default:
         mReqState = BRIDGE_STATE.LOWERED;
         break;
