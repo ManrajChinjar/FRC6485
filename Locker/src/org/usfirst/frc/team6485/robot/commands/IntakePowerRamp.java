@@ -17,7 +17,7 @@ public class IntakePowerRamp extends Command {
 
   protected double mStartSpeed, mTargetSpeed, mSetSpeed, mSlopeMS;
   protected double mStartTime, mCurrentTime, mRunTimeMS, mAcceptableMarginMS;
-  protected double kRampTimeSeconds = RobotMap.INTAKEPOWERRAMP_TIME_SECONDS;
+  protected double kRampTimeSeconds = RobotMap.INTAKEPOWERRAMP_TIMESECONDS;
   protected boolean mHalt = false;
 
   /**
@@ -29,7 +29,7 @@ public class IntakePowerRamp extends Command {
   public IntakePowerRamp(double speed) {
     requires(Robot.FUELINTAKE);
     mTargetSpeed = speed;
-    this.setInterruptible(true);
+    setInterruptible(true);
   }
 
   // Called just before this Command runs the first time

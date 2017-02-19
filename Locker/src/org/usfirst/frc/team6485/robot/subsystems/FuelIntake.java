@@ -16,7 +16,7 @@ public class FuelIntake extends Subsystem {
 
   private final VictorSP roller = new VictorSP(RobotMap.FUEL_INTAKE_MOTOR);
 
-  private final double kSpeedNormal = RobotMap.FUELINTAKE_NORMAL_PWM;
+  private final double kSpeedNormal = RobotMap.FUELINTAKE_NORMALPWM;
   private double mReq;
   private boolean mReverse = false;
 

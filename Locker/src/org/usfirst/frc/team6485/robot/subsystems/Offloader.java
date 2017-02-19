@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class Offloader extends Subsystem {
 
   private final int kOffloaderPWMSlot = RobotMap.OFFLOADER_MOTOR;
-  private final double kNormalPWMRate = RobotMap.OFFLOADER_MAX_SAFE_PWM;
+  private final double kNormalPWMRate = RobotMap.OFFLOADER_MAXSAFEPWM;
   private Spark mMotor;
 
   private OFFLOADER_STATE mState;

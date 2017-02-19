@@ -23,7 +23,7 @@ public class Delay extends Command {
   public Delay(double seconds) {
     mTimeLength = seconds;
     setTimeout(seconds + .125);
-    this.setInterruptible(false);
+    setInterruptible(false);
   }
 
   // Called just before this Command runs the first time

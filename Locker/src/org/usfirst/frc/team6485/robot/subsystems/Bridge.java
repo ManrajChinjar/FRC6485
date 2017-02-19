@@ -2,6 +2,7 @@ package org.usfirst.frc.team6485.robot.subsystems;
 
 import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.RobotMap.BRIDGE_STATE;
+import org.usfirst.frc.team6485.robot.commands.BridgeMaintainer;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.VictorSP;
@@ -16,8 +17,8 @@ public class Bridge extends Subsystem {
   private DigitalInput mLowerLimitSwitch, mUpperLimitSwitch;
   private VictorSP mMotor;
 
-  private final double kMotorSpeed = RobotMap.BRIDGE_NORMAL_PWM;
-  private final double kMaxSpeedMagnitude = RobotMap.BRIDGE_MAX_SAFE_PWM;
+  private final double kMotorSpeed = RobotMap.BRIDGE_NORMALPWM;
+  private final double kMaxSpeedMagnitude = RobotMap.BRIDGE_MAXSAFEPWM;
 
   private BRIDGE_STATE mState, mRequiredState;
 
@@ -28,6 +29,7 @@ public class Bridge extends Subsystem {
     mMotor.setSafetyEnabled(false);
 
     LiveWindow.addActuator("BRIDGE", "MOTOR", mMotor);
+    mRequiredState = BRIDGE_STATE.LOWERED;
   }
 
   /**
@@ -158,7 +160,7 @@ public class Bridge extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    // setDefaultCommand(new BridgeMaintainer());
+    setDefaultCommand(new BridgeMaintainer());
   }
 
 }

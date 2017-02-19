@@ -1,6 +1,7 @@
 package org.usfirst.frc.team6485.robot.commands;
 
 import org.usfirst.frc.team6485.robot.Robot;
+import org.usfirst.frc.team6485.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -15,8 +16,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class AutoGyroTurn extends Command {
 
-  private double mCurrentAngle, mAngleRequest, mStartAngle, mTargetAngle, mTurnSpeed, mError;
-  private final double mBaseTurnSpeed = 0.60, mSlowTurnSpeed = 0.50, mAngularTolerance = 0.75;
+  private double mCurrentAngle, mAngleRequest, mStartAngle, mTargetAngle, mTurnSpeed, mError,
+  mAngularRateSeconds;
+  private final double kAngularTolerance = 0.75,
+      kMaxAngularRateSeconds = RobotMap.AUTOGYROTURN_BASEDEGREESPERSECOND,
+      kMinAngularRateSeconds = RobotMap.AUTOGYROTURN_SLOWDEGREESPERSECOND;
 
   /**
    * 
@@ -32,8 +36,10 @@ public class AutoGyroTurn extends Command {
   protected void initialize() {
     mStartAngle = Robot.DRIVETRAIN.getGyro().getAngle();
     mTargetAngle = mStartAngle + mAngleRequest;
-    setTimeout(7);
-    this.setInterruptible(false);
+    mTurnSpeed = 0;
+    mAngularRateSeconds = kMaxAngularRateSeconds;
+    setTimeout(7.0);
+    setInterruptible(false);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -41,12 +47,21 @@ public class AutoGyroTurn extends Command {
   protected void execute() {
     mCurrentAngle = Robot.DRIVETRAIN.getGyro().getAngle();
     mError = mTargetAngle - mCurrentAngle;
+    mTurnSpeed = Math.abs(mTurnSpeed);
 
-    mTurnSpeed = 0.04 * Math.abs(mError);
-    if (mTurnSpeed > mBaseTurnSpeed)
-      mTurnSpeed = mBaseTurnSpeed;
-    else if (mTurnSpeed < mSlowTurnSpeed)
-      mTurnSpeed = mSlowTurnSpeed;
+    if (mError <= kMaxAngularRateSeconds) {
+      if ((kMaxAngularRateSeconds * (mError / kMaxAngularRateSeconds)) > kMinAngularRateSeconds) {
+        mAngularRateSeconds = kMaxAngularRateSeconds * (mError / kMaxAngularRateSeconds);
+      } else {
+        mAngularRateSeconds = kMinAngularRateSeconds;
+      }
+    }
+
+    if (Robot.DRIVETRAIN.getGyro().getRate() < mAngularRateSeconds) {
+      mTurnSpeed += 0.01;
+    } else if (Robot.DRIVETRAIN.getGyro().getRate() > mAngularRateSeconds) {
+      mTurnSpeed -= 0.01;
+    }
 
     mTurnSpeed = (mAngleRequest < 0.0) ? mTurnSpeed : -mTurnSpeed;
 
@@ -61,7 +76,7 @@ public class AutoGyroTurn extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return (Math.abs(mError) <= mAngularTolerance) || isTimedOut();
+    return (Math.abs(mError) <= kAngularTolerance) || isTimedOut();
   }
 
   // Called once after isFinished returns true

@@ -26,7 +26,7 @@ public class StickDriver extends Command {
 
   private double mLXAxisRequest, mLYAxisRequest, mXXAxisRequestL, mXYAxisRequestL, mXYAxisRequestR;
   private double mTargetAngle, mCurrentRelativeAngle;
-  private final double kStraightDrivekP = RobotMap.AUTODRIVE_GYRO_KP;
+  private final double kStraightDrivekP = RobotMap.AUTODRIVE_GYROKP;
   private boolean mGyroInitFlag;
 
   public StickDriver() {

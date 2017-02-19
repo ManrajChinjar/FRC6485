@@ -21,7 +21,7 @@ public class IntakeInstantStart extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Robot.FUELINTAKE.set(RobotMap.FUELINTAKE_NORMAL_PWM);
+    Robot.FUELINTAKE.set(RobotMap.FUELINTAKE_NORMALPWM);
   }
 
 }

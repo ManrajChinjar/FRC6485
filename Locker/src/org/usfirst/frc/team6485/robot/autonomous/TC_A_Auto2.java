@@ -27,7 +27,7 @@ public class TC_A_Auto2 extends CommandGroup {
     addSequential(new AutoDrive(0.85, 2.0));
     addSequential(new AutoGyroTurn(-45.0));
     addSequential(new AutoDrive(0.85, 2.5));
-    addSequential(new IntakePowerRamp(-RobotMap.FUELINTAKE_NORMAL_PWM));
+    addSequential(new IntakePowerRamp(-RobotMap.FUELINTAKE_NORMALPWM));
     addSequential(new Delay(2.0));
     addSequential(new CG_PrepareFuelDump());
   }

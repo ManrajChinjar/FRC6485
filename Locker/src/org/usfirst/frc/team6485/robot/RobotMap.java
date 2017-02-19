@@ -24,23 +24,27 @@ public class RobotMap {
 
   // Constants sheet
 
-  public static final double FUELINTAKE_NORMAL_PWM = -0.90; // Negative is intake
+  public static final double FUELINTAKE_NORMALPWM = -0.90; // Negative is intake
 
-  public static final double INTAKEPOWERRAMP_TIME_SECONDS = 1.0 / 3.0;
+  public static final double INTAKEPOWERRAMP_TIMESECONDS = 1.0 / 3.0;
 
-  public static final double DRIVETRAIN_PWM_LIMIT = 0.95;
+  public static final double DRIVETRAIN_PWMLIMIT = 0.95;
 
-  public static final double AUTODRIVE_GYRO_KP = 0.080;
+  public static final double AUTODRIVE_GYROKP = 0.080;
 
-  public static final double AUTODRIVE_RAMP_PERIOD_SECONDS = 0.10;
+  public static final double AUTODRIVE_RAMPPERIODSECONDS = 0.10;
 
-  public static final double BRIDGE_NORMAL_PWM = 0.15; // Positive raises the bridge
+  public static final double AUTOGYROTURN_BASEDEGREESPERSECOND = 30.0;
 
-  public static final double BRIDGE_MAINTAIN_PWM = 0.15;
+  public static final double AUTOGYROTURN_SLOWDEGREESPERSECOND = 20.0;
 
-  public static final double BRIDGE_MAX_SAFE_PWM = 0.21;
+  public static final double BRIDGE_NORMALPWM = 0.14; // Positive raises the bridge
 
-  public static final double OFFLOADER_MAX_SAFE_PWM = 0.10;
+  public static final double BRIDGE_MAINTAINPWM = 0.14;
+
+  public static final double BRIDGE_MAXSAFEPWM = 0.15;
+
+  public static final double OFFLOADER_MAXSAFEPWM = 0.10;
 
   // ENUMS
 

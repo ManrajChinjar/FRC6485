@@ -128,7 +128,7 @@ public class OI {
 
     L5.whenPressed(new IntakeRampReversal());
 
-    L6.whenPressed(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMAL_PWM));
+    L6.whenPressed(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMALPWM));
 
     L7.whileHeld(new AutoDrive(0.80, 30.0));
 

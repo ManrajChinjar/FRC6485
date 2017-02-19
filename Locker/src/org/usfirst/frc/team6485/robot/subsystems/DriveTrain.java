@@ -32,7 +32,7 @@ public class DriveTrain extends Subsystem {
 
   private ADXRS450_Gyro mGyroscope;
 
-  private final double kDriveTrainPWMMagnitudeLimit = RobotMap.DRIVETRAIN_PWM_LIMIT;
+  private final double kDriveTrainPWMMagnitudeLimit = RobotMap.DRIVETRAIN_PWMLIMIT;
 
   // Initialize drive train
   public DriveTrain() {
@@ -161,7 +161,7 @@ public class DriveTrain extends Subsystem {
 
   /**
    * 
-   * @return All of the motors PWM values as an array of 4 doubles.
+   * @return All of the motors PWM values as an array of 4 floats.
    */
   public double[] getMotorPWMS() {
     double[] motorArray = new double[4];

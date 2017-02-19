@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * @author Kyle Saburao
  */
-public class BridgeMover extends Command {
+public class BridgeControl extends Command {
 
   protected BRIDGE_STATE mReqState, mStartState;
   protected boolean mShorted;
@@ -17,13 +17,13 @@ public class BridgeMover extends Command {
    * Moves the bridge into position.
    * 
    * @param state The requested bridge state.<br>
-   *        Pass BRIDGE _STATE "UNKNOWN" to toggle, "RAISED" to raise and "LOWERED" to lower.
+   *        Pass BRIDGE_STATE "UNKNOWN" to toggle, "RAISED" to raise and "LOWERED" to lower.
    */
-  public BridgeMover(BRIDGE_STATE state) {
+  public BridgeControl(BRIDGE_STATE state) {
     requires(Robot.BRIDGE);
     mReqState = state;
-    this.setInterruptible(true);
     mShorted = false;
+    setInterruptible(true);
   }
 
   // Called just before this Command runs the first time
@@ -31,35 +31,38 @@ public class BridgeMover extends Command {
   protected void initialize() {
     mStartState = Robot.BRIDGE.getState();
 
-    // secondaryInitialize();
+    if (mReqState == BRIDGE_STATE.LOWERED && mReqState == BRIDGE_STATE.RAISED
+        && mReqState == mStartState) {
+      mShorted = true;
+    } else {
 
-    switch (mReqState) {
-      case RAISED:
-        Robot.BRIDGE.setRaise();
-        break;
-      case LOWERED:
-        Robot.BRIDGE.setLower();
-        break;
-      default:
-        switch (mStartState) {
-          case UNKNOWN:
-          case RAISED:
-          case RAISING:
-            Robot.BRIDGE.setLower();
-            break;
-          case LOWERED:
-          case LOWERING:
-            Robot.BRIDGE.setRaise();
-            break;
-        }
-        break;
+      switch (mReqState) {
+        case RAISED:
+          Robot.BRIDGE.setRaise();
+          break;
+        case LOWERED:
+          Robot.BRIDGE.setLower();
+          break;
+        default:
+
+          /**
+           * Case fall-through to control toggle option.
+           */
+          switch (mStartState) {
+            case UNKNOWN:
+            case RAISED:
+            case RAISING:
+              Robot.BRIDGE.setLower();
+              break;
+            case LOWERED:
+            case LOWERING:
+              Robot.BRIDGE.setRaise();
+              break;
+          }
+          break;
+      }
     }
   }
-
-  /**
-   * Override if special conditions or arguments need to be created in subclasses.
-   */
-  protected void secondaryInitialize() {}
 
   // Called repeatedly when this Command is scheduled to run
   @Override
