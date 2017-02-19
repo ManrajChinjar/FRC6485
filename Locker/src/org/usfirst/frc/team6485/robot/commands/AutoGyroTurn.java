@@ -16,8 +16,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class AutoGyroTurn extends Command {
 
-  private double mCurrentAngle, mAngleRequest, mStartAngle, mTargetAngle, mTurnSpeed, mError, mAbsError,
-  mAngularRateSeconds;
+  private double mCurrentAngle, mAngleRequest, mStartAngle, mTargetAngle, mTurnSpeed, mError,
+      mAbsError, mAngularRateSeconds, mGyroRate;
   private final double kAngularTolerance = 0.75,
       kMaxAngularRateSeconds = RobotMap.AUTOGYROTURN_BASEDEGREESPERSECOND,
       kMinAngularRateSeconds = RobotMap.AUTOGYROTURN_SLOWDEGREESPERSECOND;
@@ -46,12 +46,14 @@ public class AutoGyroTurn extends Command {
   @Override
   protected void execute() {
     mCurrentAngle = Robot.DRIVETRAIN.getGyro().getAngle();
+    mGyroRate = Robot.DRIVETRAIN.getGyro().getRate();
     mError = mTargetAngle - mCurrentAngle;
     mAbsError = Math.abs(mError);
     mTurnSpeed = Math.abs(mTurnSpeed);
 
     if (mAbsError <= kMaxAngularRateSeconds) {
-      if ((kMaxAngularRateSeconds * (mAbsError/ kMaxAngularRateSeconds)) > kMinAngularRateSeconds) {
+      if ((kMaxAngularRateSeconds
+          * (mAbsError / kMaxAngularRateSeconds)) > kMinAngularRateSeconds) {
         mAngularRateSeconds = kMaxAngularRateSeconds * (mAbsError / kMaxAngularRateSeconds);
       } else {
         mAngularRateSeconds = kMinAngularRateSeconds;
@@ -60,9 +62,9 @@ public class AutoGyroTurn extends Command {
       mAngularRateSeconds = kMaxAngularRateSeconds;
     }
 
-    if (Robot.DRIVETRAIN.getGyro().getRate() < mAngularRateSeconds) {
+    if (Math.abs(mGyroRate) < mAngularRateSeconds) {
       mTurnSpeed += 0.01;
-    } else if (Robot.DRIVETRAIN.getGyro().getRate() > mAngularRateSeconds) {
+    } else if (Math.abs(mGyroRate) > mAngularRateSeconds) {
       mTurnSpeed -= 0.01;
     }
 

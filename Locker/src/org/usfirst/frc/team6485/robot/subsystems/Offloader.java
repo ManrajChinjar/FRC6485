@@ -2,6 +2,7 @@ package org.usfirst.frc.team6485.robot.subsystems;
 
 import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.RobotMap.OFFLOADER_STATE;
+
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;

@@ -4,6 +4,7 @@ import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.RobotMap.BRIDGE_STATE;
 import org.usfirst.frc.team6485.robot.commands.BridgeControl;
 import org.usfirst.frc.team6485.robot.commands.IntakePowerRamp;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
