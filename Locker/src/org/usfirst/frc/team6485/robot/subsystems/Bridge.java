@@ -33,7 +33,7 @@ public class Bridge extends Subsystem {
   }
 
   /**
-   * Limits the bridge motor PWM magnitude to 14% as that is the fastest safe speed.
+   * Limits the bridge motor PWM magnitude.
    * 
    * @param speed The requested bridge motor PWM rate.
    * @return The safe bridge motor PWM rate.

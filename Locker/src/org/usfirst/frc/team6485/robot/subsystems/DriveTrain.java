@@ -19,10 +19,10 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class DriveTrain extends Subsystem {
 
-  private Spark mFrontLeftMotor;
-  private Spark mRearLeftMotor;
-  private Spark mFrontRightMotor;
-  private Spark mRearRightMotor;
+  private Spark mFrontLeftController;
+  private Spark mRearLeftController;
+  private Spark mFrontRightController;
+  private Spark mRearRightController;
 
   // private final Encoder mDriveEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
   // Signal A to DIO-0 S, Signal B to DIO-1 S, GND to DIO-0 SYMBOL THING, 5V to DIO-0 V, DETERMINE
@@ -37,11 +37,11 @@ public class DriveTrain extends Subsystem {
   // Initialize drive train
   public DriveTrain() {
 
-    mFrontLeftMotor = new Spark(RobotMap.FRONT_LEFT_MOTOR);
-    mRearLeftMotor = new Spark(RobotMap.REAR_LEFT_MOTOR);
-    mFrontRightMotor = new Spark(RobotMap.FRONT_RIGHT_MOTOR);
-    mRearRightMotor = new Spark(RobotMap.REAR_RIGHT_MOTOR);
-    mEngine = new RobotDrive(mFrontLeftMotor, mRearLeftMotor, mFrontRightMotor, mRearRightMotor);
+    mFrontLeftController = new Spark(RobotMap.FRONT_LEFT_MOTOR);
+    mRearLeftController = new Spark(RobotMap.REAR_LEFT_MOTOR);
+    mFrontRightController = new Spark(RobotMap.FRONT_RIGHT_MOTOR);
+    mRearRightController = new Spark(RobotMap.REAR_RIGHT_MOTOR);
+    mEngine = new RobotDrive(mFrontLeftController, mRearLeftController, mFrontRightController, mRearRightController);
 
     mGyroscope = new ADXRS450_Gyro();
 
@@ -50,10 +50,10 @@ public class DriveTrain extends Subsystem {
     mEngine.setMaxOutput(1.00);
     mEngine.setSensitivity(1.00);
 
-    LiveWindow.addActuator("DRIVETRAIN", "FL", mFrontLeftMotor);
-    LiveWindow.addActuator("DRIVETRAIN", "RL", mRearRightMotor);
-    LiveWindow.addActuator("DRIVETRAIN", "FR", mFrontRightMotor);
-    LiveWindow.addActuator("DRIVETRAIN", "RR", mRearRightMotor);
+    LiveWindow.addActuator("DRIVETRAIN", "FL", mFrontLeftController);
+    LiveWindow.addActuator("DRIVETRAIN", "RL", mRearRightController);
+    LiveWindow.addActuator("DRIVETRAIN", "FR", mFrontRightController);
+    LiveWindow.addActuator("DRIVETRAIN", "RR", mRearRightController);
   }
 
   @Override
@@ -62,7 +62,7 @@ public class DriveTrain extends Subsystem {
     setDefaultCommand(new StickDriver());
   }
 
-  private double fixArgument(double num) {
+  private double limit(double num) {
     if (num > kDriveTrainPWMMagnitudeLimit) {
       num = kDriveTrainPWMMagnitudeLimit;
     } else if (num < -kDriveTrainPWMMagnitudeLimit) {
@@ -79,7 +79,7 @@ public class DriveTrain extends Subsystem {
    * @param rightStick Right Motor Group request
    */
   public void tankDrive(double leftStick, double rightStick) {
-    mEngine.tankDrive(fixArgument(leftStick), fixArgument(rightStick));
+    mEngine.tankDrive(limit(leftStick), limit(rightStick));
   }
 
   /**
@@ -90,7 +90,7 @@ public class DriveTrain extends Subsystem {
    * @param rightStick Turning request
    */
   public void arcadeDrive(double leftStick, double rightStick) {
-    mEngine.arcadeDrive(fixArgument(leftStick), fixArgument(rightStick));
+    mEngine.arcadeDrive(limit(leftStick), limit(rightStick));
   }
 
   public void drive(double speed, double curve) {
@@ -99,10 +99,10 @@ public class DriveTrain extends Subsystem {
 
   /**
    * Only allows the drive train to drive back and forth. <br>
-   * <b>WARNING:</b> MAY BE DEPRECATED WHEN THE GYROSCOPE cPT METHOD IS IMPROVED.
    * 
    * @param speed Obvious (1 full forward, -1 full backwards)
    */
+  @Deprecated
   public void forwardBackDrive(double speed) {
     tankDrive(speed, speed);
   }
@@ -126,6 +126,7 @@ public class DriveTrain extends Subsystem {
   /**
    * Requests the drive train to go full-ahead at +95% PWM.
    */
+  @Deprecated
   public void flankSpeed() {
     tankDrive(0.95, 0.95);
   }
@@ -145,17 +146,17 @@ public class DriveTrain extends Subsystem {
   public double getMotorPWM(int index) {
     switch (index) {
       case 0:
-        return mFrontLeftMotor.getSpeed();
+        return mFrontLeftController.getSpeed();
       case 1:
-        return mRearLeftMotor.getSpeed();
+        return mRearLeftController.getSpeed();
       case 2:
-        return mFrontRightMotor.getSpeed();
+        return mFrontRightController.getSpeed();
       case 3:
-        return mRearRightMotor.getSpeed();
+        return mRearRightController.getSpeed();
 
       // Required piece that does nothing at all.
       default:
-        return mFrontLeftMotor.getSpeed();
+        return mFrontLeftController.getSpeed();
     }
   }
 
@@ -166,10 +167,10 @@ public class DriveTrain extends Subsystem {
   public double[] getMotorPWMS() {
     double[] motorArray = new double[4];
 
-    motorArray[0] = mFrontLeftMotor.getSpeed();
-    motorArray[1] = mRearLeftMotor.getSpeed();
-    motorArray[2] = mFrontRightMotor.getSpeed();
-    motorArray[3] = mRearRightMotor.getSpeed();
+    motorArray[0] = mFrontLeftController.getSpeed();
+    motorArray[1] = mRearLeftController.getSpeed();
+    motorArray[2] = mFrontRightController.getSpeed();
+    motorArray[3] = mRearRightController.getSpeed();
 
     return motorArray;
   }

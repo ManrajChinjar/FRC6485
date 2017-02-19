@@ -10,6 +10,7 @@ import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -47,6 +48,7 @@ public class Robot extends IterativeRobot {
     BRIDGE = new Bridge();
     // OFFLOADER = new Offloader();
 
+    Timer.delay(0.1);
     oi = new OI();
 
     chooser.addDefault("Default Auto", new ExampleCommand());
@@ -78,7 +80,7 @@ public class Robot extends IterativeRobot {
 
     // Calibrate the gyroscope. SmartDashboard will report that the RoboRio is in TeleOp or Auto
     // until the calibration is complete.
-    // Robot.DRIVETRAIN.getGyro().calibrate();
+    Robot.DRIVETRAIN.getGyro().calibrate();
     robotMode = RUNNING_MODE.DISABLED;
   }
 
