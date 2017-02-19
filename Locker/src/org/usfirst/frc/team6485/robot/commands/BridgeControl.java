@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class BridgeControl extends Command {
 
-  protected BRIDGE_STATE mReqState, mStartState;
-  protected boolean mShorted;
+  private BRIDGE_STATE mReqState, mStartState;
+  private boolean mShorted;
 
   /**
    * Moves the bridge into position.
