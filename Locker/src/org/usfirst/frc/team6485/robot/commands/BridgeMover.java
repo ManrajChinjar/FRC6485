@@ -8,15 +8,13 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * @author Kyle Saburao
  */
-public abstract class BridgeMover extends Command {
+public class BridgeMover extends Command {
 
   protected BRIDGE_STATE mReqState, mStartState;
   protected boolean mShorted;
 
   /**
-   * Moves the bridge into position.<br>
-   * <br>
-   * <b>DO NOT DIRECTLY CREATE THIS COMMAND</b>
+   * Moves the bridge into position.
    * 
    * @param state The requested bridge state.<br>
    *        Pass BRIDGE _STATE "UNKNOWN" to toggle, "RAISED" to raise and "LOWERED" to lower.
@@ -33,11 +31,7 @@ public abstract class BridgeMover extends Command {
   protected void initialize() {
     mStartState = Robot.BRIDGE.getState();
 
-    secondaryInitialize();
-
-    if (mStartState == mReqState) {
-      mShorted = true;
-    }
+    // secondaryInitialize();
 
     switch (mReqState) {
       case RAISED:
@@ -47,6 +41,17 @@ public abstract class BridgeMover extends Command {
         Robot.BRIDGE.setLower();
         break;
       default:
+        switch (mStartState) {
+          case UNKNOWN:
+          case RAISED:
+          case RAISING:
+            Robot.BRIDGE.setLower();
+            break;
+          case LOWERED:
+          case LOWERING:
+            Robot.BRIDGE.setRaise();
+            break;
+        }
         break;
     }
   }

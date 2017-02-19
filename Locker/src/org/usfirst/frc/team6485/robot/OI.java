@@ -1,13 +1,10 @@
 package org.usfirst.frc.team6485.robot;
 
-import org.usfirst.frc.team6485.robot.autonomous.TC_A_Auto;
-import org.usfirst.frc.team6485.robot.autonomous.TC_A_Auto2;
 import org.usfirst.frc.team6485.robot.commands.AutoDrive;
 import org.usfirst.frc.team6485.robot.commands.AutoGyroTurn;
 import org.usfirst.frc.team6485.robot.commands.IntakePowerRamp;
 import org.usfirst.frc.team6485.robot.commands.IntakeRampReversal;
 import org.usfirst.frc.team6485.robot.commands.KillScheduler;
-import org.usfirst.frc.team6485.robot.commands.ToggleBridge;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -121,9 +118,9 @@ public class OI {
 
   public OI() {
     // SmartDashboard buttons
-    SmartDashboard.putData("Auto Drive Test", new AutoDrive(0.75, 3.0));
-    SmartDashboard.putData("TestAuto", new TC_A_Auto());
-    SmartDashboard.putData("TestAuto2", new TC_A_Auto2());
+    // SmartDashboard.putData("Auto Drive Test", new AutoDrive(0.75, 3.0));
+    // SmartDashboard.putData("TestAuto", new TC_A_Auto());
+    // SmartDashboard.putData("TestAuto2", new TC_A_Auto2());
     SmartDashboard.putData("KILL SCHEDULER", new KillScheduler());
 
     // Logitech controller buttons
@@ -135,7 +132,7 @@ public class OI {
 
     L7.whileHeld(new AutoDrive(0.80, 30.0));
 
-    L8.whenPressed(new ToggleBridge());
+    // L8.whenPressed(new BridgeMover(BRIDGE_STATE.UNKNOWN));
 
     L11.whenPressed(new AutoGyroTurn(-90.0));
 

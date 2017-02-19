@@ -14,7 +14,7 @@ public class RobotMap {
 
   public static final int FUEL_INTAKE_MOTOR = 4;
 
-  public static final int OFFLOADER_MOTOR = 5;
+  public static final int OFFLOADER_MOTOR = 6;
 
   public static final int LOGITECH_PORT = 0, XBOX_PORT = 1;
 
@@ -34,11 +34,11 @@ public class RobotMap {
 
   public static final double AUTODRIVE_RAMP_PERIOD_SECONDS = 0.10;
 
-  public static final double BRIDGE_NORMAL_PWM = 0.13; // Positive raises the bridge
+  public static final double BRIDGE_NORMAL_PWM = 0.15; // Positive raises the bridge
 
-  public static final double BRIDGE_MAINTAIN_PWM = 0.07;
+  public static final double BRIDGE_MAINTAIN_PWM = 0.15;
 
-  public static final double BRIDGE_MAX_SAFE_PWM = 0.14;
+  public static final double BRIDGE_MAX_SAFE_PWM = 0.21;
 
   public static final double OFFLOADER_MAX_SAFE_PWM = 0.10;
 

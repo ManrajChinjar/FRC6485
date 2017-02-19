@@ -2,8 +2,6 @@ package org.usfirst.frc.team6485.robot.subsystems;
 
 import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.RobotMap.BRIDGE_STATE;
-import org.usfirst.frc.team6485.robot.commands.BridgeMaintainer;
-import org.usfirst.frc.team6485.robot.commands.LowerBridge;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.VictorSP;
@@ -30,7 +28,6 @@ public class Bridge extends Subsystem {
     mMotor.setSafetyEnabled(false);
 
     LiveWindow.addActuator("BRIDGE", "MOTOR", mMotor);
-    new LowerBridge().start();
   }
 
   /**
@@ -129,7 +126,7 @@ public class Bridge extends Subsystem {
   /**
    * @return The PWM rate of the bridge motor.
    */
-  private double getSpeed() {
+  public double getSpeed() {
     return mMotor.getSpeed();
   }
 
@@ -161,7 +158,7 @@ public class Bridge extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new BridgeMaintainer());
+    // setDefaultCommand(new BridgeMaintainer());
   }
 
 }
