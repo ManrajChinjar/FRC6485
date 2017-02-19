@@ -1,5 +1,7 @@
 package org.usfirst.frc.team6485.robot;
 
+import org.usfirst.frc.team6485.robot.autonomous.TC_A_Auto;
+import org.usfirst.frc.team6485.robot.autonomous.TC_A_Auto2;
 import org.usfirst.frc.team6485.robot.commands.AutoDrive;
 import org.usfirst.frc.team6485.robot.commands.AutoGyroTurn;
 import org.usfirst.frc.team6485.robot.commands.IntakePowerRamp;
@@ -84,6 +86,10 @@ public class OI {
     return logitechController.getRawButton(button);
   }
 
+  public int getLPOV() {
+    return logitechController.getPOV();
+  }
+
   public int getLPOV(int pov) {
     return logitechController.getPOV(pov);
   }
@@ -118,9 +124,9 @@ public class OI {
 
   public OI() {
     // SmartDashboard buttons
-    // SmartDashboard.putData("Auto Drive Test", new AutoDrive(0.75, 3.0));
-    // SmartDashboard.putData("TestAuto", new TC_A_Auto());
-    // SmartDashboard.putData("TestAuto2", new TC_A_Auto2());
+    SmartDashboard.putData("Auto Drive Test", new AutoDrive(0.75, 3.0));
+    SmartDashboard.putData("TestAuto", new TC_A_Auto());
+    SmartDashboard.putData("TestAuto2", new TC_A_Auto2());
     SmartDashboard.putData("KILL SCHEDULER", new KillScheduler());
 
     // Logitech controller buttons

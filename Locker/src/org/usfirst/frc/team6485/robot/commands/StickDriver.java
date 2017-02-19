@@ -31,6 +31,7 @@ public class StickDriver extends Command {
 
   public StickDriver() {
     requires(Robot.DRIVETRAIN);
+    setInterruptible(true);
   }
 
   // Called just before this Command runs the first time

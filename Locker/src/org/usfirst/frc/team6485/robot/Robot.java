@@ -1,12 +1,17 @@
 package org.usfirst.frc.team6485.robot;
 
 import org.usfirst.frc.team6485.robot.RobotMap.RUNNING_MODE;
+import org.usfirst.frc.team6485.robot.autonomous.A_CentrePositionStart;
 import org.usfirst.frc.team6485.robot.autonomous.TC_A_Auto;
 import org.usfirst.frc.team6485.robot.autonomous.TC_A_Auto2;
 import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6485.robot.subsystems.Bridge;
 import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
+import org.usfirst.frc.team6485.robot.utility.BridgeReporter;
+import org.usfirst.frc.team6485.robot.utility.DriveTrainReporter;
+import org.usfirst.frc.team6485.robot.utility.IntakeReporter;
+import org.usfirst.frc.team6485.robot.utility.POVTester;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -54,6 +59,7 @@ public class Robot extends IterativeRobot {
     chooser.addDefault("Default Auto", new ExampleCommand());
     chooser.addObject("TC_A_AUTO", new TC_A_Auto());
     chooser.addObject("TC_A_AUTO2", new TC_A_Auto2());
+    chooser.addObject("AUTONOMOUS CENTRE START", new A_CentrePositionStart());
 
     SmartDashboard.putData("Auto Mode", chooser);
     SmartDashboard.putData("Drive Train", DRIVETRAIN);
@@ -171,69 +177,11 @@ public class Robot extends IterativeRobot {
         break;
     }
     SmartDashboard.putString("ROBOT MODE", robotmode_string);
-    SmartDashboard.putNumber("Gyroscope Value", Robot.DRIVETRAIN.getGyro().getAngle());
-    SmartDashboard.putNumber("X-Axis Logitech Request (NEG)", -Robot.oi.getLJoyX());
-    SmartDashboard.putNumber("Y-Axis Logitech Request (NEG)", -Robot.oi.getLJoyY());
 
-    double[] work = Robot.DRIVETRAIN.getMotorPWMS();
-    SmartDashboard.putNumber("Front Left PWM", work[0]);
-    SmartDashboard.putNumber("Rear Left PWM", work[1]);
-    SmartDashboard.putNumber("Front Right PWM", work[2]);
-    SmartDashboard.putNumber("Rear Right PWM", work[3]);
-    SmartDashboard.putNumber("Left PWM Group Difference", Math.abs(work[0] - work[1]));
-    SmartDashboard.putNumber("Right PWM Group Difference", Math.abs(work[2] - work[3]));
-
-    String intakeenum = "";
-    switch (Robot.FUELINTAKE.getDirectionalState()) {
-      case HALT:
-        intakeenum = "HALT";
-        break;
-      case IN:
-        intakeenum = "IN";
-        break;
-      case EVACUATE:
-        intakeenum = "EVACUATE";
-        break;
-    }
-    SmartDashboard.putNumber("Intake PWM", Robot.FUELINTAKE.getSpeed());
-    SmartDashboard.putString("Intake ENUM", intakeenum);
-
-    String bridgecurrentstring = "";
-    switch (Robot.BRIDGE.getState()) {
-      case UNKNOWN:
-        bridgecurrentstring = "UNKNOWN";
-        break;
-      case RAISED:
-        bridgecurrentstring = "RAISED";
-        break;
-      case LOWERED:
-        bridgecurrentstring = "LOWERED";
-        break;
-      case LOWERING:
-        bridgecurrentstring = "LOWERING";
-        break;
-      case RAISING:
-        bridgecurrentstring = "RAISING";
-        break;
-      default:
-        break;
-    }
-    SmartDashboard.putString("Bridge State", bridgecurrentstring);
-
-    String bridgerequiredstring = "";
-    switch (Robot.BRIDGE.getRequiredState()) {
-      case RAISED:
-        bridgecurrentstring = "RAISED";
-        break;
-      case LOWERED:
-        bridgecurrentstring = "LOWERED";
-        break;
-      default:
-        bridgecurrentstring = "UNKNOWN";
-        break;
-    }
-    SmartDashboard.putString("Required Bridge State", bridgerequiredstring);
-    SmartDashboard.putNumber("Bridge PWM", Robot.BRIDGE.getSpeed());
+    DriveTrainReporter.report();
+    IntakeReporter.report();
+    BridgeReporter.report();
+    POVTester.report();
   }
 
 }

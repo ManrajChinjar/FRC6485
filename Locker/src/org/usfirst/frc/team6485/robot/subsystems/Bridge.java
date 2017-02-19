@@ -3,16 +3,19 @@ package org.usfirst.frc.team6485.robot.subsystems;
 import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.RobotMap.BRIDGE_STATE;
 import org.usfirst.frc.team6485.robot.commands.BridgeMaintainer;
+import org.usfirst.frc.team6485.robot.utility.ScalableThreadMaintainer;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * @author Kyle Saburao
  */
-public class Bridge extends Subsystem {
+public class Bridge extends Subsystem implements ScalableThreadMaintainer {
 
   private DigitalInput mLowerLimitSwitch, mUpperLimitSwitch;
   private VictorSP mMotor;
@@ -99,7 +102,9 @@ public class Bridge extends Subsystem {
    * Stops the bridge motor.
    */
   public void stop() {
+    ScalableThreadMaintainer.maintain(true);
     setMotor(0.0);
+    SmartDashboard.putNumber("BRIDGE STOP TIMESTAMP", Timer.getFPGATimestamp());
   }
 
   /**

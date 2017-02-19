@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  * The ball offloader subsystem.
+ * 
+ * @author Kyle Saburao
  */
 public class Offloader extends Subsystem {
 

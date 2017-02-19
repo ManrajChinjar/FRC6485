@@ -3,7 +3,9 @@ package org.usfirst.frc.team6485.robot.commands;
 import org.usfirst.frc.team6485.robot.Robot;
 import org.usfirst.frc.team6485.robot.RobotMap.BRIDGE_STATE;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * @author Kyle Saburao
@@ -79,6 +81,7 @@ public class BridgeControl extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    SmartDashboard.putNumber("BRIDGE STOP REQ TIMESTAMP", Timer.getFPGATimestamp());
     Robot.BRIDGE.stop();
     Robot.BRIDGE.updateState();
   }

@@ -24,10 +24,12 @@ public class AutoDrive extends Command {
   private double mCurrentAngle;
   private double mStartTime, mCurrentRunTime, mRampPeriod, mTimeWindow;
   private double mStartSpeed, mTargetSpeed, mSpeedSlope, mCPT;
-  private int mMotorIndex = 3;
+  // private double mDistanceTarget, mDistanceError;
+  private int mMotorIndex = 0;
   private boolean mAccelerated;
 
   private Gyro gyroscope = Robot.DRIVETRAIN.getGyro();
+  // private Encoder encoder = Robot.DRIVETRAIN.getEncoder();
 
   /**
    * Drives forward and uses the gyroscope to maintain direction.

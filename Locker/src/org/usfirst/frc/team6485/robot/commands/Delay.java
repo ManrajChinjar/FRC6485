@@ -22,7 +22,7 @@ public class Delay extends Command {
    */
   public Delay(double seconds) {
     mTimeLength = seconds;
-    setTimeout(seconds + .125);
+    setTimeout(seconds + .150);
     setInterruptible(false);
   }
 
@@ -30,6 +30,7 @@ public class Delay extends Command {
   @Override
   protected void initialize() {
     mStartTime = Timer.getFPGATimestamp();
+    Robot.DRIVETRAIN.stop();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -47,6 +48,7 @@ public class Delay extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.DRIVETRAIN.stop();
     System.out.println(String.format("Ending delay of %.3f seconds after %.3f actual seconds.",
         mTimeLength, (Timer.getFPGATimestamp() - mStartTime)));
   }

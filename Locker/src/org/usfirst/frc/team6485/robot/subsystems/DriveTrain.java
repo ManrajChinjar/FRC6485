@@ -30,7 +30,7 @@ public class DriveTrain extends Subsystem {
 
   private RobotDrive mEngine;
 
-  private ADXRS450_Gyro mGyroscope;
+  private ADXRS450_Gyro mDriveGyroscope;
 
   private final double kDriveTrainPWMMagnitudeLimit = RobotMap.DRIVETRAIN_PWMLIMIT;
 
@@ -41,9 +41,10 @@ public class DriveTrain extends Subsystem {
     mRearLeftController = new Spark(RobotMap.REAR_LEFT_MOTOR);
     mFrontRightController = new Spark(RobotMap.FRONT_RIGHT_MOTOR);
     mRearRightController = new Spark(RobotMap.REAR_RIGHT_MOTOR);
-    mEngine = new RobotDrive(mFrontLeftController, mRearLeftController, mFrontRightController, mRearRightController);
+    mEngine = new RobotDrive(mFrontLeftController, mRearLeftController, mFrontRightController,
+        mRearRightController);
 
-    mGyroscope = new ADXRS450_Gyro();
+    mDriveGyroscope = new ADXRS450_Gyro();
 
     mEngine.setSafetyEnabled(true);
     mEngine.setExpiration(0.150);
@@ -135,7 +136,7 @@ public class DriveTrain extends Subsystem {
    * @return The gyroscope of the drive train.
    */
   public ADXRS450_Gyro getGyro() {
-    return mGyroscope;
+    return mDriveGyroscope;
   }
 
   /**
@@ -174,5 +175,9 @@ public class DriveTrain extends Subsystem {
 
     return motorArray;
   }
+
+  // public Encoder getEncoder() {
+  // return mDriveEncoder;
+  // }
 
 }
