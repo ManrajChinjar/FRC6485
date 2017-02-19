@@ -18,7 +18,7 @@ public class AutoGyroTurn extends Command {
 
   private double mCurrentAngle, mAngleRequest, mStartAngle, mTargetAngle, mTurnSpeed, mError,
       mAbsError, mAngularRateSeconds, mGyroRate;
-  private final double kAngularTolerance = 0.75,
+  private final double kAngularTolerance = 0.75, kTurnSpeedIncrementor = 0.002,
       kMaxAngularRateSeconds = RobotMap.AUTOGYROTURN_BASEDEGREESPERSECOND,
       kMinAngularRateSeconds = RobotMap.AUTOGYROTURN_SLOWDEGREESPERSECOND;
 
@@ -63,9 +63,9 @@ public class AutoGyroTurn extends Command {
     }
 
     if (Math.abs(mGyroRate) < mAngularRateSeconds) {
-      mTurnSpeed += 0.01;
+      mTurnSpeed += kTurnSpeedIncrementor;
     } else if (Math.abs(mGyroRate) > mAngularRateSeconds) {
-      mTurnSpeed -= 0.01;
+      mTurnSpeed -= kTurnSpeedIncrementor;
     }
 
     mTurnSpeed = (mAngleRequest < 0.0) ? mTurnSpeed : -mTurnSpeed;
