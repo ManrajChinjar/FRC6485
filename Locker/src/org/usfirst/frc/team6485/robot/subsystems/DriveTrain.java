@@ -47,7 +47,7 @@ public class DriveTrain extends Subsystem {
     mDriveGyroscope = new ADXRS450_Gyro();
 
     mEngine.setSafetyEnabled(true);
-    mEngine.setExpiration(0.150);
+    mEngine.setExpiration(1.00);
     mEngine.setMaxOutput(1.00);
     mEngine.setSensitivity(1.00);
 
