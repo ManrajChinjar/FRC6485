@@ -6,7 +6,7 @@ public interface ScalableThreadMaintainer {
 
   public static void maintain(boolean state) {
     if (state) {
-      Timer.delay(.125);
+      Timer.delay(.25);
     }
   }
 

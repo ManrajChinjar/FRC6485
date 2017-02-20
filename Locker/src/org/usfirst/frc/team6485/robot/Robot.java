@@ -8,14 +8,12 @@ import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6485.robot.subsystems.Bridge;
 import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
+import org.usfirst.frc.team6485.robot.subsystems.Offloader;
 import org.usfirst.frc.team6485.robot.utility.BridgeReporter;
 import org.usfirst.frc.team6485.robot.utility.DriveTrainReporter;
 import org.usfirst.frc.team6485.robot.utility.IntakeReporter;
-import org.usfirst.frc.team6485.robot.utility.POVTester;
-
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -37,7 +35,7 @@ public class Robot extends IterativeRobot {
   public static DriveTrain DRIVETRAIN;
   public static FuelIntake FUELINTAKE;
   public static Bridge BRIDGE;
-  // public static Offloader OFFLOADER;
+  public static Offloader OFFLOADER;
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -51,9 +49,8 @@ public class Robot extends IterativeRobot {
     DRIVETRAIN = new DriveTrain();
     FUELINTAKE = new FuelIntake();
     BRIDGE = new Bridge();
-    // OFFLOADER = new Offloader();
+    OFFLOADER = new Offloader();
 
-    Timer.delay(0.1);
     oi = new OI();
 
     chooser.addDefault("Default Auto", new ExampleCommand());
@@ -65,9 +62,10 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putData("Drive Train", DRIVETRAIN);
     SmartDashboard.putData("Fuel Intake", FUELINTAKE);
     SmartDashboard.putData("Bridge", BRIDGE);
-    // SmartDashboard.putData("Offloader", OFFLOADER);
+    SmartDashboard.putData("Offloader", OFFLOADER);
 
     CameraServer.getInstance().startAutomaticCapture();
+
   }
 
   /**
@@ -181,7 +179,7 @@ public class Robot extends IterativeRobot {
     DriveTrainReporter.report();
     IntakeReporter.report();
     BridgeReporter.report();
-    POVTester.report();
+    // POVTester.report();
   }
 
 }

@@ -2,7 +2,6 @@ package org.usfirst.frc.team6485.robot.subsystems;
 
 import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.RobotMap.OFFLOADER_STATE;
-
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -26,6 +25,7 @@ public class Offloader extends Subsystem {
     mMotor.setSafetyEnabled(false);
 
     LiveWindow.addActuator("OFFLOADER", "MOTOR", mMotor);
+    mMotor.stopMotor();
   }
 
   private double limit(double speed) {
@@ -40,6 +40,10 @@ public class Offloader extends Subsystem {
       speed = 0;
     }
     return speed;
+  }
+
+  public double getSpeed() {
+    return mMotor.getSpeed();
   }
 
   /**
@@ -63,9 +67,7 @@ public class Offloader extends Subsystem {
   }
 
   @Override
-  public void initDefaultCommand() {
-    // setDefaultCommand(new TEMPFabric());
-  }
+  public void initDefaultCommand() {}
 
 }
 

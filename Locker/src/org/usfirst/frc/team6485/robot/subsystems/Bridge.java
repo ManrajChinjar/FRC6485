@@ -2,15 +2,12 @@ package org.usfirst.frc.team6485.robot.subsystems;
 
 import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.RobotMap.BRIDGE_STATE;
-import org.usfirst.frc.team6485.robot.commands.BridgeMaintainer;
 import org.usfirst.frc.team6485.robot.utility.ScalableThreadMaintainer;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * @author Kyle Saburao
@@ -32,7 +29,6 @@ public class Bridge extends Subsystem implements ScalableThreadMaintainer {
     mMotor.setSafetyEnabled(false);
 
     LiveWindow.addActuator("BRIDGE", "MOTOR", mMotor);
-    mRequiredState = BRIDGE_STATE.LOWERED;
   }
 
   /**
@@ -102,9 +98,9 @@ public class Bridge extends Subsystem implements ScalableThreadMaintainer {
    * Stops the bridge motor.
    */
   public void stop() {
-    ScalableThreadMaintainer.maintain(true);
+    ScalableThreadMaintainer.maintain(false);
     setMotor(0.0);
-    SmartDashboard.putNumber("BRIDGE STOP TIMESTAMP", Timer.getFPGATimestamp());
+    // SmartDashboard.putNumber("BRIDGE STOP TIMESTAMP", Timer.getFPGATimestamp());
   }
 
   /**
@@ -165,7 +161,7 @@ public class Bridge extends Subsystem implements ScalableThreadMaintainer {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new BridgeMaintainer());
+    // setDefaultCommand(new BridgeMaintainer());
   }
 
 }

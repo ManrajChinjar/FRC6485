@@ -4,6 +4,7 @@ import org.usfirst.frc.team6485.robot.Robot;
 import org.usfirst.frc.team6485.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * <b>Standard Teleoperator controls</b><br>
@@ -39,6 +40,8 @@ public class StickDriver extends Command {
   protected void initialize() {
     System.out.println("I'll try spinning. That's a good trick.");
     mGyroInitFlag = false;
+    Robot.DRIVETRAIN.stop();
+    Robot.OFFLOADER.stop();
   }
 
   private void logitechControl() {
@@ -56,6 +59,7 @@ public class StickDriver extends Command {
     }
   }
 
+  @Deprecated
   private void xboxControl() {
     if (!Robot.oi.getXBOXButtonPressed(5)) {
       Robot.DRIVETRAIN.tankDrive(mXYAxisRequestL, mXYAxisRequestR);
@@ -70,10 +74,20 @@ public class StickDriver extends Command {
     }
   }
 
+  private void offloaderControl() {
+    mXYAxisRequestL = Robot.oi.getXBOXLeftJoyY();
+    if (Math.abs(mXYAxisRequestL) > 0.1) {
+      Robot.OFFLOADER.set(mXYAxisRequestL);
+    } else {
+      Robot.OFFLOADER.set(0);
+    }
+    SmartDashboard.putNumber("Offloader Motor", Robot.OFFLOADER.getSpeed());
+  }
+
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    mLXAxisRequest = -Robot.oi.getLJoyX() * Robot.oi.getLSliderScale();
+    mLXAxisRequest = -Robot.oi.getLJoyX() * Robot.oi.getLSliderScale() * 0.80;
     mLYAxisRequest = -Robot.oi.getLJoyY() * Robot.oi.getLSliderScale();
 
     mXXAxisRequestL = -Robot.oi.getXBOXLeftJoyX();
@@ -86,11 +100,10 @@ public class StickDriver extends Command {
 
     if (Robot.oi.getLMainTrigger()) {
       logitechControl();
-    } else if (Robot.oi.getXBOXSafety()) {
-      xboxControl();
     } else {
       Robot.DRIVETRAIN.stop();
     }
+    offloaderControl();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -102,6 +115,7 @@ public class StickDriver extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.OFFLOADER.stop();
     Robot.DRIVETRAIN.stop();
     mGyroInitFlag = false;
   }
