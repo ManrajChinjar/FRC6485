@@ -32,7 +32,7 @@ public class RobotMap {
   // increasing one side's motors.
   public static final double DRIVETRAIN_PWMLIMIT = 0.95;
 
-  public static final double AUTODRIVE_GYROKP = 0.08;
+  public static final double AUTODRIVE_GYROKP = 0.07;
 
   public static final double AUTODRIVE_RAMPPERIODSECONDS = 0.50;
 
