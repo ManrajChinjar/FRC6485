@@ -79,7 +79,7 @@ public class OI {
   }
 
   // This is the main trigger
-  public boolean getLMainTrigger() {
+  public boolean getLogitechTrigger() {
     return logitechController.getRawButton(1);
   }
 

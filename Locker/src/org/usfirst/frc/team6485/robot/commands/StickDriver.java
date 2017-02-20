@@ -113,7 +113,7 @@ public class StickDriver extends Command {
       mGyroInitFlag = false;
     }
 
-    if (Robot.oi.getLMainTrigger()) {
+    if (Robot.oi.getLogitechTrigger()) {
       logitechControl();
     } else {
       Robot.DRIVETRAIN.stop();
