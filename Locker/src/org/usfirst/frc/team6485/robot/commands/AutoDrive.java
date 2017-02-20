@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * <br>
  * <b>Arguments:</b> double speed, double time<br>
  * <br>
- * TODO Allow metre distance via encoder units.
  * 
  * @author Kyle Saburao
  */
