@@ -77,6 +77,9 @@ public class AutoDrive extends Command {
       mCPT *= -1;
     }
 
+    /*
+     * Acceleration curving.
+     */
     if (!mAccelerated) {
       double accelerationvelocitycompute = mSpeedSlope * mCurrentRunTime;
       Robot.DRIVETRAIN.arcadeDrive(

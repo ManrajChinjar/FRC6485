@@ -90,6 +90,15 @@ public class Robot extends IterativeRobot {
 
   @Override
   public void disabledPeriodic() {
+    Robot.FUELINTAKE.stop();
+    Robot.DRIVETRAIN.stop();
+    
+    // Temporary fix because the choosers don't appear on init.
+    chooser.addDefault("Default Auto", new ExampleCommand());
+    chooser.addObject("TC_A_AUTO", new TC_A_Auto());
+    chooser.addObject("TC_A_AUTO2", new TC_A_Auto2());
+    chooser.addObject("AUTONOMOUS CENTRE START", new A_CentrePositionStart());
+    
     Scheduler.getInstance().run();
     report();
   }
@@ -117,8 +126,9 @@ public class Robot extends IterativeRobot {
      */
 
     // schedule the autonomous command (example)
-    if (autonomousCommand != null)
+    if (autonomousCommand != null) {
       autonomousCommand.start();
+    }
   }
 
   /**

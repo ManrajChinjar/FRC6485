@@ -15,11 +15,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * - Button 3: Rotate on current position<br>
  * - Thrust Lever: Power multiplier (Full at the top)<br>
  * <br>
- * XBOX Controls: <i>(RIGHT BUMPER SAFETY)</i><br>
- * - Tank Drive<br>
- * - Left Bumper: Tank drive right stick overriding arcade drive left stick<br>
- * <br>
- * The Logitech joystick overrides the XBOX controller.
+ * <b>The offloader controls may be moved into their own default command if the watchdog isn't
+ * affected by poor multithreading.</b>
  * 
  * @author Kyle Saburao
  */
@@ -32,6 +29,7 @@ public class StickDriver extends Command {
 
   public StickDriver() {
     requires(Robot.DRIVETRAIN);
+    requires(Robot.OFFLOADER);
     setInterruptible(true);
   }
 
@@ -59,6 +57,9 @@ public class StickDriver extends Command {
     }
   }
 
+  /**
+   * No longer used as the Xbox controller is instead used for commands in other subsystems.
+   */
   @Deprecated
   private void xboxControl() {
     if (!Robot.oi.getXBOXButtonPressed(5)) {
@@ -74,6 +75,13 @@ public class StickDriver extends Command {
     }
   }
 
+  /**
+   * Control the offloader motor using the left stick of the Xbox controller. <br>
+   * Up rolls (tightens) the fabric to release fuel, while down unrolls the fabric to hold them.
+   * <br>
+   * <b>BE SURE TO MAKE SURE THAT THE MOTOR DOESN'T OVER GO THE LIMITS. DO NOT OVERTIGHTEN OR
+   * OVERLOOSEN.</b>
+   */
   private void offloaderControl() {
     mXYAxisRequestL = Robot.oi.getXBOXLeftJoyY();
     if (Math.abs(mXYAxisRequestL) > 0.1) {
@@ -87,13 +95,20 @@ public class StickDriver extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    /*
+     * X-axis of the logitech is multiplied by 0.80 because the arcade drive algorithm is
+     * exponential to the power of 2, so the increased slope at the end is truncated leading to
+     * easier turning and handling.
+     */
     mLXAxisRequest = -Robot.oi.getLJoyX() * Robot.oi.getLSliderScale() * 0.80;
+    // The Y-axis is multiplied by -1.0 because the joystick follows standard flight conventions.
     mLYAxisRequest = -Robot.oi.getLJoyY() * Robot.oi.getLSliderScale();
 
     mXXAxisRequestL = -Robot.oi.getXBOXLeftJoyX();
     mXYAxisRequestL = -Robot.oi.getXBOXLeftJoyY();
     mXYAxisRequestR = -Robot.oi.getXBOXRightJoyY();
 
+    // If the thumb button on the logitech controller
     if (!Robot.oi.getLButtonPressed(2)) {
       mGyroInitFlag = false;
     }

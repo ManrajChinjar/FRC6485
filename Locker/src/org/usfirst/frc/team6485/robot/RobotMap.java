@@ -14,33 +14,35 @@ public class RobotMap {
 
   public static final int FUEL_INTAKE_MOTOR = 4;
 
+  public static final int BRIDGE_MOTOR = 5;
+
   public static final int OFFLOADER_MOTOR = 6;
 
   public static final int LOGITECH_PORT = 0, XBOX_PORT = 1;
-
-  public static final int BRIDGE_MOTOR = 5;
 
   public static final int BRIDGE_LOWER_LIMIT_SWITCH = 0, BRIDGE_UPPER_LIMIT_SWITCH = 1;
 
   // Constants sheet
 
-  public static final double FUELINTAKE_NORMALPWM = -0.88; // Negative is intake
+  public static final double FUELINTAKE_NORMALPWM = -0.89; // Negative is intake
 
   public static final double INTAKEPOWERRAMP_TIMESECONDS = 1.0 / 3.0;
 
+  // 95% because full motor speed would saturate the motors and prevent normal turning via
+  // increasing one side's motors.
   public static final double DRIVETRAIN_PWMLIMIT = 0.95;
 
-  public static final double AUTODRIVE_GYROKP = 0.080;
+  public static final double AUTODRIVE_GYROKP = 0.08;
 
-  public static final double AUTODRIVE_RAMPPERIODSECONDS = 0.30;
+  public static final double AUTODRIVE_RAMPPERIODSECONDS = 0.40;
 
   public static final double AUTOGYROTURN_BASEDEGREESPERSECOND = 45.0;
 
   public static final double AUTOGYROTURN_SLOWDEGREESPERSECOND = 30.0;
 
-  public static final double BRIDGE_NORMALPWM = 0.110; // Positive raises the bridge
+  public static final double BRIDGE_NORMALPWM = 0.11; // Positive raises the bridge
 
-  public static final double BRIDGE_MAINTAINPWM = 0.111;
+  public static final double BRIDGE_MAINTAINPWM = 0.11;
 
   public static final double BRIDGE_MAXSAFEPWM = 0.13;
 
@@ -61,7 +63,7 @@ public class RobotMap {
   }
 
   public enum OFFLOADER_STATE {
-    ROLLED, UNKNOWN, UNROLLED
+    ROLLED, ROLLING, UNKNOWN, UNROLLED, UNROLLING
   }
 
   // For example to map the left and right motors, you could define the

@@ -8,8 +8,7 @@ import org.usfirst.frc.team6485.robot.commands.AutoGyroTurn;
 import org.usfirst.frc.team6485.robot.commands.BridgeControl;
 import org.usfirst.frc.team6485.robot.commands.IntakePowerRamp;
 import org.usfirst.frc.team6485.robot.commands.IntakeRampReversal;
-import org.usfirst.frc.team6485.robot.commands.KillScheduler;
-import org.usfirst.frc.team6485.robot.commands.StopBridgeManually;
+import org.usfirst.frc.team6485.robot.commands.StopBridge;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -133,10 +132,12 @@ public class OI {
 
   public OI() {
     // SmartDashboard buttons
+    SmartDashboard.putData("Intake Start", new IntakePowerRamp(RobotMap.FUELINTAKE_NORMALPWM));
+    SmartDashboard.putData("Intake Stop", new IntakePowerRamp(0.0));
     SmartDashboard.putData("Auto Drive Test", new AutoDrive(0.75, 3.0));
     SmartDashboard.putData("TestAuto", new TC_A_Auto());
     SmartDashboard.putData("TestAuto2", new TC_A_Auto2());
-    SmartDashboard.putData("Stop Bridge", new StopBridgeManually());
+    SmartDashboard.putData("Stop Bridge", new StopBridge());
 
     // Logitech controller buttons
     // L4.whenPressed(new IntakePowerRamp(0.0));
@@ -154,7 +155,7 @@ public class OI {
     X2.whenPressed(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMALPWM));
     X3.whenPressed(new BridgeControl(BRIDGE_STATE.LOWERED));
     X4.whenPressed(new BridgeControl(BRIDGE_STATE.RAISED));
-    X5.whenPressed(new StopBridgeManually());
+    X5.whenPressed(new StopBridge());
     X6.whenPressed(new IntakePowerRamp(0.0));
   }
 

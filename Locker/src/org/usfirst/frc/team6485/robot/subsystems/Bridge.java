@@ -27,6 +27,7 @@ public class Bridge extends Subsystem implements ScalableThreadMaintainer {
     mUpperLimitSwitch = new DigitalInput(RobotMap.BRIDGE_UPPER_LIMIT_SWITCH);
     mMotor = new VictorSP(RobotMap.BRIDGE_MOTOR);
     mMotor.setSafetyEnabled(false);
+    mMotor.setSpeed(0.0);
 
     LiveWindow.addActuator("BRIDGE", "MOTOR", mMotor);
   }

@@ -7,12 +7,10 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 /**
  * @author Kyle Sburao
  */
-public class StopBridgeManually extends InstantCommand {
+public class StopBridge extends InstantCommand {
 
-  public StopBridgeManually() {
+  public StopBridge() {
     super();
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
     requires(Robot.BRIDGE);
   }
 
