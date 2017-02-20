@@ -34,11 +34,11 @@ public class RobotMap {
 
   public static final double AUTODRIVE_GYROKP = 0.08;
 
-  public static final double AUTODRIVE_RAMPPERIODSECONDS = 0.40;
+  public static final double AUTODRIVE_RAMPPERIODSECONDS = 0.50;
 
   public static final double AUTOGYROTURN_BASEDEGREESPERSECOND = 45.0;
 
-  public static final double AUTOGYROTURN_SLOWDEGREESPERSECOND = 35.0;
+  public static final double AUTOGYROTURN_SLOWDEGREESPERSECOND = 30.0;
 
   public static final double BRIDGE_NORMALPWM = 0.11; // Positive raises the bridge
 
