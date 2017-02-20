@@ -20,7 +20,7 @@ public class FuelIntake extends Subsystem {
   private double mReq;
   private boolean mReverse = false;
 
-  private IntakeState intakeState;
+  private IntakeState mIntakeState;
 
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
@@ -37,12 +37,12 @@ public class FuelIntake extends Subsystem {
   private void setDirectionalState() {
     double speed = roller.getSpeed();
     if (speed == 0.0) {
-      intakeState = IntakeState.HALT;
+      mIntakeState = IntakeState.HALT;
     } else {
       if (speed < 0.0) {
-        intakeState = IntakeState.IN;
+        mIntakeState = IntakeState.IN;
       } else if (speed > 0.0) {
-        intakeState = IntakeState.EVACUATE;
+        mIntakeState = IntakeState.EVACUATE;
       }
     }
   }
@@ -105,7 +105,7 @@ public class FuelIntake extends Subsystem {
    */
   public IntakeState getDirectionalState() {
     setDirectionalState();
-    return intakeState;
+    return mIntakeState;
   }
 
   /**
