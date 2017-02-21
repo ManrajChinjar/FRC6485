@@ -19,17 +19,12 @@ public class OffloaderDriver extends Command {
   /**
    * Control the offloader motor using the left stick of the Xbox controller. <br>
    * Up rolls (tightens) the fabric to release fuel, while down unrolls the fabric to hold them.
-   * <br>
+   * <br><br>
    * <b>BE SURE TO MAKE SURE THAT THE MOTOR DOESN'T OVER GO THE LIMITS. DO NOT OVERTIGHTEN OR
    * OVERLOOSEN.</b>
    */
   private void offloaderControl() {
-    if (Math.abs(mXYAxisRequestL) > 0.1) {
       Robot.OFFLOADER.set(mXYAxisRequestL);
-    } else {
-      Robot.OFFLOADER.set(0);
-    }
-
   }
 
   // Called just before this Command runs the first time
