@@ -4,7 +4,7 @@ import org.usfirst.frc.team6485.robot.Robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class DriveTrainReporter {
+public class DriveTrainBridgeReporter {
 
   public static void report() {
     SmartDashboard.putNumber("Gyroscope Value", Robot.DRIVETRAIN.getGyro().getAngle());
@@ -21,6 +21,8 @@ public class DriveTrainReporter {
     SmartDashboard.putBoolean("DriveTrain Encoder Moving", !Robot.DRIVETRAIN.getEncoder().getStopped());
     SmartDashboard.putNumber("DriveTrain Encoder Distance", Robot.DRIVETRAIN.getEncoder().getDistance());
     
+    // Bridge
+    SmartDashboard.putNumber("Bridge PWM", Robot.BRIDGE.getSpeed());
     SmartDashboard.putBoolean("Bridge Encoder Moving", !Robot.BRIDGE.getEncoder().getStopped());
   }
 

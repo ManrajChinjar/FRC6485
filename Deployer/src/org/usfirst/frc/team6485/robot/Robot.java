@@ -7,7 +7,7 @@ import org.usfirst.frc.team6485.robot.subsystems.Bridge;
 import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
 import org.usfirst.frc.team6485.robot.subsystems.Offloader;
-import org.usfirst.frc.team6485.robot.utility.DriveTrainReporter;
+import org.usfirst.frc.team6485.robot.utility.DriveTrainBridgeReporter;
 import org.usfirst.frc.team6485.robot.utility.IntakeReporter;
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -175,8 +175,7 @@ public class Robot extends IterativeRobot {
         break;
     }
     SmartDashboard.putString("ROBOT MODE", robotmode_string);
-
-    DriveTrainReporter.report();
+    DriveTrainBridgeReporter.report();
     IntakeReporter.report();
     SmartDashboard.putNumber("Bridge PWM", Robot.BRIDGE.getSpeed());
     // POVTester.report();
