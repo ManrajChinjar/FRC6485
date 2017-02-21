@@ -12,9 +12,12 @@ public class BridgeAutoMove extends Command {
 
   private boolean mState;
   private double mStartTime, kWaitTimeSeconds = 4.5;
-  
+
   /**
-   * Automatically move the bridge to the right state via a timed command.
+   * Automatically move the bridge to the right state via a timed command. <br>
+   * This works because the Spark Motor Controller automatically halts the bridge motor when the
+   * limit switches are pressed.
+   * 
    * @param state True for up, false for down
    */
   public BridgeAutoMove(boolean state) {
@@ -24,6 +27,7 @@ public class BridgeAutoMove extends Command {
   }
 
   // Called just before this Command runs the first time
+  @Override
   protected void initialize() {
     if (mState) {
       Robot.BRIDGE.setRaise();
@@ -34,12 +38,14 @@ public class BridgeAutoMove extends Command {
   }
 
   // Make this return true when this Command no longer needs to run execute()
+  @Override
   protected boolean isFinished() {
-    return Timer.getFPGATimestamp() - mStartTime >= kWaitTimeSeconds; 
+    return Timer.getFPGATimestamp() - mStartTime >= kWaitTimeSeconds;
     // || Robot.BRIDGE.getEncoder().getStopped();
   }
 
   // Called once after isFinished returns true
+  @Override
   protected void end() {
     Robot.BRIDGE.stop();
   }

@@ -61,7 +61,7 @@ public class AutoGyroTurn extends Command {
     SmartDashboard.putNumber("Gyro turn target angle", mTargetAngle);
     SmartDashboard.putNumber("Gyro turn speed", mTurnSpeed);
     SmartDashboard.putNumber("Gyro turn error", mError);
-    
+
     mShort = (Math.abs(mError) <= kAngularTolerance);
   }
 

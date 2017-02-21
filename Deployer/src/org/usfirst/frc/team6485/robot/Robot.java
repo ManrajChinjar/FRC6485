@@ -79,7 +79,7 @@ public class Robot extends IterativeRobot {
     // until the calibration is complete.
     Robot.DRIVETRAIN.getGyro().calibrate();
     robotMode = RUNNING_MODE.DISABLED;
-    
+
     // Reset encoders
     Robot.DRIVETRAIN.getEncoder().reset();
     Robot.BRIDGE.getEncoder().reset();

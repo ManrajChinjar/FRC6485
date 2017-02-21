@@ -54,7 +54,7 @@ public class DriveTrain extends Subsystem {
     mEngine.setSensitivity(1.00);
 
     // mDriveEncoder.setDistancePerPulse(RobotMap.DRIVETRAIN_WHEELCIRCUMFERENCEMETRES / 1440.0);
-    mDriveEncoder.setDistancePerPulse(1.0/1440.0);
+    mDriveEncoder.setDistancePerPulse(1.0 / 1440.0);
     mDriveEncoder.setSamplesToAverage(6);
     mDriveEncoder.setMaxPeriod(0.150);
 

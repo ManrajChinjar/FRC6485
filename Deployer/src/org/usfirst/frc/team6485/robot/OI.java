@@ -1,6 +1,5 @@
 package org.usfirst.frc.team6485.robot;
 
-import org.usfirst.frc.team6485.robot.commands.AutoDrive;
 import org.usfirst.frc.team6485.robot.commands.AutoGyroTurn;
 import org.usfirst.frc.team6485.robot.commands.BridgeAutoMove;
 import org.usfirst.frc.team6485.robot.commands.IntakePowerRamp;

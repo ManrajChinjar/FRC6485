@@ -35,9 +35,9 @@ public class RobotMap {
   public static final double AUTODRIVE_RAMPPERIODSECONDS = 0.50;
 
   public static final double BRIDGE_NORMALPWM = 0.20; // Positive raises the bridge
-  
+
   public static final double BRIDGE_RAISEPWM = 0.22;
-  
+
   public static final double BRIDGE_LOWERPWM = 0.16;
 
   public static final double BRIDGE_MAXSAFEPWM = 0.21;
