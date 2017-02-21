@@ -4,6 +4,9 @@ import org.usfirst.frc.team6485.robot.Robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * @author Kyle Saburao
+ */
 public class DriveTrainBridgeReporter {
 
   public static void report() {

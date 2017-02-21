@@ -178,6 +178,7 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putString("ROBOT MODE", robotmode_string);
     DriveTrainBridgeReporter.report();
     IntakeReporter.report();
+    SmartDashboard.putNumber("Offloader Motor", Robot.OFFLOADER.getSpeed());
     // POVTester.report();
   }
 

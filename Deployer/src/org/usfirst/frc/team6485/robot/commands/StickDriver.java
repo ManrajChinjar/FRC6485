@@ -4,7 +4,6 @@ import org.usfirst.frc.team6485.robot.Robot;
 import org.usfirst.frc.team6485.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * <b>Standard Teleoperator controls</b><br>
@@ -29,7 +28,6 @@ public class StickDriver extends Command {
 
   public StickDriver() {
     requires(Robot.DRIVETRAIN);
-    requires(Robot.OFFLOADER);
     setInterruptible(true);
   }
 
@@ -75,23 +73,6 @@ public class StickDriver extends Command {
     }
   }
 
-  /**
-   * Control the offloader motor using the left stick of the Xbox controller. <br>
-   * Up rolls (tightens) the fabric to release fuel, while down unrolls the fabric to hold them.
-   * <br>
-   * <b>BE SURE TO MAKE SURE THAT THE MOTOR DOESN'T OVER GO THE LIMITS. DO NOT OVERTIGHTEN OR
-   * OVERLOOSEN.</b>
-   */
-  private void offloaderControl() {
-    mXYAxisRequestL = Robot.oi.getXBOXLeftJoyY();
-    if (Math.abs(mXYAxisRequestL) > 0.1) {
-      Robot.OFFLOADER.set(mXYAxisRequestL);
-    } else {
-      Robot.OFFLOADER.set(0);
-    }
-    SmartDashboard.putNumber("Offloader Motor", Robot.OFFLOADER.getSpeed());
-  }
-
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
@@ -104,10 +85,6 @@ public class StickDriver extends Command {
     // The Y-axis is multiplied by -1.0 because the joystick follows standard flight conventions.
     mLYAxisRequest = -Robot.oi.getLJoyY() * Robot.oi.getLSliderScale();
 
-    mXXAxisRequestL = -Robot.oi.getXBOXLeftJoyX();
-    mXYAxisRequestL = -Robot.oi.getXBOXLeftJoyY();
-    mXYAxisRequestR = -Robot.oi.getXBOXRightJoyY();
-
     // If the thumb button on the logitech controller
     if (!Robot.oi.getLButtonPressed(2)) {
       mGyroInitFlag = false;
@@ -118,7 +95,6 @@ public class StickDriver extends Command {
     } else {
       Robot.DRIVETRAIN.stop();
     }
-    offloaderControl();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -130,7 +106,6 @@ public class StickDriver extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.OFFLOADER.stop();
     Robot.DRIVETRAIN.stop();
     mGyroInitFlag = false;
   }

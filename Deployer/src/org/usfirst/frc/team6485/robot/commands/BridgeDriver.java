@@ -6,7 +6,7 @@ import org.usfirst.frc.team6485.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * @author Kyle Saburao
  */
 public class BridgeDriver extends Command {
 
@@ -14,6 +14,7 @@ public class BridgeDriver extends Command {
 
   public BridgeDriver() {
     requires(Robot.BRIDGE);
+    setInterruptible(true);
   }
 
   // Called just before this Command runs the first time
@@ -26,7 +27,7 @@ public class BridgeDriver extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (Math.abs(Robot.oi.getXBOXRightJoyY()) > 0.1) {
+    if (Math.abs(Robot.oi.getXBOXRightJoyY()) > 0.075) {
       if (-Robot.oi.getXBOXRightJoyY() > 0.0) {
         Robot.BRIDGE.setMotor(-Robot.oi.getXBOXRightJoyY() * RobotMap.BRIDGE_RAISEPWM);
       } else if (-Robot.oi.getXBOXRightJoyY() < 0.0) {

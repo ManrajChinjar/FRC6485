@@ -2,6 +2,7 @@ package org.usfirst.frc.team6485.robot;
 
 import org.usfirst.frc.team6485.robot.commands.AutoDrive;
 import org.usfirst.frc.team6485.robot.commands.AutoGyroTurn;
+import org.usfirst.frc.team6485.robot.commands.BridgeAutoMove;
 import org.usfirst.frc.team6485.robot.commands.IntakePowerRamp;
 import org.usfirst.frc.team6485.robot.commands.IntakeRampReversal;
 import org.usfirst.frc.team6485.robot.commands.StopBridge;
@@ -127,6 +128,8 @@ public class OI {
     // XBOX controller buttons
     X1.whenPressed(new IntakeRampReversal());
     X2.whenPressed(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMALPWM));
+    X3.whenPressed(new BridgeAutoMove(false));
+    X4.whenPressed(new BridgeAutoMove(true));
     X6.whenPressed(new IntakePowerRamp(0.0));
     // Offloader and bridge motor manual controls are mapped to the joysticks.
   }

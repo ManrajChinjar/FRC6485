@@ -2,6 +2,7 @@ package org.usfirst.frc.team6485.robot.subsystems;
 
 import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.RobotMap.OFFLOADER_STATE;
+import org.usfirst.frc.team6485.robot.commands.OffloaderDriver;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -84,7 +85,9 @@ public class Offloader extends Subsystem {
   }
 
   @Override
-  public void initDefaultCommand() {}
+  public void initDefaultCommand() {
+    setDefaultCommand(new OffloaderDriver());
+  }
 
 }
 

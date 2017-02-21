@@ -16,6 +16,7 @@ public class AutoGyroTurn extends Command {
 
   private double mCurrentAngle, mAngleRequest, mStartAngle, mTargetAngle, mTurnSpeed, mError;
   private final double kAngularTolerance = 0.50;
+  private boolean mShort;
 
   /**
    * 
@@ -60,12 +61,14 @@ public class AutoGyroTurn extends Command {
     SmartDashboard.putNumber("Gyro turn target angle", mTargetAngle);
     SmartDashboard.putNumber("Gyro turn speed", mTurnSpeed);
     SmartDashboard.putNumber("Gyro turn error", mError);
+    
+    mShort = (Math.abs(mError) <= kAngularTolerance);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return (Math.abs(mError) <= kAngularTolerance) || isTimedOut();
+    return (Math.abs(mError) <= kAngularTolerance) || mShort || isTimedOut();
   }
 
   // Called once after isFinished returns true

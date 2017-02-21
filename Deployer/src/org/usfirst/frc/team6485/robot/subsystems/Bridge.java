@@ -2,8 +2,6 @@ package org.usfirst.frc.team6485.robot.subsystems;
 
 import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.commands.BridgeDriver;
-import org.usfirst.frc.team6485.robot.utility.ScalableThreadMaintainer;
-
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -12,7 +10,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 /**
  * @author Kyle Saburao
  */
-public class Bridge extends Subsystem implements ScalableThreadMaintainer {
+public class Bridge extends Subsystem {
 
   private Spark mMotor;
   private Encoder mBridgeEncoder;
@@ -27,6 +25,7 @@ public class Bridge extends Subsystem implements ScalableThreadMaintainer {
     mBridgeEncoder = new Encoder(3, 4);
     mBridgeEncoder.setSamplesToAverage(5);
     mBridgeEncoder.setMaxPeriod(0.100);
+    mBridgeEncoder.setDistancePerPulse(1.0/7.0);
 
     LiveWindow.addActuator("BRIDGE", "MOTOR", mMotor);
   }
@@ -75,20 +74,20 @@ public class Bridge extends Subsystem implements ScalableThreadMaintainer {
    * Set the bridge motor to raise the bridge.
    */
   public void setRaise() {
-    mMotor.setSpeed(kMotorSpeed);
+    mMotor.setSpeed(RobotMap.BRIDGE_RAISEPWM);
   }
 
   /**
    * Set the bridge motor to lower the bridge.
    */
   public void setLower() {
-    mMotor.setSpeed(-kMotorSpeed);
+    mMotor.setSpeed(RobotMap.BRIDGE_LOWERPWM);
   }
 
   /**
-   * @return Returns true if the bridge motor is moving.
+   * @return Returns true if the bridge motor PWM rate is not zero.
    */
-  public boolean isMoving() {
+  public boolean isPWMMoving() {
     return mMotor.getSpeed() != 0.0;
   }
 
