@@ -69,9 +69,7 @@ public class Robot extends IterativeRobot {
    */
   @Override
   public void disabledInit() {
-    /*
-     * Stop the fuel intake and the drivetrain.
-     */
+    // Stop the fuel intake and the drivetrain.
     Robot.FUELINTAKE.stop();
     Robot.DRIVETRAIN.stop();
     // Cancel all queued commands.
@@ -81,7 +79,10 @@ public class Robot extends IterativeRobot {
     // until the calibration is complete.
     Robot.DRIVETRAIN.getGyro().calibrate();
     robotMode = RUNNING_MODE.DISABLED;
+    
+    // Reset encoders
     Robot.DRIVETRAIN.getEncoder().reset();
+    Robot.BRIDGE.getEncoder().reset();
   }
 
   @Override
@@ -134,7 +135,7 @@ public class Robot extends IterativeRobot {
   public void teleopInit() {
     robotMode = RUNNING_MODE.TELEOP;
     Robot.DRIVETRAIN.getGyro().reset();
-
+    Robot.DRIVETRAIN.getEncoder().reset();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -177,7 +178,6 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putString("ROBOT MODE", robotmode_string);
     DriveTrainBridgeReporter.report();
     IntakeReporter.report();
-    SmartDashboard.putNumber("Bridge PWM", Robot.BRIDGE.getSpeed());
     // POVTester.report();
   }
 

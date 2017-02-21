@@ -34,19 +34,17 @@ public class RobotMap {
 
   public static final double AUTODRIVE_RAMPPERIODSECONDS = 0.50;
 
-  public static final double AUTOGYROTURN_BASEDEGREESPERSECOND = 45.0;
-
-  public static final double AUTOGYROTURN_SLOWDEGREESPERSECOND = 30.0;
-
-  public static final double BRIDGE_NORMALPWM = 0.21; // Positive raises the bridge
-
-  public static final double BRIDGE_MAINTAINPWM = 0.15;
+  public static final double BRIDGE_NORMALPWM = 0.20; // Positive raises the bridge
+  
+  public static final double BRIDGE_RAISEPWM = 0.22;
+  
+  public static final double BRIDGE_LOWERPWM = 0.16;
 
   public static final double BRIDGE_MAXSAFEPWM = 0.21;
 
   public static final double OFFLOADER_MAXSAFEPWM = 1.00;
-  
-  public static final double DRIVETRAIN_WHEELCIRCUMFERENCE = Math.PI * 0.1524;
+
+  public static final double DRIVETRAIN_WHEELCIRCUMFERENCEMETRES = Math.PI * 0.1524;
 
   // ENUMS
 

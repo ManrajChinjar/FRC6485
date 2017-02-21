@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * 
  * @author Kyle Saburao
  */
-@SuppressWarnings("unused")
 public class Offloader extends Subsystem {
 
   private final int kOffloaderPWMSlot = RobotMap.OFFLOADER_MOTOR;

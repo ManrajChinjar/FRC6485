@@ -93,6 +93,14 @@ public class AutoDrive extends Command {
       Robot.DRIVETRAIN.arcadeDrive(mTargetSpeed, mCPT);
 
     SmartDashboard.putNumber("Gyroscope cPT", mCPT);
+    
+//    error = (distance - Robot.drivetrain.getRightEncoder().getDistance());
+//    if (driveForwardSpeed * kP * error >= driveForwardSpeed) {
+//        Robot.drivetrain.tankDrive(driveForwardSpeed, driveForwardSpeed);
+//    } else {
+//        Robot.drivetrain.tankDrive(driveForwardSpeed * kP * error, driveForwardSpeed * kP * error);
+//    }
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()

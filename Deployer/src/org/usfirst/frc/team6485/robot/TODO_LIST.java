@@ -14,10 +14,10 @@ public class TODO_LIST {
    */
 
   /*
-   * TODO Put encoder wires on bridge motor and offloader motor to determine speed
-   * and if they're stopped
+   * TODO Put encoder wires on bridge motor and offloader motor to determine speed and if they're
+   * stopped
    */
-  
+
   /*
    * TODO Work on encoders for drive train, bridge and offloader.
    */

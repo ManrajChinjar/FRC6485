@@ -1,8 +1,6 @@
 package org.usfirst.frc.team6485.robot.commands;
 
 import org.usfirst.frc.team6485.robot.Robot;
-import org.usfirst.frc.team6485.robot.RobotMap;
-
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -16,13 +14,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class AutoGyroTurn extends Command {
 
-  private double mCurrentAngle, mAngleRequest, mStartAngle, mTargetAngle, mTurnSpeed, mError,
-      mAbsError, mAngularRateAccumulator, mGyroRate;
-  private final double kAngularTolerance = 0.50, kTurnSpeedIncrementor = 0.001,
-      kMaxAngularRateSeconds = RobotMap.AUTOGYROTURN_BASEDEGREESPERSECOND,
-      kMinAngularRateSeconds = RobotMap.AUTOGYROTURN_SLOWDEGREESPERSECOND;
-
-  private final double mkP = 1.0 / 30.0;
+  private double mCurrentAngle, mAngleRequest, mStartAngle, mTargetAngle, mTurnSpeed, mError;
+  private final double kAngularTolerance = 0.50;
 
   /**
    * 
@@ -39,7 +32,6 @@ public class AutoGyroTurn extends Command {
     mStartAngle = Robot.DRIVETRAIN.getGyro().getAngle();
     mTargetAngle = mStartAngle + mAngleRequest;
     mTurnSpeed = 0.50; // Slow initial speed to get going
-    mAngularRateAccumulator = kMaxAngularRateSeconds;
     setInterruptible(false);
     setTimeout(7.0);
   }
@@ -48,7 +40,6 @@ public class AutoGyroTurn extends Command {
   @Override
   protected void execute() {
     mCurrentAngle = Robot.DRIVETRAIN.getGyro().getAngle();
-    mGyroRate = Robot.DRIVETRAIN.getGyro().getRate();
     mError = mTargetAngle - mCurrentAngle;
     mTurnSpeed = Math.abs(mTurnSpeed);
 
@@ -56,7 +47,7 @@ public class AutoGyroTurn extends Command {
     if (Math.abs(mError) > 30.0) {
       mTurnSpeed = 0.60;
     } else if (Math.abs(mError) >= 10.0 && Math.abs(mError) <= 30.0) {
-      mTurnSpeed = (0.1/20.0) * (Math.abs(mError) - 10.0) + 0.5;
+      mTurnSpeed = (0.1 / 20.0) * (Math.abs(mError) - 10.0) + 0.5;
     } else if (Math.abs(mError) < 10) {
       mTurnSpeed = 0.50;
     }

@@ -4,7 +4,6 @@ import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.commands.BridgeDriver;
 import org.usfirst.frc.team6485.robot.utility.ScalableThreadMaintainer;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -26,8 +25,8 @@ public class Bridge extends Subsystem implements ScalableThreadMaintainer {
     mMotor.setSafetyEnabled(false);
     mMotor.setSpeed(0.0);
     mBridgeEncoder = new Encoder(3, 4);
-    mBridgeEncoder.setSamplesToAverage(20);
-    mBridgeEncoder.setMaxPeriod(0.050);
+    mBridgeEncoder.setSamplesToAverage(5);
+    mBridgeEncoder.setMaxPeriod(0.100);
 
     LiveWindow.addActuator("BRIDGE", "MOTOR", mMotor);
   }
@@ -103,7 +102,7 @@ public class Bridge extends Subsystem implements ScalableThreadMaintainer {
   public Encoder getEncoder() {
     return mBridgeEncoder;
   }
-  
+
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new BridgeDriver());

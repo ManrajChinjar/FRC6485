@@ -27,9 +27,13 @@ public class BridgeDriver extends Command {
   @Override
   protected void execute() {
     if (Math.abs(Robot.oi.getXBOXRightJoyY()) > 0.1) {
-      Robot.BRIDGE.setMotor(-Robot.oi.getXBOXRightJoyY() * kBridgeNormalPWM);
-    } else {
-      Robot.BRIDGE.stop();
+      if (-Robot.oi.getXBOXRightJoyY() > 0.0) {
+        Robot.BRIDGE.setMotor(-Robot.oi.getXBOXRightJoyY() * RobotMap.BRIDGE_RAISEPWM);
+      } else if (-Robot.oi.getXBOXRightJoyY() < 0.0) {
+        Robot.BRIDGE.setMotor(-Robot.oi.getXBOXRightJoyY() * RobotMap.BRIDGE_LOWERPWM);
+      } else {
+        Robot.BRIDGE.stop();
+      }
     }
   }
 

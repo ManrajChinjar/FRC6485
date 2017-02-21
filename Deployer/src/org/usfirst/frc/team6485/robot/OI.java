@@ -84,14 +84,6 @@ public class OI {
     return logitechController.getRawButton(button);
   }
 
-  public int getLPOV() {
-    return logitechController.getPOV();
-  }
-
-  public int getLPOV(int pov) {
-    return logitechController.getPOV(pov);
-  }
-
   // XBOX CONTROLS
 
   public Joystick xboxController = new Joystick(RobotMap.XBOX_PORT);
@@ -118,10 +110,6 @@ public class OI {
     return xboxController.getRawAxis(5);
   }
 
-  public boolean getXBOXSafety() {
-    return xboxController.getRawButton(6);
-  }
-
   public boolean getXBOXButtonPressed(int button) {
     return xboxController.getRawButton(button);
   }
@@ -130,7 +118,6 @@ public class OI {
     // SmartDashboard buttons
     SmartDashboard.putData("Intake Start", new IntakePowerRamp(RobotMap.FUELINTAKE_NORMALPWM));
     SmartDashboard.putData("Intake Stop", new IntakePowerRamp(0.0));
-    SmartDashboard.putData("Auto Drive Test", new AutoDrive(0.75, 3.0));
     SmartDashboard.putData("Stop Bridge", new StopBridge());
 
     // Logitech controller buttons
@@ -141,6 +128,7 @@ public class OI {
     X1.whenPressed(new IntakeRampReversal());
     X2.whenPressed(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMALPWM));
     X6.whenPressed(new IntakePowerRamp(0.0));
+    // Offloader and bridge motor manual controls are mapped to the joysticks.
   }
 
 }

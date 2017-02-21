@@ -4,6 +4,7 @@ import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.commands.StickDriver;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Spark;
@@ -25,7 +26,7 @@ public class DriveTrain extends Subsystem {
   private Spark mFrontRightController;
   private Spark mRearRightController;
 
-  private final Encoder mDriveEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
+  private final Encoder mDriveEncoder;
 
   private RobotDrive mEngine;
 
@@ -40,8 +41,10 @@ public class DriveTrain extends Subsystem {
     mRearLeftController = new Spark(RobotMap.REAR_LEFT_MOTOR);
     mFrontRightController = new Spark(RobotMap.FRONT_RIGHT_MOTOR);
     mRearRightController = new Spark(RobotMap.REAR_RIGHT_MOTOR);
+
     mEngine = new RobotDrive(mFrontLeftController, mRearLeftController, mFrontRightController,
         mRearRightController);
+    mDriveEncoder = new Encoder(0, 1, false, EncodingType.k4X);
 
     mDriveGyroscope = new ADXRS450_Gyro();
 
@@ -49,15 +52,18 @@ public class DriveTrain extends Subsystem {
     mEngine.setExpiration(1.00);
     mEngine.setMaxOutput(1.00);
     mEngine.setSensitivity(1.00);
-    
-    mDriveEncoder.setDistancePerPulse(RobotMap.DRIVETRAIN_WHEELCIRCUMFERENCE / 360.0);
-    mDriveEncoder.setSamplesToAverage(10);
-    mDriveEncoder.setMaxPeriod(0.125);
+
+    // mDriveEncoder.setDistancePerPulse(RobotMap.DRIVETRAIN_WHEELCIRCUMFERENCEMETRES / 1440.0);
+    mDriveEncoder.setDistancePerPulse(1.0/1440.0);
+    mDriveEncoder.setSamplesToAverage(6);
+    mDriveEncoder.setMaxPeriod(0.150);
 
     LiveWindow.addActuator("DRIVETRAIN", "FL", mFrontLeftController);
     LiveWindow.addActuator("DRIVETRAIN", "RL", mRearRightController);
     LiveWindow.addActuator("DRIVETRAIN", "FR", mFrontRightController);
     LiveWindow.addActuator("DRIVETRAIN", "RR", mRearRightController);
+    LiveWindow.addSensor("DRIVETRAIN", "ENCODER", mDriveEncoder);
+    LiveWindow.addSensor("DRIVETRAIN", "GYROSCOPE", mDriveGyroscope);
   }
 
   @Override
@@ -178,7 +184,7 @@ public class DriveTrain extends Subsystem {
 
     return motorArray;
   }
-  
+
   public Encoder getEncoder() {
     return mDriveEncoder;
   }
