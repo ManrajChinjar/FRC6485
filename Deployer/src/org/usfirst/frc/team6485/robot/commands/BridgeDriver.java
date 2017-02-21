@@ -12,6 +12,10 @@ public class BridgeDriver extends Command {
 
   public static double kBridgeNormalPWM = RobotMap.BRIDGE_NORMALPWM;
 
+  /**
+   * Don't worry about overdriving the motor because the motor controllers will automatically halt
+   * the motor.
+   */
   public BridgeDriver() {
     requires(Robot.BRIDGE);
     setInterruptible(true);
