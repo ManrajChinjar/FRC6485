@@ -40,7 +40,7 @@ public class DriveTrain extends Subsystem {
 
     mEngine = new RobotDrive(mFrontLeftController, mRearLeftController, mFrontRightController,
         mRearRightController);
-    mDriveEncoder = new Encoder(0, 1, false, EncodingType.k4X);
+    mDriveEncoder = new Encoder(0, 1, true, EncodingType.k4X);
 
     mDriveGyroscope = new ADXRS450_Gyro();
 
@@ -50,10 +50,10 @@ public class DriveTrain extends Subsystem {
     mEngine.setSensitivity(1.00);
 
     // TODO CHECK
-    // mDriveEncoder.setDistancePerPulse(RobotMap.DRIVETRAIN_WHEELCIRCUMFERENCEMETRES / 1440.0);
-    mDriveEncoder.setDistancePerPulse(1.0 / 1440.0);
+    mDriveEncoder.setDistancePerPulse(RobotMap.DRIVETRAIN_WHEELCIRCUMFERENCEMETRES / 360.0);
+    // mDriveEncoder.setDistancePerPulse(1.0 / 1440.0);
     mDriveEncoder.setSamplesToAverage(6);
-    mDriveEncoder.setMaxPeriod(0.225);
+    mDriveEncoder.setMaxPeriod(0.150);
 
     LiveWindow.addActuator("DRIVETRAIN", "FL", mFrontLeftController);
     LiveWindow.addActuator("DRIVETRAIN", "RL", mRearRightController);

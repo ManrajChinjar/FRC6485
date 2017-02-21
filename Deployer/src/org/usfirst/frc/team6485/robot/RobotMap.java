@@ -40,7 +40,7 @@ public class RobotMap {
 
   public static final double BRIDGE_LOWERPWM = -0.16;
 
-  public static final double BRIDGE_MAXSAFEPWM = 0.21;
+  public static final double BRIDGE_MAXSAFEPWM = 0.23;
 
   public static final double OFFLOADER_MAXSAFEPWM = 1.00;
 

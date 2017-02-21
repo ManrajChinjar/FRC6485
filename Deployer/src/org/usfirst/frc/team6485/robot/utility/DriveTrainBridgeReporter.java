@@ -25,6 +25,7 @@ public class DriveTrainBridgeReporter {
         !Robot.DRIVETRAIN.getEncoder().getStopped());
     SmartDashboard.putNumber("DriveTrain Encoder Distance",
         Robot.DRIVETRAIN.getEncoder().getDistance());
+    SmartDashboard.putNumber("DriveTrain Left Speed m/s", Robot.DRIVETRAIN.getEncoder().getRate());
 
     // Bridge
     SmartDashboard.putNumber("Bridge PWM", Robot.BRIDGE.getSpeed());
