@@ -21,15 +21,11 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class DriveTrain extends Subsystem {
 
-  private Spark mFrontLeftController;
-  private Spark mRearLeftController;
-  private Spark mFrontRightController;
-  private Spark mRearRightController;
-
-  private final Encoder mDriveEncoder;
-
+  private Spark mFrontLeftController, mRearLeftController, mFrontRightController,
+      mRearRightController;
   private RobotDrive mEngine;
 
+  private final Encoder mDriveEncoder;
   private ADXRS450_Gyro mDriveGyroscope;
 
   private final double kDriveTrainPWMMagnitudeLimit = RobotMap.DRIVETRAIN_PWMLIMIT;

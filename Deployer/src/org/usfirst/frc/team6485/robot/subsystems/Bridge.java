@@ -15,13 +15,14 @@ public class Bridge extends Subsystem {
   private Spark mMotor;
   private Encoder mBridgeEncoder;
 
-  private final double kMotorSpeed = RobotMap.BRIDGE_NORMALPWM;
+  // private final double kMotorSpeed = RobotMap.BRIDGE_NORMALPWM;
   private final double kMaxSpeedMagnitude = RobotMap.BRIDGE_MAXSAFEPWM;
 
   public Bridge() {
     mMotor = new Spark(RobotMap.BRIDGE_MOTOR);
     mMotor.setSafetyEnabled(false);
     mMotor.setSpeed(0.0);
+
     mBridgeEncoder = new Encoder(3, 4);
     mBridgeEncoder.setSamplesToAverage(5);
     mBridgeEncoder.setMaxPeriod(0.100);

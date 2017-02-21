@@ -11,9 +11,6 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 /**
  * The ball offloader subsystem.
  * 
- * Using Talon SR for now, will change to spark. <br>
- * Be sure to correct wire colours for motor wires.
- * 
  * @author Kyle Saburao
  */
 public class Offloader extends Subsystem {
