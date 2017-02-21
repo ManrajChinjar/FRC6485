@@ -25,7 +25,6 @@ public class BridgeDriver extends Command {
   @Override
   protected void initialize() {
     Robot.BRIDGE.stop();
-
   }
 
   // Called repeatedly when this Command is scheduled to run
