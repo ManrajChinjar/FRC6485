@@ -18,6 +18,10 @@ public class DriveTrainReporter {
     SmartDashboard.putNumber("Rear Right PWM", work[3]);
     SmartDashboard.putNumber("Left PWM Group Difference", Math.abs(work[0] - work[1]));
     SmartDashboard.putNumber("Right PWM Group Difference", Math.abs(work[2] - work[3]));
+    SmartDashboard.putBoolean("DriveTrain Encoder Moving", !Robot.DRIVETRAIN.getEncoder().getStopped());
+    SmartDashboard.putNumber("DriveTrain Encoder Distance", Robot.DRIVETRAIN.getEncoder().getDistance());
+    
+    SmartDashboard.putBoolean("Bridge Encoder Moving", !Robot.BRIDGE.getEncoder().getStopped());
   }
 
 }

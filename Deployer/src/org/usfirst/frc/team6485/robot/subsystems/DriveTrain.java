@@ -4,6 +4,7 @@ import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.commands.StickDriver;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -24,9 +25,7 @@ public class DriveTrain extends Subsystem {
   private Spark mFrontRightController;
   private Spark mRearRightController;
 
-  // private final Encoder mDriveEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
-  // Signal A to DIO-0 S, Signal B to DIO-1 S, GND to DIO-0 SYMBOL THING, 5V to DIO-0 V, DETERMINE
-  // BOOLEAN STATE
+  private final Encoder mDriveEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
 
   private RobotDrive mEngine;
 
@@ -50,6 +49,10 @@ public class DriveTrain extends Subsystem {
     mEngine.setExpiration(1.00);
     mEngine.setMaxOutput(1.00);
     mEngine.setSensitivity(1.00);
+    
+    mDriveEncoder.setDistancePerPulse(RobotMap.DRIVETRAIN_WHEELCIRCUMFERENCE / 360.0);
+    mDriveEncoder.setSamplesToAverage(10);
+    mDriveEncoder.setMaxPeriod(0.125);
 
     LiveWindow.addActuator("DRIVETRAIN", "FL", mFrontLeftController);
     LiveWindow.addActuator("DRIVETRAIN", "RL", mRearRightController);
@@ -174,6 +177,10 @@ public class DriveTrain extends Subsystem {
     motorArray[3] = mRearRightController.getSpeed();
 
     return motorArray;
+  }
+  
+  public Encoder getEncoder() {
+    return mDriveEncoder;
   }
 
   // public Encoder getEncoder() {

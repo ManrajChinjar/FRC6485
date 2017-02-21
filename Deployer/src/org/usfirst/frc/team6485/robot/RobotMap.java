@@ -20,8 +20,6 @@ public class RobotMap {
 
   public static final int LOGITECH_PORT = 0, XBOX_PORT = 1;
 
-  public static final int BRIDGE_LOWER_LIMIT_SWITCH = 0, BRIDGE_UPPER_LIMIT_SWITCH = 1;
-
   // Constants sheet
 
   public static final double FUELINTAKE_NORMALPWM = -0.89; // Negative is intake
@@ -40,22 +38,20 @@ public class RobotMap {
 
   public static final double AUTOGYROTURN_SLOWDEGREESPERSECOND = 30.0;
 
-  public static final double BRIDGE_NORMALPWM = 0.11; // Positive raises the bridge
+  public static final double BRIDGE_NORMALPWM = 0.21; // Positive raises the bridge
 
-  public static final double BRIDGE_MAINTAINPWM = 0.11;
+  public static final double BRIDGE_MAINTAINPWM = 0.15;
 
-  public static final double BRIDGE_MAXSAFEPWM = 0.13;
+  public static final double BRIDGE_MAXSAFEPWM = 0.21;
 
   public static final double OFFLOADER_MAXSAFEPWM = 1.00;
+  
+  public static final double DRIVETRAIN_WHEELCIRCUMFERENCE = Math.PI * 0.1524;
 
   // ENUMS
 
   public enum IntakeState {
     IN, HALT, EVACUATE
-  }
-
-  public enum BRIDGE_STATE {
-    LOWERED, LOWERING, RAISED, RAISING, UNKNOWN
   }
 
   public enum RUNNING_MODE {

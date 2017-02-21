@@ -18,9 +18,11 @@ public class AutoGyroTurn extends Command {
 
   private double mCurrentAngle, mAngleRequest, mStartAngle, mTargetAngle, mTurnSpeed, mError,
       mAbsError, mAngularRateAccumulator, mGyroRate;
-  private final double kAngularTolerance = 0.25, kTurnSpeedIncrementor = 0.001,
+  private final double kAngularTolerance = 0.50, kTurnSpeedIncrementor = 0.001,
       kMaxAngularRateSeconds = RobotMap.AUTOGYROTURN_BASEDEGREESPERSECOND,
       kMinAngularRateSeconds = RobotMap.AUTOGYROTURN_SLOWDEGREESPERSECOND;
+
+  private final double mkP = 1.0 / 30.0;
 
   /**
    * 
@@ -48,24 +50,15 @@ public class AutoGyroTurn extends Command {
     mCurrentAngle = Robot.DRIVETRAIN.getGyro().getAngle();
     mGyroRate = Robot.DRIVETRAIN.getGyro().getRate();
     mError = mTargetAngle - mCurrentAngle;
-    mAbsError = Math.abs(mError);
     mTurnSpeed = Math.abs(mTurnSpeed);
 
-    if (mAbsError <= kMaxAngularRateSeconds) {
-      if ((kMaxAngularRateSeconds
-          * (mAbsError / kMaxAngularRateSeconds)) > kMinAngularRateSeconds) {
-        mAngularRateAccumulator = kMaxAngularRateSeconds * (mAbsError / kMaxAngularRateSeconds);
-      } else {
-        mAngularRateAccumulator = kMinAngularRateSeconds;
-      }
-    } else {
-      mAngularRateAccumulator = kMaxAngularRateSeconds;
-    }
-
-    if (Math.abs(mGyroRate) < mAngularRateAccumulator) {
-      mTurnSpeed += kTurnSpeedIncrementor;
-    } else if (Math.abs(mGyroRate) > mAngularRateAccumulator) {
-      mTurnSpeed -= kTurnSpeedIncrementor;
+    // Preetesh's formula in second expression.
+    if (Math.abs(mError) > 30.0) {
+      mTurnSpeed = 0.60;
+    } else if (Math.abs(mError) >= 10.0 && Math.abs(mError) <= 30.0) {
+      mTurnSpeed = (0.1/20.0) * (Math.abs(mError) - 10.0) + 0.5;
+    } else if (Math.abs(mError) < 10) {
+      mTurnSpeed = 0.50;
     }
 
     mTurnSpeed = (mAngleRequest < 0.0) ? mTurnSpeed : -mTurnSpeed;

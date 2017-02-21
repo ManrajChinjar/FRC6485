@@ -2,8 +2,8 @@ package org.usfirst.frc.team6485.robot.subsystems;
 
 import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.RobotMap.OFFLOADER_STATE;
+
 import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
@@ -20,14 +20,12 @@ public class Offloader extends Subsystem {
 
   private final int kOffloaderPWMSlot = RobotMap.OFFLOADER_MOTOR;
   private final double kNormalPWMRate = RobotMap.OFFLOADER_MAXSAFEPWM;
-  private Talon mMotor;
-  // private Spark mMotor;
+  private Spark mMotor;
 
   private OFFLOADER_STATE mState;
 
   public Offloader() {
-    mMotor = new Talon(kOffloaderPWMSlot);
-    // mMotor = new Spark(kOffloaderPWMSlot);
+    mMotor = new Spark(kOffloaderPWMSlot);
     mState = OFFLOADER_STATE.UNKNOWN;
     mMotor.setSafetyEnabled(false);
 

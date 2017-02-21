@@ -2,16 +2,14 @@ package org.usfirst.frc.team6485.robot;
 
 import org.usfirst.frc.team6485.robot.RobotMap.RUNNING_MODE;
 import org.usfirst.frc.team6485.robot.autonomous.A_CentrePositionStart;
-import org.usfirst.frc.team6485.robot.autonomous.TC_A_Auto;
-import org.usfirst.frc.team6485.robot.autonomous.TC_A_Auto2;
 import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6485.robot.subsystems.Bridge;
 import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
 import org.usfirst.frc.team6485.robot.subsystems.Offloader;
-import org.usfirst.frc.team6485.robot.utility.BridgeReporter;
 import org.usfirst.frc.team6485.robot.utility.DriveTrainReporter;
 import org.usfirst.frc.team6485.robot.utility.IntakeReporter;
+
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -54,8 +52,6 @@ public class Robot extends IterativeRobot {
     oi = new OI();
 
     chooser.addDefault("Default Auto", new ExampleCommand());
-    chooser.addObject("TC_A_AUTO", new TC_A_Auto());
-    chooser.addObject("TC_A_AUTO2", new TC_A_Auto2());
     chooser.addObject("AUTONOMOUS CENTRE START", new A_CentrePositionStart());
 
     SmartDashboard.putData("Auto Mode", chooser);
@@ -65,7 +61,6 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putData("Offloader", OFFLOADER);
 
     CameraServer.getInstance().startAutomaticCapture();
-
   }
 
   /**
@@ -86,18 +81,13 @@ public class Robot extends IterativeRobot {
     // until the calibration is complete.
     Robot.DRIVETRAIN.getGyro().calibrate();
     robotMode = RUNNING_MODE.DISABLED;
+    Robot.DRIVETRAIN.getEncoder().reset();
   }
 
   @Override
   public void disabledPeriodic() {
     Robot.FUELINTAKE.stop();
     Robot.DRIVETRAIN.stop();
-
-    // Temporary fix because the choosers don't appear on init.
-    chooser.addDefault("Default Auto", new ExampleCommand());
-    chooser.addObject("TC_A_AUTO", new TC_A_Auto());
-    chooser.addObject("TC_A_AUTO2", new TC_A_Auto2());
-    chooser.addObject("AUTONOMOUS CENTRE START", new A_CentrePositionStart());
 
     Scheduler.getInstance().run();
     report();
@@ -188,7 +178,7 @@ public class Robot extends IterativeRobot {
 
     DriveTrainReporter.report();
     IntakeReporter.report();
-    BridgeReporter.report();
+    SmartDashboard.putNumber("Bridge PWM", Robot.BRIDGE.getSpeed());
     // POVTester.report();
   }
 
