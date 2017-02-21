@@ -66,12 +66,6 @@ public class DriveTrain extends Subsystem {
     LiveWindow.addSensor("DRIVETRAIN", "GYROSCOPE", mDriveGyroscope);
   }
 
-  @Override
-  public void initDefaultCommand() {
-    // Default command is operator control over drive system
-    setDefaultCommand(new StickDriver());
-  }
-
   private double limit(double num) {
     if (num > kDriveTrainPWMMagnitudeLimit) {
       num = kDriveTrainPWMMagnitudeLimit;
@@ -189,8 +183,10 @@ public class DriveTrain extends Subsystem {
     return mDriveEncoder;
   }
 
-  // public Encoder getEncoder() {
-  // return mDriveEncoder;
-  // }
+  @Override
+  public void initDefaultCommand() {
+    // Default command is operator control over drive system
+    setDefaultCommand(new StickDriver());
+  }
 
 }
