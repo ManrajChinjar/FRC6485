@@ -1,13 +1,11 @@
 package org.usfirst.frc.team6485.robot;
 
-import org.usfirst.frc.team6485.robot.autonomous.A_TC_2MetreBox;
-import org.usfirst.frc.team6485.robot.commandgroups.CG_PassBaseLine;
-import org.usfirst.frc.team6485.robot.commands.AutoGyroTurn;
+import org.usfirst.frc.team6485.robot.autonomous.TC_A_2MetreBox;
 import org.usfirst.frc.team6485.robot.commands.BridgeAutoMove;
 import org.usfirst.frc.team6485.robot.commands.DriveDistance;
+import org.usfirst.frc.team6485.robot.commands.GyroscopeAutoTurn;
 import org.usfirst.frc.team6485.robot.commands.IntakePowerRamp;
 import org.usfirst.frc.team6485.robot.commands.IntakeRampReversal;
-import org.usfirst.frc.team6485.robot.commands.StopBridge;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -121,13 +119,13 @@ public class OI {
     // SmartDashboard buttons
     SmartDashboard.putData("Intake Start", new IntakePowerRamp(RobotMap.FUELINTAKE_NORMALPWM));
     SmartDashboard.putData("Intake Stop", new IntakePowerRamp(0.0));
-    SmartDashboard.putData("2 metre perimetre", new A_TC_2MetreBox());
+    SmartDashboard.putData("2 metre perimeter", new TC_A_2MetreBox());
     SmartDashboard.putData("Drive +1m", new DriveDistance(1.0, 0.65));
     SmartDashboard.putData("Drive -1m", new DriveDistance(-1.0, 0.65));
 
     // Logitech controller buttons
-    L11.whenPressed(new AutoGyroTurn(-90.0));
-    L12.whenPressed(new AutoGyroTurn(90.0));
+    L11.whenPressed(new GyroscopeAutoTurn(-90.0));
+    L12.whenPressed(new GyroscopeAutoTurn(90.0));
 
     // XBOX controller buttons
     X1.whenPressed(new IntakeRampReversal());

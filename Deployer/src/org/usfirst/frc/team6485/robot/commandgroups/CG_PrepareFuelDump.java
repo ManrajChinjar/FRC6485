@@ -1,5 +1,7 @@
 package org.usfirst.frc.team6485.robot.commandgroups;
 
+import org.usfirst.frc.team6485.robot.commands.BridgeAutoMove;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -13,7 +15,7 @@ public class CG_PrepareFuelDump extends CommandGroup {
    */
   public CG_PrepareFuelDump() {
     addSequential(new CG_ClearIntakeRamp());
-    // addSequential(new BridgeControl(BRIDGE_STATE.RAISED));
+    addSequential(new BridgeAutoMove(true));
   }
 
 }

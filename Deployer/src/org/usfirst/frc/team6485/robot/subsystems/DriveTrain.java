@@ -1,7 +1,7 @@
 package org.usfirst.frc.team6485.robot.subsystems;
 
 import org.usfirst.frc.team6485.robot.RobotMap;
-import org.usfirst.frc.team6485.robot.commands.StickDriver;
+import org.usfirst.frc.team6485.robot.commands.DriveTrainDriver;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
@@ -33,26 +33,31 @@ public class DriveTrain extends Subsystem {
   // Initialize drive train
   public DriveTrain() {
 
+    // Create motor controller objects.
     mFrontLeftController = new Spark(RobotMap.FRONT_LEFT_MOTOR);
     mRearLeftController = new Spark(RobotMap.REAR_LEFT_MOTOR);
     mFrontRightController = new Spark(RobotMap.FRONT_RIGHT_MOTOR);
     mRearRightController = new Spark(RobotMap.REAR_RIGHT_MOTOR);
 
+    // Create "engine" object with motor controller objects. ORDER IS IMPORTANT.
     mEngine = new RobotDrive(mFrontLeftController, mRearLeftController, mFrontRightController,
         mRearRightController);
+
+    // Create Drive Train encoder placed on left side.
     mDriveEncoder = new Encoder(0, 1, true, EncodingType.k4X);
 
+    // Create gyroscope object.
     mDriveGyroscope = new ADXRS450_Gyro();
 
+    // Drive Train initialization parameters.
     mEngine.setSafetyEnabled(true);
-    mEngine.setExpiration(0.250);
+    mEngine.setExpiration(0.300);
     mEngine.setMaxOutput(1.00);
     mEngine.setSensitivity(1.00);
 
-    // TODO CHECK
+    // Encoder initialization parameters.
     mDriveEncoder.setDistancePerPulse(RobotMap.DRIVETRAIN_WHEELCIRCUMFERENCEMETRES / 360.0);
-    // mDriveEncoder.setDistancePerPulse(1.0 / 1440.0);
-    mDriveEncoder.setSamplesToAverage(6);
+    mDriveEncoder.setSamplesToAverage(8);
     mDriveEncoder.setMaxPeriod(0.150);
 
     LiveWindow.addActuator("DRIVETRAIN", "FL", mFrontLeftController);
@@ -61,6 +66,8 @@ public class DriveTrain extends Subsystem {
     LiveWindow.addActuator("DRIVETRAIN", "RR", mRearRightController);
     LiveWindow.addSensor("DRIVETRAIN", "ENCODER", mDriveEncoder);
     LiveWindow.addSensor("DRIVETRAIN", "GYROSCOPE", mDriveGyroscope);
+
+    mEngine.stopMotor();
   }
 
   private double limit(double num) {
@@ -183,7 +190,7 @@ public class DriveTrain extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Default command is operator control over drive system
-    setDefaultCommand(new StickDriver());
+    setDefaultCommand(new DriveTrainDriver());
   }
 
 }

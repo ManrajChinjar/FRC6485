@@ -28,7 +28,6 @@ public class DriveDistance extends Command {
     mTargetSpeed = Math.copySign(mTargetSpeed, mDistanceTarget);
     setTimeout(10.0); // 10 seconds max.
     setInterruptible(false);
-
   }
 
   // Called just before this Command runs the first time

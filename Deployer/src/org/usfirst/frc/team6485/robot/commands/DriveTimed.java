@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * 
  * @author Kyle Saburao
  */
-public class AutoDrive extends Command {
+public class DriveTimed extends Command {
   // TODO Also allow metre distance via future averaged encoder units
 
   private final double kP = RobotMap.AUTODRIVE_GYROKP;
@@ -36,7 +36,7 @@ public class AutoDrive extends Command {
    * @param speed The speed to drive
    * @param time The time to drive
    */
-  public AutoDrive(double speed, double time) {
+  public DriveTimed(double speed, double time) {
     requires(Robot.DRIVETRAIN);
     if (time < 0) {
       time = 0.0;

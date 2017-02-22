@@ -2,6 +2,7 @@ package org.usfirst.frc.team6485.robot.commands;
 
 import org.usfirst.frc.team6485.robot.Robot;
 import org.usfirst.frc.team6485.robot.RobotMap;
+import org.usfirst.frc.team6485.robot.RobotMap.RUNNING_MODE;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -19,14 +20,14 @@ import edu.wpi.first.wpilibj.command.Command;
  * 
  * @author Kyle Saburao
  */
-public class StickDriver extends Command {
+public class DriveTrainDriver extends Command {
 
   private double mLXAxisRequest, mLYAxisRequest, mXXAxisRequestL, mXYAxisRequestL, mXYAxisRequestR;
   private double mTargetAngle, mCurrentRelativeAngle;
   private final double kStraightDrivekP = RobotMap.AUTODRIVE_GYROKP;
   private boolean mGyroInitFlag;
 
-  public StickDriver() {
+  public DriveTrainDriver() {
     requires(Robot.DRIVETRAIN);
     setInterruptible(true);
   }
@@ -89,8 +90,7 @@ public class StickDriver extends Command {
     if (!Robot.oi.getLButtonPressed(2)) {
       mGyroInitFlag = false;
     }
-
-    if (Robot.oi.getLogitechTrigger()) {
+    if (Robot.oi.getLogitechTrigger() && Robot.robotMode == RUNNING_MODE.TELEOP) {
       logitechControl();
     } else {
       Robot.DRIVETRAIN.stop();

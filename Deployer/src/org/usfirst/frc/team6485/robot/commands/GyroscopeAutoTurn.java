@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
  * 
  * @author Kyle Saburao
  */
-public class AutoGyroTurn extends Command {
+public class GyroscopeAutoTurn extends Command {
 
   private double mCurrentAngle, mAngleRequest, mTargetAngle, mTurnSpeed, mError;
   private final double kAngularTolerance = 1.00;
@@ -22,7 +22,7 @@ public class AutoGyroTurn extends Command {
    * 
    * @param angle double angle (Negative turns left, positive turns right)
    */
-  public AutoGyroTurn(double angle) {
+  public GyroscopeAutoTurn(double angle) {
     mAngleRequest = angle;
     requires(Robot.DRIVETRAIN);
   }

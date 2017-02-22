@@ -24,6 +24,7 @@ public class Delay extends Command {
     mTimeLength = seconds;
     setTimeout(seconds + .150);
     setInterruptible(false);
+    requires(Robot.DRIVETRAIN);
   }
 
   // Called just before this Command runs the first time

@@ -25,8 +25,8 @@ public class Bridge extends Subsystem {
     mMotor.setSpeed(0.0);
 
     mBridgeEncoder = new Encoder(3, 4);
-    mBridgeEncoder.setSamplesToAverage(3);
-    mBridgeEncoder.setMaxPeriod(0.750);
+    mBridgeEncoder.setSamplesToAverage(5);
+    mBridgeEncoder.setMaxPeriod(1.50);
     mBridgeEncoder.setDistancePerPulse(1.0 / 7.0);
 
     LiveWindow.addActuator("BRIDGE", "MOTOR", mMotor);

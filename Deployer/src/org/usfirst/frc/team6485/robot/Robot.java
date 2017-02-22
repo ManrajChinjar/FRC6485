@@ -1,15 +1,21 @@
 package org.usfirst.frc.team6485.robot;
 
 import org.usfirst.frc.team6485.robot.RobotMap.RUNNING_MODE;
-import org.usfirst.frc.team6485.robot.autonomous.A_CentrePositionStart;
+import org.usfirst.frc.team6485.robot.autonomous.A_BlueAllianceCentre;
+import org.usfirst.frc.team6485.robot.autonomous.A_BlueAllianceLeft;
+import org.usfirst.frc.team6485.robot.autonomous.A_BlueAllianceRight;
+import org.usfirst.frc.team6485.robot.autonomous.A_RedAllianceCentre;
+import org.usfirst.frc.team6485.robot.autonomous.A_RedAllianceLeft;
+import org.usfirst.frc.team6485.robot.autonomous.A_RedAllianceRight;
 import org.usfirst.frc.team6485.robot.commandgroups.CG_PassBaseLine;
-import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6485.robot.subsystems.Bridge;
 import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
 import org.usfirst.frc.team6485.robot.subsystems.Offloader;
-import org.usfirst.frc.team6485.robot.utility.DriveTrainBridgeReporter;
+import org.usfirst.frc.team6485.robot.utility.BridgeReporter;
+import org.usfirst.frc.team6485.robot.utility.DriveTrainReporter;
 import org.usfirst.frc.team6485.robot.utility.IntakeReporter;
+import org.usfirst.frc.team6485.robot.utility.OffloaderReporter;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -28,7 +34,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-  public RUNNING_MODE robotMode;
+  public static RUNNING_MODE robotMode;
 
   public static OI oi;
   public static DriveTrain DRIVETRAIN;
@@ -52,9 +58,15 @@ public class Robot extends IterativeRobot {
 
     oi = new OI();
 
-    chooser.addDefault("Default Auto", new ExampleCommand());
-    chooser.addObject("AUTONOMOUS CENTRE START", new A_CentrePositionStart());
-    chooser.addObject("Pass baseline", new CG_PassBaseLine());
+    // All autonomous modes will first pass the baseline. (1.65 metres)
+    chooser.addDefault("Pass Baseline", new CG_PassBaseLine());
+    chooser.addObject("BA Left", new A_BlueAllianceLeft());
+    chooser.addObject("BA Centre", new A_BlueAllianceCentre());
+    chooser.addObject("RA Right", new A_BlueAllianceRight());
+    chooser.addObject("RA Left", new A_RedAllianceLeft());
+    chooser.addObject("RA Centre", new A_RedAllianceCentre());
+    chooser.addObject("RA Right", new A_RedAllianceRight());
+
 
     SmartDashboard.putData("Auto Mode", chooser);
     SmartDashboard.putData("Drive Train", DRIVETRAIN);
@@ -71,9 +83,12 @@ public class Robot extends IterativeRobot {
    */
   @Override
   public void disabledInit() {
-    // Stop the fuel intake and the drivetrain.
+    // Stop the subsystem motors.
     Robot.FUELINTAKE.stop();
     Robot.DRIVETRAIN.stop();
+    Robot.BRIDGE.stop();
+    Robot.OFFLOADER.stop();
+
     // Cancel all queued commands.
     Scheduler.getInstance().removeAll();
 
@@ -91,6 +106,8 @@ public class Robot extends IterativeRobot {
   public void disabledPeriodic() {
     Robot.FUELINTAKE.stop();
     Robot.DRIVETRAIN.stop();
+    Robot.BRIDGE.stop();
+    Robot.OFFLOADER.stop();
 
     Scheduler.getInstance().run();
     report();
@@ -109,8 +126,12 @@ public class Robot extends IterativeRobot {
   @Override
   public void autonomousInit() {
     robotMode = RUNNING_MODE.AUTO;
-    Robot.DRIVETRAIN.getGyro().reset();
     autonomousCommand = chooser.getSelected();
+
+    // Reset encoders
+    Robot.DRIVETRAIN.getEncoder().reset();
+    Robot.BRIDGE.getEncoder().reset();
+    Robot.DRIVETRAIN.getGyro().reset();
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
@@ -138,6 +159,7 @@ public class Robot extends IterativeRobot {
     robotMode = RUNNING_MODE.TELEOP;
     Robot.DRIVETRAIN.getGyro().reset();
     Robot.DRIVETRAIN.getEncoder().reset();
+    Robot.BRIDGE.getEncoder().reset();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -178,10 +200,12 @@ public class Robot extends IterativeRobot {
         break;
     }
     SmartDashboard.putString("ROBOT MODE", robotmode_string);
-    DriveTrainBridgeReporter.report();
+
+    // Subsystem Reporters
+    DriveTrainReporter.report();
     IntakeReporter.report();
-    SmartDashboard.putNumber("Offloader Motor", Robot.OFFLOADER.getSpeed());
-    // POVTester.report();
+    BridgeReporter.report();
+    OffloaderReporter.report();
   }
 
 }
