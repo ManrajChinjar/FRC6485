@@ -19,13 +19,11 @@ public class DriveTrainBridgeReporter {
     SmartDashboard.putNumber("Rear Left PWM", work[1]);
     SmartDashboard.putNumber("Front Right PWM", work[2]);
     SmartDashboard.putNumber("Rear Right PWM", work[3]);
-    SmartDashboard.putNumber("Left PWM Group Difference", Math.abs(work[0] - work[1]));
-    SmartDashboard.putNumber("Right PWM Group Difference", Math.abs(work[2] - work[3]));
     SmartDashboard.putBoolean("DriveTrain Encoder Moving",
         !Robot.DRIVETRAIN.getEncoder().getStopped());
     SmartDashboard.putNumber("DriveTrain Encoder Distance",
         Robot.DRIVETRAIN.getEncoder().getDistance());
-    SmartDashboard.putNumber("DriveTrain Left Speed m/s", Robot.DRIVETRAIN.getEncoder().getRate());
+    SmartDashboard.putNumber("DriveTrain Encoder m/s", Robot.DRIVETRAIN.getEncoder().getRate());
 
     // Bridge
     SmartDashboard.putNumber("Bridge PWM", Robot.BRIDGE.getSpeed());

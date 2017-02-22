@@ -1,7 +1,10 @@
 package org.usfirst.frc.team6485.robot;
 
+import org.usfirst.frc.team6485.robot.autonomous.A_TC_2MetreBox;
+import org.usfirst.frc.team6485.robot.commandgroups.CG_PassBaseLine;
 import org.usfirst.frc.team6485.robot.commands.AutoGyroTurn;
 import org.usfirst.frc.team6485.robot.commands.BridgeAutoMove;
+import org.usfirst.frc.team6485.robot.commands.DriveDistance;
 import org.usfirst.frc.team6485.robot.commands.IntakePowerRamp;
 import org.usfirst.frc.team6485.robot.commands.IntakeRampReversal;
 import org.usfirst.frc.team6485.robot.commands.StopBridge;
@@ -119,6 +122,12 @@ public class OI {
     SmartDashboard.putData("Intake Start", new IntakePowerRamp(RobotMap.FUELINTAKE_NORMALPWM));
     SmartDashboard.putData("Intake Stop", new IntakePowerRamp(0.0));
     SmartDashboard.putData("Stop Bridge", new StopBridge());
+    SmartDashboard.putData("2 metre perimetre", new A_TC_2MetreBox());
+    SmartDashboard.putData("Drive 1 metre", new DriveDistance(1.0, 0.70));
+    SmartDashboard.putData("Pass base line", new CG_PassBaseLine());
+
+    SmartDashboard.putData("Drive 4 metres", new DriveDistance(4.0, 0.75));
+    SmartDashboard.putData("Drive 2m back", new DriveDistance(-2.0, 0.60));
 
     // Logitech controller buttons
     L11.whenPressed(new AutoGyroTurn(-90.0));

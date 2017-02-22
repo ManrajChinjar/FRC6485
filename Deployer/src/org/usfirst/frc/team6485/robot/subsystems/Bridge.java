@@ -2,6 +2,7 @@ package org.usfirst.frc.team6485.robot.subsystems;
 
 import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.commands.BridgeDriver;
+
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -24,8 +25,8 @@ public class Bridge extends Subsystem {
     mMotor.setSpeed(0.0);
 
     mBridgeEncoder = new Encoder(3, 4);
-    mBridgeEncoder.setSamplesToAverage(5);
-    mBridgeEncoder.setMaxPeriod(0.100);
+    mBridgeEncoder.setSamplesToAverage(3);
+    mBridgeEncoder.setMaxPeriod(0.750);
     mBridgeEncoder.setDistancePerPulse(1.0 / 7.0);
 
     LiveWindow.addActuator("BRIDGE", "MOTOR", mMotor);

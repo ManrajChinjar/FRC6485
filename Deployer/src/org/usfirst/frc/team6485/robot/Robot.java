@@ -2,6 +2,7 @@ package org.usfirst.frc.team6485.robot;
 
 import org.usfirst.frc.team6485.robot.RobotMap.RUNNING_MODE;
 import org.usfirst.frc.team6485.robot.autonomous.A_CentrePositionStart;
+import org.usfirst.frc.team6485.robot.commandgroups.CG_PassBaseLine;
 import org.usfirst.frc.team6485.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6485.robot.subsystems.Bridge;
 import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
@@ -53,6 +54,7 @@ public class Robot extends IterativeRobot {
 
     chooser.addDefault("Default Auto", new ExampleCommand());
     chooser.addObject("AUTONOMOUS CENTRE START", new A_CentrePositionStart());
+    chooser.addObject("Pass baseline", new CG_PassBaseLine());
 
     SmartDashboard.putData("Auto Mode", chooser);
     SmartDashboard.putData("Drive Train", DRIVETRAIN);

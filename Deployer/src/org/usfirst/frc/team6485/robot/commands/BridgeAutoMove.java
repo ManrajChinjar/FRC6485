@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class BridgeAutoMove extends Command {
 
   private boolean mState;
-  private double mStartTime, kWaitTimeSeconds = 4.5;
+  private double mStartTime, kWaitTimeSeconds = 3.0;
 
   /**
    * Automatically move the bridge to the right state via a timed command. <br>

@@ -1,8 +1,8 @@
 package org.usfirst.frc.team6485.robot.commands;
 
 import org.usfirst.frc.team6485.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Executes a drive train point-turn to a specified amount of degrees relative to the starting
@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class AutoGyroTurn extends Command {
 
-  private double mCurrentAngle, mAngleRequest, mStartAngle, mTargetAngle, mTurnSpeed, mError;
-  private final double kAngularTolerance = 0.50;
+  private double mCurrentAngle, mAngleRequest, mTargetAngle, mTurnSpeed, mError;
+  private final double kAngularTolerance = 1.00;
   private boolean mShort;
 
   /**
@@ -30,9 +30,8 @@ public class AutoGyroTurn extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    mStartAngle = Robot.DRIVETRAIN.getGyro().getAngle();
-    mTargetAngle = mStartAngle + mAngleRequest;
-    mTurnSpeed = 0.50; // Slow initial speed to get going
+    Robot.DRIVETRAIN.getGyro().reset();
+    mTargetAngle = mAngleRequest;
     setInterruptible(false);
     setTimeout(7.0);
   }
@@ -46,21 +45,16 @@ public class AutoGyroTurn extends Command {
 
     // Preetesh's formula in second expression.
     if (Math.abs(mError) > 30.0) {
-      mTurnSpeed = 0.60;
+      mTurnSpeed = 0.55;
     } else if (Math.abs(mError) >= 10.0 && Math.abs(mError) <= 30.0) {
-      mTurnSpeed = (0.1 / 20.0) * (Math.abs(mError) - 10.0) + 0.5;
-    } else if (Math.abs(mError) < 10) {
       mTurnSpeed = 0.50;
+    } else if (Math.abs(mError) < 10) {
+      mTurnSpeed = 0.45;
     }
 
     mTurnSpeed = (mAngleRequest < 0.0) ? mTurnSpeed : -mTurnSpeed;
 
     Robot.DRIVETRAIN.turnOnSpot(mTurnSpeed);
-
-    SmartDashboard.putNumber("Gyro turn start angle", mStartAngle);
-    SmartDashboard.putNumber("Gyro turn target angle", mTargetAngle);
-    SmartDashboard.putNumber("Gyro turn speed", mTurnSpeed);
-    SmartDashboard.putNumber("Gyro turn error", mError);
 
     mShort = (Math.abs(mError) <= kAngularTolerance);
   }
@@ -68,7 +62,7 @@ public class AutoGyroTurn extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return (Math.abs(mError) <= kAngularTolerance) || mShort || isTimedOut();
+    return Math.abs(mError) <= kAngularTolerance || mShort || isTimedOut();
   }
 
   // Called once after isFinished returns true
