@@ -121,13 +121,9 @@ public class OI {
     // SmartDashboard buttons
     SmartDashboard.putData("Intake Start", new IntakePowerRamp(RobotMap.FUELINTAKE_NORMALPWM));
     SmartDashboard.putData("Intake Stop", new IntakePowerRamp(0.0));
-    SmartDashboard.putData("Stop Bridge", new StopBridge());
     SmartDashboard.putData("2 metre perimetre", new A_TC_2MetreBox());
-    SmartDashboard.putData("Drive 1 metre", new DriveDistance(1.0, 0.70));
-    SmartDashboard.putData("Pass base line", new CG_PassBaseLine());
-
-    SmartDashboard.putData("Drive 4 metres", new DriveDistance(4.0, 0.75));
-    SmartDashboard.putData("Drive 2m back", new DriveDistance(-2.0, 0.60));
+    SmartDashboard.putData("Drive +1m", new DriveDistance(1.0, 0.65));
+    SmartDashboard.putData("Drive -1m", new DriveDistance(-1.0, 0.65));
 
     // Logitech controller buttons
     L11.whenPressed(new AutoGyroTurn(-90.0));
