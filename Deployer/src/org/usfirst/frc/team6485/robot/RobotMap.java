@@ -27,7 +27,7 @@ public class RobotMap {
 
   // Constants sheet
 
-  public static final double DRIVEDISTANCE_MINIMUMALLOWABLEPWMRATE = 0.45;
+  public static final double DRIVEDISTANCE_MINIMUMALLOWABLEPWMMAGNITUDE = 0.45;
 
   public static final double DRIVEDISTANCE_RAMPINGDISTANCEMETRES = 0.40;
 

@@ -75,8 +75,8 @@ public class DriveDistance extends Command {
     }
 
     // Minimum speed limiter
-    if (mSpeed < RobotMap.DRIVEDISTANCE_MINIMUMALLOWABLEPWMRATE) {
-      mSpeed = RobotMap.DRIVEDISTANCE_MINIMUMALLOWABLEPWMRATE;
+    if (Math.abs(mSpeed) < RobotMap.DRIVEDISTANCE_MINIMUMALLOWABLEPWMMAGNITUDE) {
+      mSpeed = Math.copySign(RobotMap.DRIVEDISTANCE_MINIMUMALLOWABLEPWMMAGNITUDE, mSpeedTarget);
     }
 
     mPTurn = Robot.DRIVETRAIN.getGyro().getAngle() * kTurnP;
