@@ -68,7 +68,7 @@ public class DriveDistance extends Command {
         mSpeed = mDistanceRampingSlope * mDistanceDriven;
       } else if (mDistanceDriven >= Math.abs(mDistanceTarget) - Math.abs(kDistanceMetresRamping)) {
         mSpeed =
-            mDistanceRampingSlope * (Math.abs(mDistanceTarget) - Math.abs(kDistanceMetresRamping));
+            mDistanceRampingSlope * (Math.abs(mDistanceTarget) - mDistanceDriven);
       } else {
         mSpeed = mSpeedTarget;
       }
