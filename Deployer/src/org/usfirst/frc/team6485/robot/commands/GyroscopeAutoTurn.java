@@ -14,9 +14,9 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class GyroscopeAutoTurn extends Command {
 
-  private double mCurrentAngle, mAngleRequest, mTargetAngle, mTurnSpeed, mError;
-  private final double kAngularTolerance = 0.80;
   private boolean mShort;
+  private double mCurrentAngle, mAngleRequest, mTargetAngle, mTurnSpeed, mError;
+  private final double kAngularTolerance = 0.40;
 
   /**
    * 
@@ -31,7 +31,6 @@ public class GyroscopeAutoTurn extends Command {
   @Override
   protected void initialize() {
     Robot.DRIVETRAIN.getGyro().reset();
-    mTargetAngle = mAngleRequest;
     setInterruptible(false);
     setTimeout(7.0);
   }
@@ -40,23 +39,31 @@ public class GyroscopeAutoTurn extends Command {
   @Override
   protected void execute() {
     mCurrentAngle = Robot.DRIVETRAIN.getGyro().getAngle();
-    mError = mTargetAngle - mCurrentAngle;
+    mError = mAngleRequest - mCurrentAngle;
     mTurnSpeed = Math.abs(mTurnSpeed);
+    double mErrorAbs = Math.abs(mError);
 
     // Preetesh's formula in second expression.
-    if (Math.abs(mError) > 30.0) {
+    if (mErrorAbs > 40.0) {
       mTurnSpeed = 0.55;
-    } else if (Math.abs(mError) >= 10.0 && Math.abs(mError) <= 30.0) {
+    } else if (mErrorAbs >= 15.0 && mErrorAbs <= 40.0) {
       mTurnSpeed = 0.50;
-    } else if (Math.abs(mError) < 10) {
-      mTurnSpeed = 0.45;
+    } else if (mErrorAbs < 15.0) {
+      mTurnSpeed = 0.43;
     }
 
     mTurnSpeed = (mAngleRequest < 0.0) ? mTurnSpeed : -mTurnSpeed;
 
     Robot.DRIVETRAIN.turnOnSpot(mTurnSpeed);
 
-    mShort = (Math.abs(mError) <= kAngularTolerance);
+    if (mAngleRequest < 0.0) {
+      mShort = mCurrentAngle <= mAngleRequest;
+    } else if (mAngleRequest > 0.0) {
+      mShort = mCurrentAngle >= mAngleRequest;
+    }
+    if (Math.abs(mAngleRequest) < 0.5) {
+      mShort = true;
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
