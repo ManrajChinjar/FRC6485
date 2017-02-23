@@ -23,7 +23,7 @@ public class DriveDistance extends Command {
    * Automatically drive forward a specific distance.
    * 
    * @param distance Metres (+ or -)
-   * @param speed magnitude [0 to 0.90]
+   * @param speed magnitude [0 to 0.95]
    */
   public DriveDistance(double distance, double speed) {
     requires(Robot.DRIVETRAIN);
