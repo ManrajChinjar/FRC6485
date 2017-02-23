@@ -15,6 +15,10 @@ public class TODO_LIST {
    */
   
   /*
+   * TODO Check the idle current of the Bridge motor and the overriden current.
+   */
+  
+  /*
    * TODO Check what PWM rate the RoboRio reports when a Bridge switch is overriding the controller.
    */
   
