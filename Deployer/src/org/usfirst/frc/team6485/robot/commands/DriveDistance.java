@@ -4,7 +4,6 @@ import org.usfirst.frc.team6485.robot.Robot;
 import org.usfirst.frc.team6485.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * @author Kyle Saburao
@@ -104,7 +103,6 @@ public class DriveDistance extends Command {
     //
     // mPTurn = Robot.DRIVETRAIN.getGyro().getAngle() * kTurnP;
     // Robot.DRIVETRAIN.arcadeDrive(mSpeed, mPTurn);
-    // SmartDashboard.putNumber("mDistanceErrorAbs", mDistanceErrorAbs);
     // mComplete = mDistanceErrorAbs <= kToleranceMetres;
   }
 
