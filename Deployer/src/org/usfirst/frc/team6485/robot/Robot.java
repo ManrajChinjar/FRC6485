@@ -16,6 +16,7 @@ import org.usfirst.frc.team6485.robot.utility.BridgeReporter;
 import org.usfirst.frc.team6485.robot.utility.DriveTrainReporter;
 import org.usfirst.frc.team6485.robot.utility.IntakeReporter;
 import org.usfirst.frc.team6485.robot.utility.OffloaderReporter;
+import org.usfirst.frc.team6485.robot.utility.PowerDistributionPanelReporter;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -206,6 +207,7 @@ public class Robot extends IterativeRobot {
     IntakeReporter.report();
     BridgeReporter.report();
     OffloaderReporter.report();
+    PowerDistributionPanelReporter.report();
   }
 
 }

@@ -14,8 +14,7 @@ public class TODO_LIST {
    */
 
   /*
-   * TODO Put encoder wires on bridge motor and offloader motor to determine speed and if they're
-   * stopped
+   * TODO Make sure PCM and PDP CAN IDs are both 0 in the RoboRio configuration page.
    */
 
   /*
