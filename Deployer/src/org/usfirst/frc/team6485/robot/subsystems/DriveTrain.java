@@ -58,7 +58,7 @@ public class DriveTrain extends Subsystem {
     // Encoder initialization parameters.
     mDriveEncoder.setDistancePerPulse(RobotMap.DRIVETRAIN_WHEELCIRCUMFERENCEMETRES / 360.0);
     mDriveEncoder.setSamplesToAverage(8);
-    mDriveEncoder.setMaxPeriod(0.150);
+    mDriveEncoder.setMaxPeriod(0.075);
 
     LiveWindow.addActuator("DRIVETRAIN", "FL", mFrontLeftController);
     LiveWindow.addActuator("DRIVETRAIN", "RL", mRearRightController);

@@ -104,7 +104,7 @@ public class Bridge extends Subsystem {
   public Encoder getEncoder() {
     return mBridgeEncoder;
   }
-  
+
   /**
    * @return The current flowing through the bridge motor controller.
    */

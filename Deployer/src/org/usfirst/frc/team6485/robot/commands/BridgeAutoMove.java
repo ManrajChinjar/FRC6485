@@ -41,7 +41,8 @@ public class BridgeAutoMove extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    // If the Spark controller is overriding the PWM signal, the current flow should drop to an idle level.
+    // If the Spark controller is overriding the PWM signal, the current flow should drop to an idle
+    // level.
     // If the controller is idling but the PWM rate is not 0.0, then the bridge has hit a switch.
     return (Math.abs(Robot.BRIDGE.getCurrent()) <= RobotMap.BRIDGE_IDLECURRENTMAGNITUDE
         && Robot.BRIDGE.getSpeed() != 0.0)
