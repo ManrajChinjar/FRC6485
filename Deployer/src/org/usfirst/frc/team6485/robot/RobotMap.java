@@ -17,11 +17,18 @@ public class RobotMap {
   public static final int BRIDGE_MOTOR = 5;
 
   public static final int OFFLOADER_MOTOR = 6;
-
+  
+  public static final int PDP_FL = 0, PDP_FR = 15, PDP_RL = 1, PDP_RR = 14;
+  
+  // FIX THESE
+  public static final int PDP_BRIDGE = 8, PDP_INTAKE = 9, PDP_OFFLOADER = 10;
+  
   public static final int LOGITECH_PORT = 0, XBOX_PORT = 1;
 
   // Constants sheet
 
+  public static final double BRIDGE_IDLECURRENTMAGNITUDE = 0.1;
+  
   public static final double FUELINTAKE_NORMALPWM = -0.72; // Negative is intake
 
   public static final double INTAKEPOWERRAMP_TIMESECONDS = 1.0 / 3.0;

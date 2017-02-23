@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class GyroscopeAutoTurn extends Command {
 
   private double mCurrentAngle, mAngleRequest, mTargetAngle, mTurnSpeed, mError;
-  private final double kAngularTolerance = 1.00;
+  private final double kAngularTolerance = 0.80;
   private boolean mShort;
 
   /**

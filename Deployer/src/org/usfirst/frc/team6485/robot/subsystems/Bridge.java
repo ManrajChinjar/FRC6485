@@ -2,6 +2,7 @@ package org.usfirst.frc.team6485.robot.subsystems;
 
 import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.commands.BridgeDriver;
+import org.usfirst.frc.team6485.robot.utility.PowerDistributionPanelReporter;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
@@ -102,6 +103,13 @@ public class Bridge extends Subsystem {
 
   public Encoder getEncoder() {
     return mBridgeEncoder;
+  }
+  
+  /**
+   * @return The current flowing through the bridge motor controller.
+   */
+  public double getCurrent() {
+    return PowerDistributionPanelReporter.getChannelCurrent(RobotMap.PDP_BRIDGE);
   }
 
   @Override

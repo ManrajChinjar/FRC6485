@@ -13,7 +13,9 @@ public class DriveDistance extends Command {
 
   private double mDistanceTarget, mDistanceCurrent, mDistanceError, mTargetSpeed, mSpeed, mPTurn,
       mDistanceErrorAbs;
-  private final double kTurnP = RobotMap.AUTODRIVE_GYROKP, kDistanceMetresBeginSlow = 0.30;
+  private final double kTurnP = RobotMap.AUTODRIVE_GYROKP, kDistanceMetresBeginSlow = 0.35,
+      kToleranceMetres = 0.085;
+  private boolean mShort;
 
   /**
    * Automatically drive forward a specific distance.
@@ -24,8 +26,7 @@ public class DriveDistance extends Command {
   public DriveDistance(double distance, double speed) {
     requires(Robot.DRIVETRAIN);
     mDistanceTarget = distance;
-    mTargetSpeed = Math.abs(speed);
-    mTargetSpeed = Math.copySign(mTargetSpeed, mDistanceTarget);
+    mTargetSpeed = Math.copySign(speed, mDistanceTarget);
     setTimeout(10.0); // 10 seconds max.
     setInterruptible(false);
   }
@@ -35,6 +36,7 @@ public class DriveDistance extends Command {
   protected void initialize() {
     Robot.DRIVETRAIN.getEncoder().reset();
     Robot.DRIVETRAIN.getGyro().reset();
+    mShort = false;
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -47,22 +49,23 @@ public class DriveDistance extends Command {
     if (mDistanceErrorAbs > kDistanceMetresBeginSlow) {
       mSpeed = mTargetSpeed;
     } else {
-      mSpeed = 0.40;
+      mSpeed = 0.43;
     }
 
-    if (mTargetSpeed < 0.40) {
+    if (mTargetSpeed < 0.43) {
       mSpeed = mTargetSpeed;
     }
 
     mPTurn = Robot.DRIVETRAIN.getGyro().getAngle() * kTurnP;
     Robot.DRIVETRAIN.arcadeDrive(mSpeed, mPTurn);
     SmartDashboard.putNumber("mDistanceErrorAbs", mDistanceErrorAbs);
+    mShort = mDistanceErrorAbs <= kToleranceMetres;
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return mDistanceErrorAbs <= 0.085 || isTimedOut();
+    return mDistanceErrorAbs <= kToleranceMetres || mShort || isTimedOut();
   }
 
   // Called once after isFinished returns true
