@@ -56,6 +56,7 @@ public class DriveDistance extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    // This is a scalar amount
     mDistanceDriven = Math.abs(Robot.DRIVETRAIN.getEncoder().getDistance());
 
     if (Math.abs(mDistanceTarget) <= (2.0 * Math.abs(kDistanceMetresRamping)) + 0.25) {
@@ -67,25 +68,31 @@ public class DriveDistance extends Command {
       if (mDistanceDriven <= Math.abs(kDistanceMetresRamping)) {
         mSpeed = mDistanceRampingSlope * mDistanceDriven;
       } else if (mDistanceDriven >= Math.abs(mDistanceTarget) - Math.abs(kDistanceMetresRamping)) {
-        mSpeed =
-            mDistanceRampingSlope * (Math.abs(mDistanceTarget) - mDistanceDriven);
+        mSpeed = mDistanceRampingSlope * (Math.abs(mDistanceTarget) - mDistanceDriven);
       } else {
         mSpeed = mSpeedTarget;
       }
     }
 
+    // Minimum speed limiter
     if (mSpeed < RobotMap.DRIVEDISTANCE_MINIMUMALLOWABLEPWMRATE) {
       mSpeed = RobotMap.DRIVEDISTANCE_MINIMUMALLOWABLEPWMRATE;
     }
 
     mPTurn = Robot.DRIVETRAIN.getGyro().getAngle() * kTurnP;
-    Robot.DRIVETRAIN.arcadeDrive(mSpeed, mPTurn);
 
+    // Direct override
     if (mDistanceTarget > 0.0) {
       mComplete = Robot.DRIVETRAIN.getEncoder().getDistance() >= mDistanceTarget;
     } else if (mDistanceTarget < 0.0) {
       mComplete = Robot.DRIVETRAIN.getEncoder().getDistance() <= mDistanceTarget;
     }
+    if (mComplete) {
+      mSpeed = 0.0;
+      mPTurn = 0.0;
+    }
+
+    Robot.DRIVETRAIN.arcadeDrive(mSpeed, mPTurn);
 
     // mDistanceCurrent = Robot.DRIVETRAIN.getEncoder().getDistance();
     // mDistanceError = mDistanceTarget - mDistanceCurrent;
@@ -109,9 +116,7 @@ public class DriveDistance extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Math
-        .abs(mDistanceTarget - Robot.DRIVETRAIN.getEncoder().getDistance()) <= kToleranceMetres
-        || mComplete || isTimedOut();
+    return mComplete || isTimedOut();
     // return mDistanceErrorAbs <= kToleranceMetres || mComplete || isTimedOut();
   }
 
