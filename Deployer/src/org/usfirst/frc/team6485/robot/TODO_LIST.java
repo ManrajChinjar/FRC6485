@@ -15,7 +15,7 @@ public class TODO_LIST {
    */
   
   /*
-   * TODO Check the idle current of the Bridge motor and the overriden current.
+   * TODO Check the idle current of the Bridge motor and the overridden current.
    */
   
   /*
