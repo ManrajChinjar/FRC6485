@@ -59,6 +59,7 @@ public class DriveTrainDriver extends Command {
   /**
    * No longer used as the Xbox controller is instead used for commands in other subsystems.
    */
+  @SuppressWarnings("unused")
   @Deprecated
   private void xboxControl() {
     if (!Robot.oi.getXBOXButtonPressed(5)) {
