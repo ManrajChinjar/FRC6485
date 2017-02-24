@@ -21,15 +21,15 @@ public class RobotMap {
   public static final int PDP_FL = 0, PDP_FR = 15, PDP_RL = 1, PDP_RR = 14;
 
   // FIX THESE
-  public static final int PDP_BRIDGE = 8, PDP_INTAKE = 9, PDP_OFFLOADER = 10;
+  public static final int PDP_BRIDGE = 11, PDP_INTAKE = 2, PDP_OFFLOADER = 6;
 
   public static final int LOGITECH_PORT = 0, XBOX_PORT = 1;
 
   // Constants sheet
 
-  public static final double DRIVEDISTANCE_MINIMUMALLOWABLEPWMMAGNITUDE = 0.45;
+  public static final double DRIVEDISTANCE_MINIMUMALLOWABLEPWMMAGNITUDE = 0.40;
 
-  public static final double DRIVEDISTANCE_RAMPINGDISTANCEMETRES = 0.40;
+  public static final double DRIVEDISTANCE_RAMPINGDISTANCEMETRES = 0.35;
 
   public static final double BRIDGE_IDLECURRENTMAGNITUDE = 0.1;
 
@@ -41,9 +41,9 @@ public class RobotMap {
   // increasing one side's motors.
   public static final double DRIVETRAIN_PWMLIMIT = 0.95;
 
-  public static final double AUTODRIVE_GYROKP = 0.075; // Try 0.06
+  public static final double AUTODRIVE_GYROKP = 0.07; // Try 0.06
 
-  public static final double AUTODRIVE_RAMPPERIODSECONDS = 0.50;
+  public static final double AUTODRIVETIMED_RAMPPERIODSECONDS = 0.50;
 
   public static final double BRIDGE_NORMALPWM = 0.20; // Positive raises the bridge
 
