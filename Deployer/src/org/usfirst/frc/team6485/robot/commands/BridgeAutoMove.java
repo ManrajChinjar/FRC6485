@@ -1,8 +1,6 @@
 package org.usfirst.frc.team6485.robot.commands;
 
 import org.usfirst.frc.team6485.robot.Robot;
-import org.usfirst.frc.team6485.robot.RobotMap;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -17,8 +15,8 @@ public class BridgeAutoMove extends Command {
   /**
    * Automatically move the bridge to the right state via a timed command. <br>
    * This works because the Spark Motor Controller automatically halts the bridge motor when the
-   * limit switches are pressed.
-   * <br><br>
+   * limit switches are pressed. <br>
+   * <br>
    * Can only work every 3.0 seconds.
    * 
    * @param state True for up, false for down

@@ -1,6 +1,8 @@
 package org.usfirst.frc.team6485.robot.utility;
 
 import org.usfirst.frc.team6485.robot.Robot;
+import org.usfirst.frc.team6485.robot.RobotMap;
+import org.usfirst.frc.team6485.robot.commands.IntakeInstantStop;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -24,6 +26,12 @@ public class IntakeReporter {
     }
     SmartDashboard.putNumber("INTAKE PWM", Robot.FUELINTAKE.getSpeed());
     SmartDashboard.putString("INTAKE STATE", intakeenum);
+
+    // Automatically stop the intake motor if it is stalled.
+    if (Robot.FUELINTAKE.getSpeed() != 0.0
+        && Math.abs(Robot.FUELINTAKE.getCurrent()) > Math.abs(RobotMap.FUELINTAKE_STALLCURRENT)) {
+      new IntakeInstantStop().start();
+    }
   }
 
 }

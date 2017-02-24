@@ -2,6 +2,7 @@ package org.usfirst.frc.team6485.robot.subsystems;
 
 import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.RobotMap.IntakeState;
+import org.usfirst.frc.team6485.robot.utility.PowerDistributionPanelReporter;
 
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -129,6 +130,10 @@ public class FuelIntake extends Subsystem {
 
   public double getNormalIntakeSpeed() {
     return kSpeedNormal;
+  }
+
+  public double getCurrent() {
+    return PowerDistributionPanelReporter.getChannelCurrent(RobotMap.PDP_INTAKE);
   }
 
   @Override

@@ -35,7 +35,10 @@ public class RobotMap {
 
   public static final double FUELINTAKE_NORMALPWM = -0.72; // Negative is intake
 
-  public static final double INTAKEPOWERRAMP_TIMESECONDS = 1.0 / 3.0;
+  public static final double INTAKEPOWERRAMP_TIMESECONDS = 2.0 / 5.0;
+
+  // TODO CHECK
+  public static final double FUELINTAKE_NORMALRUNNINGCURRENT = 3.0, FUELINTAKE_STALLCURRENT = 9.0;
 
   // 95% because full motor speed would saturate the motors and prevent normal turning via
   // increasing one side's motors.
