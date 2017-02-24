@@ -3,6 +3,7 @@ package org.usfirst.frc.team6485.robot.subsystems;
 import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.RobotMap.OFFLOADER_STATE;
 import org.usfirst.frc.team6485.robot.commands.OffloaderDriver;
+import org.usfirst.frc.team6485.robot.utility.PowerDistributionPanelReporter;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -24,7 +25,7 @@ public class Offloader extends Subsystem {
 
   public Offloader() {
     mMotor = new Spark(kOffloaderPWMSlot);
-    mState = OFFLOADER_STATE.UNKNOWN;
+    mState = OFFLOADER_STATE.FREE;
     mMotor.setSafetyEnabled(false);
 
     LiveWindow.addActuator("OFFLOADER", "MOTOR", mMotor);
@@ -37,26 +38,29 @@ public class Offloader extends Subsystem {
     } else if (speed < -kNormalPWMRate) {
       speed = -kNormalPWMRate;
     }
-    if (mState == OFFLOADER_STATE.ROLLED && speed > 0) {
-      speed = 0; // Change equality sign when +PWM direction is determined.
-    } else if (mState == OFFLOADER_STATE.UNROLLED && speed < 0) {
-      speed = 0;
+    if (mState == OFFLOADER_STATE.TAUT && speed > 0.0) {
+      speed = 0.0;
     }
     return speed;
   }
 
   private void updateState() {
-    if (mMotor.getSpeed() > 0.0) {
-      mState = OFFLOADER_STATE.ROLLING;
-    } else if (mMotor.getSpeed() < 0.0) {
-      mState = OFFLOADER_STATE.UNROLLING;
+    if (Math.abs(RobotMap.OFFLOADER_MAXWORKINGCURRENT - getCurrent()) > 0.75) {
+      mState = OFFLOADER_STATE.TAUT;
     } else {
-      mState = OFFLOADER_STATE.UNKNOWN;
+      mState = OFFLOADER_STATE.FREE;
     }
   }
 
   public double getSpeed() {
     return mMotor.getSpeed();
+  }
+  
+  /**
+   * @return The current of the offloader motor in amperes.
+   */
+  public double getCurrent() {
+    return PowerDistributionPanelReporter.getChannelCurrent(RobotMap.PDP_OFFLOADER);
   }
 
   /**
