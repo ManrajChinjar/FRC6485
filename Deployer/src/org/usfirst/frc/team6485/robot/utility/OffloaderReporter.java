@@ -21,6 +21,7 @@ public class OffloaderReporter {
         break;
     }
     SmartDashboard.putString("OFFLOADER STATE", state);
+    system.updateState();
   }
 
 }
