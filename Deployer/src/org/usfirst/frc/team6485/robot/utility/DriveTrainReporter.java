@@ -16,6 +16,7 @@ public class DriveTrainReporter {
     SmartDashboard.putNumber("Gyroscope Value", system.getGyro().getAngle());
     SmartDashboard.putBoolean("DriveTrain Encoder Moving", !system.getEncoder().getStopped());
     SmartDashboard.putNumber("DriveTrain Encoder Distance", system.getEncoder().getDistance());
+    SmartDashboard.putNumber("DriveTrain Encoder Auto Distance", Robot.DRIVETRAIN.getAutonomousEncoderDistance());
     SmartDashboard.putNumber("DriveTrain Encoder m/s", system.getEncoder().getRate());
   }
 

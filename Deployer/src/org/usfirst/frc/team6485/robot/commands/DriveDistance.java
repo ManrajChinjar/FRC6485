@@ -96,6 +96,7 @@ public class DriveDistance extends Command {
     }
 
     Robot.DRIVETRAIN.arcadeDrive(mSpeed, mPTurn);
+    Robot.DRIVETRAIN.setAutonomousEncoderDistance(Robot.DRIVETRAIN.getEncoder().getDistance());
   }
 
   // Make this return true when this Command no longer needs to run execute()
