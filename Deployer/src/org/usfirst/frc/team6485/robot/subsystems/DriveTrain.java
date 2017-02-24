@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  * Drive Train subsystem.<br>
@@ -60,14 +59,6 @@ public class DriveTrain extends Subsystem {
     mDriveEncoder.setSamplesToAverage(8);
     mDriveEncoder.setMaxPeriod(0.075);
 
-    LiveWindow.addActuator("DRIVETRAIN", "FL", mFrontLeftController);
-    LiveWindow.addActuator("DRIVETRAIN", "RL", mRearRightController);
-    LiveWindow.addActuator("DRIVETRAIN", "FR", mFrontRightController);
-    LiveWindow.addActuator("DRIVETRAIN", "RR", mRearRightController);
-    LiveWindow.addSensor("DRIVETRAIN", "ENCODER", mDriveEncoder);
-    LiveWindow.addSensor("DRIVETRAIN", "GYROSCOPE", mDriveGyroscope);
-
-    mEngine.stopMotor();
   }
 
   private double limit(double num) {
@@ -99,6 +90,10 @@ public class DriveTrain extends Subsystem {
    */
   public void arcadeDrive(double leftStick, double rightStick) {
     mEngine.arcadeDrive(limit(leftStick), limit(rightStick));
+  }
+  
+  public void arcadeDrive(double leftStick, double rotate, boolean state) {
+    mEngine.arcadeDrive(limit(leftStick), limit(rotate), state);
   }
 
   public void drive(double speed, double curve) {

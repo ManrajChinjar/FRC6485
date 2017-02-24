@@ -1,6 +1,6 @@
 package org.usfirst.frc.team6485.robot.autonomous;
 
-import org.usfirst.frc.team6485.robot.commandgroups.CG_PassBaseLine;
+import org.usfirst.frc.team6485.robot.commands.DriveDistance;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class A_BlueAllianceCentre extends CommandGroup {
 
   public A_BlueAllianceCentre() {
-    addSequential(new CG_PassBaseLine());
+    addSequential(new DriveDistance(1.65, 0.65));
   }
 
 }

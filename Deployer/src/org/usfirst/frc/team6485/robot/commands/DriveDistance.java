@@ -4,15 +4,15 @@ import org.usfirst.frc.team6485.robot.Robot;
 import org.usfirst.frc.team6485.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * @author Kyle Saburao
  */
 public class DriveDistance extends Command {
 
-  private double mDistanceTarget, mDistanceDriven, mSpeedTarget, mSpeed, mPTurn,
-      mDistanceRampingSlope;
-  private final double kTurnP = RobotMap.AUTODRIVE_GYROKP, kToleranceMetres = 0.085,
+  private double mDistanceTarget, mDistanceDriven, mSpeedTarget, mSpeed, mPTurn;
+  private final double kTurnP = RobotMap.AUTODRIVE_GYROKP, kToleranceMetres = 0.01,
       kDistanceMetresRamping = RobotMap.DRIVEDISTANCE_RAMPINGDISTANCEMETRES;
   private boolean mComplete;
 
@@ -40,15 +40,6 @@ public class DriveDistance extends Command {
   @Override
   protected void initialize() {
     Robot.DRIVETRAIN.stop();
-
-    mDistanceRampingSlope = (mSpeedTarget - Robot.DRIVETRAIN.getMotorPWM(RobotMap.FRONT_LEFT_MOTOR))
-        / Math.abs(kDistanceMetresRamping);
-
-    mComplete = false;
-    if (Math.abs(mDistanceTarget) <= kToleranceMetres) {
-      mComplete = true;
-    }
-
     Robot.DRIVETRAIN.getEncoder().reset();
     Robot.DRIVETRAIN.getGyro().reset();
   }
@@ -59,22 +50,14 @@ public class DriveDistance extends Command {
     // This is a scalar amount
     mDistanceDriven = Math.abs(Robot.DRIVETRAIN.getEncoder().getDistance());
 
-    if (Math.abs(mDistanceTarget) <= (2.0 * Math.abs(kDistanceMetresRamping)) + 0.25) {
-      mSpeed = mSpeedTarget;
-      if (mSpeed > 0.75) {
-        mSpeed = 0.75;
-      }
+    if (mDistanceDriven <= Math.abs(kDistanceMetresRamping)) {
+      mSpeed = Math.copySign(RobotMap.DRIVEDISTANCE_MINIMUMALLOWABLEPWMMAGNITUDE, mSpeedTarget);
+    } else if (mDistanceDriven >= Math.abs(mDistanceTarget) - Math.abs(kDistanceMetresRamping)) {
+      mSpeed = Math.copySign(RobotMap.DRIVEDISTANCE_MINIMUMALLOWABLEPWMMAGNITUDE, mSpeedTarget);
     } else {
-      if (mDistanceDriven <= Math.abs(kDistanceMetresRamping)) {
-        mSpeed = mDistanceRampingSlope * mDistanceDriven;
-      } else if (mDistanceDriven >= Math.abs(mDistanceTarget) - Math.abs(kDistanceMetresRamping)) {
-        mSpeed = mDistanceRampingSlope * (Math.abs(mDistanceTarget) - mDistanceDriven);
-      } else {
-        mSpeed = mSpeedTarget;
-      }
+      mSpeed = mSpeedTarget;
     }
 
-    // Minimum speed limiter
     if (Math.abs(mSpeed) < RobotMap.DRIVEDISTANCE_MINIMUMALLOWABLEPWMMAGNITUDE) {
       mSpeed = Math.copySign(RobotMap.DRIVEDISTANCE_MINIMUMALLOWABLEPWMMAGNITUDE, mSpeedTarget);
     }
@@ -83,16 +66,23 @@ public class DriveDistance extends Command {
 
     // Direct override
     if (mDistanceTarget > 0.0) {
-      mComplete = Robot.DRIVETRAIN.getEncoder().getDistance() >= mDistanceTarget;
+      if (Robot.DRIVETRAIN.getEncoder().getDistance() >= mDistanceTarget) {
+        mComplete = true;
+        mSpeed = 0.0;
+        mPTurn = 0.0;
+      }
     } else if (mDistanceTarget < 0.0) {
-      mComplete = Robot.DRIVETRAIN.getEncoder().getDistance() <= mDistanceTarget;
+      if (Robot.DRIVETRAIN.getEncoder().getDistance() <= mDistanceTarget) {
+        mComplete = true;
+        mSpeed = 0.0;
+        mPTurn = 0.0;
+      }
     }
-    if (mComplete) {
-      mSpeed = 0.0;
-      mPTurn = 0.0;
-    }
+    SmartDashboard.putBoolean("mComplete Drive", mComplete);
+    SmartDashboard.putNumber("DriveDistance Distance", Robot.DRIVETRAIN.getEncoder().getDistance());
+    SmartDashboard.putNumber("DriveDistance PWM", mSpeed);
 
-    Robot.DRIVETRAIN.arcadeDrive(mSpeed, mPTurn);
+    Robot.DRIVETRAIN.arcadeDrive(mSpeed, mPTurn, false);
 
     // mDistanceCurrent = Robot.DRIVETRAIN.getEncoder().getDistance();
     // mDistanceError = mDistanceTarget - mDistanceCurrent;
@@ -116,7 +106,10 @@ public class DriveDistance extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return mComplete || isTimedOut();
+    return mComplete
+        || Math.abs(mDistanceTarget
+            - Math.abs(Robot.DRIVETRAIN.getEncoder().getDistance())) <= kToleranceMetres
+        || isTimedOut();
     // return mDistanceErrorAbs <= kToleranceMetres || mComplete || isTimedOut();
   }
 

@@ -15,13 +15,13 @@ public class TC_A_2MetreBox extends CommandGroup {
    */
   public TC_A_2MetreBox() {
 
-    addSequential(new DriveDistance(2.0, 0.57));
+    addSequential(new DriveDistance(2.0, 0.65));
     addSequential(new GyroscopeAutoTurn(90.0));
-    addSequential(new DriveDistance(2.0, 0.57));
+    addSequential(new DriveDistance(2.0, 0.65));
     addSequential(new GyroscopeAutoTurn(90.0));
-    addSequential(new DriveDistance(2.0, 0.57));
+    addSequential(new DriveDistance(2.0, 0.65));
     addSequential(new GyroscopeAutoTurn(90.0));
-    addSequential(new DriveDistance(2.0, 0.57));
+    addSequential(new DriveDistance(2.0, 0.65));
     addSequential(new GyroscopeAutoTurn(90.0));
 
   }

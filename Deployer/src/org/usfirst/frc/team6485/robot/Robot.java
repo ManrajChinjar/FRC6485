@@ -93,9 +93,6 @@ public class Robot extends IterativeRobot {
     // Cancel all queued commands.
     Scheduler.getInstance().removeAll();
 
-    // Calibrate the gyroscope. SmartDashboard will report that the RoboRio is in TeleOp or Auto
-    // until the calibration is complete.
-    Robot.DRIVETRAIN.getGyro().calibrate();
     robotMode = RUNNING_MODE.DISABLED;
 
     // Reset encoders

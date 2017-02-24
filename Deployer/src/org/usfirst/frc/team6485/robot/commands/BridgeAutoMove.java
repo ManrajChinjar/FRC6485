@@ -1,7 +1,6 @@
 package org.usfirst.frc.team6485.robot.commands;
 
 import org.usfirst.frc.team6485.robot.Robot;
-import org.usfirst.frc.team6485.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -44,9 +43,9 @@ public class BridgeAutoMove extends Command {
     // If the Spark controller is overriding the PWM signal, the current flow should drop to an idle
     // level.
     // If the controller is idling but the PWM rate is not 0.0, then the bridge has hit a switch.
-    return (Math.abs(Robot.BRIDGE.getCurrent()) <= RobotMap.BRIDGE_IDLECURRENTMAGNITUDE
-        && Robot.BRIDGE.getSpeed() != 0.0)
-        || Timer.getFPGATimestamp() - mStartTime >= kWaitTimeSeconds;
+    // return (Math.abs(Robot.BRIDGE.getCurrent()) <= RobotMap.BRIDGE_IDLECURRENTMAGNITUDE
+    // && Robot.BRIDGE.getSpeed() != 0.0)
+    return Timer.getFPGATimestamp() - mStartTime >= kWaitTimeSeconds;
     // || Robot.BRIDGE.getEncoder().getStopped();
   }
 
