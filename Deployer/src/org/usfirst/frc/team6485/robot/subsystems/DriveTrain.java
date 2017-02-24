@@ -59,15 +59,15 @@ public class DriveTrain extends Subsystem {
     mDriveEncoder.setDistancePerPulse(RobotMap.DRIVETRAIN_WHEELCIRCUMFERENCEMETRES / 360.0);
     mDriveEncoder.setSamplesToAverage(10);
     mDriveEncoder.setMaxPeriod(0.075);
-    
+
     mAutonomousEncoderDistance = 0.0;
 
   }
-  
+
   public void setAutonomousEncoderDistance(double distance) {
     mAutonomousEncoderDistance = distance;
   }
-  
+
   public double getAutonomousEncoderDistance() {
     return mAutonomousEncoderDistance;
   }

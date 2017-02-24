@@ -7,7 +7,6 @@ import org.usfirst.frc.team6485.robot.utility.PowerDistributionPanelReporter;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  * The ball offloader subsystem.<br>
@@ -43,7 +42,8 @@ public class Offloader extends Subsystem {
   }
 
   public void updateState() {
-    if (Math.abs(RobotMap.OFFLOADER_MAXWORKINGCURRENT - Math.abs(getCurrent())) > 1.5 && getSpeed() > 0.0) {
+    if (Math.abs(RobotMap.OFFLOADER_MAXWORKINGCURRENT - Math.abs(getCurrent())) > 1.5
+        && getSpeed() > 0.0) {
       mState = OFFLOADER_STATE.TAUT;
     } else if (getSpeed() < 0.0) {
       mState = OFFLOADER_STATE.FREE;

@@ -7,7 +7,6 @@ import org.usfirst.frc.team6485.robot.utility.PowerDistributionPanelReporter;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  * @author Kyle Saburao
