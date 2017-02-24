@@ -27,8 +27,6 @@ public class Offloader extends Subsystem {
     mMotor = new Spark(kOffloaderPWMSlot);
     mState = OFFLOADER_STATE.FREE;
     mMotor.setSafetyEnabled(false);
-
-    LiveWindow.addActuator("OFFLOADER", "MOTOR", mMotor);
     mMotor.stopMotor();
   }
 
@@ -45,9 +43,9 @@ public class Offloader extends Subsystem {
   }
 
   private void updateState() {
-    if (Math.abs(RobotMap.OFFLOADER_MAXWORKINGCURRENT - getCurrent()) > 0.75) {
+    if (Math.abs(RobotMap.OFFLOADER_MAXWORKINGCURRENT - getCurrent()) > 1.5) {
       mState = OFFLOADER_STATE.TAUT;
-    } else {
+    } else if (getSpeed() < 0.0) {
       mState = OFFLOADER_STATE.FREE;
     }
   }
