@@ -35,7 +35,7 @@ public class Offloader extends Subsystem {
     } else if (speed < -kNormalPWMRate) {
       speed = -kNormalPWMRate;
     }
-    if (mState == OFFLOADER_STATE.TAUT && speed > 0.0) {
+    if (mState == OFFLOADER_STATE.TAUT && speed < 0.0) {
       speed = 0.0;
     }
     return speed;
@@ -43,9 +43,9 @@ public class Offloader extends Subsystem {
 
   public void updateState() {
     if (Math.abs(Math.abs(getCurrent()) - Math.abs(RobotMap.OFFLOADER_MAXWORKINGCURRENT)) > 1.5
-        && getSpeed() > 0.0) {
+        && getSpeed() < 0.0) {
       mState = OFFLOADER_STATE.TAUT;
-    } else if (getSpeed() < 0.0) {
+    } else if (getSpeed() > 0.0) {
       mState = OFFLOADER_STATE.FREE;
     }
   }
