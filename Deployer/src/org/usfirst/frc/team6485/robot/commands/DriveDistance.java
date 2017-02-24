@@ -28,17 +28,20 @@ public class DriveDistance extends Command {
   public DriveDistance(double distance, double speed) {
     requires(Robot.DRIVETRAIN);
     mDistanceTarget = distance;
-    mSpeedTarget = Math.copySign(speed, mDistanceTarget);
-    if (mSpeedTarget > RobotMap.DRIVETRAIN_PWMLIMIT) {
-      mSpeedTarget = Math.copySign(RobotMap.DRIVETRAIN_PWMLIMIT, speed);
+    // Square root the target speed because arcade drive squares the inputs by default.
+    mSpeedTarget = Math.copySign(Math.sqrt(Math.abs(speed)), distance);
+    if (Math.abs(mSpeedTarget) > Math.sqrt(Math.abs(RobotMap.DRIVETRAIN_PWMLIMIT))) {
+      mSpeedTarget = Math.copySign(Math.sqrt(Math.abs(RobotMap.DRIVETRAIN_PWMLIMIT)), distance);
     }
     setTimeout(10.0); // 10 seconds max.
     setInterruptible(false);
+
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    mComplete = false;
     Robot.DRIVETRAIN.stop();
 
     mDistanceRampingSlope = (mSpeedTarget - Robot.DRIVETRAIN.getMotorPWM(RobotMap.FRONT_LEFT_MOTOR))
@@ -61,8 +64,8 @@ public class DriveDistance extends Command {
 
     if (Math.abs(mDistanceTarget) <= (2.0 * Math.abs(kDistanceMetresRamping)) + 0.25) {
       mSpeed = mSpeedTarget;
-      if (mSpeed > 0.75) {
-        mSpeed = 0.75;
+      if (mSpeed > Math.sqrt(0.75)) {
+        mSpeed = Math.sqrt(0.75);
       }
     } else {
       if (mDistanceDriven <= Math.abs(kDistanceMetresRamping)) {
@@ -75,10 +78,12 @@ public class DriveDistance extends Command {
     }
 
     // Minimum speed limiter
-    if (Math.abs(mSpeed) < RobotMap.DRIVEDISTANCE_MINIMUMALLOWABLEPWMMAGNITUDE) {
-      mSpeed = Math.copySign(RobotMap.DRIVEDISTANCE_MINIMUMALLOWABLEPWMMAGNITUDE, mSpeedTarget);
+    if (Math.abs(mSpeed) < Math.sqrt(RobotMap.DRIVEDISTANCE_MINIMUMALLOWABLEPWMMAGNITUDE)) {
+      mSpeed = Math.copySign(Math.sqrt(RobotMap.DRIVEDISTANCE_MINIMUMALLOWABLEPWMMAGNITUDE),
+          mSpeedTarget);
     }
 
+    // Leave the turning to default to squared inputs.
     mPTurn = Robot.DRIVETRAIN.getGyro().getAngle() * kTurnP;
 
     // Direct override
@@ -89,7 +94,6 @@ public class DriveDistance extends Command {
     }
     if (mComplete) {
       mSpeed = 0.0;
-      mPTurn = 0.0;
     }
 
     Robot.DRIVETRAIN.arcadeDrive(mSpeed, mPTurn);
@@ -117,7 +121,6 @@ public class DriveDistance extends Command {
   @Override
   protected boolean isFinished() {
     return mComplete || isTimedOut();
-    // return mDistanceErrorAbs <= kToleranceMetres || mComplete || isTimedOut();
   }
 
   // Called once after isFinished returns true
