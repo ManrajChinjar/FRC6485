@@ -25,9 +25,9 @@ public class Bridge extends Subsystem {
     mMotor.setSpeed(0.0);
 
     mBridgeEncoder = new Encoder(3, 4);
-    mBridgeEncoder.setSamplesToAverage(5);
-    mBridgeEncoder.setMaxPeriod(1.50);
-    mBridgeEncoder.setDistancePerPulse(1.0 / 7.0);
+    mBridgeEncoder.setSamplesToAverage(2);
+    mBridgeEncoder.setMaxPeriod(1.0);
+    mBridgeEncoder.setDistancePerPulse(1.0 / 7.0 * 71.0);
   }
 
   /**

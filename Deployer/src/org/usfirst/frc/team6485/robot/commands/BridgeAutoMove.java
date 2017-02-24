@@ -18,6 +18,8 @@ public class BridgeAutoMove extends Command {
    * Automatically move the bridge to the right state via a timed command. <br>
    * This works because the Spark Motor Controller automatically halts the bridge motor when the
    * limit switches are pressed.
+   * <br><br>
+   * Can only work every 3.0 seconds.
    * 
    * @param state True for up, false for down
    */
@@ -41,12 +43,7 @@ public class BridgeAutoMove extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    // If the Spark controller is overriding the PWM signal, the current flow should drop to an idle
-    // level.
-    // If the controller is idling but the PWM rate is not 0.0, then the bridge has hit a switch.
-    return (Math.abs(Robot.BRIDGE.getCurrent()) <= RobotMap.BRIDGE_IDLECURRENTMAGNITUDE
-        && Robot.BRIDGE.getSpeed() != 0.0)
-        || Timer.getFPGATimestamp() - mStartTime >= kWaitTimeSeconds;
+    return Timer.getFPGATimestamp() - mStartTime >= kWaitTimeSeconds;
     // || Robot.BRIDGE.getEncoder().getStopped();
   }
 
