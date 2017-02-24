@@ -47,16 +47,17 @@ public class RobotMap {
 
   public static final double BRIDGE_NORMALPWM = 0.20; // Positive raises the bridge
 
-  public static final double BRIDGE_RAISEPWM = 0.24, BRIDGE_LOWERPWM = -0.20, BRIDGE_MAXSAFEPWM = 0.26;
+  public static final double BRIDGE_RAISEPWM = 0.24, BRIDGE_LOWERPWM = -0.20,
+      BRIDGE_MAXSAFEPWM = 0.26;
 
   public static final double OFFLOADER_MAXSAFEPWM = 1.00;
-  
+
   public static final double OFFLOADER_IDLECURRENT = 1.375, OFFLOADER_MAXWORKINGCURRENT = 1.5;
- 
+
   public static final double DRIVETRAIN_WHEELCIRCUMFERENCEMETRES = Math.PI * 0.1524;
 
   // ENUMS
-  
+
   public enum IntakeState {
     IN, HALT, EVACUATE
   }

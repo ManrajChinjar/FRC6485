@@ -51,11 +51,11 @@ public class Offloader extends Subsystem {
       mState = OFFLOADER_STATE.FREE;
     }
   }
-  
+
   public double getSpeed() {
     return mMotor.getSpeed();
   }
-  
+
   /**
    * @return The current of the offloader motor in amperes.
    */
