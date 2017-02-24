@@ -57,17 +57,9 @@ public class DriveTrain extends Subsystem {
 
     // Encoder initialization parameters.
     mDriveEncoder.setDistancePerPulse(RobotMap.DRIVETRAIN_WHEELCIRCUMFERENCEMETRES / 360.0);
-    mDriveEncoder.setSamplesToAverage(8);
+    mDriveEncoder.setSamplesToAverage(10);
     mDriveEncoder.setMaxPeriod(0.075);
 
-    LiveWindow.addActuator("DRIVETRAIN", "FL", mFrontLeftController);
-    LiveWindow.addActuator("DRIVETRAIN", "RL", mRearRightController);
-    LiveWindow.addActuator("DRIVETRAIN", "FR", mFrontRightController);
-    LiveWindow.addActuator("DRIVETRAIN", "RR", mRearRightController);
-    LiveWindow.addSensor("DRIVETRAIN", "ENCODER", mDriveEncoder);
-    LiveWindow.addSensor("DRIVETRAIN", "GYROSCOPE", mDriveGyroscope);
-
-    mEngine.stopMotor();
   }
 
   private double limit(double num) {

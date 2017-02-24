@@ -18,10 +18,9 @@ public class PowerDistributionPanelReporter {
     SmartDashboard.putNumber("FR Current", getChannelCurrent(RobotMap.PDP_FR));
     SmartDashboard.putNumber("RL Current", getChannelCurrent(RobotMap.PDP_RL));
     SmartDashboard.putNumber("RR Current", getChannelCurrent(RobotMap.PDP_RR));
-    // Fix the following PDP indexes.
-    // SmartDashboard.putNumber("Bridge Current", getChannelCurrent(7));
-    // SmartDashboard.putNumber("Intake Current", getChannelCurrent(7));
-    // SmartDashboard.putNumber("Offloader Current", getChannelCurrent(7));
+    SmartDashboard.putNumber("Bridge Current", getChannelCurrent(RobotMap.PDP_BRIDGE));
+    SmartDashboard.putNumber("Intake Current", getChannelCurrent(RobotMap.PDP_INTAKE));
+    SmartDashboard.putNumber("Offloader Current", getChannelCurrent(RobotMap.PDP_OFFLOADER));
   }
 
   public static void report() {

@@ -45,11 +45,11 @@ public class GyroscopeAutoTurn extends Command {
 
     // Preetesh's formula in second expression.
     if (mErrorAbs > 40.0) {
-      mTurnSpeed = 0.55;
+      mTurnSpeed = Math.sqrt(0.40);
     } else if (mErrorAbs >= 15.0 && mErrorAbs <= 40.0) {
-      mTurnSpeed = 0.50;
+      mTurnSpeed = Math.sqrt(0.30);
     } else if (mErrorAbs < 15.0) {
-      mTurnSpeed = 0.43;
+      mTurnSpeed = Math.sqrt(0.25);
     }
 
     mTurnSpeed = (mAngleRequest < 0.0) ? mTurnSpeed : -mTurnSpeed;

@@ -22,8 +22,8 @@ public class IntakeReporter {
         intakeenum = "EVACUATE";
         break;
     }
-    SmartDashboard.putNumber("Intake PWM", Robot.FUELINTAKE.getSpeed());
-    SmartDashboard.putString("Intake ENUM", intakeenum);
+    SmartDashboard.putNumber("INTAKE PWM", Robot.FUELINTAKE.getSpeed());
+    SmartDashboard.putString("INTAKE STATE", intakeenum);
   }
 
 }

@@ -51,7 +51,7 @@ public class Offloader extends Subsystem {
       mState = OFFLOADER_STATE.FREE;
     }
   }
-
+  
   public double getSpeed() {
     return mMotor.getSpeed();
   }

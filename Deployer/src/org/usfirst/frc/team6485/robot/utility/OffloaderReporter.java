@@ -8,9 +8,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class OffloaderReporter {
 
   private static Offloader system = Robot.OFFLOADER;
+  private static String state;
 
   public static void report() {
-    SmartDashboard.putNumber("Offloader PWM", system.getSpeed());
+    SmartDashboard.putNumber("OFFLOADER PWM", system.getSpeed());
+    switch (system.getState()) {
+      case FREE:
+        state = "FREE";
+        break;
+      case TAUT:
+        state = "TAUT";
+        break;
+    }
+    SmartDashboard.putString("OFFLOADER STATE", state);
   }
 
 }

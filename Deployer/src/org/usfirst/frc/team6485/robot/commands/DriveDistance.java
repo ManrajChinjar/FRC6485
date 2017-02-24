@@ -97,24 +97,6 @@ public class DriveDistance extends Command {
     }
 
     Robot.DRIVETRAIN.arcadeDrive(mSpeed, mPTurn);
-
-    // mDistanceCurrent = Robot.DRIVETRAIN.getEncoder().getDistance();
-    // mDistanceError = mDistanceTarget - mDistanceCurrent;
-    // mDistanceErrorAbs = Math.abs(mDistanceError);
-    //
-    // if (mDistanceErrorAbs > kDistanceMetresBeginSlow) {
-    // mSpeed = mSpeedTarget;
-    // } else {
-    // mSpeed = 0.43;
-    // }
-    //
-    // if (mSpeedTarget < 0.43) {
-    // mSpeed = mSpeedTarget;
-    // }
-    //
-    // mPTurn = Robot.DRIVETRAIN.getGyro().getAngle() * kTurnP;
-    // Robot.DRIVETRAIN.arcadeDrive(mSpeed, mPTurn);
-    // mComplete = mDistanceErrorAbs <= kToleranceMetres;
   }
 
   // Make this return true when this Command no longer needs to run execute()
