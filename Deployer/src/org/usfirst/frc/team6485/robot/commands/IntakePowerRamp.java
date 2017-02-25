@@ -18,7 +18,6 @@ public class IntakePowerRamp extends Command {
   protected double mStartSpeed, mTargetSpeed, mSetSpeed, mSlopeMS;
   protected double mStartTime, mCurrentTime, mRunTimeMS, mAcceptableMarginMS;
   protected double kRampTimeSeconds = RobotMap.INTAKEPOWERRAMP_TIMESECONDS;
-  protected boolean mHalt = false;
 
   /**
    * Linearizes the power ramp of the intake motor to prevent voltage spikes or other problems.
@@ -44,7 +43,6 @@ public class IntakePowerRamp extends Command {
     // PWM units per millisecond
     secondaryInitialize();
     mSlopeMS = (mTargetSpeed - mStartSpeed) / (kRampTimeSeconds * 1000.0);
-    mHalt = false;
   }
 
   /**
@@ -55,33 +53,25 @@ public class IntakePowerRamp extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (!mHalt) {
-      mCurrentTime = Timer.getFPGATimestamp();
-      mRunTimeMS = (mCurrentTime * 1000.0) - (mStartTime * 1000.0);
-      mSetSpeed = mSlopeMS * mRunTimeMS;
-
-      // If 30 milliseconds is left, set the Target speed.
-      if ((kRampTimeSeconds * 1000.0) - mRunTimeMS < mAcceptableMarginMS) {
-        Robot.FUELINTAKE.set(mTargetSpeed);
-      } else {
-        Robot.FUELINTAKE.set(mSetSpeed);
-      }
-
-      SmartDashboard.putNumber("Intake Power Ramp Set Speed", mSetSpeed);
-      SmartDashboard.putNumber("Intake Power Ramp Millisecond Runtime", mRunTimeMS);
+    mCurrentTime = Timer.getFPGATimestamp();
+    mRunTimeMS = (mCurrentTime * 1000.0) - (mStartTime * 1000.0);
+    mSetSpeed = mSlopeMS * mRunTimeMS;
+    if (mTargetSpeed > mStartSpeed) {
+      mSetSpeed = (mSetSpeed > mTargetSpeed) ? mTargetSpeed : mSetSpeed;
+    } else if (mTargetSpeed < mStartSpeed) {
+      mSetSpeed = (mSetSpeed < mTargetSpeed) ? mTargetSpeed : mSetSpeed;
     }
+
+    Robot.FUELINTAKE.set(mSetSpeed);
+
+    SmartDashboard.putNumber("Intake Power Ramp Set Speed", mSetSpeed);
+    SmartDashboard.putNumber("Intake Power Ramp Millisecond Runtime", mRunTimeMS);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return Robot.FUELINTAKE.getSpeed() == mTargetSpeed;
-  }
-
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-    mHalt = true;
   }
 
 }

@@ -28,10 +28,10 @@ public class IntakeReporter {
     SmartDashboard.putString("INTAKE STATE", intakeenum);
 
     // Automatically stop the intake motor if it is stalled.
-//    if (Robot.FUELINTAKE.getSpeed() != 0.0
-//        && Math.abs(Robot.FUELINTAKE.getCurrent()) > Math.abs(RobotMap.FUELINTAKE_STALLCURRENT)) {
-//      new IntakeInstantStop().start();
-//    }
+    // if (Robot.FUELINTAKE.getSpeed() != 0.0
+    // && Math.abs(Robot.FUELINTAKE.getCurrent()) > Math.abs(RobotMap.FUELINTAKE_STALLCURRENT)) {
+    // new IntakeInstantStop().start();
+    // }
   }
 
 }
