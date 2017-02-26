@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
  * 
  * @author Kyle Saburao
  */
-public class GyroscopeAutoTurn extends Command {
+public class DriveTrainAutoTurn extends Command {
 
   private boolean mShort;
   private double mCurrentAngle, mAngleRequest, mTurnSpeed, mError;
@@ -22,7 +22,7 @@ public class GyroscopeAutoTurn extends Command {
    * 
    * @param angle double angle (Negative turns left, positive turns right)
    */
-  public GyroscopeAutoTurn(double angle) {
+  public DriveTrainAutoTurn(double angle) {
     mAngleRequest = angle;
     requires(Robot.DRIVETRAIN);
   }
@@ -45,11 +45,11 @@ public class GyroscopeAutoTurn extends Command {
 
     // Preetesh's formula in second expression.
     if (mErrorAbs > 40.0) {
-      mTurnSpeed = Math.sqrt(0.40);
+      mTurnSpeed = Math.sqrt(0.63);
     } else if (mErrorAbs >= 15.0 && mErrorAbs <= 40.0) {
-      mTurnSpeed = Math.sqrt(0.30);
+      mTurnSpeed = Math.sqrt(0.59);
     } else if (mErrorAbs < 15.0) {
-      mTurnSpeed = Math.sqrt(0.25);
+      mTurnSpeed = Math.sqrt(0.55);
     }
 
     mTurnSpeed = (mAngleRequest < 0.0) ? mTurnSpeed : -mTurnSpeed;

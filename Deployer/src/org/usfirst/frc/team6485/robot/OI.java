@@ -3,7 +3,7 @@ package org.usfirst.frc.team6485.robot;
 import org.usfirst.frc.team6485.robot.autonomous.TC_A_2MetreBox;
 import org.usfirst.frc.team6485.robot.commands.BridgeAutoMove;
 import org.usfirst.frc.team6485.robot.commands.DriveDistance;
-import org.usfirst.frc.team6485.robot.commands.GyroscopeAutoTurn;
+import org.usfirst.frc.team6485.robot.commands.DriveTrainAutoTurn;
 import org.usfirst.frc.team6485.robot.commands.IntakePowerRamp;
 import org.usfirst.frc.team6485.robot.commands.IntakeRampReversal;
 
@@ -124,8 +124,8 @@ public class OI {
     SmartDashboard.putData("Drive -1m", new DriveDistance(-1.0, 0.65));
 
     // Logitech controller buttons
-    L11.whenPressed(new GyroscopeAutoTurn(-90.0));
-    L12.whenPressed(new GyroscopeAutoTurn(90.0));
+    L11.whenPressed(new DriveTrainAutoTurn(-90.0));
+    L12.whenPressed(new DriveTrainAutoTurn(90.0));
 
     // XBOX controller buttons
     X1.whenPressed(new IntakeRampReversal());
