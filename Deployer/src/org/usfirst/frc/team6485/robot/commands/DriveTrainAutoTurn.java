@@ -94,13 +94,13 @@ public class DriveTrainAutoTurn extends Command {
       }
     }
 
-    mTurnSpeed = (mAngleRequest < 0.0) ? mTurnSpeed : -mTurnSpeed;
+    mTurnSpeed = (mGoingLeft) ? mTurnSpeed : -mTurnSpeed;
 
     Robot.DRIVETRAIN.turnOnSpot(mTurnSpeed);
 
-    if (mAngleRequest < 0.0) {
+    if (mGoingLeft) {
       mShort = mCurrentAngle <= mAngleRequest;
-    } else if (mAngleRequest > 0.0) {
+    } else if (!mGoingLeft) {
       mShort = mCurrentAngle >= mAngleRequest;
     }
     if (Math.abs(mAngleRequest) < 0.5) {
