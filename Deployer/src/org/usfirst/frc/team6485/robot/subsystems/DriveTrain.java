@@ -23,8 +23,7 @@ public class DriveTrain extends Subsystem {
   private Spark mFrontLeftController, mRearLeftController, mFrontRightController,
       mRearRightController;
   private RobotDrive mEngine;
-
-  private final Encoder mDriveEncoder;
+  private Encoder mDriveEncoder;
   private ADXRS450_Gyro mDriveGyroscope;
 
   private double mAutonomousEncoderDistance;

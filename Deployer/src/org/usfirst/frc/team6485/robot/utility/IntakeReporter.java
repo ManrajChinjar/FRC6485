@@ -4,14 +4,13 @@ import org.usfirst.frc.team6485.robot.Robot;
 import org.usfirst.frc.team6485.robot.commands.IntakeInstantStop;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * @author Kyle Saburao
  */
 public class IntakeReporter {
-  
+
   public static FuelIntake system = Robot.FUELINTAKE;
 
   public static void report() {

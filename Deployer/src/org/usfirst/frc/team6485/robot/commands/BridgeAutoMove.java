@@ -3,7 +3,6 @@ package org.usfirst.frc.team6485.robot.commands;
 import org.usfirst.frc.team6485.robot.Robot;
 import org.usfirst.frc.team6485.robot.subsystems.Bridge;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -12,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class BridgeAutoMove extends Command {
 
   private boolean mState;
-  private double mStartTime, kWaitTimeSeconds = 3.0;
+  private double kWaitTimeSeconds = 3.0;
   private Bridge mBridge;
 
   /**

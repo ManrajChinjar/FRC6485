@@ -18,7 +18,6 @@ public class DriveTrainReporter {
     SmartDashboard.putNumber("DriveTrain Encoder Distance", system.getEncoder().getDistance());
     SmartDashboard.putNumber("DriveTrain Encoder Auto Distance",
         Robot.DRIVETRAIN.getAutonomousEncoderDistance());
-    SmartDashboard.putNumber("DriveTrain Encoder m/s", system.getEncoder().getRate());
   }
 
 }
