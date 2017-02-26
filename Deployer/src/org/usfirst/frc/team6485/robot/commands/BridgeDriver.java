@@ -13,7 +13,7 @@ public class BridgeDriver extends Command {
   public static double kBridgeNormalPWM = RobotMap.BRIDGE_NORMALPWM;
 
   /**
-   * Don't worry about overdriving the motor because the motor controllers will automatically halt
+   * Don't worry about overdriving the motor because the motor controller will automatically halt
    * the motor.
    */
   public BridgeDriver() {
@@ -35,9 +35,9 @@ public class BridgeDriver extends Command {
         Robot.BRIDGE.setMotor(-Robot.oi.getXBOXRightJoyY() * RobotMap.BRIDGE_RAISEPWM);
       } else if (-Robot.oi.getXBOXRightJoyY() < 0.0) {
         Robot.BRIDGE.setMotor(-Robot.oi.getXBOXRightJoyY() * Math.abs(RobotMap.BRIDGE_LOWERPWM));
-      } else {
-        Robot.BRIDGE.stop();
       }
+    } else {
+      Robot.BRIDGE.stop();
     }
   }
 
