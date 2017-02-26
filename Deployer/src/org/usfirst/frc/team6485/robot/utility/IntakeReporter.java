@@ -28,7 +28,7 @@ public class IntakeReporter {
     SmartDashboard.putString("INTAKE STATE", intakeenum);
 
     // Shutdown the intake motor if the battery voltage dips below 7.5 volts.
-    if (DriverStation.getInstance().getBatteryVoltage() < 7.5) {
+    if (Robot.DRIVERSTATION.getBatteryVoltage() < 7.5) {
       new IntakeInstantStop().start();
     }
 
