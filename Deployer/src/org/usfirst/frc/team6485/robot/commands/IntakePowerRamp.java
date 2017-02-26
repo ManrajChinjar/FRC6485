@@ -2,10 +2,10 @@ package org.usfirst.frc.team6485.robot.commands;
 
 import org.usfirst.frc.team6485.robot.Robot;
 import org.usfirst.frc.team6485.robot.RobotMap;
+import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Computes the derivative of PWM speed per millisecond to ramp the speed of the intake motor to
@@ -15,9 +15,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class IntakePowerRamp extends Command {
 
-  protected double mStartSpeed, mTargetSpeed, mSetSpeed, mSlopeMS;
-  protected double mStartTime, mCurrentTime, mRunTimeMS, mAcceptableMarginMS;
-  protected double kRampTimeSeconds = RobotMap.INTAKEPOWERRAMP_TIMESECONDS;
+  protected double mStartSpeed, mTargetSpeed, mSetSpeed, mSlopeMS, mStartTime, mCurrentTime,
+      mRunTimeMS, mAcceptableMarginMS;
+  protected final double kRampTimeSeconds = RobotMap.INTAKEPOWERRAMP_TIMESECONDS;
+  protected FuelIntake mFuelIntake;
 
   /**
    * Linearizes the power ramp of the intake motor to prevent voltage spikes or other problems.
@@ -27,6 +28,7 @@ public class IntakePowerRamp extends Command {
    */
   public IntakePowerRamp(double speed) {
     requires(Robot.FUELINTAKE);
+    mFuelIntake = Robot.FUELINTAKE;
     mTargetSpeed = speed;
     setInterruptible(true);
   }
@@ -37,7 +39,7 @@ public class IntakePowerRamp extends Command {
     mSetSpeed = 0.0;
     mRunTimeMS = 0.0;
     mStartTime = Timer.getFPGATimestamp();
-    mStartSpeed = Robot.FUELINTAKE.getSpeed();
+    mStartSpeed = mFuelIntake.getSpeed();
     mAcceptableMarginMS = 30.0;
 
     // PWM units per millisecond
@@ -62,16 +64,13 @@ public class IntakePowerRamp extends Command {
       mSetSpeed = (mSetSpeed < mTargetSpeed) ? mTargetSpeed : mSetSpeed;
     }
 
-    Robot.FUELINTAKE.set(mSetSpeed);
-
-    SmartDashboard.putNumber("Intake Power Ramp Set Speed", mSetSpeed);
-    SmartDashboard.putNumber("Intake Power Ramp Millisecond Runtime", mRunTimeMS);
+    mFuelIntake.set(mSetSpeed);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.FUELINTAKE.getSpeed() == mTargetSpeed;
+    return mFuelIntake.getSpeed() == mTargetSpeed;
   }
 
 }

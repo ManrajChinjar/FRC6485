@@ -2,6 +2,7 @@ package org.usfirst.frc.team6485.robot.commands;
 
 import org.usfirst.frc.team6485.robot.Robot;
 import org.usfirst.frc.team6485.robot.RobotMap;
+import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -15,6 +16,7 @@ public class DriveDistance extends Command {
   private final double kTurnP = RobotMap.AUTODRIVE_GYROKP, kToleranceMetres = 0.085,
       kDistanceMetresRamping = RobotMap.DRIVEDISTANCE_RAMPINGDISTANCEMETRES;
   private boolean mComplete;
+  private DriveTrain mDriveTrain;
 
   // private double mDistanceCurrent, mDistanceError, mDistanceErrorAbs;
   // private final double kDistanceMetresBeginSlow = 0.35;
@@ -27,6 +29,7 @@ public class DriveDistance extends Command {
    */
   public DriveDistance(double distance, double speed) {
     requires(Robot.DRIVETRAIN);
+    mDriveTrain = Robot.DRIVETRAIN;
     mDistanceTarget = distance;
     // Square root the target speed because arcade drive squares the inputs by default.
     mSpeedTarget = Math.copySign(Math.sqrt(Math.abs(speed)), distance);
@@ -42,24 +45,24 @@ public class DriveDistance extends Command {
   @Override
   protected void initialize() {
     mComplete = false;
-    Robot.DRIVETRAIN.stop();
+    mDriveTrain.stop();
 
-    mDistanceRampingSlope = (mSpeedTarget - Robot.DRIVETRAIN.getMotorPWM(RobotMap.FRONT_LEFT_MOTOR))
+    mDistanceRampingSlope = (mSpeedTarget - mDriveTrain.getMotorPWM(RobotMap.FRONT_LEFT_MOTOR))
         / Math.abs(kDistanceMetresRamping);
 
     if (Math.abs(mDistanceTarget) <= kToleranceMetres) {
       mComplete = true;
     }
 
-    Robot.DRIVETRAIN.getEncoder().reset();
-    Robot.DRIVETRAIN.getGyro().reset();
+    mDriveTrain.getEncoder().reset();
+    mDriveTrain.getGyro().reset();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     // This is a scalar amount
-    mDistanceDriven = Math.abs(Robot.DRIVETRAIN.getEncoder().getDistance());
+    mDistanceDriven = Math.abs(mDriveTrain.getEncoder().getDistance());
 
     if (Math.abs(mDistanceTarget) <= (2.0 * Math.abs(kDistanceMetresRamping)) + 0.25) {
       mSpeed = mSpeedTarget;
@@ -83,20 +86,21 @@ public class DriveDistance extends Command {
     }
 
     // Leave the turning to default to squared inputs.
-    mPTurn = Robot.DRIVETRAIN.getGyro().getAngle() * kTurnP;
+    mPTurn = mDriveTrain.getGyro().getAngle() * kTurnP;
 
     // Direct override
     if (mDistanceTarget > 0.0) {
-      mComplete = Robot.DRIVETRAIN.getEncoder().getDistance() >= mDistanceTarget;
+      mComplete = mDriveTrain.getEncoder().getDistance() >= mDistanceTarget;
     } else if (mDistanceTarget < 0.0) {
-      mComplete = Robot.DRIVETRAIN.getEncoder().getDistance() <= mDistanceTarget;
+      mComplete = mDriveTrain.getEncoder().getDistance() <= mDistanceTarget;
     }
     if (mComplete) {
       mSpeed = 0.0;
     }
 
-    Robot.DRIVETRAIN.arcadeDrive(mSpeed, mPTurn);
-    Robot.DRIVETRAIN.setAutonomousEncoderDistance(Robot.DRIVETRAIN.getEncoder().getDistance());
+    // Control the drive train and update a special reporter variable.
+    mDriveTrain.arcadeDrive(mSpeed, mPTurn);
+    mDriveTrain.setAutonomousEncoderDistance(Robot.DRIVETRAIN.getEncoder().getDistance());
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -108,7 +112,7 @@ public class DriveDistance extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.DRIVETRAIN.stop();
+    mDriveTrain.stop();
   }
 
 }

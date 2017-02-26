@@ -2,6 +2,7 @@ package org.usfirst.frc.team6485.robot.commands;
 
 import org.usfirst.frc.team6485.robot.Robot;
 import org.usfirst.frc.team6485.robot.RobotMap;
+import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -20,14 +21,13 @@ public class DriveTimed extends Command {
   // TODO Also allow metre distance via future averaged encoder units
 
   private final double kP = RobotMap.AUTODRIVE_GYROKP;
-  private double mCurrentAngle;
-  private double mStartTime, mCurrentRunTime, mRampPeriod, mTimeWindow;
-  private double mStartSpeed, mTargetSpeed, mSpeedSlope, mCPT;
+  private double mCurrentAngle, mStartTime, mCurrentRunTime, mRampPeriod, mTimeWindow, mStartSpeed,
+      mTargetSpeed, mSpeedSlope, mCPT;
   // private double mDistanceTarget, mDistanceError;
   private int mMotorIndex = 0;
   private boolean mAccelerated;
-
-  private Gyro gyroscope = Robot.DRIVETRAIN.getGyro();
+  private DriveTrain mDriveTrain;
+  private Gyro mGyroscope;
   // private Encoder encoder = Robot.DRIVETRAIN.getEncoder();
 
   /**
@@ -36,8 +36,11 @@ public class DriveTimed extends Command {
    * @param speed The speed to drive
    * @param time The time to drive
    */
+  @Deprecated
   public DriveTimed(double speed, double time) {
     requires(Robot.DRIVETRAIN);
+    mDriveTrain = Robot.DRIVETRAIN;
+    mGyroscope = mDriveTrain.getGyro();
     if (time < 0) {
       time = 0.0;
     }
@@ -56,19 +59,19 @@ public class DriveTimed extends Command {
         .println(String.format("Driving at %.2f for %.2f seconds.", mTargetSpeed, mTimeWindow));
 
     mRampPeriod = RobotMap.AUTODRIVETIMED_RAMPPERIODSECONDS;
-    mStartSpeed = Robot.DRIVETRAIN.getMotorPWM(mMotorIndex); // Change index if needed.
+    mStartSpeed = mDriveTrain.getMotorPWM(mMotorIndex); // Change index if needed.
     mSpeedSlope = (mTargetSpeed - mStartSpeed) / mRampPeriod;
     mStartTime = Timer.getFPGATimestamp();
     mAccelerated = false;
 
-    gyroscope.reset();
+    mGyroscope.reset();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     mCurrentRunTime = Timer.getFPGATimestamp() - mStartTime;
-    mCurrentAngle = gyroscope.getAngle();
+    mCurrentAngle = mGyroscope.getAngle();
     // Gyroscope measurement increases to the right, but the drive train
     // turn rate is negative the same direction.
     mCPT = mCurrentAngle * kP;
@@ -81,16 +84,16 @@ public class DriveTimed extends Command {
      */
     if (!mAccelerated) {
       double accelerationvelocitycompute = mSpeedSlope * mCurrentRunTime;
-      Robot.DRIVETRAIN.arcadeDrive(
+      mDriveTrain.arcadeDrive(
           (accelerationvelocitycompute > mTargetSpeed) ? mTargetSpeed : accelerationvelocitycompute,
           mCPT);
-      if (Robot.DRIVETRAIN.getMotorPWM(mMotorIndex) == mTargetSpeed) {
+      if (mDriveTrain.getMotorPWM(mMotorIndex) == mTargetSpeed) {
         mAccelerated = true;
       }
     } else if (mTimeWindow - mCurrentRunTime <= mRampPeriod) {
-      Robot.DRIVETRAIN.arcadeDrive(mSpeedSlope * (mTimeWindow - mCurrentRunTime), mCPT);
+      mDriveTrain.arcadeDrive(mSpeedSlope * (mTimeWindow - mCurrentRunTime), mCPT);
     } else
-      Robot.DRIVETRAIN.arcadeDrive(mTargetSpeed, mCPT);
+      mDriveTrain.arcadeDrive(mTargetSpeed, mCPT);
 
     SmartDashboard.putNumber("Gyroscope cPT", mCPT);
 
@@ -112,7 +115,7 @@ public class DriveTimed extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.DRIVETRAIN.stop();
+    mDriveTrain.stop();
     System.out.println(String.format("AutoDrive complete: %.2f PWM for %.3f seconds.", mTargetSpeed,
         mCurrentRunTime));
   }

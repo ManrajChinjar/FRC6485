@@ -1,6 +1,7 @@
 package org.usfirst.frc.team6485.robot.commands;
 
 import org.usfirst.frc.team6485.robot.Robot;
+import org.usfirst.frc.team6485.robot.subsystems.Offloader;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -10,9 +11,11 @@ import edu.wpi.first.wpilibj.command.Command;
 public class OffloaderDriver extends Command {
 
   private double mXYAxisRequestL;
+  private Offloader mOffloader;
 
   public OffloaderDriver() {
     requires(Robot.OFFLOADER);
+    mOffloader = Robot.OFFLOADER;
     setInterruptible(true);
   }
 
@@ -25,7 +28,7 @@ public class OffloaderDriver extends Command {
    * OVERLOOSEN.</b>
    */
   private void offloaderControl() {
-    Robot.OFFLOADER.set(mXYAxisRequestL);
+    mOffloader.set(mXYAxisRequestL);
   }
 
   // Called just before this Command runs the first time
@@ -37,11 +40,12 @@ public class OffloaderDriver extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    // Negative request will make the vinyl taut while positive will unroll it.
     mXYAxisRequestL = Robot.oi.getXBOXLeftJoyY();
     if (Math.abs(mXYAxisRequestL) > 0.075) {
       offloaderControl();
     } else {
-      Robot.OFFLOADER.stop();
+      mOffloader.stop();
     }
   }
 
@@ -54,7 +58,7 @@ public class OffloaderDriver extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.OFFLOADER.stop();
+    mOffloader.stop();
   }
 
   // Called when another command which requires one or more of the same

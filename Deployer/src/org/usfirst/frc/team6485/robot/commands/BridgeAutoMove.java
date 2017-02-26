@@ -1,6 +1,8 @@
 package org.usfirst.frc.team6485.robot.commands;
 
 import org.usfirst.frc.team6485.robot.Robot;
+import org.usfirst.frc.team6485.robot.subsystems.Bridge;
+
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -11,6 +13,7 @@ public class BridgeAutoMove extends Command {
 
   private boolean mState;
   private double mStartTime, kWaitTimeSeconds = 3.0;
+  private Bridge mBridge;
 
   /**
    * Automatically move the bridge to the right state via a timed command. <br>
@@ -23,6 +26,7 @@ public class BridgeAutoMove extends Command {
    */
   public BridgeAutoMove(boolean state) {
     requires(Robot.BRIDGE);
+    mBridge = Robot.BRIDGE;
     setInterruptible(false);
     mState = state;
   }
@@ -31,9 +35,9 @@ public class BridgeAutoMove extends Command {
   @Override
   protected void initialize() {
     if (mState) {
-      Robot.BRIDGE.setRaise();
+      mBridge.setRaise();
     } else {
-      Robot.BRIDGE.setLower();
+      mBridge.setLower();
     }
     mStartTime = Timer.getFPGATimestamp();
   }
@@ -48,7 +52,7 @@ public class BridgeAutoMove extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.BRIDGE.stop();
+    mBridge.stop();
   }
 
 }

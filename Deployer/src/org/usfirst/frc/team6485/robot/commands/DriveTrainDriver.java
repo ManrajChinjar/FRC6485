@@ -3,6 +3,7 @@ package org.usfirst.frc.team6485.robot.commands;
 import org.usfirst.frc.team6485.robot.Robot;
 import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.RobotMap.RUNNING_MODE;
+import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -22,13 +23,15 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveTrainDriver extends Command {
 
-  private double mLXAxisRequest, mLYAxisRequest, mXXAxisRequestL, mXYAxisRequestL, mXYAxisRequestR;
-  private double mTargetAngle, mCurrentRelativeAngle;
+  private double mLXAxisRequest, mLYAxisRequest, mXXAxisRequestL, mXYAxisRequestL, mXYAxisRequestR,
+      mTargetAngle, mCurrentRelativeAngle;
   private final double kStraightDrivekP = RobotMap.AUTODRIVE_GYROKP;
   private boolean mGyroInitFlag;
+  private DriveTrain mDriveTrain;
 
   public DriveTrainDriver() {
     requires(Robot.DRIVETRAIN);
+    mDriveTrain = Robot.DRIVETRAIN;
     setInterruptible(true);
   }
 
@@ -37,22 +40,21 @@ public class DriveTrainDriver extends Command {
   protected void initialize() {
     System.out.println("I'll try spinning. That's a good trick.");
     mGyroInitFlag = false;
-    Robot.DRIVETRAIN.stop();
-    Robot.OFFLOADER.stop();
+    mDriveTrain.stop();
   }
 
   private void logitechControl() {
     if (Robot.oi.getLButtonPressed(2)) {
       if (!mGyroInitFlag) {
         mGyroInitFlag = true;
-        mTargetAngle = Robot.DRIVETRAIN.getGyro().getAngle();
+        mTargetAngle = mDriveTrain.getGyro().getAngle();
       }
-      mCurrentRelativeAngle = Robot.DRIVETRAIN.getGyro().getAngle() - mTargetAngle;
-      Robot.DRIVETRAIN.arcadeDrive(mLYAxisRequest, mCurrentRelativeAngle * kStraightDrivekP);
+      mCurrentRelativeAngle = mDriveTrain.getGyro().getAngle() - mTargetAngle;
+      mDriveTrain.arcadeDrive(mLYAxisRequest, mCurrentRelativeAngle * kStraightDrivekP);
     } else if (Robot.oi.getLButtonPressed(3)) {
-      Robot.DRIVETRAIN.turnOnSpot(mLXAxisRequest);
+      mDriveTrain.turnOnSpot(mLXAxisRequest);
     } else {
-      Robot.DRIVETRAIN.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
+      mDriveTrain.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
     }
   }
 
@@ -80,8 +82,8 @@ public class DriveTrainDriver extends Command {
   protected void execute() {
     /*
      * X-axis of the logitech is multiplied by 0.80 because the arcade drive algorithm is
-     * exponential to the power of 2, so the increased slope at the end is truncated leading to
-     * easier turning and handling.
+     * exponential to the power of 2, so the increased slope at the end is truncated through
+     * horizontal expansion leading to easier turning and handling.
      */
     mLXAxisRequest = -Robot.oi.getLJoyX() * Robot.oi.getLSliderScale() * 0.80;
     // The Y-axis is multiplied by -1.0 because the joystick follows standard flight conventions.
@@ -94,7 +96,7 @@ public class DriveTrainDriver extends Command {
     if (Robot.oi.getLogitechTrigger() && Robot.robotMode == RUNNING_MODE.TELEOP) {
       logitechControl();
     } else {
-      Robot.DRIVETRAIN.stop();
+      mDriveTrain.stop();
     }
   }
 
@@ -107,7 +109,7 @@ public class DriveTrainDriver extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.DRIVETRAIN.stop();
+    mDriveTrain.stop();
     mGyroInitFlag = false;
   }
 
