@@ -16,7 +16,7 @@ public class DriveTrainAutoTurn extends Command {
 
   private boolean mShort, mAngularRateMode, mGoingLeft;
   private double mCurrentAngle, mAngleRequest, mTurnSpeed, mError;
-  private final double kAngularTolerance = 0.40;
+  private final double kAngularTolerance = 0.50;
 
   private double mCurrentAngularRate;
   private final double kAngularNormalRate = 35.0, kAngularSlowRate = 25.0,
@@ -35,6 +35,9 @@ public class DriveTrainAutoTurn extends Command {
   @Override
   protected void initialize() {
     Robot.DRIVETRAIN.getGyro().reset();
+    if (Math.abs(mAngleRequest) < 0.5) {
+      mShort = true;
+    }
     if (mAngularRateMode) {
       // Start with an initial turning speed
       mTurnSpeed = Math.sqrt(0.60);
@@ -102,9 +105,6 @@ public class DriveTrainAutoTurn extends Command {
       mShort = mCurrentAngle <= mAngleRequest;
     } else if (!mGoingLeft) {
       mShort = mCurrentAngle >= mAngleRequest;
-    }
-    if (Math.abs(mAngleRequest) < 0.5) {
-      mShort = true;
     }
   }
 
