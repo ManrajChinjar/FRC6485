@@ -39,6 +39,7 @@ public class DriveTrainAutoTurn extends Command {
       // Start with an initial turning speed
       mTurnSpeed = Math.sqrt(0.60);
     }
+    mGoingLeft = (mAngleRequest < 0.0) ? true : false;
     setInterruptible(false);
     setTimeout(7.0);
   }
