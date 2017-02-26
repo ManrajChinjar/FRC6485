@@ -29,6 +29,13 @@ public class Offloader extends Subsystem {
     mMotor.stopMotor();
   }
 
+  /**
+   * Limit the speed of an offloader PWM rate request.<br>
+   * If the RoboRio thinks that the system is taut, it will not allow a negative PWM request.
+   * 
+   * @param speed
+   * @return The allowed PWM rate
+   */
   private double limit(double speed) {
     if (speed > kNormalPWMRate) {
       speed = kNormalPWMRate;

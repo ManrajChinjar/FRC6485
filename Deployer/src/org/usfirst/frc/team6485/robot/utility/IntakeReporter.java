@@ -1,6 +1,9 @@
 package org.usfirst.frc.team6485.robot.utility;
 
 import org.usfirst.frc.team6485.robot.Robot;
+import org.usfirst.frc.team6485.robot.commands.IntakeInstantStop;
+
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -23,6 +26,11 @@ public class IntakeReporter {
     }
     SmartDashboard.putNumber("INTAKE PWM", Robot.FUELINTAKE.getSpeed());
     SmartDashboard.putString("INTAKE STATE", intakeenum);
+
+    // Shutdown the intake motor if the battery voltage dips below 7.5 volts.
+    if (DriverStation.getInstance().getBatteryVoltage() < 7.5) {
+      new IntakeInstantStop().start();
+    }
 
     // Automatically stop the intake motor if it is stalled.
     // if (Robot.FUELINTAKE.getSpeed() != 0.0

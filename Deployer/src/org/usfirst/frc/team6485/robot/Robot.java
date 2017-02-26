@@ -19,7 +19,10 @@ import org.usfirst.frc.team6485.robot.utility.OffloaderReporter;
 import org.usfirst.frc.team6485.robot.utility.PowerDistributionPanelReporter;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -42,6 +45,11 @@ public class Robot extends IterativeRobot {
   public static FuelIntake FUELINTAKE;
   public static Bridge BRIDGE;
   public static Offloader OFFLOADER;
+  public static DriverStation DRIVERSTATION;
+  public static Alliance ALLIANCECOLOUR;
+  public static boolean FMS_CONNECTED;
+
+  private double mCycleTimeOld, mCycleTimeNew;
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -57,17 +65,34 @@ public class Robot extends IterativeRobot {
     BRIDGE = new Bridge();
     OFFLOADER = new Offloader();
 
+    DRIVERSTATION = DriverStation.getInstance();
+    ALLIANCECOLOUR = DRIVERSTATION.getAlliance();
+    FMS_CONNECTED = DRIVERSTATION.isFMSAttached();
+
     oi = new OI();
 
     // All autonomous modes will first pass the baseline. (1.65 metres)
-    chooser.addDefault("Pass Baseline", new CG_PassBaseLine());
-    chooser.addObject("BA Left", new A_BlueAllianceLeft());
-    chooser.addObject("BA Centre", new A_BlueAllianceCentre());
-    chooser.addObject("RA Right", new A_BlueAllianceRight());
-    chooser.addObject("RA Left", new A_RedAllianceLeft());
-    chooser.addObject("RA Centre", new A_RedAllianceCentre());
-    chooser.addObject("RA Right", new A_RedAllianceRight());
-
+    // When the FMS is connected, only the proper alliance commands will be displayed.
+    if (FMS_CONNECTED) {
+      chooser.addDefault("Pass Baseline", new CG_PassBaseLine());
+      if (ALLIANCECOLOUR == Alliance.Blue) {
+        chooser.addObject("BA Left", new A_BlueAllianceLeft());
+        chooser.addObject("BA Centre", new A_BlueAllianceCentre());
+        chooser.addObject("BA Right", new A_BlueAllianceRight());
+      } else if (ALLIANCECOLOUR == Alliance.Red) {
+        chooser.addObject("RA Left", new A_RedAllianceLeft());
+        chooser.addObject("RA Centre", new A_RedAllianceCentre());
+        chooser.addObject("RA Right", new A_RedAllianceRight());
+      }
+    } else {
+      chooser.addDefault("Pass Baseline", new CG_PassBaseLine());
+      chooser.addObject("BA Left", new A_BlueAllianceLeft());
+      chooser.addObject("BA Centre", new A_BlueAllianceCentre());
+      chooser.addObject("BA Right", new A_BlueAllianceRight());
+      chooser.addObject("RA Left", new A_RedAllianceLeft());
+      chooser.addObject("RA Centre", new A_RedAllianceCentre());
+      chooser.addObject("RA Right", new A_RedAllianceRight());
+    }
 
     SmartDashboard.putData("Auto Mode", chooser);
     SmartDashboard.putData("Drive Train", DRIVETRAIN);
@@ -76,6 +101,9 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putData("Offloader", OFFLOADER);
 
     CameraServer.getInstance().startAutomaticCapture();
+    // UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+    // camera.setFPS(20);
+    // camera.setResolution(640, 360);
   }
 
   /**
@@ -184,6 +212,7 @@ public class Robot extends IterativeRobot {
   }
 
   public void report() {
+    mCycleTimeNew = Timer.getFPGATimestamp();
     String robotmode_string = "";
     switch (robotMode) {
       case DISABLED:
@@ -204,6 +233,8 @@ public class Robot extends IterativeRobot {
     BridgeReporter.report();
     OffloaderReporter.report();
     PowerDistributionPanelReporter.report();
+    SmartDashboard.putNumber("Robot Report Cycle Time", mCycleTimeNew - mCycleTimeOld);
+    mCycleTimeOld = mCycleTimeNew;
   }
 
 }
