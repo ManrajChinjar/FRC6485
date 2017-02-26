@@ -58,7 +58,7 @@ public class DriveTimed extends Command {
     System.out
         .println(String.format("Driving at %.2f for %.2f seconds.", mTargetSpeed, mTimeWindow));
 
-    mRampPeriod = RobotMap.AUTODRIVETIMED_RAMPPERIODSECONDS;
+    mRampPeriod = RobotMap.DRIVETIMED_RAMPPERIODSECONDS;
     mStartSpeed = mDriveTrain.getMotorPWM(mMotorIndex); // Change index if needed.
     mSpeedSlope = (mTargetSpeed - mStartSpeed) / mRampPeriod;
     mStartTime = Timer.getFPGATimestamp();

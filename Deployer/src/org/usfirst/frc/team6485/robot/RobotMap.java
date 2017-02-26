@@ -27,26 +27,13 @@ public class RobotMap {
 
   // Constants sheet
 
-  public static final double DRIVEDISTANCE_MINIMUMALLOWABLEPWMMAGNITUDE = 0.40;
-
-  public static final double DRIVEDISTANCE_RAMPINGDISTANCEMETRES = 0.35;
-
-  public static final double BRIDGE_IDLECURRENTMAGNITUDE = 0.1;
-
-  public static final double FUELINTAKE_NORMALPWM = -0.72; // Negative is intake
-
-  public static final double INTAKEPOWERRAMP_TIMESECONDS = 2.0 / 5.0;
-
-  // TODO CHECK
-  public static final double FUELINTAKE_NORMALRUNNINGCURRENT = 3.0, FUELINTAKE_STALLCURRENT = 9.0;
-
   // 95% because full motor speed would saturate the motors and prevent normal turning via
   // increasing one side's motors.
   public static final double DRIVETRAIN_PWMLIMIT = 0.95;
 
-  public static final double AUTODRIVE_GYROKP = 0.07; // Try 0.06
+  public static final double FUELINTAKE_NORMALPWM = -0.72; // Negative is intake
 
-  public static final double AUTODRIVETIMED_RAMPPERIODSECONDS = 0.50;
+  public static final double BRIDGE_IDLECURRENTMAGNITUDE = 0.1;
 
   public static final double BRIDGE_NORMALPWM = 0.20; // Positive raises the bridge
 
@@ -56,8 +43,21 @@ public class RobotMap {
   public static final double OFFLOADER_MAXSAFEPWM = 1.00;
 
   public static final double OFFLOADER_IDLECURRENT = 1.375, OFFLOADER_MAXWORKINGCURRENT = 1.5;
+  
+  // TODO CHECK
+  public static final double FUELINTAKE_NORMALRUNNINGCURRENT = 3.0, FUELINTAKE_STALLCURRENT = 9.0;
 
   public static final double DRIVETRAIN_WHEELCIRCUMFERENCEMETRES = Math.PI * 0.1524;
+
+  public static final double INTAKEPOWERRAMP_TIMESECONDS = 0.40;
+
+  public static final double DRIVEDISTANCE_MINIMUMALLOWABLEPWMMAGNITUDE = 0.37;
+
+  public static final double DRIVEDISTANCE_RAMPINGDISTANCEMETRES = 0.30;
+
+  public static final double AUTODRIVE_GYROKP = 0.07; // Try 0.06
+
+  public static final double DRIVETIMED_RAMPPERIODSECONDS = 0.50;
 
   // ENUMS
 
