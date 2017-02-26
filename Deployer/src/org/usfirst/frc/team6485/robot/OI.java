@@ -6,6 +6,7 @@ import org.usfirst.frc.team6485.robot.commands.DriveDistance;
 import org.usfirst.frc.team6485.robot.commands.DriveTrainAutoTurn;
 import org.usfirst.frc.team6485.robot.commands.IntakePowerRamp;
 import org.usfirst.frc.team6485.robot.commands.IntakeRampReversal;
+import org.usfirst.frc.team6485.robot.utility.DualButton;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
@@ -24,7 +25,7 @@ public class OI {
 
   public final Joystick logitechController = new Joystick(RobotMap.LOGITECH_PORT);
 
-  // public final JoystickButton L1 = new JoystickButton(logitechController, 1);
+  public final JoystickButton L1 = new JoystickButton(logitechController, 1);
   // public final JoystickButton L2 = new JoystickButton(logitechController, 2);
   // public final JoystickButton L3 = new JoystickButton(logitechController, 3);
   public final JoystickButton L4 = new JoystickButton(logitechController, 4);
@@ -36,6 +37,8 @@ public class OI {
   public final JoystickButton L10 = new JoystickButton(logitechController, 10);
   public final JoystickButton L11 = new JoystickButton(logitechController, 11);
   public final JoystickButton L12 = new JoystickButton(logitechController, 12);
+  public final DualButton L1_L11 = new DualButton(L1, L11);
+  public final DualButton L1_L12 = new DualButton(L1, L12);
 
   /**
    * 
@@ -131,8 +134,8 @@ public class OI {
       // Angular rate test buttons are 9 and 10
       L9.whenPressed(new DriveTrainAutoTurn(-90.0, true));
       L10.whenPressed(new DriveTrainAutoTurn(90.0, true));
-      L11.whenPressed(new DriveTrainAutoTurn(-90.0, false));
-      L12.whenPressed(new DriveTrainAutoTurn(90.0, false));
+      L1_L11.whenPressed(new DriveTrainAutoTurn(-90.0, false));
+      L1_L12.whenPressed(new DriveTrainAutoTurn(90.0, false));
 
       // XBOX controller buttons
       // Offloader and bridge motor manual controls are mapped to the joysticks.
