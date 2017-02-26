@@ -42,7 +42,7 @@ public class Offloader extends Subsystem {
   }
 
   public void updateState() {
-    if (Math.abs(Math.abs(getCurrent()) - Math.abs(RobotMap.OFFLOADER_MAXWORKINGCURRENT)) > 1.5
+    if (Math.abs(Math.abs(getCurrent()) - Math.abs(RobotMap.OFFLOADER_MAXWORKINGCURRENT)) > 5.0
         && getSpeed() < 0.0) {
       mState = OFFLOADER_STATE.TAUT;
     } else if (getSpeed() > 0.0) {
