@@ -39,13 +39,12 @@ public class BridgeAutoMove extends Command {
     } else {
       mBridge.setLower();
     }
-    mStartTime = Timer.getFPGATimestamp();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Timer.getFPGATimestamp() - mStartTime >= kWaitTimeSeconds;
+    return timeSinceInitialized() >= kWaitTimeSeconds;
     // || Robot.BRIDGE.getEncoder().getStopped();
   }
 

@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class Delay extends Command {
 
-  private double mStartTime, mTimeLength;
+  private double mTimeLength;
 
   /**
    * Analogous to a wait function.
@@ -30,7 +30,6 @@ public class Delay extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    mStartTime = Timer.getFPGATimestamp();
     Robot.DRIVETRAIN.stop();
   }
 
@@ -43,7 +42,7 @@ public class Delay extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return (Timer.getFPGATimestamp() - mStartTime >= mTimeLength) || isTimedOut();
+    return (timeSinceInitialized() >= mTimeLength) || isTimedOut();
   }
 
   // Called once after isFinished returns true
@@ -51,7 +50,7 @@ public class Delay extends Command {
   protected void end() {
     Robot.DRIVETRAIN.stop();
     System.out.println(String.format("Ending delay of %.3f seconds after %.3f actual seconds.",
-        mTimeLength, (Timer.getFPGATimestamp() - mStartTime)));
+        mTimeLength, (timeSinceInitialized())));
   }
 
 }
