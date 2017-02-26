@@ -14,9 +14,13 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveTrainAutoTurn extends Command {
 
-  private boolean mShort;
+  private boolean mShort, mAngularRateMode, mGoingLeft;
   private double mCurrentAngle, mAngleRequest, mTurnSpeed, mError;
   private final double kAngularTolerance = 0.40;
+
+  private double mCurrentAngularRate;
+  private final double kAngularNormalRate = 35.0, kAngularSlowRate = 25.0,
+      kAngularSpeedIncrementor = 0.07;
 
   /**
    * 
@@ -31,6 +35,10 @@ public class DriveTrainAutoTurn extends Command {
   @Override
   protected void initialize() {
     Robot.DRIVETRAIN.getGyro().reset();
+    if (mAngularRateMode) {
+      // Start with an initial turning speed
+      mTurnSpeed = Math.sqrt(0.60);
+    }
     setInterruptible(false);
     setTimeout(7.0);
   }
@@ -39,17 +47,50 @@ public class DriveTrainAutoTurn extends Command {
   @Override
   protected void execute() {
     mCurrentAngle = Robot.DRIVETRAIN.getGyro().getAngle();
+    mCurrentAngularRate = Robot.DRIVETRAIN.getGyro().getRate();
     mError = mAngleRequest - mCurrentAngle;
     mTurnSpeed = Math.abs(mTurnSpeed);
     double mErrorAbs = Math.abs(mError);
 
-    // Preetesh's formula in second expression.
-    if (mErrorAbs > 40.0) {
-      mTurnSpeed = Math.sqrt(0.63);
-    } else if (mErrorAbs >= 15.0 && mErrorAbs <= 40.0) {
-      mTurnSpeed = Math.sqrt(0.59);
-    } else if (mErrorAbs < 15.0) {
-      mTurnSpeed = Math.sqrt(0.55);
+    if (mAngularRateMode) {
+      if (mErrorAbs > 20.0) {
+        if (mGoingLeft) {
+          if (mCurrentAngularRate < -kAngularNormalRate) {
+            mTurnSpeed += kAngularSpeedIncrementor;
+          } else if (mCurrentAngularRate > -kAngularNormalRate) {
+            mTurnSpeed -= kAngularSpeedIncrementor;
+          }
+        } else {
+          if (mCurrentAngularRate < kAngularNormalRate) {
+            mTurnSpeed += kAngularSpeedIncrementor;
+          } else if (mCurrentAngularRate > kAngularNormalRate) {
+            mTurnSpeed -= kAngularSpeedIncrementor;
+          }
+        }
+      } else {
+        if (mGoingLeft) {
+          if (mCurrentAngularRate < -kAngularSlowRate) {
+            mTurnSpeed += kAngularSpeedIncrementor;
+          } else if (mCurrentAngularRate > -kAngularSlowRate) {
+            mTurnSpeed -= kAngularSpeedIncrementor;
+          }
+        } else {
+          if (mCurrentAngularRate < kAngularSlowRate) {
+            mTurnSpeed += kAngularSpeedIncrementor;
+          } else if (mCurrentAngularRate > kAngularSlowRate) {
+            mTurnSpeed -= kAngularSpeedIncrementor;
+          }
+        }
+      }
+    } else {
+      // Preetesh's formula in second expression.
+      if (mErrorAbs > 40.0) {
+        mTurnSpeed = Math.sqrt(0.63);
+      } else if (mErrorAbs >= 15.0 && mErrorAbs <= 40.0) {
+        mTurnSpeed = Math.sqrt(0.59);
+      } else if (mErrorAbs < 15.0) {
+        mTurnSpeed = Math.sqrt(0.55);
+      }
     }
 
     mTurnSpeed = (mAngleRequest < 0.0) ? mTurnSpeed : -mTurnSpeed;
