@@ -13,12 +13,6 @@ public class OffloaderDriver extends Command {
   private double mXYAxisRequestL;
   private Offloader mOffloader;
 
-  public OffloaderDriver() {
-    requires(Robot.OFFLOADER);
-    mOffloader = Robot.OFFLOADER;
-    setInterruptible(true);
-  }
-
   /**
    * Control the offloader motor using the left stick of the Xbox controller. <br>
    * Up rolls (tightens) the fabric to release fuel, while down unrolls the fabric to hold them.
@@ -27,8 +21,10 @@ public class OffloaderDriver extends Command {
    * <b>BE SURE TO MAKE SURE THAT THE MOTOR DOESN'T OVER GO THE LIMITS. DO NOT OVERTIGHTEN OR
    * OVERLOOSEN.</b>
    */
-  private void offloaderControl() {
-    mOffloader.set(mXYAxisRequestL);
+  public OffloaderDriver() {
+    requires(Robot.OFFLOADER);
+    mOffloader = Robot.OFFLOADER;
+    setInterruptible(true);
   }
 
   // Called just before this Command runs the first time
@@ -43,7 +39,7 @@ public class OffloaderDriver extends Command {
     // Negative request will make the vinyl taut while positive will unroll it.
     mXYAxisRequestL = Robot.oi.getXBOXLeftJoyY();
     if (Math.abs(mXYAxisRequestL) > 0.075) {
-      offloaderControl();
+      mOffloader.set(mXYAxisRequestL);
     } else {
       mOffloader.stop();
     }

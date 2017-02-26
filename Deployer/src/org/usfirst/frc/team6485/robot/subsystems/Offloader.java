@@ -31,7 +31,8 @@ public class Offloader extends Subsystem {
 
   /**
    * Limit the speed of an offloader PWM rate request.<br>
-   * If the RoboRio thinks that the system is taut, it will not allow a negative PWM request.
+   * If the RoboRio thinks that the system is taut through extreme current draw, it will not allow a
+   * negative PWM request.
    * 
    * @param speed
    * @return The allowed PWM rate
