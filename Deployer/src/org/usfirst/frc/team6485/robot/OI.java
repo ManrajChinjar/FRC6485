@@ -31,8 +31,8 @@ public class OI {
   public final JoystickButton L6 = new JoystickButton(logitechController, 6);
   public final JoystickButton L7 = new JoystickButton(logitechController, 7);
   public final JoystickButton L8 = new JoystickButton(logitechController, 8);
-  // public final JoystickButton L9 = new JoystickButton(logitechController, 9);
-  // public final JoystickButton L10 = new JoystickButton(logitechController, 10);
+  public final JoystickButton L9 = new JoystickButton(logitechController, 9);
+  public final JoystickButton L10 = new JoystickButton(logitechController, 10);
   public final JoystickButton L11 = new JoystickButton(logitechController, 11);
   public final JoystickButton L12 = new JoystickButton(logitechController, 12);
 
@@ -124,8 +124,12 @@ public class OI {
     SmartDashboard.putData("Drive -1m", new DriveDistance(-1.0, 0.65));
 
     // Logitech controller buttons
-    L11.whenPressed(new DriveTrainAutoTurn(-90.0));
-    L12.whenPressed(new DriveTrainAutoTurn(90.0));
+
+    // Angular rate test buttons are 9 and 10
+    L9.whenPressed(new DriveTrainAutoTurn(-90.0, true));
+    L10.whenPressed(new DriveTrainAutoTurn(90.0, true));
+    L11.whenPressed(new DriveTrainAutoTurn(-90.0, false));
+    L12.whenPressed(new DriveTrainAutoTurn(90.0, false));
 
     // XBOX controller buttons
     X1.whenPressed(new IntakeRampReversal());

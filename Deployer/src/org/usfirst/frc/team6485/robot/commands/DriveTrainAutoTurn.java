@@ -26,7 +26,7 @@ public class DriveTrainAutoTurn extends Command {
    * 
    * @param angle double angle (Negative turns left, positive turns right)
    */
-  public DriveTrainAutoTurn(double angle) {
+  public DriveTrainAutoTurn(double angle, boolean angularratemode) {
     mAngleRequest = angle;
     requires(Robot.DRIVETRAIN);
   }
