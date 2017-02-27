@@ -65,11 +65,11 @@ public class Robot extends IterativeRobot {
     BRIDGE = new Bridge();
     OFFLOADER = new Offloader();
 
+    oi = new OI();
+    
     DRIVERSTATION = DriverStation.getInstance();
     ALLIANCECOLOUR = DRIVERSTATION.getAlliance();
     FMS_CONNECTED = DRIVERSTATION.isFMSAttached();
-
-    oi = new OI();
 
     // All autonomous modes will first pass the baseline. (1.65 metres)
     // When the FMS is connected, only the proper alliance commands will be displayed.
