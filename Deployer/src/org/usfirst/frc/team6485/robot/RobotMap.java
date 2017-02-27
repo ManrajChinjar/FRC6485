@@ -51,7 +51,7 @@ public class RobotMap {
 
   public static final double INTAKEPOWERRAMP_TIMESECONDS = 0.40;
 
-  public static final double DRIVEDISTANCE_MINIMUMALLOWABLEPWMMAGNITUDE = 0.37;
+  public static final double DRIVEDISTANCE_MINIMUMALLOWABLEPWMMAGNITUDE = 0.40;
 
   public static final double DRIVEDISTANCE_RAMPINGDISTANCEMETRES = 0.30;
 
