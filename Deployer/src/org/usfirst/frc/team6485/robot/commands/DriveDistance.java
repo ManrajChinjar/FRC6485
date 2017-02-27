@@ -47,7 +47,7 @@ public class DriveDistance extends Command {
     mComplete = false;
     mDriveTrain.stop();
 
-    mDistanceRampingSlope = (mSpeedTarget - mDriveTrain.getMotorPWM(RobotMap.FRONT_LEFT_MOTOR))
+    mDistanceRampingSlope = (mSpeedTarget - 0.0)
         / Math.abs(kDistanceMetresRamping);
 
     if (Math.abs(mDistanceTarget) <= kToleranceMetres) {
