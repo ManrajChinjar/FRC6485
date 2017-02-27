@@ -13,7 +13,7 @@ public class DriveDistance extends Command {
 
   private double mDistanceTarget, mDistanceDriven, mSpeedTarget, mSpeed, mPTurn,
       mDistanceRampingSlope;
-  private final double kTurnP = RobotMap.AUTODRIVE_GYROKP, kToleranceMetres = 0.085,
+  private final double kTurnP = RobotMap.AUTODRIVE_GYROKP, kToleranceMetres = 0.075,
       kDistanceMetresRamping = RobotMap.DRIVEDISTANCE_RAMPINGDISTANCEMETRES;
   private boolean mComplete;
   private DriveTrain mDriveTrain;
