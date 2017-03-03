@@ -37,7 +37,7 @@ public class OffloaderDriver extends Command {
   @Override
   protected void execute() {
     // Negative request will make the vinyl taut while positive will unroll it.
-    mXYAxisRequestL = Robot.oi.getXBOXLeftJoyY();
+    mXYAxisRequestL = Robot.oi.getXBOX().getLeftJoyY();
     if (Math.abs(mXYAxisRequestL) > 0.075) {
       mOffloader.set(mXYAxisRequestL);
     } else {

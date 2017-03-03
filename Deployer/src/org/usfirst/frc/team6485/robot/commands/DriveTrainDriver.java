@@ -44,14 +44,14 @@ public class DriveTrainDriver extends Command {
   }
 
   private void logitechControl() {
-    if (Robot.oi.getLButtonPressed(2)) {
+    if (Robot.oi.getLogitech().getButton(2)) {
       if (!mGyroInitFlag) {
         mGyroInitFlag = true;
         mTargetAngle = mDriveTrain.getGyro().getAngle();
       }
       mCurrentRelativeAngle = mDriveTrain.getGyro().getAngle() - mTargetAngle;
       mDriveTrain.arcadeDrive(mLYAxisRequest, mCurrentRelativeAngle * kStraightDrivekP);
-    } else if (Robot.oi.getLButtonPressed(3)) {
+    } else if (Robot.oi.getLogitech().getButton(3)) {
       mDriveTrain.turnOnSpot(mLXAxisRequest);
     } else {
       mDriveTrain.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
@@ -64,7 +64,7 @@ public class DriveTrainDriver extends Command {
   @SuppressWarnings("unused")
   @Deprecated
   private void xboxControl() {
-    if (!Robot.oi.getXBOXButtonPressed(5)) {
+    if (!Robot.oi.getXBOX().getButton(5)) {
       Robot.DRIVETRAIN.tankDrive(mXYAxisRequestL, mXYAxisRequestR);
     } else {
       if (Math.abs(mXYAxisRequestR) > 0.1) {
@@ -85,15 +85,15 @@ public class DriveTrainDriver extends Command {
      * exponential to the power of 2, so the increased slope at the end is truncated through
      * horizontal expansion leading to easier turning and handling.
      */
-    mLXAxisRequest = -Robot.oi.getLJoyX() * Robot.oi.getLSliderScale() * 0.80;
+    mLXAxisRequest = -Robot.oi.getLogitech().getJoyX() * Robot.oi.getLogitech().getSliderScale() * 0.80;
     // The Y-axis is multiplied by -1.0 because the joystick follows standard flight conventions.
-    mLYAxisRequest = -Robot.oi.getLJoyY() * Robot.oi.getLSliderScale();
+    mLYAxisRequest = -Robot.oi.getLogitech().getJoyY() * Robot.oi.getLogitech().getSliderScale();
 
     // If the thumb button on the logitech controller
-    if (!Robot.oi.getLButtonPressed(2)) {
+    if (!Robot.oi.getLogitech().getButton(2)) {
       mGyroInitFlag = false;
     }
-    if (Robot.oi.getLogitechTrigger() && Robot.robotMode == RUNNING_MODE.TELEOP) {
+    if (Robot.oi.getLogitech().getMainTrigger() && Robot.robotMode == RUNNING_MODE.TELEOP) {
       logitechControl();
     } else {
       mDriveTrain.stop();
