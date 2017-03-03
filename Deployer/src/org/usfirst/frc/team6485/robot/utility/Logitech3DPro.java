@@ -26,24 +26,24 @@ public class Logitech3DPro extends Joystick {
   public double getSlider() {
     return super.getRawAxis(3);
   }
-  
+
   public boolean getMainTrigger() {
     return super.getRawButton(1);
   }
-  
+
   /**
-  * Return a double with range [0 - 1] on the slider scale with 0 at full drop and 1 at full
-  * raise.<br>
-  * The slider has a rounding zone of 5% on either end.
-  */
+   * Return a double with range [0 - 1] on the slider scale with 0 at full drop and 1 at full
+   * raise.<br>
+   * The slider has a rounding zone of 5% on either end.
+   */
   public double getSliderScale() {
-   double scale = (-super.getRawAxis(3) + 1) / 2;
-   if (scale > 0.95)
-     scale = 1;
-   if (scale < 0.05)
-     scale = 0;
-  
-   return scale;
+    double scale = (-super.getRawAxis(3) + 1) / 2;
+    if (scale > 0.95)
+      scale = 1;
+    if (scale < 0.05)
+      scale = 0;
+
+    return scale;
   }
 
   /**

@@ -15,7 +15,7 @@ public class XBOX extends Joystick {
   public double getLeftJoyY() {
     return super.getRawAxis(1);
   }
-  
+
   public double getRightJoyX() {
     return super.getRawAxis(4);
   }

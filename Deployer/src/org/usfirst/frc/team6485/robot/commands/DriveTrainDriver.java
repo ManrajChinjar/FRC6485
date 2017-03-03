@@ -85,7 +85,8 @@ public class DriveTrainDriver extends Command {
      * exponential to the power of 2, so the increased slope at the end is truncated through
      * horizontal expansion leading to easier turning and handling.
      */
-    mLXAxisRequest = -Robot.oi.getLogitech().getJoyX() * Robot.oi.getLogitech().getSliderScale() * 0.80;
+    mLXAxisRequest =
+        -Robot.oi.getLogitech().getJoyX() * Robot.oi.getLogitech().getSliderScale() * 0.80;
     // The Y-axis is multiplied by -1.0 because the joystick follows standard flight conventions.
     mLYAxisRequest = -Robot.oi.getLogitech().getJoyY() * Robot.oi.getLogitech().getSliderScale();
 

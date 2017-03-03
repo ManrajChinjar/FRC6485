@@ -66,7 +66,7 @@ public class Robot extends IterativeRobot {
     OFFLOADER = new Offloader();
 
     oi = new OI();
-    
+
     DRIVERSTATION = DriverStation.getInstance();
     ALLIANCECOLOUR = DRIVERSTATION.getAlliance();
     FMS_CONNECTED = DRIVERSTATION.isFMSAttached();

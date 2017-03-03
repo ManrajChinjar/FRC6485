@@ -40,16 +40,11 @@ public class OI {
   public final JoystickButton L12 = new JoystickButton(mLogitechController, 12);
   public final DualButton L1_L11 = new DualButton(L1, L11);
   public final DualButton L1_L12 = new DualButton(L1, L12);
-  
+
   /**
    * Superclass specific methods are: <br>
-   * <i>
-   * .getJoyX(),
-   * .getJoyY(),
-   * .getRotation(),
-   * .getSlider(),
-   * .getSliderScale(),
-   * .getButton()
+   * <i> .getJoyX(), .getJoyY(), .getRotation(), .getSlider(), .getSliderScale(), .getButton()
+   * 
    * @return The Logitech Controller object
    */
   public Logitech3DPro getLogitech() {
@@ -65,15 +60,11 @@ public class OI {
   public final JoystickButton X4 = new JoystickButton(mXBOXController, 4);
   public final JoystickButton X5 = new JoystickButton(mXBOXController, 5);
   public final JoystickButton X6 = new JoystickButton(mXBOXController, 6);
-  
+
   /**
    * Superclass specific methods are: <br>
-   * <i>
-   * .getLeftJoyX(),
-   * .getLeftJoyY(),
-   * .getRightJoyX(),
-   * .getRightJoyY(),
-   * .getButton()
+   * <i> .getLeftJoyX(), .getLeftJoyY(), .getRightJoyX(), .getRightJoyY(), .getButton()
+   * 
    * @return The Logitech Controller object
    */
   public XBOX getXBOX() {
