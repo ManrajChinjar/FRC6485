@@ -24,20 +24,20 @@ public class OI {
 
   // LOGITECH EXTREME 3D PRO CONTROLS
 
-  private final Logitech3DPro LOGITECHCONTROLLER = new Logitech3DPro(RobotMap.LOGITECH_PORT);
+  private final Logitech3DPro mLogitechController = new Logitech3DPro(RobotMap.LOGITECH_PORT);
 
-  public final JoystickButton L1 = new JoystickButton(LOGITECHCONTROLLER, 1);
-  public final JoystickButton L2 = new JoystickButton(LOGITECHCONTROLLER, 2);
-  public final JoystickButton L3 = new JoystickButton(LOGITECHCONTROLLER, 3);
-  public final JoystickButton L4 = new JoystickButton(LOGITECHCONTROLLER, 4);
-  public final JoystickButton L5 = new JoystickButton(LOGITECHCONTROLLER, 5);
-  public final JoystickButton L6 = new JoystickButton(LOGITECHCONTROLLER, 6);
-  public final JoystickButton L7 = new JoystickButton(LOGITECHCONTROLLER, 7);
-  public final JoystickButton L8 = new JoystickButton(LOGITECHCONTROLLER, 8);
-  public final JoystickButton L9 = new JoystickButton(LOGITECHCONTROLLER, 9);
-  public final JoystickButton L10 = new JoystickButton(LOGITECHCONTROLLER, 10);
-  public final JoystickButton L11 = new JoystickButton(LOGITECHCONTROLLER, 11);
-  public final JoystickButton L12 = new JoystickButton(LOGITECHCONTROLLER, 12);
+  public final JoystickButton L1 = new JoystickButton(mLogitechController, 1);
+  public final JoystickButton L2 = new JoystickButton(mLogitechController, 2);
+  public final JoystickButton L3 = new JoystickButton(mLogitechController, 3);
+  public final JoystickButton L4 = new JoystickButton(mLogitechController, 4);
+  public final JoystickButton L5 = new JoystickButton(mLogitechController, 5);
+  public final JoystickButton L6 = new JoystickButton(mLogitechController, 6);
+  public final JoystickButton L7 = new JoystickButton(mLogitechController, 7);
+  public final JoystickButton L8 = new JoystickButton(mLogitechController, 8);
+  public final JoystickButton L9 = new JoystickButton(mLogitechController, 9);
+  public final JoystickButton L10 = new JoystickButton(mLogitechController, 10);
+  public final JoystickButton L11 = new JoystickButton(mLogitechController, 11);
+  public final JoystickButton L12 = new JoystickButton(mLogitechController, 12);
   public final DualButton L1_L11 = new DualButton(L1, L11);
   public final DualButton L1_L12 = new DualButton(L1, L12);
   
@@ -53,7 +53,7 @@ public class OI {
    * @return The Logitech Controller object
    */
   public Logitech3DPro getLogitech() {
-    return LOGITECHCONTROLLER;
+    return mLogitechController;
   }
 
   // XBOX CONTROLS
