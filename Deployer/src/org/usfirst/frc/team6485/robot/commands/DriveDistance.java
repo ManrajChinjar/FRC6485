@@ -48,7 +48,7 @@ public class DriveDistance extends Command {
     mDriveTrain.stop();
 
     // Assume initial speed is 0.0 because the drive train was just commanded to stop.
-    mDistanceRampingSlope = (mSpeedTarget - 0.0) / Math.abs(kDistanceMetresRamping);
+    mDistanceRampingSlope = mSpeedTarget / Math.abs(kDistanceMetresRamping);
 
     if (Math.abs(mDistanceTarget) <= kToleranceMetres) {
       mComplete = true;
@@ -88,7 +88,7 @@ public class DriveDistance extends Command {
     // Leave the turning to default to squared inputs.
     mPTurn = mDriveTrain.getGyro().getAngle() * kTurnP;
 
-    // Direct override
+    // Check if complete
     if (mDistanceTarget > 0.0) {
       mComplete = mDriveTrain.getEncoder().getDistance() >= mDistanceTarget;
     } else if (mDistanceTarget < 0.0) {
