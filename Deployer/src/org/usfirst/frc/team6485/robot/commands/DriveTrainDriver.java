@@ -4,6 +4,7 @@ import org.usfirst.frc.team6485.robot.Robot;
 import org.usfirst.frc.team6485.robot.RobotMap;
 import org.usfirst.frc.team6485.robot.RobotMap.RUNNING_MODE;
 import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team6485.robot.utility.Logitech3DPro;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -28,10 +29,12 @@ public class DriveTrainDriver extends Command {
   private final double kStraightDrivekP = RobotMap.AUTODRIVE_GYROKP;
   private boolean mGyroInitFlag;
   private DriveTrain mDriveTrain;
+  private Logitech3DPro mLogitechController;
 
   public DriveTrainDriver() {
     requires(Robot.DRIVETRAIN);
     mDriveTrain = Robot.DRIVETRAIN;
+    mLogitechController = Robot.OI.getLogitech();
     setInterruptible(true);
   }
 
@@ -44,14 +47,14 @@ public class DriveTrainDriver extends Command {
   }
 
   private void logitechControl() {
-    if (Robot.OI.getLogitech().getButton(2)) {
+    if (mLogitechController.getButton(2)) {
       if (!mGyroInitFlag) {
         mGyroInitFlag = true;
         mTargetAngle = mDriveTrain.getGyro().getAngle();
       }
       mCurrentRelativeAngle = mDriveTrain.getGyro().getAngle() - mTargetAngle;
       mDriveTrain.arcadeDrive(mLYAxisRequest, mCurrentRelativeAngle * kStraightDrivekP);
-    } else if (Robot.OI.getLogitech().getButton(3)) {
+    } else if (mLogitechController.getButton(3)) {
       mDriveTrain.turnOnSpot(mLXAxisRequest);
     } else {
       mDriveTrain.arcadeDrive(mLYAxisRequest, mLXAxisRequest);
@@ -86,15 +89,15 @@ public class DriveTrainDriver extends Command {
      * horizontal expansion leading to easier turning and handling.
      */
     mLXAxisRequest =
-        -Robot.OI.getLogitech().getJoyX() * Robot.OI.getLogitech().getSliderScale() * 0.80;
+        -mLogitechController.getJoyX() * mLogitechController.getSliderScale() * 0.80;
     // The Y-axis is multiplied by -1.0 because the joystick follows standard flight conventions.
-    mLYAxisRequest = -Robot.OI.getLogitech().getJoyY() * Robot.OI.getLogitech().getSliderScale();
+    mLYAxisRequest = -mLogitechController.getJoyY() * mLogitechController.getSliderScale();
 
     // If the thumb button on the logitech controller
-    if (!Robot.OI.getLogitech().getButton(2)) {
+    if (!mLogitechController.getButton(2)) {
       mGyroInitFlag = false;
     }
-    if (Robot.OI.getLogitech().getMainTrigger() && Robot.robotMode == RUNNING_MODE.TELEOP) {
+    if (mLogitechController.getMainTrigger() && Robot.robotMode == RUNNING_MODE.TELEOP) {
       logitechControl();
     } else {
       mDriveTrain.stop();
