@@ -30,12 +30,12 @@ public class Logitech3DPro extends Joystick {
     return super.getRawAxis(2);
   }
 
-  public double getSlider() {
-    return super.getRawAxis(3);
-  }
-
   public boolean getMainTrigger() {
     return super.getRawButton(1);
+  }
+
+  public double getSlider() {
+    return super.getRawAxis(3);
   }
 
   /**
@@ -44,7 +44,7 @@ public class Logitech3DPro extends Joystick {
    * The slider has a rounding zone of 5% on either end.
    */
   public double getSliderScale() {
-    double scale = (-super.getRawAxis(3) + 1) / 2;
+    double scale = 0.5 * (-super.getRawAxis(3) + 1.0);
     if (scale > 0.95)
       scale = 1;
     if (scale < 0.05)
