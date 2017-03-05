@@ -30,12 +30,12 @@ public class BridgeDriver extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (Math.abs(Robot.oi.getXBOX().getRightJoyY()) > 0.075) {
-      if (-Robot.oi.getXBOX().getRightJoyY() > 0.0) {
-        Robot.BRIDGE.setMotor(-Robot.oi.getXBOX().getRightJoyY() * RobotMap.BRIDGE_RAISEPWM);
-      } else if (-Robot.oi.getXBOX().getRightJoyY() < 0.0) {
+    if (Math.abs(Robot.OI.getXBOX().getRightJoyY()) > 0.075) {
+      if (-Robot.OI.getXBOX().getRightJoyY() > 0.0) {
+        Robot.BRIDGE.setMotor(-Robot.OI.getXBOX().getRightJoyY() * RobotMap.BRIDGE_RAISEPWM);
+      } else if (-Robot.OI.getXBOX().getRightJoyY() < 0.0) {
         Robot.BRIDGE
-            .setMotor(-Robot.oi.getXBOX().getRightJoyY() * Math.abs(RobotMap.BRIDGE_LOWERPWM));
+            .setMotor(-Robot.OI.getXBOX().getRightJoyY() * Math.abs(RobotMap.BRIDGE_LOWERPWM));
       }
     } else {
       Robot.BRIDGE.stop();

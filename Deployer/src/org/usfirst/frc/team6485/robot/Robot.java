@@ -18,6 +18,7 @@ import org.usfirst.frc.team6485.robot.utility.IntakeReporter;
 import org.usfirst.frc.team6485.robot.utility.OffloaderReporter;
 import org.usfirst.frc.team6485.robot.utility.PowerDistributionPanelReporter;
 
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -40,12 +41,14 @@ public class Robot extends IterativeRobot {
 
   public static RUNNING_MODE robotMode;
 
-  public static OI oi;
+  public static OI OI;
   public static DriveTrain DRIVETRAIN;
   public static FuelIntake FUELINTAKE;
   public static Bridge BRIDGE;
   public static Offloader OFFLOADER;
   public static DriverStation DRIVERSTATION;
+  public static CameraServer CAMERASERVER;
+  public static UsbCamera CAMERA;
   public static Alliance ALLIANCECOLOUR;
   public static boolean FMS_CONNECTED;
 
@@ -65,9 +68,10 @@ public class Robot extends IterativeRobot {
     BRIDGE = new Bridge();
     OFFLOADER = new Offloader();
 
-    oi = new OI();
+    OI = new OI();
 
     DRIVERSTATION = DriverStation.getInstance();
+    CAMERASERVER = CameraServer.getInstance();
     ALLIANCECOLOUR = DRIVERSTATION.getAlliance();
     FMS_CONNECTED = DRIVERSTATION.isFMSAttached();
 
@@ -100,10 +104,9 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putData("Bridge", BRIDGE);
     SmartDashboard.putData("Offloader", OFFLOADER);
 
-    CameraServer.getInstance().startAutomaticCapture();
-    // UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-    // camera.setFPS(20);
-    // camera.setResolution(640, 360);
+    CAMERA = CAMERASERVER.startAutomaticCapture();
+    CAMERA.setResolution(640, 360);
+    CAMERA.setFPS(20);
   }
 
   /**
@@ -129,12 +132,11 @@ public class Robot extends IterativeRobot {
 
   @Override
   public void disabledPeriodic() {
+    Scheduler.getInstance().run();
     Robot.FUELINTAKE.stop();
     Robot.DRIVETRAIN.stop();
     Robot.BRIDGE.stop();
     Robot.OFFLOADER.stop();
-
-    Scheduler.getInstance().run();
     report();
   }
 
