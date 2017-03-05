@@ -19,7 +19,7 @@ public class DriveTrainAutoTurn extends Command {
   private final double kAngularTolerance = 0.50;
 
   private double mCurrentAngularRate;
-  private final double kAngularNormalRate = 35.0, kAngularSlowRate = 25.0,
+  private final double kAngularNormalRate = 40.0, kAngularSlowRate = 30.0,
       kAngularSpeedIncrementor = 0.07;
 
   /**
