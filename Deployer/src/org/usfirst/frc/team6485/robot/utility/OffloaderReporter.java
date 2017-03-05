@@ -5,6 +5,9 @@ import org.usfirst.frc.team6485.robot.subsystems.Offloader;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * @author Kyle Saburao
+ */
 public class OffloaderReporter {
 
   private static Offloader system = Robot.OFFLOADER;

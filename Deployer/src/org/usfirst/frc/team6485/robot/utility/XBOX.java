@@ -2,6 +2,13 @@ package org.usfirst.frc.team6485.robot.utility;
 
 import edu.wpi.first.wpilibj.Joystick;
 
+/**
+ * XBOX Helper Class <br>
+ * Has no button index bounding.
+ * 
+ * @author Kyle Saburao
+ *
+ */
 public class XBOX extends Joystick {
 
   public XBOX(int port) {

@@ -2,6 +2,13 @@ package org.usfirst.frc.team6485.robot.utility;
 
 import edu.wpi.first.wpilibj.Joystick;
 
+/**
+ * Logitech 3D Pro Extreme Helper Class <br>
+ * Calling a button out of bounds will always return false.
+ * 
+ * @author Kyle Saburao
+ *
+ */
 public class Logitech3DPro extends Joystick {
 
   private int mMinimumButtonIndex = 0;

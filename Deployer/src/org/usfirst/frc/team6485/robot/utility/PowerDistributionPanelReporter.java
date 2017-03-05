@@ -5,6 +5,9 @@ import org.usfirst.frc.team6485.robot.RobotMap;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * @author Kyle Saburao
+ */
 public class PowerDistributionPanelReporter {
 
   private static PowerDistributionPanel PDP = new PowerDistributionPanel();
