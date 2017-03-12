@@ -75,7 +75,7 @@ public class RobotMap {
 
   // MATCH CONSTANTS
 
-  public static double BASELINE_METRES = 2.45;
+  public static final double BASELINE_METRES = 2.45;
 
   // For example to map the left and right motors, you could define the
   // following variables to use with your drivetrain subsystem.
