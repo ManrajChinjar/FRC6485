@@ -18,17 +18,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author Kyle Saburao
  */
 public class DriveTimed extends Command {
-  // TODO Also allow metre distance via future averaged encoder units
 
   private final double kP = RobotMap.AUTODRIVE_GYROKP;
   private double mCurrentAngle, mStartTime, mCurrentRunTime, mRampPeriod, mTimeWindow, mStartSpeed,
       mTargetSpeed, mSpeedSlope, mCPT;
-  // private double mDistanceTarget, mDistanceError;
   private int mMotorIndex = 0;
   private boolean mAccelerated;
   private DriveTrain mDriveTrain;
   private Gyro mGyroscope;
-  // private Encoder encoder = Robot.DRIVETRAIN.getEncoder();
 
   /**
    * Drives forward and uses the gyroscope to maintain direction.
