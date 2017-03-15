@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 /**
  * @author Kyle Saburao
  */
-public class KillScheduler extends InstantCommand {
+public class KillDriveScheduler extends InstantCommand {
 
-  public KillScheduler() {
+  public KillDriveScheduler() {
     super();
     requires(Robot.DRIVETRAIN);
   }
