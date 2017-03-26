@@ -8,9 +8,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Computes the derivative of PWM speed per millisecond to ramp the speed of the intake motor to
- * smoothen current draw and to ease on the chain.
- * 
  * @author Kyle Saburao
  */
 public class IntakePowerRamp extends Command {
