@@ -43,7 +43,6 @@ public class OffloaderDriver extends Command {
     } else {
       mOffloader.stop();
     }
-    mOffloader.updateState();
   }
 
   // Make this return true when this Command no longer needs to run execute()
