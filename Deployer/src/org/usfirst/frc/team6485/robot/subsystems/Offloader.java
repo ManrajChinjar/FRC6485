@@ -26,7 +26,7 @@ public class Offloader extends Subsystem {
     mMotor = new Spark(kOffloaderPWMSlot);
     mState = OFFLOADER_STATE.FREE;
     mMotor.setSafetyEnabled(false);
-    mMotor.stopMotor();
+    mMotor.setSpeed(0.0);
   }
 
   /**
@@ -50,7 +50,7 @@ public class Offloader extends Subsystem {
   }
 
   public void updateState() {
-    if (Math.abs(getCurrent()) > 6.0 && getSpeed() < 0.0) {
+    if (Math.abs(getCurrent()) > 7.0 && getSpeed() < 0.0) {
       mState = OFFLOADER_STATE.TAUT;
     } else if (getSpeed() > 0.0) {
       mState = OFFLOADER_STATE.FREE;

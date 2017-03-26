@@ -39,8 +39,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-  public static RUNNING_MODE robotMode;
-
   public static OI OI;
   public static DriveTrain DRIVETRAIN;
   public static FuelIntake FUELINTAKE;
@@ -52,6 +50,7 @@ public class Robot extends IterativeRobot {
   public static Alliance ALLIANCECOLOUR;
   public static boolean FMS_CONNECTED;
 
+  public static RUNNING_MODE robotMode;
   private double mCycleTimeOld, mCycleTimeNew;
 
   Command autonomousCommand;

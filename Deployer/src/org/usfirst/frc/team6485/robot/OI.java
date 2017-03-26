@@ -10,7 +10,6 @@ import org.usfirst.frc.team6485.robot.utility.DualButton;
 import org.usfirst.frc.team6485.robot.utility.Logitech3DPro;
 import org.usfirst.frc.team6485.robot.utility.XBOX;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -25,7 +24,6 @@ public class OI {
   // LOGITECH EXTREME 3D PRO CONTROLS
 
   private final Logitech3DPro mLogitechController = new Logitech3DPro(RobotMap.LOGITECH_PORT);
-
   public final JoystickButton L1 = new JoystickButton(mLogitechController, 1);
   public final JoystickButton L2 = new JoystickButton(mLogitechController, 2);
   public final JoystickButton L3 = new JoystickButton(mLogitechController, 3);
@@ -51,6 +49,7 @@ public class OI {
     return mLogitechController;
   }
 
+  
   // XBOX CONTROLS
 
   private XBOX mXBOXController = new XBOX(RobotMap.XBOX_PORT);
@@ -79,24 +78,19 @@ public class OI {
     SmartDashboard.putData("Drive +1m", new DriveDistance(1.0, 0.65));
     SmartDashboard.putData("Drive -1m", new DriveDistance(-1.0, 0.65));
 
-    // Check if OI still works with this expression
-    if (DriverStation.getInstance().isOperatorControl()) {
-      // Logitech controller buttons
+    // Angular rate test buttons are 9 and 10
+    L9.whenPressed(new DriveTrainAutoTurn(-90.0, true));
+    L10.whenPressed(new DriveTrainAutoTurn(90.0, true));
+    L1_L11.whenPressed(new DriveTrainAutoTurn(-90.0, false));
+    L1_L12.whenPressed(new DriveTrainAutoTurn(90.0, false));
 
-      // Angular rate test buttons are 9 and 10
-      L9.whenPressed(new DriveTrainAutoTurn(-90.0, true));
-      L10.whenPressed(new DriveTrainAutoTurn(90.0, true));
-      L1_L11.whenPressed(new DriveTrainAutoTurn(-90.0, false));
-      L1_L12.whenPressed(new DriveTrainAutoTurn(90.0, false));
-
-      // XBOX controller buttons
-      // Offloader and bridge motor manual controls are mapped to the joysticks.
-      X1.whenPressed(new IntakeRampReversal());
-      X2.whenPressed(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMALPWM));
-      X3.whenPressed(new BridgeAutoMove(false));
-      X4.whenPressed(new BridgeAutoMove(true));
-      X6.whenPressed(new IntakePowerRamp(0.0));
-    }
+    // XBOX controller buttons
+    // Offloader and bridge motor manual controls are mapped to the joysticks.
+    X1.whenPressed(new IntakeRampReversal());
+    X2.whenPressed(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMALPWM));
+    X3.whenPressed(new BridgeAutoMove(false));
+    X4.whenPressed(new BridgeAutoMove(true));
+    X6.whenPressed(new IntakePowerRamp(0.0));
   }
 
 }
