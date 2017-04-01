@@ -57,7 +57,7 @@ public class Offloader extends Subsystem {
   }
 
   /**
-   *  The state machine handler.
+   * The state machine handler.
    */
   public void updateState() {
     if (Math.abs(getCurrent()) > RobotMap.OFFLOADER_STALLCURRENT && getSpeed() < 0.0) {
@@ -111,7 +111,7 @@ public class Offloader extends Subsystem {
     updateState();
     return mState;
   }
-  
+
   public double getStallTime() {
     if (mStallInit) {
       return Timer.getFPGATimestamp() - mStallStartTime;
@@ -119,11 +119,11 @@ public class Offloader extends Subsystem {
       return 0.0;
     }
   }
-  
+
   public boolean getStallInit() {
     return mStallInit;
   }
-  
+
   public boolean getStallLock() {
     return mStallLock;
   }
