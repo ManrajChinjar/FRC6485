@@ -6,6 +6,7 @@ import org.usfirst.frc.team6485.robot.commands.OffloaderDriver;
 import org.usfirst.frc.team6485.robot.utility.PowerDistributionPanelReporter;
 
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -16,8 +17,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Offloader extends Subsystem {
 
+  private double mStallStartTime;
+  private boolean mStallInit, mStallLock;
   private final int kOffloaderPWMSlot = RobotMap.OFFLOADER_MOTOR;
-  private final double kNormalPWMRate = RobotMap.OFFLOADER_MAXSAFEPWM;
+  private final double kNormalPWMRate = RobotMap.OFFLOADER_MAXSAFEPWM,
+      kStallTimeMax = RobotMap.OFFLOADER_STALLTIME;
   private Spark mMotor;
 
   private OFFLOADER_STATE mState;
@@ -25,6 +29,9 @@ public class Offloader extends Subsystem {
   public Offloader() {
     mMotor = new Spark(kOffloaderPWMSlot);
     mState = OFFLOADER_STATE.FREE;
+    mStallInit = false;
+    mStallLock = false;
+    mStallStartTime = 0.0;
     mMotor.setSafetyEnabled(false);
     mMotor.setSpeed(0.0);
   }
@@ -43,17 +50,31 @@ public class Offloader extends Subsystem {
     } else if (speed < -kNormalPWMRate) {
       speed = -kNormalPWMRate;
     }
-    if (mState == OFFLOADER_STATE.TAUT && speed < 0.0) {
+    if (mStallLock && speed < 0.0) {
       speed = 0.0;
     }
     return speed;
   }
 
+  /**
+   *  The state machine handler.
+   */
   public void updateState() {
-    if (Math.abs(getCurrent()) > 7.0 && getSpeed() < 0.0) {
+    if (Math.abs(getCurrent()) > RobotMap.OFFLOADER_STALLCURRENT && getSpeed() < 0.0) {
       mState = OFFLOADER_STATE.TAUT;
     } else if (getSpeed() > 0.0) {
       mState = OFFLOADER_STATE.FREE;
+      mStallInit = false;
+      mStallLock = false;
+    }
+    if (mState == OFFLOADER_STATE.TAUT && !mStallInit && !mStallLock) {
+      mStallStartTime = Timer.getFPGATimestamp();
+      mStallInit = true;
+      mStallLock = false;
+    }
+    if (mStallInit && !mStallLock
+        && (Timer.getFPGATimestamp() - mStallStartTime >= kStallTimeMax)) {
+      mStallLock = true;
     }
   }
 
@@ -90,6 +111,22 @@ public class Offloader extends Subsystem {
     updateState();
     return mState;
   }
+  
+  public double getStallTime() {
+    if (mStallInit) {
+      return Timer.getFPGATimestamp() - mStallStartTime;
+    } else {
+      return 0.0;
+    }
+  }
+  
+  public boolean getStallInit() {
+    return mStallInit;
+  }
+  
+  public boolean getStallLock() {
+    return mStallLock;
+  }
 
   @Override
   public void initDefaultCommand() {
@@ -97,4 +134,3 @@ public class Offloader extends Subsystem {
   }
 
 }
-

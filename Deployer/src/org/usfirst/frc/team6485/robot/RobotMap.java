@@ -42,7 +42,9 @@ public class RobotMap {
 
   public static final double OFFLOADER_MAXSAFEPWM = 1.00;
 
-  public static final double OFFLOADER_IDLECURRENT = 1.375, OFFLOADER_MAXWORKINGCURRENT = 1.5;
+  public static final double OFFLOADER_IDLECURRENT = 1.375, OFFLOADER_MAXWORKINGCURRENT = 1.5, OFFLOADER_STALLCURRENT = 5.0;
+  
+  public static final double OFFLOADER_STALLTIME = 3.0;
 
   // TODO CHECK
   public static final double FUELINTAKE_NORMALRUNNINGCURRENT = 3.0, FUELINTAKE_STALLCURRENT = 9.0;
