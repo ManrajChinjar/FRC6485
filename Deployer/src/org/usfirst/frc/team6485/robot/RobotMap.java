@@ -31,7 +31,8 @@ public class RobotMap {
   // increasing one side's motors.
   public static final double DRIVETRAIN_PWMLIMIT = 0.95;
 
-  public static final double FUELINTAKE_NORMALPWM = -0.72; // Negative is intake
+  // Normal: -0.68
+  public static final double FUELINTAKE_NORMALPWM = 0.0; // Negative is intake
 
   public static final double BRIDGE_IDLECURRENTMAGNITUDE = 0.1;
 
@@ -45,7 +46,7 @@ public class RobotMap {
   public static final double OFFLOADER_IDLECURRENT = 1.375, OFFLOADER_MAXWORKINGCURRENT = 1.5,
       OFFLOADER_STALLCURRENT = 5.0;
 
-  public static final double OFFLOADER_STALLTIME = 3.0;
+  public static final double OFFLOADER_STALLTIME = 2.0;
 
   // TODO CHECK
   public static final double FUELINTAKE_NORMALRUNNINGCURRENT = 3.0, FUELINTAKE_STALLCURRENT = 9.0;

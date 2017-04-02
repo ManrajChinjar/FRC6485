@@ -89,11 +89,11 @@ public class DriveTrainAutoTurn extends Command {
     } else {
       // Preetesh's formula in second expression.
       if (mErrorAbs > 40.0) {
-        mTurnSpeed = Math.sqrt(0.50);
+        mTurnSpeed = Math.sqrt(0.37);
       } else if (mErrorAbs >= 15.0 && mErrorAbs <= 40.0) {
-        mTurnSpeed = Math.sqrt(0.45);
+        mTurnSpeed = Math.sqrt(0.35);
       } else if (mErrorAbs < 15.0) {
-        mTurnSpeed = Math.sqrt(0.40);
+        mTurnSpeed = Math.sqrt(0.28);
       }
     }
 

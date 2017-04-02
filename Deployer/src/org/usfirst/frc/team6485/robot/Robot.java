@@ -14,6 +14,7 @@ import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
 import org.usfirst.frc.team6485.robot.subsystems.Offloader;
 import org.usfirst.frc.team6485.robot.utility.BridgeReporter;
 import org.usfirst.frc.team6485.robot.utility.DriveTrainReporter;
+import org.usfirst.frc.team6485.robot.utility.IntakeMonitor;
 import org.usfirst.frc.team6485.robot.utility.IntakeReporter;
 import org.usfirst.frc.team6485.robot.utility.OffloaderReporter;
 import org.usfirst.frc.team6485.robot.utility.PowerDistributionPanelReporter;
@@ -49,6 +50,8 @@ public class Robot extends IterativeRobot {
   public static UsbCamera CAMERA;
   public static Alliance ALLIANCECOLOUR;
   public static boolean FMS_CONNECTED;
+  
+  public IntakeMonitor mIntakeMonitor;
 
   public static RUNNING_MODE robotMode;
   private double mCycleTimeOld, mCycleTimeNew;
@@ -66,6 +69,7 @@ public class Robot extends IterativeRobot {
     FUELINTAKE = new FuelIntake();
     BRIDGE = new Bridge();
     OFFLOADER = new Offloader();
+    mIntakeMonitor = new IntakeMonitor();
 
     OI = new OI();
 
@@ -105,7 +109,7 @@ public class Robot extends IterativeRobot {
 
     CAMERA = CAMERASERVER.startAutomaticCapture();
     CAMERA.setResolution(640, 360);
-    CAMERA.setFPS(20);
+    CAMERA.setFPS(15);
   }
 
   /**
@@ -213,6 +217,8 @@ public class Robot extends IterativeRobot {
   }
 
   public void report() {
+    mIntakeMonitor.periodic();
+    
     mCycleTimeNew = Timer.getFPGATimestamp();
     String robotmode_string = "";
     switch (robotMode) {

@@ -4,6 +4,7 @@ import org.usfirst.frc.team6485.robot.autonomous.TC_A_2MetreBox;
 import org.usfirst.frc.team6485.robot.commands.BridgeAutoMove;
 import org.usfirst.frc.team6485.robot.commands.DriveDistance;
 import org.usfirst.frc.team6485.robot.commands.DriveTrainAutoTurn;
+import org.usfirst.frc.team6485.robot.commands.IntakeInstantStop;
 import org.usfirst.frc.team6485.robot.commands.IntakePowerRamp;
 import org.usfirst.frc.team6485.robot.commands.IntakeRampReversal;
 import org.usfirst.frc.team6485.robot.utility.DualButton;
@@ -71,26 +72,17 @@ public class OI {
   }
 
   public OI() {
-    // SmartDashboard buttons
-    SmartDashboard.putData("Intake Start", new IntakePowerRamp(RobotMap.FUELINTAKE_NORMALPWM));
-    SmartDashboard.putData("Intake Stop", new IntakePowerRamp(0.0));
-    SmartDashboard.putData("2 metre perimeter", new TC_A_2MetreBox());
-    SmartDashboard.putData("Drive +1m", new DriveDistance(1.0, 0.65));
-    SmartDashboard.putData("Drive -1m", new DriveDistance(-1.0, 0.65));
-
     // Angular rate test buttons are 9 and 10
-    L9.whenPressed(new DriveTrainAutoTurn(-90.0, true));
-    L10.whenPressed(new DriveTrainAutoTurn(90.0, true));
     L1_L11.whenPressed(new DriveTrainAutoTurn(-90.0, false));
     L1_L12.whenPressed(new DriveTrainAutoTurn(90.0, false));
 
     // XBOX controller buttons
     // Offloader and bridge motor manual controls are mapped to the joysticks.
-    X1.whenPressed(new IntakeRampReversal());
-    X2.whenPressed(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMALPWM));
+    //X1.whenPressed(new IntakeRampReversal());
+    //X2.whenPressed(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMALPWM));
     X3.whenPressed(new BridgeAutoMove(false));
     X4.whenPressed(new BridgeAutoMove(true));
-    X6.whenPressed(new IntakePowerRamp(0.0));
+    X6.whenPressed(new IntakeInstantStop());
   }
 
 }
