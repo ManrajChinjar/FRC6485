@@ -72,14 +72,19 @@ public class OI {
   }
 
   public OI() {
-    // Angular rate test buttons are 9 and 10
+    // SmartDashboard buttons
+    SmartDashboard.putData("2 metre perimeter", new TC_A_2MetreBox());
+    SmartDashboard.putData("Drive +1m", new DriveDistance(1.0, 0.65));
+    SmartDashboard.putData("Drive -1m", new DriveDistance(-1.0, 0.65));
+
+    // Logitech controller buttons
     L1_L11.whenPressed(new DriveTrainAutoTurn(-90.0, false));
     L1_L12.whenPressed(new DriveTrainAutoTurn(90.0, false));
 
     // XBOX controller buttons
     // Offloader and bridge motor manual controls are mapped to the joysticks.
-    //X1.whenPressed(new IntakeRampReversal());
-    //X2.whenPressed(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMALPWM));
+    X1.whenPressed(new IntakeRampReversal());
+    X2.whenPressed(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMALPWM));
     X3.whenPressed(new BridgeAutoMove(false));
     X4.whenPressed(new BridgeAutoMove(true));
     X6.whenPressed(new IntakeInstantStop());

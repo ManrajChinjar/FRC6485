@@ -21,7 +21,7 @@ public class RobotMap {
   public static final int PDP_FL = 0, PDP_FR = 15, PDP_RL = 1, PDP_RR = 14;
 
   // FIX THESE
-  public static final int PDP_BRIDGE = 11, PDP_INTAKE = 2, PDP_OFFLOADER = 6;
+  public static final int PDP_BRIDGE = 11, PDP_INTAKE = 3, PDP_OFFLOADER = 6;
 
   public static final int LOGITECH_PORT = 0, XBOX_PORT = 1;
 
@@ -31,8 +31,7 @@ public class RobotMap {
   // increasing one side's motors.
   public static final double DRIVETRAIN_PWMLIMIT = 0.95;
 
-  // Normal: -0.68
-  public static final double FUELINTAKE_NORMALPWM = 0.0; // Negative is intake
+  public static final double FUELINTAKE_NORMALPWM = -0.68; // Negative is intake
 
   public static final double BRIDGE_IDLECURRENTMAGNITUDE = 0.1;
 
@@ -79,7 +78,7 @@ public class RobotMap {
 
   // MATCH CONSTANTS
 
-  public static final double BASELINE_METRES = 2.45;
+  public static final double BASELINE_METRES = 2.50;
 
   // For example to map the left and right motors, you could define the
   // following variables to use with your drivetrain subsystem.

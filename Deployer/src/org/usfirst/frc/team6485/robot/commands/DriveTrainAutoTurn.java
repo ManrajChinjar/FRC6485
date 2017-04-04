@@ -19,7 +19,7 @@ public class DriveTrainAutoTurn extends Command {
   private final double kAngularTolerance = 0.50;
 
   private double mCurrentAngularRate;
-  private final double kAngularNormalRate = 35.0, kAngularSlowRate = 25.0,
+  private final double kAngularNormalRate = 30.0, kAngularSlowRate = 20.0,
       kAngularSpeedIncrementor = 0.07;
 
   /**
@@ -89,11 +89,11 @@ public class DriveTrainAutoTurn extends Command {
     } else {
       // Preetesh's formula in second expression.
       if (mErrorAbs > 40.0) {
-        mTurnSpeed = Math.sqrt(0.37);
+        mTurnSpeed = Math.sqrt(0.30);
       } else if (mErrorAbs >= 15.0 && mErrorAbs <= 40.0) {
-        mTurnSpeed = Math.sqrt(0.35);
-      } else if (mErrorAbs < 15.0) {
         mTurnSpeed = Math.sqrt(0.28);
+      } else if (mErrorAbs < 15.0) {
+        mTurnSpeed = Math.sqrt(0.25);
       }
     }
 

@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class BridgeAutoMove extends Command {
 
   private boolean mState;
-  private double kWaitTimeSeconds = 3.0;
+  private double kWaitTimeSeconds = 2.0;
   private Bridge mBridge;
 
   /**
@@ -19,7 +19,7 @@ public class BridgeAutoMove extends Command {
    * This works because the Spark Motor Controller automatically halts the bridge motor when the
    * limit switches are pressed. <br>
    * <br>
-   * Can only work every 3.0 seconds.
+   * Can only work every 2.0 seconds.
    * 
    * @param state True for up, false for down
    */

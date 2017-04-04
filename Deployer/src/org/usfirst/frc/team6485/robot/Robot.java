@@ -8,13 +8,13 @@ import org.usfirst.frc.team6485.robot.autonomous.A_RedAllianceCentre;
 import org.usfirst.frc.team6485.robot.autonomous.A_RedAllianceLeft;
 import org.usfirst.frc.team6485.robot.autonomous.A_RedAllianceRight;
 import org.usfirst.frc.team6485.robot.commandgroups.CG_PassBaseLine;
+import org.usfirst.frc.team6485.robot.commands.BridgeAutoMove;
 import org.usfirst.frc.team6485.robot.subsystems.Bridge;
 import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
 import org.usfirst.frc.team6485.robot.subsystems.Offloader;
 import org.usfirst.frc.team6485.robot.utility.BridgeReporter;
 import org.usfirst.frc.team6485.robot.utility.DriveTrainReporter;
-import org.usfirst.frc.team6485.robot.utility.IntakeMonitor;
 import org.usfirst.frc.team6485.robot.utility.IntakeReporter;
 import org.usfirst.frc.team6485.robot.utility.OffloaderReporter;
 import org.usfirst.frc.team6485.robot.utility.PowerDistributionPanelReporter;
@@ -24,7 +24,6 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -50,11 +49,8 @@ public class Robot extends IterativeRobot {
   public static UsbCamera CAMERA;
   public static Alliance ALLIANCECOLOUR;
   public static boolean FMS_CONNECTED;
-  
-  public IntakeMonitor mIntakeMonitor;
 
   public static RUNNING_MODE robotMode;
-  private double mCycleTimeOld, mCycleTimeNew;
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -69,7 +65,6 @@ public class Robot extends IterativeRobot {
     FUELINTAKE = new FuelIntake();
     BRIDGE = new Bridge();
     OFFLOADER = new Offloader();
-    mIntakeMonitor = new IntakeMonitor();
 
     OI = new OI();
 
@@ -78,7 +73,7 @@ public class Robot extends IterativeRobot {
     ALLIANCECOLOUR = DRIVERSTATION.getAlliance();
     FMS_CONNECTED = DRIVERSTATION.isFMSAttached();
 
-    // All autonomous modes will first pass the baseline. (1.65 metres)
+    // All autonomous modes will first pass the baseline. (2.45 metres)
     // When the FMS is connected, only the proper alliance commands will be displayed.
     if (FMS_CONNECTED) {
       chooser.addDefault("Pass Baseline", new CG_PassBaseLine());
@@ -109,7 +104,8 @@ public class Robot extends IterativeRobot {
 
     CAMERA = CAMERASERVER.startAutomaticCapture();
     CAMERA.setResolution(640, 360);
-    CAMERA.setFPS(15);
+    CAMERA.setFPS(10);
+
   }
 
   /**
@@ -197,6 +193,7 @@ public class Robot extends IterativeRobot {
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
+    new BridgeAutoMove(false).start();
   }
 
   /**
@@ -217,9 +214,6 @@ public class Robot extends IterativeRobot {
   }
 
   public void report() {
-    mIntakeMonitor.periodic();
-    
-    mCycleTimeNew = Timer.getFPGATimestamp();
     String robotmode_string = "";
     switch (robotMode) {
       case DISABLED:
@@ -240,8 +234,6 @@ public class Robot extends IterativeRobot {
     BridgeReporter.report();
     OffloaderReporter.report();
     PowerDistributionPanelReporter.report();
-    SmartDashboard.putNumber("Robot Report Cycle Time", mCycleTimeNew - mCycleTimeOld);
-    mCycleTimeOld = mCycleTimeNew;
   }
 
 }

@@ -14,9 +14,6 @@ public class BridgeReporter {
 
   public static void report() {
     SmartDashboard.putNumber("Bridge PWM", system.getSpeed());
-    // TODO Fix bridge encoder
-    SmartDashboard.putBoolean("Bridge Encoder Moving", !system.getEncoder().getStopped());
-    SmartDashboard.putNumber("BRIDGE ENCODER DISTANCE", system.getEncoder().getDistance());
   }
 
 }

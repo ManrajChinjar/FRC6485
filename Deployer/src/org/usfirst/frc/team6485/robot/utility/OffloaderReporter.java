@@ -24,8 +24,6 @@ public class OffloaderReporter {
         break;
     }
     SmartDashboard.putString("OFFLOADER STATE", state);
-    SmartDashboard.putNumber("OFFLOADER STALL TIME", system.getStallTime());
-    SmartDashboard.putBoolean("OFFLOADER S-INIT", system.getStallInit());
     SmartDashboard.putBoolean("OFFLOADER S-LOCK", system.getStallLock());
   }
 
