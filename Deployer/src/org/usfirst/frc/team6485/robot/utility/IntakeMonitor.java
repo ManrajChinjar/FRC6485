@@ -10,18 +10,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class IntakeMonitor {
 
   private final double kStallCurrent = 8.0, kStallMaxTime = 2.0;
-  
+
   private boolean mStallInit, mStallLock;
   private double mStallStartTime;
   private FuelIntake system;
-  
+
   public IntakeMonitor() {
     system = Robot.FUELINTAKE;
     mStallInit = false;
     mStallLock = false;
     mStallStartTime = 0.0;
   }
-  
+
   private boolean checkStall() {
     if (system.getCurrent() >= kStallCurrent) {
       return true;
@@ -29,7 +29,7 @@ public class IntakeMonitor {
       return false;
     }
   }
-  
+
   public void periodic() {
     if (checkStall() && !mStallInit) {
       mStallInit = true;
@@ -48,5 +48,5 @@ public class IntakeMonitor {
     SmartDashboard.putBoolean("IN-S-INIT", mStallInit);
     SmartDashboard.putBoolean("IN-S-LK", mStallLock);
   }
-  
+
 }

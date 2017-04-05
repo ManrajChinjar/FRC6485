@@ -18,15 +18,11 @@ public class DriveTrainAutoTurn extends Command {
   private double mCurrentAngle, mAngleRequest, mTurnSpeed, mError;
   private final double kAngularTolerance = 0.50;
 
-  private double mCurrentAngularRate;
-  private final double kAngularNormalRate = 30.0, kAngularSlowRate = 20.0,
-      kAngularSpeedIncrementor = 0.07;
-
   /**
    * 
    * @param angle double angle (Negative turns left, positive turns right)
    */
-  public DriveTrainAutoTurn(double angle, boolean angularratemode) {
+  public DriveTrainAutoTurn(double angle) {
     mAngleRequest = angle;
     requires(Robot.DRIVETRAIN);
   }
@@ -51,51 +47,20 @@ public class DriveTrainAutoTurn extends Command {
   @Override
   protected void execute() {
     mCurrentAngle = Robot.DRIVETRAIN.getGyro().getAngle();
-    mCurrentAngularRate = Robot.DRIVETRAIN.getGyro().getRate();
     mError = mAngleRequest - mCurrentAngle;
     mTurnSpeed = Math.abs(mTurnSpeed);
     double mErrorAbs = Math.abs(mError);
 
-    if (mAngularRateMode) {
-      if (mErrorAbs > 20.0) {
-        if (mGoingLeft) {
-          if (mCurrentAngularRate < -kAngularNormalRate) {
-            mTurnSpeed += kAngularSpeedIncrementor;
-          } else if (mCurrentAngularRate > -kAngularNormalRate) {
-            mTurnSpeed -= kAngularSpeedIncrementor;
-          }
-        } else {
-          if (mCurrentAngularRate < kAngularNormalRate) {
-            mTurnSpeed += kAngularSpeedIncrementor;
-          } else if (mCurrentAngularRate > kAngularNormalRate) {
-            mTurnSpeed -= kAngularSpeedIncrementor;
-          }
-        }
-      } else {
-        if (mGoingLeft) {
-          if (mCurrentAngularRate < -kAngularSlowRate) {
-            mTurnSpeed += kAngularSpeedIncrementor;
-          } else if (mCurrentAngularRate > -kAngularSlowRate) {
-            mTurnSpeed -= kAngularSpeedIncrementor;
-          }
-        } else {
-          if (mCurrentAngularRate < kAngularSlowRate) {
-            mTurnSpeed += kAngularSpeedIncrementor;
-          } else if (mCurrentAngularRate > kAngularSlowRate) {
-            mTurnSpeed -= kAngularSpeedIncrementor;
-          }
-        }
-      }
-    } else {
-      // Preetesh's formula in second expression.
-      if (mErrorAbs > 40.0) {
-        mTurnSpeed = Math.sqrt(0.30);
-      } else if (mErrorAbs >= 15.0 && mErrorAbs <= 40.0) {
-        mTurnSpeed = Math.sqrt(0.28);
-      } else if (mErrorAbs < 15.0) {
-        mTurnSpeed = Math.sqrt(0.25);
-      }
+
+    // Preetesh's formula in second expression.
+    if (mErrorAbs > 40.0) {
+      mTurnSpeed = Math.sqrt(0.30);
+    } else if (mErrorAbs >= 15.0 && mErrorAbs <= 40.0) {
+      mTurnSpeed = Math.sqrt(0.23);
+    } else if (mErrorAbs < 15.0) {
+      mTurnSpeed = Math.sqrt(0.19);
     }
+
 
     mTurnSpeed = (mGoingLeft) ? mTurnSpeed : -mTurnSpeed;
 

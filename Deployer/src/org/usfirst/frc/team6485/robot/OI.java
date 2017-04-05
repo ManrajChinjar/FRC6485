@@ -78,8 +78,8 @@ public class OI {
     SmartDashboard.putData("Drive -1m", new DriveDistance(-1.0, 0.65));
 
     // Logitech controller buttons
-    L1_L11.whenPressed(new DriveTrainAutoTurn(-90.0, false));
-    L1_L12.whenPressed(new DriveTrainAutoTurn(90.0, false));
+    L1_L11.whenPressed(new DriveTrainAutoTurn(-90.0));
+    L1_L12.whenPressed(new DriveTrainAutoTurn(90.0));
 
     // XBOX controller buttons
     // Offloader and bridge motor manual controls are mapped to the joysticks.
