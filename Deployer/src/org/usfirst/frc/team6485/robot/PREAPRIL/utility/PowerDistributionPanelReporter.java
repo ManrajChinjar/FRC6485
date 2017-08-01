@@ -22,6 +22,7 @@ public class PowerDistributionPanelReporter {
     SmartDashboard.putNumber("RL Current", getChannelCurrent(RobotMap.PDP_RL));
     SmartDashboard.putNumber("RR Current", getChannelCurrent(RobotMap.PDP_RR));
     SmartDashboard.putNumber("Bridge Current", getChannelCurrent(RobotMap.PDP_BRIDGE));
+    SmartDashboard.putNumber("Intake Current", getChannelCurrent(RobotMap.PDP_INTAKE));
     SmartDashboard.putNumber("Offloader Current", getChannelCurrent(RobotMap.PDP_OFFLOADER));
   }
 

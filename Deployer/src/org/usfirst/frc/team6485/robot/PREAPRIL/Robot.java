@@ -1,13 +1,21 @@
 package org.usfirst.frc.team6485.robot;
 
 import org.usfirst.frc.team6485.robot.RobotMap.RUNNING_MODE;
+import org.usfirst.frc.team6485.robot.autonomous.A_BlueAllianceCentre;
+import org.usfirst.frc.team6485.robot.autonomous.A_BlueAllianceLeft;
+import org.usfirst.frc.team6485.robot.autonomous.A_BlueAllianceRight;
+import org.usfirst.frc.team6485.robot.autonomous.A_RedAllianceCentre;
+import org.usfirst.frc.team6485.robot.autonomous.A_RedAllianceLeft;
+import org.usfirst.frc.team6485.robot.autonomous.A_RedAllianceRight;
 import org.usfirst.frc.team6485.robot.commandgroups.CG_PassBaseLine;
+import org.usfirst.frc.team6485.robot.commands.BridgeAutoMove;
 import org.usfirst.frc.team6485.robot.subsystems.Bridge;
-import org.usfirst.frc.team6485.robot.subsystems.Climber;
 import org.usfirst.frc.team6485.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team6485.robot.subsystems.FuelIntake;
 import org.usfirst.frc.team6485.robot.subsystems.Offloader;
 import org.usfirst.frc.team6485.robot.utility.BridgeReporter;
 import org.usfirst.frc.team6485.robot.utility.DriveTrainReporter;
+import org.usfirst.frc.team6485.robot.utility.IntakeReporter;
 import org.usfirst.frc.team6485.robot.utility.OffloaderReporter;
 import org.usfirst.frc.team6485.robot.utility.PowerDistributionPanelReporter;
 
@@ -33,7 +41,7 @@ public class Robot extends IterativeRobot {
 
   public static OI OI;
   public static DriveTrain DRIVETRAIN;
-  public static Climber CLIMBER;
+  public static FuelIntake FUELINTAKE;
   public static Bridge BRIDGE;
   public static Offloader OFFLOADER;
   public static DriverStation DRIVERSTATION;
@@ -54,7 +62,7 @@ public class Robot extends IterativeRobot {
   @Override
   public void robotInit() {
     DRIVETRAIN = new DriveTrain();
-    CLIMBER = new Climber();
+    FUELINTAKE = new FuelIntake();
     BRIDGE = new Bridge();
     OFFLOADER = new Offloader();
 
@@ -65,15 +73,39 @@ public class Robot extends IterativeRobot {
     ALLIANCECOLOUR = DRIVERSTATION.getAlliance();
     FMS_CONNECTED = DRIVERSTATION.isFMSAttached();
 
-    chooser.addDefault("Pass Baseline", new CG_PassBaseLine());
+    // All autonomous modes will first pass the baseline. (2.45 metres)
+    // When the FMS is connected, only the proper alliance commands will be displayed.
+    if (FMS_CONNECTED) {
+      chooser.addDefault("Pass Baseline", new CG_PassBaseLine());
+      if (ALLIANCECOLOUR == Alliance.Blue) {
+        chooser.addObject("BA Left", new A_BlueAllianceLeft());
+        chooser.addObject("BA Centre", new A_BlueAllianceCentre());
+        chooser.addObject("BA Right", new A_BlueAllianceRight());
+      } else if (ALLIANCECOLOUR == Alliance.Red) {
+        chooser.addObject("RA Left", new A_RedAllianceLeft());
+        chooser.addObject("RA Centre", new A_RedAllianceCentre());
+        chooser.addObject("RA Right", new A_RedAllianceRight());
+      }
+    } else {
+      chooser.addDefault("Pass Baseline", new CG_PassBaseLine());
+      chooser.addObject("BA Left", new A_BlueAllianceLeft());
+      chooser.addObject("BA Centre", new A_BlueAllianceCentre());
+      chooser.addObject("BA Right", new A_BlueAllianceRight());
+      chooser.addObject("RA Left", new A_RedAllianceLeft());
+      chooser.addObject("RA Centre", new A_RedAllianceCentre());
+      chooser.addObject("RA Right", new A_RedAllianceRight());
+    }
 
     SmartDashboard.putData("Auto Mode", chooser);
     SmartDashboard.putData("Drive Train", DRIVETRAIN);
+    SmartDashboard.putData("Fuel Intake", FUELINTAKE);
     SmartDashboard.putData("Bridge", BRIDGE);
     SmartDashboard.putData("Offloader", OFFLOADER);
-    SmartDashboard.putData("Climber", CLIMBER);
 
     CAMERA = CAMERASERVER.startAutomaticCapture();
+    CAMERA.setResolution(640, 360);
+    CAMERA.setFPS(10);
+
   }
 
   /**
@@ -83,10 +115,10 @@ public class Robot extends IterativeRobot {
   @Override
   public void disabledInit() {
     // Stop the subsystem motors.
+    Robot.FUELINTAKE.stop();
     Robot.DRIVETRAIN.stop();
     Robot.BRIDGE.stop();
     Robot.OFFLOADER.stop();
-    Robot.CLIMBER.stop();
 
     // Cancel all queued commands.
     Scheduler.getInstance().removeAll();
@@ -100,10 +132,10 @@ public class Robot extends IterativeRobot {
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
+    Robot.FUELINTAKE.stop();
     Robot.DRIVETRAIN.stop();
     Robot.BRIDGE.stop();
     Robot.OFFLOADER.stop();
-    Robot.CLIMBER.stop();
     report();
   }
 
@@ -121,6 +153,11 @@ public class Robot extends IterativeRobot {
   public void autonomousInit() {
     robotMode = RUNNING_MODE.AUTO;
     autonomousCommand = chooser.getSelected();
+
+    // Reset encoders
+    Robot.DRIVETRAIN.getEncoder().reset();
+    Robot.BRIDGE.getEncoder().reset();
+    Robot.DRIVETRAIN.getGyro().reset();
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
@@ -145,15 +182,18 @@ public class Robot extends IterativeRobot {
 
   @Override
   public void teleopInit() {
-    if (autonomousCommand != null) {
-      autonomousCommand.cancel();
-    }
     robotMode = RUNNING_MODE.TELEOP;
-
+    Robot.DRIVETRAIN.getGyro().reset();
+    Robot.DRIVETRAIN.getEncoder().reset();
+    Robot.BRIDGE.getEncoder().reset();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+    if (autonomousCommand != null) {
+      autonomousCommand.cancel();
+    }
+    new BridgeAutoMove(false).start();
   }
 
   /**
@@ -190,6 +230,7 @@ public class Robot extends IterativeRobot {
 
     // Subsystem Reporters
     DriveTrainReporter.report();
+    IntakeReporter.report();
     BridgeReporter.report();
     OffloaderReporter.report();
     PowerDistributionPanelReporter.report();

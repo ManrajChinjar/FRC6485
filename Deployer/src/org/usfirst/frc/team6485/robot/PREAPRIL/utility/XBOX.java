@@ -31,10 +31,6 @@ public class XBOX extends Joystick {
     return super.getRawAxis(5);
   }
 
-  public double getLeftTrigger() {
-    return super.getRawAxis(2);
-  }
-
   /**
    * 
    * @param index Button index from [0, 12]

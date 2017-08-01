@@ -10,8 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class BridgeDriver extends Command {
 
-  public static double kBridgeNormalPWM = RobotMap.BRIDGE_NORMALPWM,
-      kBridgeRaisePWM = RobotMap.BRIDGE_RAISEPWM, kBridgeLowerPWM = RobotMap.BRIDGE_LOWERPWM;
+  public static double kBridgeNormalPWM = RobotMap.BRIDGE_NORMALPWM;
 
   /**
    * Don't worry about overdriving the motor because the motor controller will automatically halt
@@ -33,9 +32,10 @@ public class BridgeDriver extends Command {
   protected void execute() {
     if (Math.abs(Robot.OI.getXBOX().getRightJoyY()) > 0.075) {
       if (-Robot.OI.getXBOX().getRightJoyY() > 0.0) {
-        Robot.BRIDGE.setMotor(-Robot.OI.getXBOX().getRightJoyY() * kBridgeRaisePWM);
+        Robot.BRIDGE.setMotor(-Robot.OI.getXBOX().getRightJoyY() * RobotMap.BRIDGE_RAISEPWM);
       } else if (-Robot.OI.getXBOX().getRightJoyY() < 0.0) {
-        Robot.BRIDGE.setMotor(-Robot.OI.getXBOX().getRightJoyY() * Math.abs(kBridgeLowerPWM));
+        Robot.BRIDGE
+            .setMotor(-Robot.OI.getXBOX().getRightJoyY() * Math.abs(RobotMap.BRIDGE_LOWERPWM));
       }
     } else {
       Robot.BRIDGE.stop();

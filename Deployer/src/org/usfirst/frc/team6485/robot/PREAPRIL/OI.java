@@ -1,11 +1,18 @@
 package org.usfirst.frc.team6485.robot;
 
+import org.usfirst.frc.team6485.robot.autonomous.TC_A_2MetreBox;
 import org.usfirst.frc.team6485.robot.commands.BridgeAutoMove;
+import org.usfirst.frc.team6485.robot.commands.DriveDistance;
+import org.usfirst.frc.team6485.robot.commands.DriveTrainAutoTurn;
+import org.usfirst.frc.team6485.robot.commands.IntakeInstantStop;
+import org.usfirst.frc.team6485.robot.commands.IntakePowerRamp;
+import org.usfirst.frc.team6485.robot.commands.IntakeRampReversal;
 import org.usfirst.frc.team6485.robot.utility.DualButton;
 import org.usfirst.frc.team6485.robot.utility.Logitech3DPro;
 import org.usfirst.frc.team6485.robot.utility.XBOX;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator interface to the commands
@@ -66,18 +73,21 @@ public class OI {
 
   public OI() {
     // SmartDashboard buttons
-    // SmartDashboard.putData("2 metre perimeter", new TC_A_2MetreBox());
-    // SmartDashboard.putData("Drive +1m", new DriveDistance(1.0, 0.65));
-    // SmartDashboard.putData("Drive -1m", new DriveDistance(-1.0, 0.65));
+    SmartDashboard.putData("2 metre perimeter", new TC_A_2MetreBox());
+    SmartDashboard.putData("Drive +1m", new DriveDistance(1.0, 0.65));
+    SmartDashboard.putData("Drive -1m", new DriveDistance(-1.0, 0.65));
 
     // Logitech controller buttons
-    // L1_L11.whenPressed(new DriveTrainAutoTurn(-90.0));
-    // L1_L12.whenPressed(new DriveTrainAutoTurn(90.0));
+    L1_L11.whenPressed(new DriveTrainAutoTurn(-90.0));
+    L1_L12.whenPressed(new DriveTrainAutoTurn(90.0));
 
     // XBOX controller buttons
     // Offloader and bridge motor manual controls are mapped to the joysticks.
+    X1.whenPressed(new IntakeRampReversal());
+    X2.whenPressed(new IntakePowerRamp(RobotMap.FUELINTAKE_NORMALPWM));
     X3.whenPressed(new BridgeAutoMove(false));
     X4.whenPressed(new BridgeAutoMove(true));
+    X6.whenPressed(new IntakeInstantStop());
   }
 
 }

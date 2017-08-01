@@ -58,15 +58,6 @@ public class DriveDistance extends Command {
     mDriveTrain.getGyro().reset();
   }
 
-  protected boolean secondaryCheck() {
-    if (mDistanceTarget > 0.0) {
-      return mDriveTrain.getEncoder().getDistance() >= mDistanceTarget;
-    } else if (mDistanceTarget < 0.0) {
-      return mDriveTrain.getEncoder().getDistance() <= mDistanceTarget;
-    }
-    return false;
-  }
-
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
@@ -115,7 +106,7 @@ public class DriveDistance extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return mComplete || secondaryCheck() || isTimedOut();
+    return mComplete || isTimedOut();
   }
 
   // Called once after isFinished returns true
